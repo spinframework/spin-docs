@@ -1,6 +1,6 @@
 # Ignoring node modules and parcel cache
 .parcel-cache
-node_modules
+node_modules/
 .vscode
 .DS_Store
 *.css.map
