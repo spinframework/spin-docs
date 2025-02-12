@@ -1,0 +1,350 @@
+spin_manifest_version = 2
+
+[application]
+name = "spin-docs"
+version = "0.1.0"
+description = "Spin website running on... Spin."
+authors = ["Spin Maintainers <spin@cncf.io>"]
+
+[application.trigger.http]
+base = "/"
+
+[[trigger.http]]
+id = "trigger-bartholomew"
+component = "bartholomew"
+route = "/..."
+
+[[trigger.http]]
+id = "trigger-fileserver-static"
+component = "fileserver-static"
+route = "/static/..."
+
+[[trigger.http]]
+id = "trigger-fileserver-downloads"
+component = "fileserver-downloads"
+route = "/downloads/..."
+
+[[trigger.http]]
+id = "trigger-redirect-spin-index"
+component = "redirect-spin-index"
+route = "/spin"
+
+[[trigger.http]]
+id = "trigger-redirect-spin-rust-components-http-trigger"
+component = "redirect-spin-rust-components-http-trigger"
+route = "/spin/rust-components/http-trigger"
+
+[[trigger.http]]
+id = "trigger-spin-contributing-extending-and-embedding"
+component = "spin-contributing-extending-and-embedding"
+route = "/spin/contributing/extending-and-embedding"
+
+[[trigger.http]]
+id = "trigger-spin-rust-components-redis-trigger"
+component = "spin-rust-components-redis-trigger"
+route = "/spin/rust-components/redis-trigger"
+
+[[trigger.http]]
+id = "trigger-spin-configuration"
+component = "spin-configuration"
+route = "/spin/configuration"
+
+[[trigger.http]]
+id = "trigger-spin-configuration-http-trigger"
+component = "spin-configuration-http-trigger"
+route = "/spin/configuration/http-trigger"
+
+[[trigger.http]]
+id = "trigger-spin-configuration-redis-trigger"
+component = "spin-configuration-redis-trigger"
+route = "/spin/configuration/redis-trigger"
+
+[[trigger.http]]
+id = "trigger-spin-quickstart-developing"
+component = "spin-quickstart-developing"
+route = "/spin/quickstart/developing"
+
+[[trigger.http]]
+id = "trigger-spin-quickstart-configuration"
+component = "spin-quickstart-configuration"
+route = "/spin/quickstart/configuration"
+
+[[trigger.http]]
+id = "trigger-spin-quickstart-install"
+component = "spin-quickstart-install"
+route = "/spin/quickstart/install"
+
+[[trigger.http]]
+id = "trigger-spin-quickstart-go-components"
+component = "spin-quickstart-go-components"
+route = "/spin/quickstart/go-components"
+
+[[trigger.http]]
+id = "trigger-spin-quickstart-rust-components"
+component = "spin-quickstart-rust-components"
+route = "/spin/quickstart/rust-components"
+
+[[trigger.http]]
+id = "trigger-spin-contributing"
+component = "spin-contributing"
+route = "/spin/contributing/"
+
+[[trigger.http]]
+id = "trigger-spin-kv-store-tutorial"
+component = "spin-kv-store-tutorial"
+route = "/spin/kv-store"
+
+[[trigger.http]]
+id = "trigger-redirect-contributing-common-to-spin"
+component = "redirect-contributing-common-to-spin"
+route = "/common/cli-reference"
+
+[[trigger.http]]
+id = "trigger-hub-fileserver-static"
+component = "hub-fileserver-static"
+route = "/hub/..."
+
+[[trigger.http]]
+id = "trigger-registry-tutorial"
+component = "registry-tutorial"
+route = "/spin/spin-oci"
+
+[[trigger.http]]
+id = "trigger-url-shortener-tutorial"
+component = "url-shortener-tutorial"
+route = "/spin/url-shortener"
+
+[[trigger.http]]
+id = "trigger-key-value-store-tutorial"
+component = "key-value-store-tutorial"
+route = "/spin/kv-store-tutorial"
+
+[[trigger.http]]
+id = "trigger-ai-sentiment-analysis-api-tutorial"
+component = "ai-sentiment-analysis-api-tutorial"
+route = "/spin/serverless-ai-tutorial"
+
+[[trigger.http]]
+id = "trigger-spin-version-proxy"
+component = "spin-version-proxy"
+route = "/spin/..."
+
+[[trigger.http]]
+id = "trigger-bartholomew-spin-v1"
+component = "bartholomew-spin-v1"
+route = "/spin/v1/..."
+
+[[trigger.http]]
+id = "trigger-bartholomew-spin-v2"
+component = "bartholomew-spin-v2"
+route = "/spin/v2/..."
+
+[[trigger.http]]
+id = "trigger-bartholomew-spin-v3"
+component = "bartholomew-spin-v3"
+route = "/spin/v3/..."
+
+[[trigger.http]]
+id = "trigger-redirect-wasm-langs-root"
+component = "redirect-wasm-langs-root"
+route = "/wasm-languages/"
+
+[[trigger.http]]
+id = "trigger-spin-kubernetes-dynamic-configuration"
+component = "redirect-spin-kubernetes-dynamic-configuration"
+route = "/spin/v2/kubernetes-dynamic-configuration"
+
+[[trigger.http]]
+id = "trigger-spin-kubernetes-sidecars"
+component = "redirect-spin-kubernetes-sidecars"
+route = "/spin/v2/kubernetes-sidecars"
+
+[[trigger.http]]
+id = "trigger-spin-kubernetes-known-issues"
+component = "redirect-spin-kubernetes-known-issues"
+route = "/spin/v2/kubernetes-known-issues"
+
+[component.bartholomew]
+# Using build from bartholomew main
+source = "modules/bartholomew.wasm"
+environment = { PREVIEW_MODE = "0" }
+files = ["content/**/*", "templates/*", "scripts/*", "config/*", "shortcodes/*"]
+
+[component.bartholomew.build]
+command = "npm run build-index && npm run build-hub-index"
+watch = ["content/**/*", "templates/*"]
+
+[component.fileserver-static]
+source = "modules/spin_static_fs.wasm"
+files = [{ source = "static/", destination = "/" }]
+
+[component.fileserver-downloads]
+source = "modules/spin_static_fs.wasm"
+files = [{ source = "downloads/", destination = "/" }]
+
+# Redirect /spin to /spin/index
+[component.redirect-spin-index]
+source = "modules/redirect.wasm"
+environment = { DESTINATION = "/spin/index" }
+
+# Redirect /spin/rust-components/http-trigger to /spin/http-trigger
+[component.redirect-spin-rust-components-http-trigger]
+source = "modules/redirect.wasm"
+environment = { DESTINATION = "https://spinframework.com/http-trigger" }
+
+# Redirect /spin/contributing/extending-and-embedding to /spin/extending-and-embedding
+[component.spin-contributing-extending-and-embedding]
+source = "modules/redirect.wasm"
+environment = { DESTINATION = "https://spinframework.com/extending-and-embedding" }
+
+# Redirect /spin/rust-components/redis-trigger to /spin/redis-trigger
+[component.spin-rust-components-redis-trigger]
+source = "modules/redirect.wasm"
+environment = { DESTINATION = "https://spinframework.com/redis-trigger" }
+
+# Redirect /spin/configuration to /spin/writing-apps
+[component.spin-configuration]
+source = "modules/redirect.wasm"
+environment = { DESTINATION = "https://spinframework.com/writing-apps" }
+
+# Redirect /spin/configuration/http-trigger to /spin/http-trigger
+[component.spin-configuration-http-trigger]
+source = "modules/redirect.wasm"
+environment = { DESTINATION = "https://spinframework.com/http-trigger" }
+
+# Redirect /spin/configuration/redis-trigger to /spin/redis-trigger
+[component.spin-configuration-redis-trigger]
+source = "modules/redirect.wasm"
+environment = { DESTINATION = "https://spinframework.com/redis-trigger" }
+
+# Redirect /spin/quickstart/developing to /spin/quickstart
+[component.spin-quickstart-developing]
+source = "modules/redirect.wasm"
+environment = { DESTINATION = "https://spinframework.com/quickstart" }
+
+# Redirect /spin/quickstart/configuration to /spin/writing-apps
+[component.spin-quickstart-configuration]
+source = "modules/redirect.wasm"
+environment = { DESTINATION = "https://spinframework.com/writing-apps" }
+
+# Redirect /spin/quickstart/install to /spin/install
+[component.spin-quickstart-install]
+source = "modules/redirect.wasm"
+environment = { DESTINATION = "https://spinframework.com/install" }
+
+# Redirect /spin/quickstart/go-components to /spin/go-components
+[component.spin-quickstart-go-components]
+source = "modules/redirect.wasm"
+environment = { DESTINATION = "https://spinframework.com/go-components" }
+
+# Redirect /spin/quickstart/rust-components to /spin/rust-components
+[component.spin-quickstart-rust-components]
+source = "modules/redirect.wasm"
+environment = { DESTINATION = "https://spinframework.com/rust-components" }
+
+# Redirect /spin/contributing/ to spin/contributing-spin
+[component.spin-contributing]
+source = "modules/redirect.wasm"
+environment = { DESTINATION = "https://spinframework.com/contributing-spin" }
+
+# Redirect /spin/kv-store/ to spin/key-value-store-tutorial
+[component.spin-kv-store-tutorial]
+source = "modules/redirect.wasm"
+environment = { DESTINATION = "https://spinframework.com/kv-store-tutorial" }
+
+# Redirecting from common to spin incase someone had it bookmarked before removal of common
+[component.redirect-contributing-common-to-spin]
+source = "modules/redirect.wasm"
+environment = { DESTINATION = "https://spinframework.com/cli-reference" }
+
+# Redirect /spin/kubernetes-dynamic-configuration to /spin/kubernetes
+[component.redirect-spin-kubernetes-dynamic-configuration]
+source = "modules/redirect.wasm"
+environment = { DESTINATION = "https://spinframework.com/kubernetes" } 
+
+# Redirect /spin/kubernetes-sidecars  to /spin/kubernetes
+[component.redirect-spin-kubernetes-sidecars]
+source = "modules/redirect.wasm"
+environment = { DESTINATION = "https://spinframework.com/kubernetes" } 
+
+# Redirect /spin/kubernetes-known-issues  to /spin/kubernetes
+[component.redirect-spin-kubernetes-known-issues]
+source = "modules/redirect.wasm"
+environment = { DESTINATION = "https://spinframework.com/kubernetes" }  
+
+[component.hub-fileserver-static]
+source = { url = "https://github.com/spinframework/spin-fileserver/releases/download/v0.0.2/spin_static_fs.wasm", digest = "sha256:65456bf4e84cf81b62075e761b2b0afaffaef2d0aeda521b245150f76b96421b" }
+environment = { FALLBACK_PATH = "./index.html" }
+files = [{ source = "spin-up-hub/dist/", destination = "/" }]
+
+[component.hub-fileserver-static.build]
+command = "npm run build"
+workdir = "spin-up-hub"
+
+# Redirect /spin/spin-oci to /spin/registry-tutorial
+[component.registry-tutorial]
+source = "modules/redirect.wasm"
+environment = { DESTINATION = "https://spinframework.com/registry-tutorial" }
+
+# Redirect /spin/url-shortener to /spin/url-shortener-tutorial
+[component.url-shortener-tutorial]
+source = "modules/redirect.wasm"
+environment = { DESTINATION = "https://spinframework.com/url-shortener-tutorial" }
+
+# Redirect /spin/kv-store-tutorial to /spin/key-value-store-tutorial
+[component.key-value-store-tutorial]
+source = "modules/redirect.wasm"
+environment = { DESTINATION = "https://spinframework.com/key-value-store-tutorial" }
+
+# Redirect /spin/serverless-ai-tutorial to /spin/ai-sentiment-analysis-api-tutorial
+[component.ai-sentiment-analysis-api-tutorial]
+source = "modules/redirect.wasm"
+environment = { DESTINATION = "https://spinframework.com/ai-sentiment-analysis-api-tutorial" }
+
+# Redirect /cloud/serverless-ai to /spin/serverless-ai-hello-world
+[component.serverless-ai]
+source = "modules/redirect.wasm"
+environment = { DESTINATION = "https://spinframework.com/serverless-ai-hello-world.md" }
+
+# Redirect /wasm-languages to /wasm-languages/webassembly-language-support
+[component.redirect-wasm-langs-root]
+source = "modules/redirect.wasm"
+environment = { DESTINATION = "/wasm-languages/webassembly-language-support" }  
+
+# Component to give us clean versioned URLs for spin from the root
+[component.spin-version-proxy]
+source = "modules/spin-redirecter.wasm"
+variables = { latest_spin_version = "v3" }
+files = ["spin-redirect.json"]
+exclude_files = ["**/node_modules"]
+allowed_outbound_hosts = ["http://self"]
+# Need to modify action to get the js2wasm plugin
+# [component.build]
+# workdir = "spin-redirecter"
+# command = "npm install && npm run build"
+
+[component.bartholomew-spin-v1]
+# Using build from bartholomew main
+source = "modules/bartholomew.wasm"
+environment = { PREVIEW_MODE = "0" }
+files = ["content/**/*", "templates/*", "scripts/*", "config/*", "shortcodes/*"]
+
+[component.bartholomew-spin-v1.build]
+command = "npm run build-index && npm run build-hub-index"
+watch = ["content/**/*", "templates/*"]
+
+[component.bartholomew-spin-v2]
+# Using build from bartholomew main
+source = "modules/bartholomew.wasm"
+environment = { PREVIEW_MODE = "0" }
+files = ["content/**/*", "templates/*", "scripts/*", "config/*", "shortcodes/*"]
+
+[component.bartholomew-spin-v2.build]
+command = "npm run build-index && npm run build-hub-index"
+watch = ["content/**/*", "templates/*"]
+
+[component.bartholomew-spin-v3]
+# Using build from bartholomew main
+source = "modules/bartholomew.wasm"
+environment = { PREVIEW_MODE = "0" }
+files = ["content/**/*", "templates/*", "scripts/*", "config/*", "shortcodes/*"]

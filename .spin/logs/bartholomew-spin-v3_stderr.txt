@@ -1,0 +1,5637 @@
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /index
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/index"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/index.md
+Not found: /spin/v3/index
+Request path: /index
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/index"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/index.md
+Not found: /spin/v3/index
+Request path: /index
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/index"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/index.md
+Not found: /spin/v3/index
+Request path: /index
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/index"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/index.md
+Not found: /spin/v3/index
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /quickstart
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/quickstart"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/quickstart.md
+Not found: /spin/v3/quickstart
+Request path: /writing-apps
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/writing-apps"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/writing-apps.md
+Not found: /spin/v3/writing-apps
+Request path: /writing-apps
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/writing-apps"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/writing-apps.md
+Not found: /spin/v3/writing-apps
+Request path: /writing-apps
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/writing-apps"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/writing-apps.md
+Not found: /spin/v3/writing-apps
+Request path: /writing-apps
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/writing-apps"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/writing-apps.md
+Not found: /spin/v3/writing-apps
+Request path: /writing-apps
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/writing-apps"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/writing-apps.md
+Not found: /spin/v3/writing-apps
+Request path: /writing-apps
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/writing-apps"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/writing-apps.md
+Not found: /spin/v3/writing-apps
+Request path: /writing-apps
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/writing-apps"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/writing-apps.md
+Not found: /spin/v3/writing-apps
+Request path: /writing-apps
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/writing-apps"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/writing-apps.md
+Not found: /spin/v3/writing-apps
+Request path: /writing-apps
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/writing-apps"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/writing-apps.md
+Not found: /spin/v3/writing-apps
+Request path: /writing-apps
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/writing-apps"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/writing-apps.md
+Not found: /spin/v3/writing-apps
+Request path: /writing-apps
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/writing-apps"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/writing-apps.md
+Not found: /spin/v3/writing-apps
+Request path: /writing-apps
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/writing-apps"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/writing-apps.md
+Not found: /spin/v3/writing-apps
+Request path: /writing-apps
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/writing-apps"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/writing-apps.md
+Not found: /spin/v3/writing-apps
+Request path: /writing-apps
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/writing-apps"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/writing-apps.md
+Not found: /spin/v3/writing-apps
+Request path: /writing-apps
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/writing-apps"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/writing-apps.md
+Not found: /spin/v3/writing-apps
+Request path: /writing-apps
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/writing-apps"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/writing-apps.md
+Not found: /spin/v3/writing-apps
+Request path: /writing-apps
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/writing-apps"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/writing-apps.md
+Not found: /spin/v3/writing-apps
+Request path: /writing-apps
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/writing-apps"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/writing-apps.md
+Not found: /spin/v3/writing-apps
+Request path: /writing-apps
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/writing-apps"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/writing-apps.md
+Not found: /spin/v3/writing-apps
+Request path: /writing-apps
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/writing-apps"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/writing-apps.md
+Not found: /spin/v3/writing-apps
+Request path: /writing-apps
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/writing-apps"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/writing-apps.md
+Not found: /spin/v3/writing-apps
+Request path: /writing-apps
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/writing-apps"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/writing-apps.md
+Not found: /spin/v3/writing-apps
+Request path: /writing-apps
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/writing-apps"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/writing-apps.md
+Not found: /spin/v3/writing-apps
+Request path: /writing-apps
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/writing-apps"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/writing-apps.md
+Not found: /spin/v3/writing-apps
+Request path: /writing-apps
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/writing-apps"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/writing-apps.md
+Not found: /spin/v3/writing-apps
+Request path: /writing-apps
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/writing-apps"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/writing-apps.md
+Not found: /spin/v3/writing-apps
+Request path: /writing-apps
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/writing-apps"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/writing-apps.md
+Not found: /spin/v3/writing-apps
+Request path: /writing-apps
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/writing-apps"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/writing-apps.md
+Not found: /spin/v3/writing-apps
+Request path: /writing-apps
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/writing-apps"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/writing-apps.md
+Not found: /spin/v3/writing-apps
+Request path: /writing-apps
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/writing-apps"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/writing-apps.md
+Not found: /spin/v3/writing-apps
+Request path: /writing-apps
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/writing-apps"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/writing-apps.md
+Not found: /spin/v3/writing-apps
+Request path: /writing-apps
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/writing-apps"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/writing-apps.md
+Not found: /spin/v3/writing-apps
+Request path: /writing-apps
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/writing-apps"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/writing-apps.md
+Not found: /spin/v3/writing-apps
+Request path: /writing-apps
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/writing-apps"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/writing-apps.md
+Not found: /spin/v3/writing-apps
+Request path: /writing-apps
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/writing-apps"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/writing-apps.md
+Not found: /spin/v3/writing-apps
+Request path: /writing-apps
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/writing-apps"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/writing-apps.md
+Not found: /spin/v3/writing-apps
+Request path: /writing-apps
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/writing-apps"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/writing-apps.md
+Not found: /spin/v3/writing-apps
+Request path: /writing-apps
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/writing-apps"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/writing-apps.md
+Not found: /spin/v3/writing-apps
+Request path: /writing-apps
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/writing-apps"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/writing-apps.md
+Not found: /spin/v3/writing-apps
+Request path: /writing-apps
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/writing-apps"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/writing-apps.md
+Not found: /spin/v3/writing-apps
+Request path: /writing-apps
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/writing-apps"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/writing-apps.md
+Not found: /spin/v3/writing-apps
+Request path: /writing-apps
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/writing-apps"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/writing-apps.md
+Not found: /spin/v3/writing-apps
+Request path: /writing-apps
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/writing-apps"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/writing-apps.md
+Not found: /spin/v3/writing-apps
+Request path: /writing-apps
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/writing-apps"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/writing-apps.md
+Not found: /spin/v3/writing-apps
+Request path: /writing-apps
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/writing-apps"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/writing-apps.md
+Not found: /spin/v3/writing-apps
+Request path: /writing-apps
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/writing-apps"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/writing-apps.md
+Not found: /spin/v3/writing-apps
+Request path: /writing-apps
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/writing-apps"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/writing-apps.md
+Not found: /spin/v3/writing-apps
+Request path: /writing-apps
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/writing-apps"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/writing-apps.md
+Not found: /spin/v3/writing-apps
+Request path: /writing-apps
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/writing-apps"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/writing-apps.md
+Not found: /spin/v3/writing-apps
+Request path: /writing-apps
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/writing-apps"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/writing-apps.md
+Not found: /spin/v3/writing-apps
+Request path: /writing-apps
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/writing-apps"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/writing-apps.md
+Not found: /spin/v3/writing-apps
+Request path: /writing-apps
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/writing-apps"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/writing-apps.md
+Not found: /spin/v3/writing-apps
+Request path: /writing-apps
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/writing-apps"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/writing-apps.md
+Not found: /spin/v3/writing-apps
+Request path: /writing-apps
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/writing-apps"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/writing-apps.md
+Not found: /spin/v3/writing-apps
+Request path: /writing-apps
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/writing-apps"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/writing-apps.md
+Not found: /spin/v3/writing-apps
+Request path: /writing-apps
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/writing-apps"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/writing-apps.md
+Not found: /spin/v3/writing-apps
+Request path: /writing-apps
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/writing-apps"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/writing-apps.md
+Not found: /spin/v3/writing-apps
+Request path: /writing-apps
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/writing-apps"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/writing-apps.md
+Not found: /spin/v3/writing-apps
+Request path: /writing-apps
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/writing-apps"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/writing-apps.md
+Not found: /spin/v3/writing-apps
+Request path: /writing-apps
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/writing-apps"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/writing-apps.md
+Not found: /spin/v3/writing-apps
+Request path: /writing-apps
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/writing-apps"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/writing-apps.md
+Not found: /spin/v3/writing-apps
+Request path: /writing-apps
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/writing-apps"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/writing-apps.md
+Not found: /spin/v3/writing-apps
+Request path: /writing-apps
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/writing-apps"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/writing-apps.md
+Not found: /spin/v3/writing-apps
+Request path: /writing-apps
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/writing-apps"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/writing-apps.md
+Not found: /spin/v3/writing-apps
+Request path: /writing-apps
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/writing-apps"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/writing-apps.md
+Not found: /spin/v3/writing-apps
+Request path: /writing-apps
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/writing-apps"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/writing-apps.md
+Not found: /spin/v3/writing-apps
+Request path: /writing-apps
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/writing-apps"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/writing-apps.md
+Not found: /spin/v3/writing-apps
+Request path: /writing-apps
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/writing-apps"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/writing-apps.md
+Not found: /spin/v3/writing-apps
+Request path: /writing-apps
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/writing-apps"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/writing-apps.md
+Not found: /spin/v3/writing-apps
+Request path: /writing-apps
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/writing-apps"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/writing-apps.md
+Not found: /spin/v3/writing-apps
+Request path: /writing-apps
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/writing-apps"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/writing-apps.md
+Not found: /spin/v3/writing-apps
+Request path: /writing-apps
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/writing-apps"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/writing-apps.md
+Not found: /spin/v3/writing-apps
+Request path: /writing-apps
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/writing-apps"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/writing-apps.md
+Not found: /spin/v3/writing-apps
+Request path: /writing-apps
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/writing-apps"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/writing-apps.md
+Not found: /spin/v3/writing-apps
+Request path: /writing-apps
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/writing-apps"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/writing-apps.md
+Not found: /spin/v3/writing-apps
+Request path: /writing-apps
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/writing-apps"
+Request path: /writing-apps
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/writing-apps"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+Request path: /writing-apps
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/writing-apps"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/writing-apps.md
+Not found: /spin/v3/writing-apps
+Request path: /writing-apps
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/writing-apps"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/writing-apps.md
+Not found: /spin/v3/writing-apps
+Request path: /writing-apps
+Base URL: Some("")
+Prepend route info : true
+Updated request path: "/spin/v3/writing-apps"
+scripts: registering events
+scripts: registering cloud
+scripts: registering active_project
+scripts: registering active_content
+scripts: registering truncate_post
+scripts: registering timed_publish
+scripts: registering replace
+scripts: registering sitemap
+scripts: registering spin
+scripts: registering content_filter
+Path /content/spin/v3/writing-apps.md
+Not found: /spin/v3/writing-apps

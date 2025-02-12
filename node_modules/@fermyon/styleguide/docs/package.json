@@ -1,0 +1,24 @@
+{
+  "name": "Fermyon Styleguide Website",
+  "version": "0.1.6",
+  "homepage": "https://design.fermyon.dev/",
+  "author": {
+    "name": "Ronan Flynn-Curran",
+    "email": "ronan@fermyon.com",
+    "url": "https://fermyon.com"
+  },
+  "description": "Design Styleguide docs for Fermyon",
+  "license": "Apache-2.0",
+  "scripts": {
+    "build": "parcel build index.html",
+    "dev": "parcel serve index.html --open",
+    "styles": "parcel build ../scss/fermyon.scss --dist-dir css",
+    "watch": "parcel watch ../scss/fermyon.scss --dist-dir css"
+  },
+  "dependencies": {
+    "@parcel/config-default": "^2.10.3",
+    "@parcel/resolver-default": "^2.10.3",
+    "@parcel/transformer-sass": "2.10.3",
+    "parcel": "^2.10.3"
+  }
+}

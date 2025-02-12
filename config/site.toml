@@ -1,0 +1,16 @@
+title = "Spin Docs"
+# base_url = "https://spinframework.com"
+base_url = ""
+about = "Spin is an open-source multi-language framework and CLI for building and deploying WebAssembly apps."
+index_site_pages = ["sitemap", "home", "changelog", "hub_list_api"]
+prepend_route_info = true
+
+[extra]
+copyright = "Spin Project"
+github = "https://github.com/spinframework/spin-docs"
+twitter = "https://twitter.com/spinframework"
+
+# Static assets that we need to provide
+favicon = "/static/image/icon/favicon.png"
+twitter_card_type = "summary"
+twitter_card = "/static/image/twitter_card_summary.png"

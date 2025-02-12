@@ -1,0 +1,4 @@
+[build]
+base = "docs/"
+command = "npm install && npx parcel build index.html"
+publish = "dist"
