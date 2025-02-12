@@ -1,0 +1,76 @@
+Request path: /index
+Base URL: Some("https://styleguide.fermyon.app")
+Path /content/index.md
+Responded: /index
+Request path: /image/logo-badge.png
+Request path: /image/twitter_card_website.jpg
+Request path: Request path: /image/twitter_card_summary.jpg/image/icon-copy.svg
+
+Base URL: Some("https://styleguide.fermyon.app")
+Base URL: Some("https://styleguide.fermyon.app")
+Base URL: Some("https://styleguide.fermyon.app")
+Base URL: Some("https://styleguide.fermyon.app")
+Path /content/image/twitter_card_website.md
+Not found: /image/twitter_card_website.jpg
+Path /content/image/icon-copy.md
+Path /content/image/twitter_card_summary.md
+Not found: Not found: /image/twitter_card_summary.jpg/image/icon-copy.svg
+
+Path /content/image/logo-badge.md
+Not found: /image/logo-badge.png
+Request path: /image/icon/apple-touch-icon.png
+Request path: /image/icon/favicon-32x32.png
+Base URL: Some("https://styleguide.fermyon.app")
+Base URL: Some("https://styleguide.fermyon.app")
+Path /content/image/icon/apple-touch-icon.md
+Not found: /image/icon/apple-touch-icon.png
+Path /content/image/icon/favicon-32x32.md
+Not found: /image/icon/favicon-32x32.png
+Request path: /index
+Base URL: Some("https://styleguide.fermyon.app")
+Path /content/index.md
+Responded: /index
+Request path: /image/icon-copy.svg
+Base URL: Some("https://styleguide.fermyon.app")
+Request path: Request path: /image/twitter_card_summary.jpg/image/twitter_card_website.jpg
+
+Base URL: Some("https://styleguide.fermyon.app")
+Request path: /image/logo-badge.png
+Base URL: Some("https://styleguide.fermyon.app")
+Base URL: Some("https://styleguide.fermyon.app")
+Path /content/image/icon-copy.md
+Not found: /image/icon-copy.svg
+Path Path Path /content/image/twitter_card_website.md/content/image/twitter_card_summary.md
+/content/image/logo-badge.md
+
+Not found: /image/logo-badge.png
+Not found: /image/twitter_card_summary.jpgNot found: 
+/image/twitter_card_website.jpg
+Request path: /index
+Base URL: Some("https://styleguide.fermyon.app")
+Path /content/index.md
+Responded: /index
+Request path: /image/logo-badge.png
+Request path: /image/twitter_card_website.jpg
+Request path: /image/twitter_card_summary.jpg
+Request path: /image/icon-copy.svg
+Base URL: Some("https://styleguide.fermyon.app")
+Base URL: Some("https://styleguide.fermyon.app")
+Base URL: Some("https://styleguide.fermyon.app")
+Base URL: Some("https://styleguide.fermyon.app")
+Path /content/image/logo-badge.md
+Not found: /image/logo-badge.png
+Path /content/image/twitter_card_website.md
+Not found: /image/twitter_card_website.jpg
+Path /content/image/icon-copy.md
+Not found: /image/icon-copy.svg
+Path /content/image/twitter_card_summary.md
+Not found: /image/twitter_card_summary.jpg
+Request path: /image/icon/apple-touch-icon.png
+Request path: /image/icon/favicon-32x32.png
+Base URL: Some("https://styleguide.fermyon.app")Base URL: 
+Some("https://styleguide.fermyon.app")
+Path /content/image/icon/favicon-32x32.md
+Path Not found: /content/image/icon/apple-touch-icon.md/image/icon/favicon-32x32.png
+
+Not found: /image/icon/apple-touch-icon.png
