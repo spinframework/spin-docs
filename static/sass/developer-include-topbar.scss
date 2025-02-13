@@ -153,6 +153,31 @@
             }
         }
 
+        a.navbar-stack {
+            display: inline-block;
+            min-width: 10rem;
+
+
+            strong, small {
+                display: block;
+            }
+
+            strong {
+                font-family: $work;
+                color: $oxforddark;
+                line-height: 1.5;
+                font-weight: 500;
+            }
+
+            small {
+                font-family: $work;
+                font-size: 12px;
+                max-width: 9rem;
+                line-height: 1.2;
+                opacity: 0.7;
+            }
+        }
+
         a.navbar-item.button {
             margin: 0 0.333vw !important;
             font-size: 0.925rem !important;

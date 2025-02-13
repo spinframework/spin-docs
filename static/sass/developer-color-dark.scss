@@ -511,10 +511,6 @@ html.dark-theme {
 			color: $seagreen;
 		}
 
-		.external {
-			background: url('../image/arrowexternal-dark.svg') no-repeat 0 0;
-		}
-
         .community-highlight {
             background-color: rgba(124, 109, 185, 0.2);
         }
@@ -563,5 +559,9 @@ html.dark-theme {
         .cookie-modal .cm-modal .cm-header h1 {
             color: $oxforddark;
         }
+    }
+
+    .external {
+        background: url('../image/arrowexternal-dark.svg') no-repeat 0 0;
     }
 }

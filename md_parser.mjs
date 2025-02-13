@@ -1,4 +1,4 @@
-import glob from 'glob'
+import { glob } from 'glob'
 import fs from 'fs'
 import fm from 'front-matter'
 import { unified } from 'unified'

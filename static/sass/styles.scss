@@ -1,37 +1,5 @@
-/* FERMYON SHINY VENEER
-=======================
-For the benefit of browser-based experiences, websites and application user 
-interfaces. This Sass file should be compiled to a CSS stylesheet and served 
-after a base framework such as Bulma, Bootstrap or similar base grid system.
-
-to generate to css:
-https://sass-lang.com/install 
-
-then run:
-sass --watch static/sass/styles.scss static/css/style.css --style compressed
-
-
-TABLE OF CONTENTS
-================= */
+// colors etc
 @import "../../node_modules/@fermyon/styleguide/scss/fermyon";
-/* 
-    npm package 'fermyon-styleguide':
-    =================================
-    0.1. Brand Colors
-    0.2. Variables and Mixins
-    0.3. Global Layout
-    0.4. Typography
-    0.5. Responsive Media Queries
-
-	1.1 Styleguide Refresh
-	1.2. Developer Styles
-================= */
-
-/* Styleguide Refresh
-Importing color and theme updates for the brand 1.5 refresh
-(these will be ported over to fermyon/styleguide for centralized  housekeeping)
-*/
-
 // theme layers
 @import "developer-color";
 @import "developer-color-light";
@@ -46,6 +14,22 @@ Importing color and theme updates for the brand 1.5 refresh
 @import "example-card";
 // device adjustments
 @import "developer-responsive";
+
+$oxforddark: #0E092D;
+$seagreen:      #34E8BD;
+$vistablue: #8093F1;
+$lavenderfloral: #A87CE6;
+$thistle: #E7D3F2;
+$celeste: #C5FFF1;
+
+$docsbg1: #FDF8FF;
+$docsbg2: #FCF5FF;
+$greenfoam: #C5FFF1;
+$lavenderdark: #8967C2;
+$lavendermid: #E6D2F1;
+$lavenderlight: $thistle;
+$bluedark: #384687;
+$bluecallout: #282F55;
 
 
 /* 1.2 Developer Styles
@@ -498,6 +482,54 @@ Importing color and theme updates for the brand 1.5 refresh
 					}
 				}
 			}
+		}
+	}
+
+	.sidebar {
+		h4 {
+			*,
+			&.menu-label {
+				margin: 1.5rem 0 0.25rem;
+				padding: 0 0.6rem;
+				font-size: 11px;
+				color: darken($vistablue, 15%);
+			}
+		}
+
+		hr {
+			margin: 0.2rem 2vw 0.2rem 0.25vw;
+			background: linear-gradient(to right, rgba($lavenderfloral, 0.5), rgba($lavenderfloral, 0));
+			opacity: 0.25;
+		}
+
+		a {
+			display: block;
+			line-height: 1.425;
+			padding: 0;
+			font-size: 15px;
+			font-family: $work;
+			color: $oxforddark;
+			font-weight: 400;
+			letter-spacing: 0.025rem;
+
+			code {
+				color: $oxforddark;
+			}
+		}
+
+		.toggle {
+			display: none;
+			padding: 0 0 0 0.5rem;
+			margin: 0.25rem 0 0.25rem 0.75rem;
+			border-left: 1px solid rgba(168, 124, 230, 0.33);
+
+			&:has(a.active) {
+				display: block;
+			}
+		}
+
+		a.active + .toggle {
+			display: block;
 		}
 	}
 }

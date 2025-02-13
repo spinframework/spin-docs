@@ -1,5 +1,48 @@
 {
+  "name": "spin-docs",
+  "version": "0.1.0",
+  "homepage": "https://spinframework.com",
+  "author": {
+    "name": "Spin Maintainers",
+    "email": "spin@cncf.io",
+    "url": "https://spinframework.com"
+  },
+  "description": "Spin project website",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/spinframework/spin-docs.git"
+  },
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/spinframework/spin-docs/issues"
+  },
   "devDependencies": {
-    "@parcel/resolver-default": "^2.13.3"
+    "@fermyon/styleguide": "^0.1.8",
+    "@parcel/transformer-sass": "^2.13.3",
+    "args-parser": "^1.3.0",
+    "broken-link-checker": "^0.7.8",
+    "concurrently": "^9.1.2",
+    "front-matter": "^4.0.2",
+    "glob": "^11.0.1",
+    "lunr": "^2.3.9",
+    "markdownlint-cli2": "^0.17.2",
+    "markdownlint-rule-titlecase": "^0.1.0",
+    "nodemon": "^3.1.9",
+    "parcel": "^2.13.3",
+    "parcel-bundler": "^1.12.5",
+    "redom": "^4.3.0",
+    "remark-parse": "^11.0.0",
+    "sass": "^1.84.0",
+    "unified": "^11.0.5",
+    "yaml-front-matter": "^4.1.1"
+  },
+  "scripts": {
+    "spin": "nodemon --watch content --watch static --watch templates --watch spin-up-hub --ext html,md,rhai,hbs,css,js --verbose --legacy-watch --signal SIGINT --exec 'npm run build-index && npm run build-hub-index && spin up --file spin.toml --quiet --env PREVIEW_MODE=$PREVIEW_MODE'",
+    "bundle-scripts": "parcel watch static/js/src/main.js --dist-dir static/js --no-source-maps",
+    "styles": "parcel watch static/sass/styles.scss --dist-dir static/css",
+    "test": "npx markdownlint-cli2 content/**/*.md \"#node_modules\" && npm run check-broken-links",
+    "build-index": "node md_parser.mjs --dir=./content/ --out=./static/data.json --ignore=./content/api/**/*",
+    "check-broken-links": ".build/check-broken-links.sh",
+    "build-hub-index": "node hub_index_generator.mjs --dir=./content/api/hub/ --out=./static/hub-index-data.json --ignore=./content/api/hub/get_list.md,"
   }
 }

@@ -1785,10 +1785,6 @@ html.dark-theme .developer-home-wrap ul.connect-links li a {
   color: #34e8bd;
 }
 
-html.dark-theme .developer-home-wrap .external {
-  background: url("arrowexternal-dark.ac3a9a36.svg") no-repeat;
-}
-
 html.dark-theme .developer-home-wrap .community-highlight {
   background-color: #7c6db933;
 }
@@ -1830,6 +1826,10 @@ html.dark-theme .klaro .cookie-notice:not(.cookie-modal-notice) .cn-body .cn-but
 
 html.dark-theme .klaro .cookie-modal .cm-modal .cm-header h1 {
   color: #0e092d;
+}
+
+html.dark-theme .external {
+  background: url("arrowexternal-dark.ac3a9a36.svg") no-repeat;
 }
 
 .documentation > .developer-home-wrap {
@@ -2307,7 +2307,7 @@ html.dark-theme .klaro .cookie-modal .cm-modal .cm-header h1 {
 
 .menu-wrap {
   z-index: 665;
-  padding: 0 1.5vw !important;
+  padding: 0 1vw !important;
 }
 
 .menu-wrap + article.content {
@@ -2439,7 +2439,7 @@ html.dark-theme .klaro .cookie-modal .cm-modal .cm-header h1 {
 }
 
 .documentation aside.menu a {
-  padding: .6rem 1vw;
+  padding: .2rem .5vw;
   font-weight: normal;
 }
 
@@ -2666,6 +2666,30 @@ html.dark-theme .klaro .cookie-modal .cm-modal .cm-header h1 {
 #topbar.navbar .navbar-menu a.navbar-link.dark-mode svg:hover {
   fill: #8458ce;
   background: none !important;
+}
+
+#topbar.navbar .navbar-menu a.navbar-stack {
+  min-width: 10rem;
+  display: inline-block;
+}
+
+#topbar.navbar .navbar-menu a.navbar-stack strong, #topbar.navbar .navbar-menu a.navbar-stack small {
+  display: block;
+}
+
+#topbar.navbar .navbar-menu a.navbar-stack strong {
+  color: #0e092d;
+  font-family: Work Sans, Europa, Avenir, system, -apple-system, \.SFNSText-Regular, San Francisco, Segoe UI, Helvetica Neue, Lucida Grande, sans-serif;
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+#topbar.navbar .navbar-menu a.navbar-stack small {
+  opacity: .7;
+  max-width: 9rem;
+  font-family: Work Sans, Europa, Avenir, system, -apple-system, \.SFNSText-Regular, San Francisco, Segoe UI, Helvetica Neue, Lucida Grande, sans-serif;
+  font-size: 12px;
+  line-height: 1.2;
 }
 
 #topbar.navbar .navbar-menu a.navbar-item.button {
@@ -4631,6 +4655,45 @@ html.dark-theme body main .feedback-wrapper .feedback-modal a {
 
 .documentation .tabs.is-boxed a.is-active:hover {
   background-color: #ece5ee !important;
+}
+
+.documentation .sidebar h4 *, .documentation .sidebar h4.menu-label {
+  color: #3b58e9;
+  margin: 1.5rem 0 .25rem;
+  padding: 0 .6rem;
+  font-size: 11px;
+}
+
+.documentation .sidebar hr {
+  opacity: .25;
+  background: linear-gradient(to right, #a87ce680, #a87ce600);
+  margin: .2rem 2vw .2rem .25vw;
+}
+
+.documentation .sidebar a {
+  color: #0e092d;
+  letter-spacing: .025rem;
+  padding: 0;
+  font-family: Work Sans, Europa, Avenir, system, -apple-system, \.SFNSText-Regular, San Francisco, Segoe UI, Helvetica Neue, Lucida Grande, sans-serif;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 1.425;
+  display: block;
+}
+
+.documentation .sidebar a code {
+  color: #0e092d;
+}
+
+.documentation .sidebar .toggle {
+  border-left: 1px solid #a87ce654;
+  margin: .25rem 0 .25rem .75rem;
+  padding: 0 0 0 .5rem;
+  display: none;
+}
+
+.documentation .sidebar .toggle:has(a.active), .documentation .sidebar a.active + .toggle {
+  display: block;
 }
 
 .klaro .cookie-notice:not(.cookie-modal-notice) {
