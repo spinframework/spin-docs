@@ -2,51 +2,45 @@
     <div class="">
         <a {{#if (active_project request.spin-full-url "/v3/index" )}} class="active" {{/if}} href="{{site.info.base_url}}/index">What is Spin</a>
 
-        <h4 for="rd0" class="menu-label">
-            Getting Started
-        </h4>
+        <h4 for="rd0" class="menu-label">Getting Started</h4>
         <a {{#if (active_project request.spin-full-url "/v3/quickstart" )}} class="active" {{/if}} href="{{site.info.base_url}}/v3/quickstart">Quickstart</a>
         <a {{#if (active_project request.spin-full-url "/v3/install" )}} class="active" {{/if}} href="{{site.info.base_url}}/v3/install">Install</a>
         <a {{#if (active_project request.spin-full-url "/v3/upgrade" )}} class="active" {{/if}} href="{{site.info.base_url}}/v3/upgrade">Upgrade</a>
 
-        <h4 for="rd0" class="menu-label">Spin Apps</h4>
+        <h4 for="rd0" class="menu-label">Applications</h4>
 
         <a {{#if (active_project request.spin-full-url "/v3/writing-apps" )}} class="active" {{/if}} href="{{site.info.base_url}}/v3/writing-apps">Creating Apps</a>
-        <a {{#if (active_project request.spin-full-url "/v3/manifest-reference" )}} class="active" {{/if}} href="{{site.info.base_url}}/v3/manifest-reference">Configuring <code>spin.toml</code></a>
-        <a {{#if (active_project request.spin-full-url "/v3/managing-plugins" )}} class="active" {{/if}} href="{{site.info.base_url}}/v3/managing-plugins">Plugins</a>
-        <a {{#if (active_project request.spin-full-url "/v3/managing-templates" )}} class="active" {{/if}} href="{{site.info.base_url}}/v3/managing-templates">Templates</a>
-        <a {{#if (active_project request.spin-full-url "/triggers" )}} class="active" {{/if}} href="{{site.info.base_url}}/v3/triggers">Triggers</a>
-        
-        <div class="toggle">
-            <a {{#if (active_project request.spin-full-url "/v3/http-trigger" )}} class="active" {{/if}} href="{{site.info.base_url}}/v3/http-trigger"> HTTP Trigger</a>
-            <a {{#if (active_project request.spin-full-url "/v3/redis-trigger" )}} class="active" {{/if}} href="{{site.info.base_url}}/v3/redis-trigger"> Redis Trigger</a>
-            <a {{#if (active_project request.spin-full-url "/v3/redis-trigger" )}} class="active" {{/if}} href="{{site.info.base_url}}/v3/triggers#cron-trigger">Cron Trigger</a>
-            <a {{#if (active_project request.spin-full-url "/v3/extending-and-embedding" )}} class="active" {{/if}} href="{{site.info.base_url}}/v3/extending-and-embedding">Custom Triggers</a>
-        </div>
-        <hr>
-        
+        <a {{#if (active_project request.spin-full-url "/v3/spin-application-structure" )}} class="active" {{/if}} href="{{site.info.base_url}}/v3/spin-application-structure">Application Structure</a>
         <a {{#if (active_project request.spin-full-url "/v3/build" )}} class="active" {{/if}} href="{{site.info.base_url}}/v3/build">Building</a>
-        <a {{#if (active_project request.spin-full-url "/v3/observing-apps" )}} class="active" {{/if}} href="{{site.info.base_url}}/v3/observing-apps">Observability</a>
         <a {{#if (active_project request.spin-full-url "/v3/running-apps" )}} class="active" {{/if}} href="{{site.info.base_url}}/v3/running-apps">Running</a>
+        <hr>
         <a {{#if (active_project request.spin-full-url "/v3/testing-apps" )}} class="active" {{/if}} href="{{site.info.base_url}}/v3/testing-apps">Testing</a>
+        <a {{#if (active_project request.spin-full-url "/v3/observing-apps" )}} class="active" {{/if}} href="{{site.info.base_url}}/v3/observing-apps">Observability</a>
+        <a {{#if (active_project request.spin-full-url "/v3/troubleshooting-application-dev")}} class="active" {{/if}} href="{{site.info.base_url}}/v3/troubleshooting-application-dev">Troubleshooting</a>
+        <hr>
+        <a {{#if (active_project request.spin-full-url "/v3/dynamic-configuration" )}} class="active" {{/if}} href="{{site.info.base_url}}/v3/dynamic-configuration">Dynamic Configuration</a>
 
-        
+        <h4 for="rd0" class="menu-label">Triggers</h4>
+
+        <a {{#if (active_project request.spin-full-url "/triggers" )}} class="active" {{/if}} href="{{site.info.base_url}}/v3/triggers">Overview</a>
+        <a {{#if (active_project request.spin-full-url "/v3/http-trigger" )}} class="active" {{/if}} href="{{site.info.base_url}}/v3/http-trigger"> HTTP Trigger</a>
+        <a {{#if (active_project request.spin-full-url "/v3/redis-trigger" )}} class="active" {{/if}} href="{{site.info.base_url}}/v3/redis-trigger"> Redis Trigger</a>
+        <a {{#if (active_project request.spin-full-url "/v3/redis-trigger" )}} class="active" {{/if}} href="{{site.info.base_url}}/v3/triggers#cron-trigger">Cron Trigger</a>
 
         <h4 for="rd0" class="menu-label">Feature API</h4>
-
         
+        <a {{#if (active_project request.spin-full-url "/v3/http-outbound" )}} class="active" {{/if}} href="{{site.info.base_url}}/v3/http-outbound">Making HTTP Requests</a>
         <a {{#if (active_project request.spin-full-url "/v3/kv-store-api-guide" )}} class="active" {{/if}} href="{{site.info.base_url}}/v3/kv-store-api-guide">Key Value Store</a>
-        <a {{#if (active_project request.spin-full-url "/v3/http-outbound" )}} class="active" {{/if}} href="{{site.info.base_url}}/v3/http-outbound">HTTP Interface</a>
-        <a {{#if (active_project request.spin-full-url "/v3/mqtt-outbound" )}} class="active" {{/if}} href="{{site.info.base_url}}/v3/mqtt-outbound">MQTT Interface</a>
-        <a {{#if (active_project request.spin-full-url "/v3/redis-outbound" )}} class="active" {{/if}} href="{{site.info.base_url}}/v3/redis-outbound">Redis Storage</a>
-        <a {{#if (active_project request.spin-full-url "/v3/serverless-ai-api-guide" )}} class="active" {{/if}} href="{{site.info.base_url}}/v3/serverless-ai-api-guide">Serverless AI</a>
-        <a {{#if (active_project request.spin-full-url "/v3/rdbms-storage" )}} class="active" {{/if}} href="{{site.info.base_url}}/v3/rdbms-storage">RDS Database</a>
         <a {{#if (active_project request.spin-full-url "/v3/sqlite-api-guide" )}} class="active" {{/if}} href="{{site.info.base_url}}/v3/sqlite-api-guide">SQLite Database</a>
+        <a {{#if (active_project request.spin-full-url "/v3/mqtt-outbound" )}} class="active" {{/if}} href="{{site.info.base_url}}/v3/mqtt-outbound">MQTT Messaging</a>
+        <a {{#if (active_project request.spin-full-url "/v3/redis-outbound" )}} class="active" {{/if}} href="{{site.info.base_url}}/v3/redis-outbound">Redis Storage</a>
+        <a {{#if (active_project request.spin-full-url "/v3/rdbms-storage" )}} class="active" {{/if}} href="{{site.info.base_url}}/v3/rdbms-storage">Relational Databases</a>
+        <a {{#if (active_project request.spin-full-url "/v3/serverless-ai-api-guide" )}} class="active" {{/if}} href="{{site.info.base_url}}/v3/serverless-ai-api-guide">Serverless AI</a>
         <a {{#if (active_project request.spin-full-url "/v3/variables" )}} class="active" {{/if}} href="{{site.info.base_url}}/v3/variables">Variables</a>
         <hr>
         <a {{#if (active_project request.spin-full-url "/v3/api-guides-overview" )}} class="active" {{/if}} href="{{site.info.base_url}}/v3/api-guides-overview">Feature Support</a>
 
-        <h4 for="rd0" class="menu-label">Languages Guides</h4>
+        <h4 for="rd0" class="menu-label">Language Guides</h4>
 
         <a {{#if (active_project request.spin-full-url "/v3/rust-components" )}} class="active" {{/if}} href="{{site.info.base_url}}/v3/rust-components">Rust</a>
         <a {{#if (active_project request.spin-full-url "/v3/go-components" )}} class="active" {{/if}} href="{{site.info.base_url}}/v3/go-components">Go</a>
@@ -57,35 +51,10 @@
         <a {{#if (active_project request.spin-full-url "/v3/other-languages" )}} class="active" {{/if}} href="{{site.info.base_url}}/v3/other-languages">Other Languages</a>
 
         <h4 for="rd0" class="menu-label">Deployment</h4>
-
         
         <a {{#if (active_project request.spin-full-url "/v3/deploying" )}} class="active" {{/if}} href="{{site.info.base_url}}/v3/deploying">Deployment Options</a>
         <a href="https://spinkube.dev">SpinKube<img src="{{site.info.base_url}}/static/image/arrowexternal.svg" width="15" height="15"></a>
         <a {{#if (active_project request.spin-full-url "/v3/distributing-apps" )}} class="active" {{/if}} href="{{site.info.base_url}}/v3/distributing-apps">Publishing to Registries</a>
-        <hr>
-        <a {{#if (active_project request.spin-full-url "/v3/dynamic-configuration" )}} class="active" {{/if}} href="{{site.info.base_url}}/v3/dynamic-configuration">Dynamic Configuration</a>
-
-        <h4 for="rd0" class="menu-label">Architecture</h4>
-        <a {{#if (active_project request.spin-full-url "/v3/spin-application-structure" )}} class="active" {{/if}} href="{{site.info.base_url}}/v3/spin-application-structure">Application Structure</a>
-        <a {{#if (active_project request.spin-full-url "/v3/cache" )}} class="active" {{/if}} href="{{site.info.base_url}}/v3/cache">Internal Data &amp; Caching</a>
-
-        <div style="margin: 1.25rem auto">
-            <hr>
-        </div>
-
-        <a {{#if (active_project request.spin-full-url "/v3/troubleshooting-application-dev")}} class="active" {{/if}} href="{{site.info.base_url}}/v3/troubleshooting-application-dev">Troubleshooting</a>
-
-        <a {{#if (active_project request.spin-full-url "/v3/contributing-spin" )}} class="active" {{/if}} href="{{site.info.base_url}}/v3/contributing-spin">Contributing</a>
-
-        <div class="toggle">
-             <a {{#if (active_project request.spin-full-url "/v3/plugin-authoring" )}} class="active" {{/if}} href="{{site.info.base_url}}/v3/plugin-authoring">Creating Spin Plugins</a>
-             <a {{#if (active_project request.spin-full-url "/v3/template-authoring" )}} class="active" {{/if}} href="{{site.info.base_url}}/v3/template-authoring">Creating Spin Templates</a>
-             <a href="https://github.com/fermyon/blob/main/docs/content/sips/index.md" target="_blank">Spin Improvement Proposals <img src="{{site.info.base_url}}/static/image/arrowexternal.svg" width="15" height="15"></a>
-             <a {{#if (active_project request.spin-full-url "/v3/contributing-docs" )}} class="active" {{/if}} href="{{site.info.base_url}}/v3/contributing-docs">Spin Documentation</a>
-        </div>
-
-        
-
 
     <div class="accordion-menu-item" style="display: none;">
         <input type="checkbox" id="rd5" name="rd">
@@ -111,6 +80,34 @@
                     Key-Value Store</a></li>
         </ul>
     </div>
+
+    <h4 for="rd0" class="menu-label">Tools</h4>
+
+    <a {{#if (active_project request.spin-full-url "/v3/managing-plugins" )}} class="active" {{/if}} href="{{site.info.base_url}}/v3/managing-plugins">Managing Plugins</a>
+    <a {{#if (active_project request.spin-full-url "/v3/managing-templates" )}} class="active" {{/if}} href="{{site.info.base_url}}/v3/managing-templates">Managing Templates</a>
+
+    <h4 for="rd0" class="menu-label">Reference</h4>
+
+    <a {{#if (active_project request.spin-full-url "/v3/manifest-reference" )}} class="active" {{/if}} href="{{site.info.base_url}}/v3/manifest-reference">Configuring <code>spin.toml</code></a>
+
+    <h4 for="rd0" class="menu-label">Project</h4>
+
+    <a {{#if (active_project request.spin-full-url "/v3/cache" )}} class="active" {{/if}} href="{{site.info.base_url}}/v3/cache">Internal Data &amp; Caching</a>
+
+    <div style="margin: 1.25rem auto">
+        <hr>
+    </div>
+
+    <a {{#if (active_project request.spin-full-url "/v3/plugin-authoring" )}} class="active" {{/if}} href="{{site.info.base_url}}/v3/plugin-authoring">Creating Spin Plugins</a>
+    <a {{#if (active_project request.spin-full-url "/v3/template-authoring" )}} class="active" {{/if}} href="{{site.info.base_url}}/v3/template-authoring">Creating Spin Templates</a>
+    <a href="https://github.com/fermyon/blob/main/docs/content/sips/index.md" target="_blank">Spin Improvement Proposals <img src="{{site.info.base_url}}/static/image/arrowexternal.svg" width="15" height="15"></a>
+    <a {{#if (active_project request.spin-full-url "/v3/extending-and-embedding" )}} class="active" {{/if}} href="{{site.info.base_url}}/v3/extending-and-embedding">Custom Triggers</a>
+
+    <hr>
+
+    <a {{#if (active_project request.spin-full-url "/v3/contributing-spin" )}} class="active" {{/if}} href="{{site.info.base_url}}/v3/contributing-spin">Contributing to Spin</a>
+    <a {{#if (active_project request.spin-full-url "/v3/contributing-docs" )}} class="active" {{/if}} href="{{site.info.base_url}}/v3/contributing-docs">Contributing Documentation</a>
+
 </div>
 
 <div class="button-wrap">
