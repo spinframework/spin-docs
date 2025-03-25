@@ -1,0 +1,44 @@
+name: Deploy Spin Docs
+
+on:
+  push:
+    branches:
+      - 'main'
+
+  workflow_dispatch:
+
+# Construct a concurrency group to be shared across workflow runs.
+# The default behavior ensures that only one is running at a time, with
+# all others queuing and thus not interrupting runs that are in-flight.
+concurrency: ${{ github.workflow }}
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    uses: ./.github/workflows/build.yml
+
+  deploy:
+    runs-on: ubuntu-24.04
+    needs: build
+    steps:
+      - name: Download build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: app
+          path: "${{ github.workspace }}"
+
+      - name: Setup Spin
+        uses: fermyon/actions/spin/setup@v1
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Login to Fermyon Cloud
+        run: spin cloud login --token "${{ secrets.FERMYON_CLOUD_TOKEN }}"
+
+      - name: Deploy to Fermyon Cloud
+        uses: fermyon/actions/spin/deploy@v1
+        with:
+          run_build: false
+          fermyon_token: "${{ secrets.FERMYON_CLOUD_TOKEN }}"

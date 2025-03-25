@@ -42,3 +42,20 @@ jobs:
         run: |
           npm test
 
+      - name: Archive app artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: app
+          # These are all of the paths referenced in spin.toml
+          path: |
+            spin.toml
+            modules/*.wasm
+            content/**/*
+            templates/*
+            scripts/*
+            config/*
+            shortcodes/*
+            static/**/*
+            downloads/**/*
+            spin-redirect.json
+            spin-up-hub/dist/**/*
