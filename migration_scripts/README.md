@@ -71,7 +71,6 @@ python3 move_markdown_files_to_unified_location.py
 
 > If you are not satisfied with the outcome of this script, please run `./reset_content.sh` and try again.
 
-
 Check that no files are left over in either `/spin/v2` or `/cloud` directories (except for cloud changelog which should stay where it is).
 
 # Create redirects

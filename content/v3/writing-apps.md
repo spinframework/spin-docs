@@ -456,7 +456,7 @@ During loading, Spin will download the package from the registry, locate its `se
 
 Spin supports three sources for dependencies.
 
-#### Dependencies from a Registry
+#### Dependencies From a Registry
 
 To use a dependency from a registry, specify the following fields:
 
@@ -474,7 +474,7 @@ If you don't need any of the optional fields, you can provide the version constr
 "security:http/malice" = "2.0.0"
 ```
 
-#### Dependencies from a Local Component
+#### Dependencies From a Local Component
 
 To use a dependency from a component on your file system, specify the following fields:
 
@@ -483,7 +483,7 @@ To use a dependency from a component on your file system, specify the following 
 | `path`     | Required    | The path to the Wasm file containing the component.                                          | `"../validation/request-checker.wasm"` |
 | `export`   | Optional    | The name of the export in the package. If omitted, this defaults to the name of the import.  | `"more-secure:checking-it-out/web"` |
 
-#### Dependencies from a URL
+#### Dependencies From a URL
 
 To use a dependency from an HTTP URL, such as a GitHub release, specify the following fields:
 
@@ -493,7 +493,7 @@ To use a dependency from an HTTP URL, such as a GitHub release, specify the foll
 | `digest`   | Required    | The SHA256 digest of the Wasm file. This is required for integrity checking.                 | `"sha256:650376c33a0756b1a52cad7ca670f1126391b79050df0321407da9c741d32375"` |
 | `export`   | Optional    | The name of the export in the package. If omitted, this defaults to the name of the import.  | `"more-secure:checking-it-out/web"` |
 
-### Mapping All Imports from a Package
+### Mapping All Imports From a Package
 
 If you are importing several interfaces from the same WIT package, and want them all satisfied by the same Wasm package, you can omit the interface from the dependency name. For example, suppose you import the `malice`, `tomfoolery`, and `shenanigans` WIT interfaces from the `security:http` package, and that your Bargain Security package exports all three of them.  You can write:
 

@@ -15,7 +15,6 @@ This document will guide you through making your first contribution to the proje
 We welcome and appreciate contributions of all types — opening issues, fixing
 typos, adding examples, one-liner code fixes, tests, or complete features.
 
-
 ## Developer Community Calls
 
 <div style="display: block" align="left">

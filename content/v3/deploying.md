@@ -6,7 +6,7 @@ url = "https://github.com/spinframework/spin-docs/blob/main/content/spin/v3/depl
 
 ---
 
-### Running locally on your workstation 
+### Running Locally on Your Workstation 
 
 For instructions guiding you through running Spin apps on your development workstation,
 follow [this guide](/running-app).
@@ -14,7 +14,6 @@ follow [this guide](/running-app).
 ### Deploying to Kubernetes
 
 Spin applications can be deployed to a Kubernetes cluster with [SpinKube](https://www.spinkube.dev/docs/overview/) - an open source project that streamlines the experience of developing, deploying, and operating Wasm workloads on Kubernetes. Like Spin, SpinKube is a CNCF Sandbox project.
-
 
 ## Fermyon Cloud
 

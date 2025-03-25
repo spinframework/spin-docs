@@ -75,7 +75,6 @@ export default {
 }
 </script>
 
-
 <template>
   <div v-if="isOpen && !showCloudModalComponent" class="modal is-active">
     <div class="modal-background" @click="close"></div>
@@ -131,7 +130,6 @@ export default {
   </div>
   <CloudModal v-if="showCloudModalComponent" @close="hideCloudModal" />
 </template>
-
 
 <style lang="scss">
 .modal {
@@ -223,7 +221,6 @@ export default {
   margin-top: 0.6rem;
   margin-left: 40px;
 }
-
 
 .content-container {
   height: 100%;
@@ -393,7 +390,6 @@ a {
   height: auto;
   }
 }
-
 
 @media screen and (max-width: 1023px) {
   .box:not(.expanded) {

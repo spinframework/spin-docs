@@ -117,7 +117,6 @@ The key value functions are provided through the `spin_key_value` module in the 
 from spin_http import Response
 from spin_key_value import kv_open_default
 
-
 def handle_request(request):
 
     store = kv_open_default()

@@ -1,7 +1,6 @@
 <script>
 import DeployModal from './DeployPreview.vue';
 
-
 export default {
     components: {
         DeployModal,
@@ -201,7 +200,6 @@ export default {
                 display: flex;
                 align-items: center;
                 justify-content: center;
-
 
                 &.icon-close {
                     right: 1.25rem;

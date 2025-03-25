@@ -19,7 +19,7 @@ url = "https://github.com/spinframework/spin-docs/blob/main/content/spin/v3/see-
 
 Spin can be used to build many different types of applications. The following blog articles show how different applications are built with Spin.
 
-## AI-powered bookmarking app with Python and WebAssembly
+## AI-Powered Bookmarking App with Python and WebAssembly
 
 [How to build an AI-powered bookmarking app with Python and WebAssembly](https://dev.to/fermyon/part-1-how-to-build-an-ai-powered-bookmarking-app-with-python-and-webassembly-2c5b).
 

@@ -6,7 +6,6 @@ enable_shortcodes = true
 canonical_url = "https://spinframework.com/v2/index"
 url = "https://github.com/spinframework/spin-docs/blob/main/content/spin/v1/index.md"
 
-
 ---
 
 Spin is a framework and CLI for building and running event-driven microservice applications with WebAssembly (Wasm) components. Spin uses Wasm because it is **sandboxed, portable, and fast**.  Millisecond cold start times mean no need to keep applications "warm".
@@ -20,7 +19,6 @@ Many languages have Wasm implementations, so **developers don't have to learn ne
 {{card_element "template" "Zola SSG Template" "A template for using Zola framework to create a static webpage" "/hub/preview/template_zola_ssg" "rust" true }}
 {{card_element "sample" "AI-assisted News Summarizer" "Read an RSS newsfeed and have AI summarize it for you" "/hub/preview/sample_newsreader_ai" "Typescript,Javascript,Ai" true }}
 {{blockEnd}}
-
 
 Or dive into the documentation and get started:
 

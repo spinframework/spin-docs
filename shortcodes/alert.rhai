@@ -1,7 +1,6 @@
 let type = params[0];
 let msg = params[1];
 
-
 let colors = #{
   primary:`alert-primary`,
   success:`alert-success`,
@@ -15,7 +14,6 @@ let icons = #{
   warning: `#exclamation-triangle-fill`,
   danger: `#exclamation-triangle-fill`,
 };
-
 
 `<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
   <symbol id="check-circle-fill" fill="currentColor" viewBox="0 0 16 16">

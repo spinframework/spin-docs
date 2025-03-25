@@ -198,7 +198,6 @@ export default {
     background: linear-gradient(105deg, rgba(154, 103, 194, 0.21) 0%, rgba(124, 109, 185, 0.21) 100%);
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
 
-
     h1.description {
       color: $thistle;
 

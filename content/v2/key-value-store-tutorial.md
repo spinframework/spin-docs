@@ -147,7 +147,6 @@ key_value_stores = ["default"]
 ...
 ```
 
-
 ## Write Code to Save and Load Data
 
 In this section, we use the Spin SDK to open and persist our application's data inside our default key/value store. This is a special store that every environment running Spin applications will make available for their application. 
@@ -318,7 +317,6 @@ class IncomingHandler(http.IncomingHandler):
                     return Response(405, {"content-type": "text/plain"})
 
 {{ blockEnd }}
-
 
 {{ startTab "TinyGo" }}
 
@@ -521,4 +519,3 @@ Congratulations, you have a Spin application and associated Key Value store runn
 
 * Explore the contents of your Key Value store with the [Key Value Store Explorer template](../../hub/preview/template_kv_explorer)
 * Learn about linking your applications to different [Key Value Stores on Fermyon Cloud](../../cloud/kv-cloud-tutorial.md) 
-

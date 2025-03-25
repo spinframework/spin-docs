@@ -1,0 +1,47 @@
+name: Build
+on:
+  pull_request:
+    branches: [main]
+
+env:
+  BART_VERSION: v0.10.0
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Setup Spin
+        uses: fermyon/actions/spin/setup@v1
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Install bart
+        run: |
+          curl -LOs https://github.com/fermyon/bartholomew/releases/download/${{ env.BART_VERSION }}/bart-${{ env.BART_VERSION }}-linux-amd64.tar.gz
+          tar zxvf bart-${{ env.BART_VERSION }}-linux-amd64.tar.gz
+          mv bart /usr/local/bin
+
+      - name: Check Docs
+        run: |
+          bart check --shortcodes shortcodes content/* && bart check --shortcodes shortcodes content/**/*
+      
+      - name: Install npm packages
+        run: |
+          npm ci
+          npm ci --prefix ./spin-up-hub
+
+      - name: Build app
+        run: |
+          spin build
+
+      - name: Run npm tests
+        run: |
+          npm test
+

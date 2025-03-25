@@ -235,7 +235,7 @@ func init() {
 
 ## Troubleshooting
 
-### Error "Local LLM operations are not supported in this version of Spin"
+### Error "Local LLM Operations Are Not Supported in This Version of Spin"
 
 If you see "Local LLM operations are not supported in this version of Spin", then your copy of Spin has been built without local LLM support.
 

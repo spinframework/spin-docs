@@ -554,6 +554,7 @@ source = "app.wasm"
 [component.hello-python.build]
 command = "componentize-py -w spin-http componentize app -o app.wasm"
 ```
+
 This represents a simple Spin HTTP application (triggered by an HTTP request).  It has:
 
 * A single HTTP trigger, for the `/...` route, associated with the `hello-python` component.  `/...` is a wildcard, meaning it will match any route.  When the application gets an HTTP request that matches this route - that is, any HTTP request at all! - Spin will run the `hello-python` component.

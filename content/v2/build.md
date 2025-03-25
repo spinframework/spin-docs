@@ -68,7 +68,6 @@ command = "cargo build --target wasm32-wasi --release"
 
 For JavaScript and TypeScript applications, you must have [Node.js](https://nodejs.org).
 
-
 It's normally convenient to put the detailed build instructions in `package.json`. The build script looks like:
 
 <!-- @nocpy -->

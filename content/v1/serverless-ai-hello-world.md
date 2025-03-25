@@ -269,7 +269,6 @@ def handle_request(request):
     except Exception as e:
         return Response(500, {"content-type": "text/plain"}, bytes(f"Error: {str(e)}", "utf-8"))
 
-
 ```
  
 {{ blockEnd }}

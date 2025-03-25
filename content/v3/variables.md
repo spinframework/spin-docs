@@ -56,7 +56,6 @@ Variables can also be used in other sections of the application manifest that be
 allowed_outbound_hosts = [ "\{{ api_uri }}" ]
 ```
 
-
 All in all, an application manifest with `api_token` and `api_uri` variables and a component that uses them would look similar to the following:
 
 <!-- @nocpy -->

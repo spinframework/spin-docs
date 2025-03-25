@@ -1,6 +1,5 @@
 const { el, mount, textContent, list, setChildren, setStyle, setAttr } = redom
 
-
 class FeedBack {
     constructor() {
         this.pageTitle = document.querySelector(".blog-post-title").innerText
@@ -116,7 +115,6 @@ class FeedBack {
         return false
     }
 }
-
 
 function createFeedbackElement(handle) {
     const feedback = new FeedBack()

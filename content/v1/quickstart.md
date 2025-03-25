@@ -802,7 +802,6 @@ Hello, Fermyon
 
 Congratulations! You just created, built and ran your first Spin application!
 
-
 ## Next Steps
 
 - Learn more about [writing Spin components and manifests](writing-apps)

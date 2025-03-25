@@ -178,7 +178,6 @@ This next example will create an outbound request, to obtain a random fact about
 ```python
 from spin_http import Request, Response, http_send
 
-
 def handle_request(request):
 
     response = http_send(
@@ -272,7 +271,6 @@ If you are still following along, please go ahead and update your `app.py` file 
 from spin_http import Response
 from spin_redis import redis_del, redis_get, redis_incr, redis_set, redis_sadd, redis_srem, redis_smembers
 from spin_config import config_get
-
 
 def handle_request(request):
 

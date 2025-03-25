@@ -359,13 +359,11 @@ This library only currently supports the following polyfills:
 - `fs` - only implements `readFileSync` and `readdirSync`.
 - `os` - Implements only `EOL` and `arch`.
 
-
 ## Using External NPM Libraries
 
 > Not all the NPM packages are guaranteed to work with the SDK as it is not fully compatible with the browser or `Node.js`. It implements only a subset of the API.
 
 Some NPM packages can be installed and used in the component. If a popular library does not work, please open an issue/feature request in the [spin-js-sdk repository](https://github.com/spinframework/spin-js-sdk/issues).
-
 
 ### Suggested Libraries for Common Tasks
 

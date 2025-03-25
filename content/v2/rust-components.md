@@ -508,7 +508,7 @@ annotated using the `http_component` macro, compiled to the `wasm32-wasi` target
 This means that any [crate](https://crates.io) that compiles to `wasm32-wasi` can
 be used when implementing the component.
 
-### Using the `http` crate
+### Using the `http` Crate
 
 If you're already familiar with the popular [`http` crate](https://crates.io/crates/http), you may wish to use that instead of using the HTTP types included in the Spin SDK. Generally, the `http` crate's types can be used anywhere the Spin SDK HTTP types can be used. For example, the first basic HTTP component can be rewritten to use the `http` crate like so:
 

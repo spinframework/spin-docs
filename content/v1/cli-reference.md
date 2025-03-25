@@ -239,7 +239,6 @@ $ spin add --help
 spin-add 
 Scaffold a new component into an existing application
 
-
 USAGE:
     spin add [OPTIONS] [ARGS]
 

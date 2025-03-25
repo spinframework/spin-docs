@@ -110,7 +110,7 @@ impl TriggerExecutor for TimerTrigger {
 }
 ```
 
-### The Trigger is an Executable
+### The Trigger Is an Executable
 
 A trigger is a separate program, so that it can be installed as a plugin. So it is a Rust `bin` project and has a `main` function. It can be useful to also provide a library crate, so that projects that embed Spin can load it in process if desired, but the timer sample doesn't currently show that.
 

@@ -33,13 +33,14 @@ We have a plugin that makes it easy to use OpenTelemetry with Spin. If you would
   spin plugins update
   spin plugins install otel
   ```
+
 - To see the available commands, you can run `spin otel --help`
 
-## Configuring your own observability stack
+## Configuring Your Own Observability Stack
 
 Follow this portion of the guide if you want to use Spin and OTel, but want to have more control than what the OTel plugin offers.
 
-### Configure the Docker compose stack
+### Configure the Docker Compose Stack
 
 In order to view the telemetry data you need to run an OTel compliant [collector](https://opentelemetry.io/docs/collector/) and the proper backends for each signal type. If you have Docker on your system you can easily start all the observability tools you need with the following commands:
 

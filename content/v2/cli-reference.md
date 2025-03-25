@@ -322,7 +322,6 @@ OPTIONS:
 
 {{ blockEnd }}
 
-
 {{ blockEnd }}
 
 <!-- markdownlint-disable-next-line titlecase-rule -->
@@ -561,7 +560,6 @@ OPTIONS:
 
 {{ blockEnd }}
 
-
 {{ blockEnd }}
 
 <!-- markdownlint-disable-next-line titlecase-rule -->
@@ -610,7 +608,6 @@ The `spin cloud` command is implemented by the [Fermyon Cloud Plugin](/cloud/clo
 The `spin cloud` command is implemented by the [Fermyon Cloud Plugin](/cloud/cloud-command-reference).
 
 {{ blockEnd }}
-
 
 {{ blockEnd }}
 
@@ -661,7 +658,6 @@ The `spin cloud apps` command is implemented by the [Fermyon Cloud Plugin](/clou
 
 {{ blockEnd }}
 
-
 {{ blockEnd }}
 
 <!-- markdownlint-disable-next-line titlecase-rule -->
@@ -710,7 +706,6 @@ The `spin cloud deploy` command is implemented by the [Fermyon Cloud Plugin](/cl
 The `spin cloud deploy` command is implemented by the [Fermyon Cloud Plugin](/cloud/cloud-command-reference#spin-cloud-deploy).
 
 {{ blockEnd }}
-
 
 {{ blockEnd }}
 
@@ -761,7 +756,6 @@ The `spin cloud link` command is implemented by the [Fermyon Cloud Plugin](/clou
 
 {{ blockEnd }}
 
-
 {{ blockEnd }}
 
 <!-- markdownlint-disable-next-line titlecase-rule -->
@@ -810,7 +804,6 @@ The `spin cloud login` command is implemented by the [Fermyon Cloud Plugin](/clo
 The `spin cloud login` command is implemented by the [Fermyon Cloud Plugin](/cloud/cloud-command-reference#spin-cloud-login).
 
 {{ blockEnd }}
-
 
 {{ blockEnd }}
 
@@ -861,7 +854,6 @@ The `spin cloud sqlite` command is implemented by the [Fermyon Cloud Plugin](/cl
 
 {{ blockEnd }}
 
-
 {{ blockEnd }}
 
 <!-- markdownlint-disable-next-line titlecase-rule -->
@@ -911,7 +903,6 @@ The `spin cloud unlink` command is implemented by the [Fermyon Cloud Plugin](/cl
 
 {{ blockEnd }}
 
-
 {{ blockEnd }}
 
 <!-- markdownlint-disable-next-line titlecase-rule -->
@@ -960,7 +951,6 @@ The `spin cloud variables` command is implemented by the [Fermyon Cloud Plugin](
 The `spin cloud variables` command is implemented by the [Fermyon Cloud Plugin](/cloud/cloud-command-reference#spin-cloud-variables).
 
 {{ blockEnd }}
-
 
 {{ blockEnd }}
 
@@ -1128,7 +1118,6 @@ OPTIONS:
 
 {{ blockEnd }}
 
-
 {{ blockEnd }}
 
 <!-- markdownlint-disable-next-line titlecase-rule -->
@@ -1178,7 +1167,6 @@ OPTIONS:
 
 {{ blockEnd }}
 
-
 {{ blockEnd }}
 
 <!-- markdownlint-disable-next-line titlecase-rule -->
@@ -1203,7 +1191,6 @@ The `spin kube` command is implemented by the [`spin-kube` plugin](https://www.s
 The `spin kube` command is implemented by the [`spin-kube` plugin](https://www.spinkube.dev/docs/reference/cli-reference/).
 
 {{ blockEnd }}
-
 
 {{ blockEnd }}
 
@@ -1230,7 +1217,6 @@ The `spin kube completion` command is implemented by the [`spin-kube` plugin](ht
 
 {{ blockEnd }}
 
-
 {{ blockEnd }}
 
 <!-- markdownlint-disable-next-line titlecase-rule -->
@@ -1255,7 +1241,6 @@ The `spin kube scaffold` command is implemented by the [`spin-kube` plugin](http
 The `spin kube scaffold` command is implemented by the [`spin-kube` plugin](https://www.spinkube.dev/docs/reference/cli-reference/#spin-kube-scaffold).
 
 {{ blockEnd }}
-
 
 {{ blockEnd }}
 
@@ -1535,7 +1520,6 @@ OPTIONS:
 
 {{ blockEnd }}
 
-
 {{ blockEnd }}
 
 **Please note: `spin new` vs `spin add`**.  These commands are similar except that:
@@ -1743,7 +1727,6 @@ SUBCOMMANDS:
 ```
 
 {{ blockEnd }}
-
 
 {{ blockEnd }}
 
@@ -2039,7 +2022,6 @@ OPTIONS:
 
 {{ blockEnd }}
 
-
 {{ blockEnd }}
 
 <!-- markdownlint-disable-next-line titlecase-rule -->
@@ -2193,8 +2175,8 @@ OPTIONS:
         --installed          List only installed plugins
         --summary            List latest and installed versions of plugins
 ```
-{{ blockEnd }}
 
+{{ blockEnd }}
 
 {{ blockEnd }}
 
@@ -2349,7 +2331,6 @@ OPTIONS:
 ```
 
 {{ blockEnd }}
-
 
 {{ blockEnd }}
 
@@ -2512,7 +2493,6 @@ OPTIONS:
 
 {{ blockEnd }}
 
-
 {{ blockEnd }}
 
 <!-- markdownlint-disable-next-line titlecase-rule -->
@@ -2652,7 +2632,6 @@ OPTIONS:
 ```
 
 {{ blockEnd }}
-
 
 {{ blockEnd }}
 
@@ -2969,7 +2948,6 @@ OPTIONS:
 
 {{ blockEnd }}
 
-
 {{ blockEnd }}
 
 **Note:** For additional information, please see the [Managing Plugins](/spin/managing-plugins) and/or [Creating Plugins](/spin/plugin-authoring) sections of the documentation.
@@ -3146,7 +3124,6 @@ SUBCOMMANDS:
 ```
 
 {{ blockEnd }}
-
 
 {{ blockEnd }}
 
@@ -3329,7 +3306,6 @@ OPTIONS:
 ```
 
 {{ blockEnd }}
-
 
 {{ blockEnd }}
 
@@ -3519,7 +3495,6 @@ OPTIONS:
 ```
 
 {{ blockEnd }}
-
 
 {{ blockEnd }}
 
@@ -3754,7 +3729,6 @@ OPTIONS:
 
 {{ blockEnd }}
 
-
 {{ blockEnd }}
 
 <!-- markdownlint-disable-next-line titlecase-rule -->
@@ -3969,7 +3943,6 @@ SUBCOMMANDS:
 ```
 
 {{ blockEnd }}
-
 
 {{ blockEnd }}
 
@@ -4230,7 +4203,6 @@ OPTIONS:
 
 {{ blockEnd }}
 
-
 {{ blockEnd }}
 
 <!-- markdownlint-disable-next-line titlecase-rule -->
@@ -4384,7 +4356,6 @@ OPTIONS:
 ```
 
 {{ blockEnd }}
-
 
 {{ blockEnd }}
 
@@ -4548,7 +4519,6 @@ OPTIONS:
 ```
 
 {{ blockEnd }}
-
 
 {{ blockEnd }}
 
@@ -4795,7 +4765,6 @@ OPTIONS:
 
 {{ blockEnd }}
 
-
 {{ blockEnd }}
 
 **Note:** For additional information, please see the [Managing Templates](/spin/managing-templates) and/or [Creating Templates](/spin/template-authoring) sections of the documentation.
@@ -4879,7 +4848,6 @@ Options:
 ```
 
 {{ blockEnd }}
-
 
 {{ blockEnd }}
 
@@ -5443,7 +5411,6 @@ HTTP TRIGGER OPTIONS:
 
 {{ blockEnd }}
 
-
 {{ blockEnd }}
 
 > **Please note:** If the `-f` or `--from` options do not accurately infer the intended registry or `.toml` file for your application, then you can explicitly specify either the `--from-registry` or  `--from-file` options to clarify this.
@@ -5631,7 +5598,6 @@ The following additional trigger options are available for the [spin up](#spin-u
 ```
 
 {{ blockEnd }}
-
 
 {{ blockEnd }}
 
@@ -5843,7 +5809,6 @@ OPTIONS:
 
 {{ blockEnd }}
 
-
 {{ blockEnd }}
 
 ## Stability Table
@@ -5975,6 +5940,5 @@ CLI commands have four phases that indicate levels of stability:
 | <code>spin watch</code>                                                               | Experimental |
 | <code>spin test</code>                                                                | Experimental |
 {{ blockEnd }}
-
 
 {{ blockEnd }}

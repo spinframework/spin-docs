@@ -74,7 +74,6 @@ export default {
   </div>
 </template>
 
-
 <style lang="scss" scoped>
 
 .card-image {
@@ -160,7 +159,6 @@ a.card {
                 opacity: 0.8;
             }
         }
-
 
         .icon {
             width: 20px;

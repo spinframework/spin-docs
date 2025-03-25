@@ -63,7 +63,6 @@ python3 --version
 
 If you do not have Python 3.10 or later, you can install it by following the instructions [here](https://www.python.org/downloads/).
 
-
 To enable Serverless AI functionality via Python, please ensure you have the latest Python template installed:
 
 <!-- @selectiveCpy -->
@@ -345,7 +344,6 @@ class IncomingHandler(http.IncomingHandler):
             {"content-type": "text/plain"},
             bytes(res.text, "utf-8")
         )
-
 
 ```
  

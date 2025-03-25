@@ -80,7 +80,6 @@ export default {
 }
 </script>
 
-
 <template>
     <div class="content-listing column is-four-fifths-desktop is-full-touch">
         <transition-group class="card-groups columns is-0 is-mobile is-multiline" tag="div"  name="card-list" appear>
