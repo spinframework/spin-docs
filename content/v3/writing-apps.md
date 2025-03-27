@@ -527,4 +527,4 @@ This grants _all_ dependencies access to _all_ resources listed in the Spin comp
 - Discover how Spin application authors [design and organise applications](see-what-people-have-built-with-spin)
 - Learn about how to [configure your application at runtime](dynamic-configuration)
 - Look up details in the [application manifest reference](manifest-reference)
-- Try deploying a Spin application to the [Fermyon Cloud](/cloud/quickstart)
+- Try deploying a Spin application to the [Fermyon Cloud](https://developer.fermyon.com/cloud/quickstart)

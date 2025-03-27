@@ -948,4 +948,4 @@ Congratulations again - you've now deployed your first Spin application to [Ferm
 
 - Learn more about [writing Spin components and manifests](writing-apps)
 - Learn how to [build your Spin application code](build)
-- Learn more about [Fermyon Cloud](/cloud/index)
+- Learn more about [Fermyon Cloud](https://developer.fermyon.com/cloud/index)

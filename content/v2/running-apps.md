@@ -164,4 +164,4 @@ Some people find it frustrating having to remember to build their applications b
 - Learn how to [create and update a Spin application](writing-apps)
 - Learn about how to [configure your application at runtime](dynamic-configuration)
 - See how to [package and distribute your application](registry-tutorial)
-- Try deploying your application to run in the [Fermyon Cloud](/cloud/quickstart)
+- Try deploying your application to run in the [Fermyon Cloud](https://developer.fermyon.com/cloud/quickstart)

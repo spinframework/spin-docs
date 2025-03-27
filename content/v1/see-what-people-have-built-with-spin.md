@@ -75,4 +75,4 @@ Check out our [NoOps and Serverless Are the Perfect Pair](https://www.fermyon.co
 - Try [running your application locally](running-apps)
 - Learn about how to [configure your application at runtime](dynamic-configuration)
 - Look up details in the [application manifest reference](manifest-reference)
-- Try deploying a Spin application to the [Fermyon Cloud](/cloud/quickstart)
+- Try deploying a Spin application to the [Fermyon Cloud](https://developer.fermyon.com/cloud/quickstart)

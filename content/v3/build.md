@@ -206,4 +206,4 @@ workdir = "deep"
 ## Next Steps
 
 - Try [running your application locally](running-apps)
-- Try deploying a Spin application to the [Fermyon Cloud](/cloud/quickstart)
+- Try deploying a Spin application to the [Fermyon Cloud](https://developer.fermyon.com/cloud/quickstart)
