@@ -518,7 +518,7 @@ We want to get feedback on the ergonomics of the key value API. We are curious a
 
 ## Next Steps
 
-You can read the [improvement proposal for key/value support](https://github.com/spinframework/spin/blob/main/docs/content/sips/010-key-value.md) as well as the implementation for the [current feature](https://github.com/spinframework/spin/pull/1035). Please feel free to ask questions and also share your thoughts in [our Discord community](https://discord.gg/AAFNfS7NGf).
+You can read the [improvement proposal for key/value support](https://github.com/spinframework/spin/blob/main/docs/content/sips/010-key-value.md) as well as the implementation for the [current feature](https://github.com/spinframework/spin/pull/1035). Please feel free to ask questions and also share your thoughts in [Spin's CNCF Slack channel](https://cloud-native.slack.com/archives/C089NJ9G1V0).
 
 <script type="application/ld+json">
 {

@@ -336,7 +336,7 @@ The methods available to that type:
 'rstrip', 'split', 'splitlines', 'startswith', 'strip', 'swapcase', 'title', 'translate', 'upper', 'zfill']
 ```
 
-> **Please note:** All examples from this documentation page can be found in [the Python SDK repository on GitHub](https://github.com/spinframework/spin-python-sdk/tree/main/examples). If you are following along with these examples and don't get the desired result perhaps compare your own code with our previously built examples (mentioned above). Also please feel free to reach out on [Discord](https://discord.gg/AAFNfS7NGf) if you have any questions or need any additional support. 
+> **Please note:** All examples from this documentation page can be found in [the Python SDK repository on GitHub](https://github.com/spinframework/spin-python-sdk/tree/main/examples). If you are following along with these examples and don't get the desired result perhaps compare your own code with our previously built examples (mentioned above). Also please feel free to reach out on [Spin's CNCF Slack channel](https://cloud-native.slack.com/archives/C089NJ9G1V0) if you have any questions or need any additional support.
 
 ## An Outbound HTTP Example
 

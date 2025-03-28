@@ -524,9 +524,9 @@ function addNoticeAndHideContent() {
     notice.innerHTML = `
         <p>
             For the best user experience deploying Spin applications to Kubernetes, we recommend using 
-            <a href="/k8s" target="_blank">SpinKube and Fermyon Platform for Kubernetes</a>.
+            <a href="/k8s" target="_blank">SpinKube</a>.
             If you are using the legacy experience and would like assistance in migrating, please reach out on 
-            <a href="https://discord.gg/fermyon" target="_blank">Discord</a>. To proceed to the unsupported "Spin in pods" solution, 
+            <a href="https://cloud-native.slack.com/archives/C06PC7JA1EE" target="_blank">the SpinKube CNCF Slack channel</a>. To proceed to the unsupported "Spin in pods" solution,
             <a href="#" id="unhide-link">click here</a>.
         </p>
     `;

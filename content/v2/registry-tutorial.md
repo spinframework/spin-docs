@@ -115,7 +115,7 @@ Congratulations on completing this tutorial! You have now successfully built, pu
 
 ## Next Steps
 
-- If you're interested in shaping how registry support will look in the next version, please share your thoughts in [our Discord community](https://discord.gg/AAFNfS7NGf)
+- If you're interested in shaping how registry support will look in the next version, please share your thoughts in [Spin's CNCF Slack channel](https://cloud-native.slack.com/archives/C089NJ9G1V0)
 
 <script type="application/ld+json">
 {

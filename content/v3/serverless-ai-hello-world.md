@@ -457,5 +457,5 @@ This was just a small example of what Serverless AI Inferencing can do. To check
 - Look at the [Serverless AI API Guide](serverless-ai-api-guide)
 - Try the numerous Serverless AI examples in our GitHub repository called [ai-examples](https://github.com/fermyon/ai-examples).
 - [Contribute](../../hub/contributing) your Serverless AI app to our [Spin Hub](../../hub/index).
-- Ask questions and share your thoughts in [our Discord community](https://discord.gg/AAFNfS7NGf).
+- Ask questions and share your thoughts in [Spin's CNCF Slack channel](https://cloud-native.slack.com/archives/C089NJ9G1V0).
 ---

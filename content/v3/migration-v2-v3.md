@@ -35,4 +35,4 @@ The following change will not affect most application authors, but may affect yo
   initial `wasi:http/outgoing-handler#handle` call. It now occurs when calling `get` on the `future-incoming-response`
   returned from the `handle` call.
 
-If you're affected by these or other changes and you're looking for help, please reach out on the [Fermyon Discord](https://discord.gg/AAFNfS7NGf) for support.
+If you're affected by these or other changes and you're looking for help, please reach out on the [Spin CNCF Slack channel](https://cloud-native.slack.com/archives/C089NJ9G1V0) for support.
