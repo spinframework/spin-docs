@@ -1413,6 +1413,14 @@ html.dark-theme body.documentation #topbar.navbar {
   background: #0e092d !important;
 }
 
+html.dark-theme body.documentation #topbar.navbar .logo-wrap .logo {
+  color: #fff;
+}
+
+html.dark-theme body.documentation #topbar.navbar .logo-wrap:hover .logo {
+  color: #a87ce6;
+}
+
 html.dark-theme body.documentation #topbar.navbar .logo-wrap .logo-developer a {
   color: #c5fff1 !important;
 }
@@ -1452,6 +1460,10 @@ html.dark-theme body.documentation #topbar.navbar .navbar-menu a.navbar-link:hov
 
 html.dark-theme body.documentation #topbar.navbar .navbar-menu a.navbar-link.dark-mode:hover {
   background: none !important;
+}
+
+html.dark-theme body.documentation #topbar.navbar .navbar-menu a.navbar-stack strong {
+  color: #fff;
 }
 
 html.dark-theme body.documentation #topbar.navbar .navbar-menu .button {
@@ -2534,6 +2546,7 @@ html.dark-theme .external {
 }
 
 #topbar.navbar .logo-wrap .logo {
+  padding: .3rem 1.125rem;
   margin-top: -4px !important;
 }
 

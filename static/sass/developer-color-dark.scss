@@ -33,6 +33,13 @@ html.dark-theme {
             background: $oxforddark !important;
 
             .logo-wrap {
+                .logo {
+                    color: white;
+                }
+                &:hover .logo {
+                    color: $lavenderfloral;
+                }
+
                 .logo-developer a {
                     color: $greenfoam !important;
                 }
@@ -83,6 +90,12 @@ html.dark-theme {
                             background: none transparent !important;
                         }
                     } 
+                }
+
+                a.navbar-stack {
+                    strong {
+                        color: white;
+                    }
                 }
 
                 .button {
