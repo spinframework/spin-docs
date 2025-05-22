@@ -1,6 +1,6 @@
 const { el, mount, text, list, setChildren, setStyle, setAttr } = redom;
 
-const projectList = ["Spin", "Cloud", "Bartholomew"];
+const projectList = ["Spin"];
 const versionPattern = /^v\d+$/;
 let idx;
 let documents;
