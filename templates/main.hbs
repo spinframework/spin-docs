@@ -11,12 +11,12 @@
                 <select class="version-dropdown"
                     onchange="this.options[this.selectedIndex].value && (window.location = this.options[this.selectedIndex].value);">
                     <option value="/v3/index">Spin v3.x</option>
-                    <option value="/v2/index" {{#if (active_project request.spin-full-url "/spin/v2/" )}} selected
-                        {{/if}}>Spin v2.x</option>
-                    <option value="/v1/index" {{#if (active_project request.spin-full-url "/spin/v1/" )}} selected
-                        {{/if}}>Spin v1.x</option>
+                    <option value="/v2/index" {{#if (active_project request.spin-full-url "/v2/" )}} selected {{/if}}>
+                        Spin v2.x</option>
+                    <option value="/v1/index" {{#if (active_project request.spin-full-url "/v1/" )}} selected {{/if}}>
+                        Spin v1.x</option>
                 </select>
-                
+
                 {{> sidebar }}
             </aside>
         </div>
