@@ -17,7 +17,15 @@
                         Spin v1.x</option>
                 </select>
 
-                {{> sidebar }}
+                {{#if (active_project request.spin-full-url "/v1/")}}
+                    {{> sidebar_v1 }}
+                {{else}}
+                    {{#if (active_project request.spin-full-url "/v2/")}}
+                        {{> sidebar_v2 }}
+                    {{else}}
+                        {{> sidebar_v3 }}
+                    {{/if}}
+                {{/if}}
             </aside>
         </div>
 
