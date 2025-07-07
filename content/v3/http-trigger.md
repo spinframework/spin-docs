@@ -355,7 +355,7 @@ As well as any headers passed by the client, Spin sets several headers on the re
 | `spin-matched-route`         | The part of the trigger route that was matched by the route (including the wildcard indicator if present) | `/users/:userid/cart/...` |
 | `spin-raw-component-route`   | The component route pattern matched, including the wildcard indicator if present | `/users/:userid/cart/...` |
 | `spin-component-route`       | The component route pattern matched, _excluding_ any wildcard indicator | `/users/:userid/cart` |
-| `spin-client-addr`           | The IP address and port of the client | `127.0.0.1:53152` |
+| `spin-client-addr`           | The IP address and port of the client. Some Spin runtimes do not set this header. | `127.0.0.1:53152` |
 
 ### Inside HTTP Components
 
