@@ -22,11 +22,6 @@ async function setupSearch() {
   const match = window.location.pathname.match(/^\/(v\d+)\//);
   const version = match ? match[1] : "v3";
 
-  const allVersions = new Set();
-  documents.forEach((doc) => {
-    if (doc.url) allVersions.add(doc.url.split("/")[1]);
-  });
-
   documents = documents.filter((doc) =>{
     if (!doc.url) return false;
     const urlVersion = doc.url.split("/")[1];
