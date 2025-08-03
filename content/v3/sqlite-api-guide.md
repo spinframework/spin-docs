@@ -57,7 +57,6 @@ serde_json = "1.0"
 SQLite functions are available in the `spin_sdk::sqlite` module. The function names match the operations above. For example:
 
 ```rust
-use anyhow::Result;
 use serde::Serialize;
 use spin_sdk::{
     http::{Request, Response, IntoResponse},
@@ -108,7 +107,7 @@ struct ToDo {
 }
 ```
 
-**General Notes** 
+**General Notes**
 * All functions are on the `spin_sdk::sqlite::Connection` type.
 * Parameters are instances of the `Value` enum; you must wrap raw values in this type.
 * The `execute` function returns a `QueryResult`. To iterate over the rows use the `rows()` function. This returns an iterator; use `collect()` if you want to load it all into a collection.
@@ -165,7 +164,7 @@ class IncomingHandler(http.IncomingHandler):
         with sqlite.open_default() as db:
             result = db.execute("SELECT * FROM todos WHERE id > (?);", [ValueInteger(1)])
             rows = result.rows
-        
+
         return Response(
             200,
             {"content-type": "text/plain"},
