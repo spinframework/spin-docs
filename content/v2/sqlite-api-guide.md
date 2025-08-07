@@ -174,7 +174,7 @@ class IncomingHandler(http.IncomingHandler):
 
 {{ startTab "TinyGo"}}
 
-> [**Want to go straight to the reference documentation?**  Find it here.](https://pkg.go.dev/github.com/fermyon/spin/sdk/go/v2@v2.0.0/sqlite)
+> [**Want to go straight to the reference documentation?**  Find it here.](https://pkg.go.dev/github.com/spinframework/spin-go-sdk/v2@v2.2.1/sqlite)
 
 The Go SDK is implemented as a driver for the standard library's [database/sql](https://pkg.go.dev/database/sql) interface.
 
@@ -185,8 +185,8 @@ import (
 	"encoding/json"
 	"net/http"
 
-	spinhttp "github.com/fermyon/spin/sdk/go/v2/http"
-	"github.com/fermyon/spin/sdk/go/v2/sqlite"
+	spinhttp "github.com/spinframework/spin-go-sdk/v2/http"
+	"github.com/spinframework/spin-go-sdk/v2/sqlite"
 )
 
 type Todo struct {

@@ -305,7 +305,7 @@ class IncomingHandler(http.IncomingHandler):
 
 {{ startTab "TinyGo"}}
 
-> [**Want to go straight to the reference documentation?**  Find it here.](https://pkg.go.dev/github.com/fermyon/spin/sdk/go/v2@v2.0.0/http)
+> [**Want to go straight to the reference documentation?**  Find it here.](https://pkg.go.dev/github.com/spinframework/spin-go-sdk/v2@v2.2.1/http)
 
 In Go, you register the handler as a callback in your program's `init` function.  Call `spinhttp.Handle`, passing your handler as the sole argument.  Your handler takes a `http.Request` record, from the standard `net/http` package, and a `ResponseWriter` to construct the response.
 
@@ -318,7 +318,7 @@ import (
         "fmt"
         "net/http"
 
-        spinhttp "github.com/fermyon/spin/sdk/go/v2/http"
+        spinhttp "github.com/spinframework/spin-go-sdk/v2/http"
 )
 
 func init() {

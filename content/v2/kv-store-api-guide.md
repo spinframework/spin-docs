@@ -148,12 +148,12 @@ class IncomingHandler(http.IncomingHandler):
 
 {{ startTab "TinyGo"}}
 
-> [**Want to go straight to the Spin SDK reference documentation?**  Find it here.](https://pkg.go.dev/github.com/fermyon/spin/sdk/go/v2@v2.0.0/kv)
+> [**Want to go straight to the Spin SDK reference documentation?**  Find it here.](https://pkg.go.dev/github.com/spinframework/spin-go-sdk/v2@v2.2.1/kv)
 
-Key value functions are provided by the `github.com/fermyon/spin/sdk/go/v2/kv` module. [See Go Packages for reference documentation.](https://pkg.go.dev/github.com/fermyon/spin/sdk/go/v2/kv) For example:
+Key value functions are provided by the `github.com/spinframework/spin-go-sdk/v2/kv` module. [See Go Packages for reference documentation.](https://pkg.go.dev/github.com/spinframework/spin-go-sdk/v2/kv) For example:
 
 ```go
-import "github.com/fermyon/spin/sdk/go/v2/kv"
+import "github.com/spinframework/spin-go-sdk/v2/kv"
 
 func example() error {
     store, err := kv.OpenStore("default")

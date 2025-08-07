@@ -664,9 +664,9 @@ import (
 	"net/http"
 	"strings"
 
-	spinhttp "github.com/fermyon/spin/sdk/go/v2/http"
-	"github.com/fermyon/spin/sdk/go/v2/kv"
-	"github.com/fermyon/spin/sdk/go/v2/llm"
+	spinhttp "github.com/spinframework/spin-go-sdk/v2/http"
+	"github.com/spinframework/spin-go-sdk/v2/kv"
+	"github.com/spinframework/spin-go-sdk/v2/llm"
 )
 
 type sentimentAnalysisRequest struct {
