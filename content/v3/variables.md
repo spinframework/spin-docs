@@ -201,9 +201,9 @@ class IncomingHandler(IncomingHandler):
 
 {{ startTab "TinyGo"}}
 
-> [**Want to go straight to the reference documentation?**  Find it here.](https://pkg.go.dev/github.com/fermyon/spin/sdk/go/v2@v2.0.0/variables)
+> [**Want to go straight to the reference documentation?**  Find it here.](https://pkg.go.dev/github.com/spinframework/spin-go-sdk/v2@v2.2.1/variables)
 
-The function is available in the `github.com/fermyon/spin/sdk/go/v2/variables` package and is named `Get`. See [Go package](https://pkg.go.dev/github.com/fermyon/spin/sdk/go/v2/variables) for reference documentation.
+The function is available in the `github.com/spinframework/spin-go-sdk/v2/variables` package and is named `Get`. See [Go package](https://pkg.go.dev/github.com/spinframework/spin-go-sdk/v2/variables) for reference documentation.
 
 ```go
 import (
@@ -211,8 +211,8 @@ import (
 	"fmt"
 	"net/http"
 
-	spinhttp "github.com/fermyon/spin/sdk/go/v2/http"
-	"github.com/fermyon/spin/sdk/go/v2/variables"
+	spinhttp "github.com/spinframework/spin-go-sdk/v2/http"
+	"github.com/spinframework/spin-go-sdk/v2/variables"
 )
 
 func init() {
