@@ -61,6 +61,17 @@ $ export SPIN_VARIABLE_API_KEY="1234"  # Sets the `api_key` value.
 $ spin up
 ```
 
+If the current directory contains a file named `.env`, then the provider will look there for environment variables not present in the actual environment.  Entries in `.env` must follow the same `SPIN_VARIABLE_...` naming convention as 'real' environment variables, and have the same `key=value` format as setting a variable on the command line. For example:
+
+```
+# The .env file can contain comments
+SPIN_VARIABLE_API_KEY="1234"
+```
+
+> The `.env` file must be in the _current_ directory (not necessarily the directory containing the application manifest).
+
+Entries in the `.env` file are _lower_ priority than actual environment variables.
+
 ### Vault Application Variable Provider
 
 The Vault application variable provider gets secret values from [HashiCorp Vault](https://www.vaultproject.io/).
