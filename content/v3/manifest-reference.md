@@ -106,12 +106,13 @@ The keys of the `variables` table are user-defined.  The value of each key is an
 >
 > ```toml
 > [variables]
-> vessel = { default = "teapot" }
+> vessel = { description = "I'm a little teapot!", default = "teapot" }
 > token = { required = true, secret = true }
 > ```
 
 | Name                    | Required?  | Type        | Value    | Example   |
 |-------------------------|------------|-------------|----------|-----------|
+| `description`           | Optional   | String      | A brief description of the variable | `This a variable!` |
 | `default`               | Optional   | String      | The value of the variable if no value is supplied at runtime. If specified, the value must be a string. If not specified, `required` must be `true`. | `"teapot"` |
 | `required`              | Optional   | Boolean     | Whether a value must be supplied at runtime. If not specified, `required` defaults to `false`, and `default` must be provided | `false` |
 | `secret`                | Optional   | Boolean     | If set, this variable should be treated as sensitive. | `false` |
