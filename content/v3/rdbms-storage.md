@@ -7,6 +7,8 @@ url = "https://github.com/spinframework/spin-docs/blob/main/content/v3/rdbms-sto
 
 ---
 - [Using MySQL and PostgreSQL From Applications](#using-mysql-and-postgresql-from-applications)
+- [Application Development Considerations](#application-development-considerations)
+	- [PostgreSQL Range Queries](#postgresql-range-queries)
 - [Granting Network Permissions to Components](#granting-network-permissions-to-components)
 	- [Configuration-Based Permissions](#configuration-based-permissions)
 
@@ -37,7 +39,11 @@ The exact detail of calling these operations from your application depends on yo
 
 > [**Want to go straight to the reference documentation?**  Find it here.](https://docs.rs/spin-sdk/latest/spin_sdk/index.html)
 
-MySQL functions are available in the `spin_sdk::mysql` module, and PostgreSQL functions in the `spin_sdk::pg` module. The function names match the operations above. This example shows MySQL:
+MySQL functions are available in the `spin_sdk::mysql` module, and PostgreSQL functions in the `spin_sdk::pg4` module.
+
+> If you want to be compatible with Spin 3.3 or earlier, or with downstream hosts that have not yet rolled out Spin 3.4 support, you should use the `spin_sdk::pg3` module for PostgreSQL. The module interfaces are identical, but `pg3` does not support all the data types in `pg4`.
+
+The function names match the operations above. This example shows MySQL:
 
 ```rust
 // For PostgreSQL, use `spin_sdk::pg` or `spin_sdk::pg3`
@@ -206,6 +212,22 @@ func init() {
 {{ blockEnd }}
 
 {{ blockEnd }}
+
+## Application Development Considerations
+
+This section contains notes and gotchas for developers using Spin's relational database APIs.
+
+### PostgreSQL Range Queries
+
+The PostgreSQL "range contains" operator, `<@`, is overloaded for "contains value" and "contains another range." This ambiguity can result in "wrong type" errors when executing "range contains" queries where the left hand side is parameterised.
+
+To avoid this, use a type annotation on the parameter placeholder, e.g.:
+
+```
+SELECT name FROM cats WHERE $1::int4 <@ reign
+```
+
+The ambiguity is tracked at https://github.com/sfackler/rust-postgres/issues/1258.
 
 ## Granting Network Permissions to Components
 
