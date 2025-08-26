@@ -183,15 +183,15 @@ class IncomingHandler(http.IncomingHandler):
 - The model name is passed in as a string (as shown above; `"llama2-chat"`).
 [`infer_with_options` operation](https://spinframework.github.io/spin-python-sdk/v3/llm.html#spin_sdk.llm.infer_with_options):
 
-- It takes in a model name, prompt text, and optionally a [parameter object](https://spinframework.github.io/spin-python-sdk/v3/llm.html#spin_sdk.llm.InferencingParams) to control the inferencing. 
+- It takes in a model name, prompt text, and optionally a [parameter object](https://spinframework.github.io/spin-python-sdk/v3/llm.html#spin_sdk.llm.InferencingParams) to control the inferencing.
 
 {{ blockEnd }}
 
 {{ startTab "TinyGo"}}
 
-> [**Want to go straight to the reference documentation?**  Find it here.](https://pkg.go.dev/github.com/fermyon/spin/sdk/go/v2@v2.0.0/llm)
+> [**Want to go straight to the reference documentation?**  Find it here.](https://pkg.go.dev/github.com/spinframework/spin-go-sdk/v2@v2.2.1/llm)
 
-Serverless AI functions are available in the `github.com/fermyon/spin/sdk/go/v2/llm` package. See [Go Packages](https://pkg.go.dev/github.com/fermyon/spin/sdk/go/v2/llm) for reference documentation. For example:
+Serverless AI functions are available in the `github.com/spinframework/spin-go-sdk/v2/llm` package. See [Go Packages](https://pkg.go.dev/github.com/spinframework/spin-go-sdk/v2/llm) for reference documentation. For example:
 
 ```go
 package main
@@ -200,8 +200,8 @@ import (
 	"fmt"
 	"net/http"
 
-	spinhttp "github.com/fermyon/spin/sdk/go/v2/http"
-	"github.com/fermyon/spin/sdk/go/v2/llm"
+	spinhttp "github.com/spinframework/spin-go-sdk/v2/http"
+	"github.com/spinframework/spin-go-sdk/v2/llm"
 )
 
 func init() {

@@ -330,8 +330,8 @@ import (
 	"net/http"
 	"fmt"
 
-	spin_http "github.com/fermyon/spin/sdk/go/v2/http"
-	"github.com/fermyon/spin/sdk/go/v2/kv"
+	spin_http "github.com/spinframework/spin-go-sdk/v2/http"
+	"github.com/spinframework/spin-go-sdk/v2/kv"
 )
 
 func init() {
