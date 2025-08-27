@@ -37,6 +37,8 @@ The set of operations is common across all SDKs:
 |------------|------------|---------|----------|
 | `open`  | name | connection  | Open the database with the specified name. If `name` is the string "default", the default database is opened, provided that the component that was granted access in the component manifest from `spin.toml`. Otherwise, `name` must refer to a store defined and configured in a [runtime configuration file](./dynamic-configuration.md#sqlite-storage-runtime-configuration) supplied with the application.|
 | `execute` | connection, sql, parameters | database records | Executes the SQL statement and returns the results of the statement. SELECT statements typically return records or scalars. INSERT, UPDATE, and DELETE statements typically return empty result sets, but may return values in some cases. The `execute` operation recognizes the [SQLite dialect of SQL](https://www.sqlite.org/lang.html). |
+| `last-insert-rowid` | connection | integer | The SQLite rowid of the recent successful INSERT on the connection, or 0 if there has not yet been an INSERT on the connection. |
+| `changes` | connection | integer | The number of rows modified, inserted or deleted by the most recently completed INSERT, UPDATE or DELETE statement on the connection. |
 
 The exact detail of calling these operations from your application depends on your language:
 
@@ -52,9 +54,13 @@ serde = {version = "1.0", features = ["derive"]}
 serde_json = "1.0"
 ```
 
-> [**Want to go straight to the reference documentation?**  Find it here.](https://docs.rs/spin-sdk/latest/spin_sdk/sqlite/index.html)
+> [**Want to go straight to the reference documentation?**  Find it here.](https://docs.rs/spin-sdk/latest/spin_sdk/sqlite3/index.html)
 
-SQLite functions are available in the `spin_sdk::sqlite` module. The function names match the operations above. For example:
+SQLite functions are available in the `spin_sdk::sqlite3` module
+
+> If you want to be compatible with Spin 3.1 or earlier, or with downstream hosts that have not yet rolled out Spin 3.2 support, you should use the `spin_sdk::sqlite` module for PostgreSQL. The only difference is that `sqlite` doesn't provide the `Connection::last_insert_rowid` and `Connection::changes` functions.
+
+The function names match the operations above. For example:
 
 ```rust
 use anyhow::Result;
