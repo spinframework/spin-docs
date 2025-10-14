@@ -1,0 +1,4 @@
+{
+    "ociRegistry": "ghcr.io",
+    "ociNamespacePrefix": "spinframework/wasm-pkg/"
+}

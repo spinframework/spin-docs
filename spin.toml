@@ -49,6 +49,15 @@ id = "trigger-bartholomew-spin-v3"
 component = "bartholomew-spin-v3"
 route = "/spin/v3/..."
 
+[[trigger.http]]
+id = "trigger-well-known"
+component = "well-known"
+route = "/.well-known/..."
+
+[component.well-known]
+source = "modules/spin_static_fs.wasm"
+files = [{ source = "well-known/", destination = "/" }]
+
 [component.bartholomew]
 # Using build from bartholomew main
 source = "modules/bartholomew.wasm"
