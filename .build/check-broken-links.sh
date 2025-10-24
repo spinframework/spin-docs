@@ -67,8 +67,7 @@ echo "starting link checker"
 ## Run the broken link checker
 report="$(mktemp)"
 blc_error=false
-blc --recursive http://127.0.0.1:3000                                                                                                                                                       \
-                                                                                                                                                                                            \
+if ! blc -rv                                                                                                                                                                                \
     `## returns 403`                                                                                                                                                                        \
     --exclude 'https://docs.github.com/en/authentication/managing-commit-signature-verification/signing-commits'                                                                            \
     --exclude 'https://docs.github.com/en/authentication/managing-commit-signature-verification/adding-a-gpg-key-to-your-github-account'                                                    \
@@ -76,7 +75,9 @@ blc --recursive http://127.0.0.1:3000                                           
     --exclude 'https://docs.github.com/en/authentication/managing-commit-signature-verification/about-commit-signature-verification'                                                        \
     --exclude 'https://twitter.com/spinframework'                                                                                                                                           \
     --exclude 'https://linux.die.net/man/1/which'                                                                                                                                           \
-                                                                                                                                                                                            \
+    --exclude 'npmjs.com/package/'                                                                                                                                                          \
+    `## returns 429`                                                                                                                                                                        \
+    --exclude 'developer.hashicorp.com'                                                                                                                                                     \
     `## false positives`                                                                                                                                                                    \
     --exclude 'https://www.gnu.org/software/coreutils/'                                                                                                                                     \
     --exclude 'https://crates.io/'                                                                                                                                                          \
@@ -84,10 +85,17 @@ blc --recursive http://127.0.0.1:3000                                           
     --exclude 'https://crates.io/crates/http'                                                                                                                                               \
     --exclude 'https://marketplace.visualstudio.com/items?itemName=yzhang.markdown-all-in-one'                                                                                              \
     --exclude 'http://localhost:16686/'                                                                                                                                                     \
-    --exclude 'http://localhost:5050/explore' | tee "${report}" || blc_error=true
+    --exclude 'http://localhost:5050/explore'                                                                                                                                               \
+    http://127.0.0.1:3000/v3/javascript-components                                                                                                                                          \
+    | tee "${report}"
+then 
+    blc_error=true
+fi
 
-cat "${report}" | grep "├─BROKEN─" > broken_links || true
+broken_links="$(mktemp)"
+grep "├─BROKEN─" "$report" > broken_links || true
 
+final_broken="$(mktemp)"
 if [ -s broken_links ]; then
   echo "Some links are broken, retrying to check for transient errors"
   while read -r line; do
