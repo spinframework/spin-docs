@@ -23,6 +23,8 @@ url = "https://github.com/spinframework/spin-docs/blob/main/content/v3/dynamic-c
   - [LibSQL Storage Provider](#libsql-storage-provider)
 - [LLM Runtime Configuration](#llm-runtime-configuration)
   - [Remote Compute Provider](#remote-compute-provider)
+    - [`default` API](#default-api)
+    - [`open_ai` API](#open_ai-api)
 
 You can change the configuration for Spin application features such as [application variables](./variables),
 [key value storage](./kv-store-api-guide), [SQL storage](./sqlite-api-guide)
@@ -389,10 +391,19 @@ The following is an example of how an application's `runtime-config.toml` file c
 type = "remote_http"
 url = "http://example.com"
 auth_token = "<auth_token>"
+api_type = "default"
 ```
 
-Currently, the remote compute option requires an user to deploy their own LLM proxy service. You can find a reference implementation of a proxy service in the [`spin-cloud-gpu plugin repository`](https://github.com/fermyon/spin-cloud-gpu/blob/main/fermyon-cloud-gpu/src/index.ts).
+By default, components will not have access to the LLM models unless granted explicit access through the `component.ai_models` entry in the component manifest within `spin.toml`. See [Serverless AI](./serverless-ai-api-guide) for more details.
+
+Remote compute supports two APIs, selected using the `api_type` field.
+
+#### `default` API
+
+If the `api_type` is `default`, Spin uses its own "Cloud GPU" API. This requires you to deploy your own LLM proxy service. You can find a reference implementation of a proxy service in the [`spin-cloud-gpu plugin repository`](https://github.com/fermyon/spin-cloud-gpu/blob/main/fermyon-cloud-gpu/src/index.ts).
 
 > If you have a Fermyon Cloud account, you can deploy a proxy service there using the [`cloud-gpu` plugin](https://github.com/fermyon/spin-cloud-gpu).   
 
-By default, components will not have access to the LLM models unless granted explicit access through the `component.ai_models` entry in the component manifest within `spin.toml`. See [Serverless AI](./serverless-ai-api-guide) for more details.
+#### `open_ai` API
+
+If the `api_type` is `open_ai`, Spin uses the [OpenAI API](https://github.com/openai/openai-openapi). This API is offered by some commercial LLM providers.

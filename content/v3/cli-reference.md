@@ -49,9 +49,9 @@ The Spin CLI
 
 * `add` — Scaffold a new component into an existing application
 * `build` — Build the Spin application
-* `deploy` — Package and upload an application to the Fermyon Cloud.
+* `deploy` — Package and upload an application to a deployment environment.
 * `doctor` — Detect and fix problems with Spin applications
-* `login` — Log into the Fermyon Cloud.
+* `login` — Log into a deployment environment.
 * `new` — Scaffold a new application based on a template
 * `plugins` — Install/uninstall Spin plugins
 * `registry` — Commands for working with OCI registries to distribute applications
@@ -100,7 +100,7 @@ Scaffold a new component into an existing application
 Build the Spin application
 
 **Usage:** `spin USAGE:
-    build [OPTIONS] [--] [UP_ARGS]...`
+    build [OPTIONS] [UP_ARGS]...`
 
 ###### **Arguments:**
 
@@ -111,6 +111,7 @@ Build the Spin application
 * `-c`, `--component-id <COMPONENT_ID>` — Component ID to build. This can be specified multiple times. The default is all components
 * `-f`, `--from <APP_MANIFEST_FILE>` — The application to build. This may be a manifest (spin.toml) file, or a directory containing a spin.toml file. If omitted, it defaults to "spin.toml"
 * `--help <HELP>` — Print help information
+* `--skip-target-checks <SKIP-TARGET-CHECKS>` — By default, if the application manifest specifies one or more deployment targets, Spin checks that all components are compatible with those deployment targets. Specify this option to bypass those target checks
 * `-u`, `--up <UP>` — Run the application after building
 * `--version <VERSION>` — Print version information
 
@@ -118,7 +119,7 @@ Build the Spin application
 
 ## `spin deploy`
 
-Package and upload an application to the Fermyon Cloud.
+Package and upload an application to a deployment environment.
 
 **Usage:** `spin USAGE:
     deploy`
@@ -151,7 +152,7 @@ Detect and fix problems with Spin applications
 
 ## `spin login`
 
-Log into the Fermyon Cloud.
+Log into a deployment environment.
 
 **Usage:** `spin USAGE:
     login`
@@ -259,9 +260,6 @@ List available or installed plugins
 * `--format <FORMAT>` — The format in which to list the templates
 
   Default value: `plain`
-
-  Possible values: `plain`, `json`
-
 * `--help <HELP>` — Print help information
 * `--installed <INSTALLED>` — List only installed plugins
 * `--summary <SUMMARY>` — List latest and installed versions of plugins
@@ -285,9 +283,6 @@ Search for plugins by name
 * `--format <FORMAT>` — The format in which to list the plugins
 
   Default value: `plain`
-
-  Possible values: `plain`, `json`
-
 * `--help <HELP>` — Print help information
 * `--version <VERSION>` — Print version information
 
@@ -444,7 +439,7 @@ Push a Spin application to a registry
 ###### **Options:**
 
 * `--annotation <ANNOTATIONS>` — Specifies the OCI image manifest annotations (in key=value format). Any existing value will be overwritten. Can be used multiple times
-* `--build <BUILD>` — Specifies to perform `spin build` before pushing the application
+* `--build <BUILD>` — Specifies to perform `spin build` (with the default options) before pushing the application
 * `--cache-dir <CACHE_DIR>` — Cache directory for downloaded registry data
 * `--compose <COMPOSE>` — Compose component dependencies before pushing the application.
 
@@ -566,7 +561,7 @@ Start the Spin application
 
 ###### **Options:**
 
-* `--build <BUILD>` — For local apps, specifies to perform `spin build` before running the application.
+* `--build <BUILD>` — For local apps, specifies to perform `spin build` (with the default options) before running the application.
 
    This is ignored on remote applications, as they are already built.
 * `-c`, `--component-id <COMPONENTS>` — [Experimental] Component ID to run. This can be specified multiple times. The default is all components
@@ -614,4 +609,3 @@ Build and run the Spin application, rebuilding and restarting it when files chan
     This document was generated automatically by
     <a href="https://crates.io/crates/clap-markdown"><code>clap-markdown</code></a>.
 </i></small>
-
