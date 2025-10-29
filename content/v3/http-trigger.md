@@ -16,6 +16,7 @@ url = "https://github.com/spinframework/spin-docs/blob/main/content/v3/http-trig
   - [Getting Request and Response Information](#getting-request-and-response-information)
   - [Additional Request Information](#additional-request-information)
   - [Inside HTTP Components](#inside-http-components)
+- [Static Responses with the HTML Trigger](#static-responses-with-the-html-trigger)
 - [HTTP With Wagi (WebAssembly Gateway Interface)](#http-with-wagi-webassembly-gateway-interface)
   - [Wagi Component Requirements](#wagi-component-requirements)
   - [Request Handling in Wagi](#request-handling-in-wagi)
@@ -392,6 +393,24 @@ But if you wish, and if your language supports it, you can implement the `incomi
 [Bytecode Alliance `wit-bindgen` project](https://github.com/bytecodealliance/wit-bindgen). Spin will happily load and run such a component. This is exactly how Spin SDKs, such as the [Rust](rust-components) SDK, are built; as component authoring tools roll out for Go, JavaScript, Python, and other languages, you'll be able to use those tools to build `wasi-http` handlers and therefore Spin HTTP components.
 
 > The WASI family of specifications, and tool support for some component model features that WASI depends on, are not yet fully stabilized. If you implement `wasi-http` directly, you may need to do some trialing to find tool versions which work together and with Spin.
+
+## Static Responses with the HTML Trigger
+
+You can write short, static responses within the HTTP trigger by setting `static_response` (instead of `component`):
+
+```toml
+# Example use case: fallback 404 handling
+[[trigger.http]]
+route = "/..."
+static_response = { status_code = 404, body = "not found" }
+
+# Example use case: redirect
+[[trigger.http]]
+route = "/bob"
+static_response = { status_code = 302, headers = { location = "/users/bob" } }
+```
+
+Static responses may have only text or empty bodies.
 
 ## HTTP With Wagi (WebAssembly Gateway Interface)
 

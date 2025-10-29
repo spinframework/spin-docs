@@ -27,6 +27,7 @@ url = "https://github.com/spinframework/spin-docs/blob/main/content/v3/writing-a
   - [Specifying Dependencies](#specifying-dependencies)
     - [Dependencies from a Registry](#dependencies-from-a-registry)
     - [Dependencies from a Local Component](#dependencies-from-a-local-component)
+    - [Dependencies from a Component in the Application](#dependencies-from-a-component-in-the-application)
     - [Dependencies from a URL](#dependencies-from-a-url)
   - [Mapping All Imports from a Package](#mapping-all-imports-from-a-package)
   - [Dependency Permissions](#dependency-permissions)
@@ -454,7 +455,7 @@ During loading, Spin will download the package from the registry, locate its `se
 
 ### Specifying Dependencies
 
-Spin supports three sources for dependencies.
+Spin supports four sources for dependencies.
 
 #### Dependencies from a Registry
 
@@ -482,6 +483,17 @@ To use a dependency from a component on your file system, specify the following 
 |------------|-------------|----------------------------------------------------------------------------------------------|---------|
 | `path`     | Required    | The path to the Wasm file containing the component.                                          | `"../validation/request-checker.wasm"` |
 | `export`   | Optional    | The name of the export in the package. If omitted, this defaults to the name of the import.  | `"more-secure:checking-it-out/web"` |
+
+#### Dependencies from a Component in the Application
+
+You can use a component in your application as a dependency by specifying the following fields:
+
+| Field      | Required?   | Description                                                                                  | Example |
+|------------|-------------|----------------------------------------------------------------------------------------------|---------|
+| `component` | Required   | The name (ID) of the component.                                                              | `"request-checker"` |
+| `export`   | Optional    | The name of the export in the package. If omitted, this defaults to the name of the import.  | `"more-secure:checking-it-out/web"` |
+
+Components referenced as dependencies may not have any Spin runtime configuration, such as `files`, `allowed_outbound_hosts`, `variables`, etc., because these are determined by the 'main' component. They may have `build` sections.
 
 #### Dependencies from a URL
 
