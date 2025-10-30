@@ -30,6 +30,11 @@ component = "hub-fileserver-static"
 route = "/hub/..."
 
 [[trigger.http]]
+id = "trigger-redirect-blog-index"
+component = "redirect-blog-index"
+route = "/blog"
+
+[[trigger.http]]
 id = "trigger-spin-version-proxy"
 component = "spin-version-proxy"
 route = "/:page"
@@ -133,3 +138,8 @@ route = "/kubernetes"
 [component.redirect-kubernetes]
 source = "modules/redirect.wasm"
 environment = { DESTINATION = "/deploying", STATUSCODE = "301" }
+
+# Redirect /blog to /blog/index
+[component.redirect-blog-index]
+source = "modules/redirect.wasm"
+environment = { DESTINATION = "/blog/index" }
