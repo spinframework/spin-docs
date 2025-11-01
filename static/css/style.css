@@ -4580,17 +4580,16 @@ html.dark-theme .changelog-item-tags span {
 }
 /* Blog post styles - Medium-inspired typography */
 article.page.content {
-  max-width: 860px;
+  max-width: 740px;
   margin: 0 auto;
-  padding: 4rem 1.5rem;
+  padding: 2rem 1.5rem;
   font-size: 18px;
-  line-height: 1.636;
+  line-height: 1.58;
   letter-spacing: -0.003em;
 }
 article.page.content h1 {
-  font-size: 3.25rem;
+  font-size: 2.5rem;
   line-height: 1.25;
-  margin-top: 2rem;
   margin-bottom: 1.5rem;
   letter-spacing: -0.015em;
 }
@@ -4657,4 +4656,4 @@ article.page.content pre code {
   }
 }
 
-/*# sourceMappingURL=styles.css.map */
+/*# sourceMappingURL=style.css.map */
