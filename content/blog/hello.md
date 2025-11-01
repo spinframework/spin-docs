@@ -1,7 +1,6 @@
 title = "HELLO WORLD"
-date = "2025-10-30T15:20:11.486765Z"
+date = "2025-10-30T12:00:00Z"
 template = "blog"
-tags = []
 
 [extra]
 author = "Michelle Dhanani"

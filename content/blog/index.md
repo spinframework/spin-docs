@@ -1,6 +1,10 @@
-title = "blog"
-template = "blog"
-date = "2025-10-29T00:22:56Z"
-content_type = "application/json"
+title = "Spin | Community Blog"
+template = "main"
+date = "2022-04-01T00:00:00Z"
+
+[extra]
+author = "Spin Community"
+type = "index"
+category = "index" 
 
 ---
