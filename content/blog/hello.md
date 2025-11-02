@@ -1,6 +1,7 @@
 title = "Hello World"
 date = "2025-10-30T12:00:00Z"
-template = "blog"
+template = "blog_post"
+description = "This is a hello world blog post with example contents and formatting references."
 
 [extra]
 author = "Michelle Dhanani"

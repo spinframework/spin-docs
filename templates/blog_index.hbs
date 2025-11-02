@@ -1,0 +1,37 @@
+{{> content_top }}
+
+<main class="container is-fullwidth is-widescreen page-wrap">
+    <div class="columns">
+
+        <div class="column">
+            <article class="page content my-8 mx-auto blog blog-post">
+                
+                {{! This calls out to `blogs.rhai` and gives it `site.pages`. }}
+                {{#each (blogs site.pages) }}
+                    {{!-- {{#inArray ../page.tags }} --}}
+                    <section class="mb-6">
+                        <a href="{{this.uri}}">
+                            <h1>{{this.page.head.title}}</h1>
+                            {{! date/time format https://docs.rs/chrono/0.4.0/chrono/format/strftime/index.html }}
+                            <p class="">{{#if this.page.head.date}}{{date_format "%B %d, %Y" this.page.head.date}}{{/if}}</p>
+                        </a>
+                        
+                        {{{this.page.head.description}}}
+                    </section>
+                    {{!-- {{/inArray}} --}}
+                {{/each}}
+                
+                
+                
+            </article>
+
+            {{> content_footer }}
+        </div> <!-- end col -->
+        
+    </div>
+</main>
+
+{{> content_bottom }}
+
+</body>
+</html>

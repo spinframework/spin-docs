@@ -1008,6 +1008,104 @@ html.dark-theme {
 	}
 }
 
+/* Blog listing styles */
+.blog-listing-title {
+	font-size: 2.5rem;
+	margin-bottom: 1rem;
+}
+
+.blog-posts-list {
+	max-width: 800px;
+	margin: 3rem 0;
+}
+
+.blog-post-preview {
+	margin-bottom: 3rem;
+	padding-bottom: 2rem;
+	border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+
+	&:last-child {
+		border-bottom: none;
+	}
+
+	h2 {
+		font-size: 1.75rem;
+		margin-bottom: 0.5rem;
+		line-height: 1.3;
+
+		a {
+			color: $oxfordblue;
+			text-decoration: none;
+
+			&:hover {
+				color: $lavenderfloral;
+			}
+		}
+	}
+
+	.blog-post-meta {
+		font-size: 0.9rem;
+		color: #666;
+		margin-bottom: 1rem;
+
+		time {
+			font-weight: 500;
+		}
+
+		.blog-post-author {
+			color: #888;
+		}
+	}
+
+	.blog-post-description {
+		font-size: 1.125rem;
+		line-height: 1.6;
+		color: #333;
+		margin-bottom: 1rem;
+	}
+
+	.blog-post-read-more {
+		margin-top: 0.5rem;
+
+		a {
+			color: $lavenderfloral;
+			font-weight: 600;
+			text-decoration: none;
+
+			&:hover {
+				color: darken($lavenderfloral, 10%);
+			}
+		}
+	}
+}
+
+/* Dark theme for blog listing */
+html.dark-theme {
+	.blog-post-preview {
+		border-bottom-color: rgba(255, 255, 255, 0.1);
+
+		h2 a {
+			color: $lightlavender;
+
+			&:hover {
+				color: $lavenderfloral;
+			}
+		}
+
+		.blog-post-meta {
+			color: #bbb;
+
+			.blog-post-author {
+				color: #999;
+			}
+		}
+
+		.blog-post-description {
+			color: $lightlavender;
+		}
+	}
+}
+
 /* Blog post styles - Medium-inspired typography */
 article.page.content {
 	max-width: 860px;

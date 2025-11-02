@@ -1,7 +1,7 @@
 {{! This adds the HTML head section and the beginning of the body. See content_top.hbs. }}
 {{> content_top }}
 
-<div class="container page-wrap">
+<main class="container is-fullwidth is-widescreen page-wrap">
     <div class="columns">
 
         <div class="column">
@@ -12,13 +12,16 @@
                 {{! Remove the `!` on the line below to see how to call a Rhai script }}
                 {{! echo "world" }}
             </article>
+
+            {{> content_footer }}
+
         </div><!-- end col -->
-    
     </div>
-</div>
+</main>
 
 {{! This closes the body. See content_bottom.hbs. }}
 
-{{> content_cta }}
-
 {{> content_bottom }}
+
+</body>
+</html>

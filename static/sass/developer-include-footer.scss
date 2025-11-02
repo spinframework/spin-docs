@@ -6,10 +6,51 @@ footer.footer-links {
     margin: 7.25rem auto 0 !important;
     padding: 1.25rem 0 1.25rem !important;
 
-    a.navbar-item {
-        font-size: 1rem;
-        margin-right: 2.5vw;
-        padding: 0.5rem 0.25rem;
+    .level {
+        align-items: flex-start;
+    }
+
+    .footer-legal {
+        p {
+            font-size: 0.825rem;
+            line-height: 1.5;
+            color: #666;
+            margin: 0;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: underline;
+
+            &:hover {
+                color: $lavenderfloral;
+            }
+        }
+    }
+
+    .footer-social {
+        .button.is-text {
+            text-decoration: none;
+            padding: 0.5rem 0.75rem;
+
+            &:hover {
+                background-color: transparent;
+                color: $lavenderfloral;
+            }
+        }
+    }
+
+    .navbar {
+        background-color: transparent;
+
+        a.navbar-item {
+            font-weight: normal;
+            font-size: 1.125rem;
+            color: $oxforddark;
+            border: none;
+            background-color: transparent;
+            outline: none;
+        }
     }
 
     .footer-logo {
