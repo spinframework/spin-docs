@@ -16,7 +16,7 @@ url = "https://github.com/spinframework/spin-docs/blob/main/content/v3/http-trig
   - [Getting Request and Response Information](#getting-request-and-response-information)
   - [Additional Request Information](#additional-request-information)
   - [Inside HTTP Components](#inside-http-components)
-- [Static Responses with the HTML Trigger](#static-responses-with-the-html-trigger)
+- [Static Responses with the HTTP Trigger](#static-responses-with-the-http-trigger)
 - [HTTP With Wagi (WebAssembly Gateway Interface)](#http-with-wagi-webassembly-gateway-interface)
   - [Wagi Component Requirements](#wagi-component-requirements)
   - [Request Handling in Wagi](#request-handling-in-wagi)
@@ -394,7 +394,7 @@ But if you wish, and if your language supports it, you can implement the `incomi
 
 > The WASI family of specifications, and tool support for some component model features that WASI depends on, are not yet fully stabilized. If you implement `wasi-http` directly, you may need to do some trialing to find tool versions which work together and with Spin.
 
-## Static Responses with the HTML Trigger
+## Static Responses with the HTTP Trigger
 
 You can write short, static responses within the HTTP trigger by setting `static_response` (instead of `component`):
 
