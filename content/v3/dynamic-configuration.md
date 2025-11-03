@@ -25,6 +25,7 @@ url = "https://github.com/spinframework/spin-docs/blob/main/content/v3/dynamic-c
   - [Remote Compute Provider](#remote-compute-provider)
     - [`default` API](#default-api)
     - [`open_ai` API](#open_ai-api)
+- [Outbound HTTP Runtime Configuration](#outbound-http-runtime-configuration)
 
 You can change the configuration for Spin application features such as [application variables](./variables),
 [key value storage](./kv-store-api-guide), [SQL storage](./sqlite-api-guide)
@@ -407,3 +408,18 @@ If the `api_type` is `default`, Spin uses its own "Cloud GPU" API. This requires
 #### `open_ai` API
 
 If the `api_type` is `open_ai`, Spin uses the [OpenAI API](https://github.com/openai/openai-openapi). This API is offered by some commercial LLM providers.
+
+## Outbound HTTP Runtime Configuration
+
+You can control applications' use of outbound HTTP via the runtime configuration file via the `[outbound_http]` section.
+
+* By default, Spin pools outbound HTTP connections to the same destination. You can turn this off by setting `connection_pooling = false`.
+* By default, Spin does not limit the number of concurrent outbound HTTP connections the application may make. You can set a limit by setting `max_concurrent_requests = <value>`.
+
+For example, the following runtime config section prevents connection pooling and limits the application to 10 concurrent requests:
+
+```toml
+[outbound_http]
+connection_pooling = false
+max_concurrent_requests = 10
+```
