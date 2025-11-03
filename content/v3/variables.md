@@ -8,13 +8,15 @@ url = "https://github.com/spinframework/spin-docs/blob/main/content/v3/variables
 ---
 - [Adding Variables to Your Applications](#adding-variables-to-your-applications)
 - [Using Variables From Applications](#using-variables-from-applications)
+- [Providing Variable Values](#providing-variable-values)
+  - [Providing Variable Values from a Secrets Store](#providing-variable-values-from-a-secrets-store)
+  - [Providing Variable Values from the Environment](#providing-variable-values-from-the-environment)
+  - [Providing Variable Values on the Command Line](#providing-variable-values-on-the-command-line)
 - [Troubleshooting](#troubleshooting)
 
 Spin supports dynamic application variables. Instead of being static, their values can be updated without modifying the application, creating a simpler experience for rotating secrets, updating API endpoints, and more. 
 
-These variables are defined in a Spin application manifest (in the `[variables]` section), and their values can be set or overridden at runtime by an [application variables provider](./dynamic-configuration.md#application-variables-runtime-configuration). When running Spin locally, the variables provider can be [Hashicorp Vault](./dynamic-configuration.md#vault-application-variable-provider) for secrets, [Azure Key Vault](https://azure.microsoft.com/en-us/products/key-vault), or host environment variables.
-
-For information about configuring application variables providers, refer to the [runtime configuration documentation](./dynamic-configuration.md#application-variables-runtime-configuration).
+These variables are defined in a Spin application manifest (in the `[variables]` section), and their values can be set or overridden at runtime by an [application variables provider](./dynamic-configuration.md#application-variables-runtime-configuration), or the `--variable` flag to `spin up`. When running Spin locally, the variables provider can be [Hashicorp Vault](./dynamic-configuration.md#vault-application-variable-provider) for secrets, [Azure Key Vault](https://azure.microsoft.com/en-us/products/key-vault), or host environment variables. [See below](#setting-variable-values) for more information.
 
 ## Adding Variables to Your Applications
 
@@ -274,6 +276,47 @@ date: Wed, 31 Jul 2024 22:03:35 GMT
 
 Used an API
 ```
+
+## Providing Variable Values
+
+When you run an application, you must provide values for all required variables, and you may provide values for non-required variables (where you want to override the default). You can do this using a provider such as a secrets store, or you can set variables directly on the `spin up` command line.
+
+### Providing Variable Values from a Secrets Store
+
+You can provide variable values from a secrets store. The Spin CLI supports [Hashicorp Vault](./dynamic-configuration.md#vault-application-variable-provider) and [Azure Key Vault](https://azure.microsoft.com/en-us/products/key-vault). If you want to do this, you must set up the store in the runtime configuration file, and reference that file using `--runtime-config-file` on the command line.
+
+For information about configuring application variables providers, refer to the [runtime configuration documentation](./dynamic-configuration.md#application-variables-runtime-configuration).
+
+### Providing Variable Values from the Environment
+
+You can provide variable values using the operating system environment. For each variable you want to set, you must specify an environment variable named `SPIN_VARIABLE_` followed by a "shouty capitalised" form of the variable name - that is, all uppercase, with underscores for separators. For example, to set the `database_username` variable:
+
+```console
+$ export SPIN_VARIABLE_DATABASE_USERNAME=bob_the_admin
+$ spin up
+```
+
+### Providing Variable Values on the Command Line
+
+You can provide variable values via the `spin up --variable` command line flag. This flag can be repeated, and supports several variants:
+
+* `<key>=<value>`: sets the `<key>` variable to the given value
+* `<key>=@<file>`: sets the `<key>` variable to the contents of the given text file
+* `@<file>.json`: sets multiple variables - each `"<key>": "<value>"` pair in the given JSON file sets the `<key>` variable to the corresponding value
+* `@<file>.toml`: sets multiple variables - each `<key> = "<value>"` pair in the given TOML file sets the `<key>` variable to the corresponding value
+
+For example, suppose `secrets.json` is as follows:
+
+```json
+{
+    "sierra_madre": "no spoilers",
+    "eleven_herbs_and_spices": "you will never learn them from us"
+}
+```
+
+Then `spin up --variable @secrets.json` will set the `sierra_madre` and `eleven_herbs_and_spices` variables.  (Similarly with TOML files.)
+
+For the `@<file>.json` and `@<file>.toml` variants, the file content must be string keys to string values. Numeric or object/table values are not allowed.
 
 ## Troubleshooting
 
