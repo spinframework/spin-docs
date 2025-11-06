@@ -1,0 +1,27 @@
+{{! This adds the HTML head section and the beginning of the body. See content_top.hbs. }}
+{{> content_top }}
+
+<main class="container is-fullwidth is-widescreen page-wrap">
+    <div class="columns">
+
+        <div class="column">
+            <article class="page content my-8 mx-auto">
+                <h1>{{{page.head.title}}}</h1>
+                {{! Since this is HTML, we use the triple-curly }}
+                {{{page.body}}}
+                {{! Remove the `!` on the line below to see how to call a Rhai script }}
+                {{! echo "world" }}
+            </article>
+
+            {{> content_footer }}
+
+        </div><!-- end col -->
+    </div>
+</main>
+
+{{! This closes the body. See content_bottom.hbs. }}
+
+{{> content_bottom }}
+
+</body>
+</html>
