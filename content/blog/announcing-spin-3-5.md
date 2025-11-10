@@ -1,6 +1,7 @@
 title = "Announcing Spin v3.5"
-date = "2025-11-10T01:27:05.449167Z"
+date = "2025-11-10T17:45:05.449167Z"
 template = "blog_post"
+description = "Announcing the release of Spin v3.5: WASIp3 support, developer experience enhancements and more!"
 tags = []
 
 [extra]
@@ -67,11 +68,17 @@ In the meantime, these languages continue to be supported using WASIp2 just as b
 
 Get started with WASIp3 using a Spin template.
 
-Install the new template: 
-`$ spin templates install --upgrade --git https://github.com/spinframework/spin`
+Install the new template:
+
+```console
+$ spin templates install --upgrade --git https://github.com/spinframework/spin
+```
 
 Use the new template to scaffold a WASIp3 Spin application:
-`$ spin new hello-p3 -t http-rust-wasip3-unstable`
+
+```console
+$ spin new hello-p3 -t http-rust-wasip3-unstable
+```
 
 You should now see a `hello-p3` directory containing a basic p3 application using the new Rust SDK and the `wasip3-unstable` executor type.
 
