@@ -370,7 +370,13 @@ $ spin up -f mygithub:basic-utils@0.1.0.wasm
 Serving http://127.0.0.1:3000
 ```
 
-We can publish any individual component, or any sequence of composed MCP feature components and middleware, as a standalone artifact in the same way. This enables dynamic and flexible composition of reusable components across servers in a kind of recursive drag-and-drop way, supporting composition and distribution of pre-built patterns which are themselves further composable. See `wasmcp compose --help` for more details on creating standalone feature compositions.
+We can publish any individual component, or any sequence of composed MCP feature components and middleware, as a standalone artifact in the same way. This enables dynamic and flexible composition of reusable components across servers in a kind of recursive drag-and-drop way, supporting composition and distribution of pre-built patterns which are themselves further composable. See `wasmcp compose --help` for details.
+
+## Related projects
+
+Microsoft's [Wassette](https://github.com/microsoft/wassette) is a security-oriented runtime that runs WebAssembly Components via MCP.
+
+While Wassette is a custom MCP-specific runtime that can dynamically load and execute components as individual tools on demand with deeply integrated access control, Wasmcp is a toolchain for producing an MCP server as a component that is compatible across Wasm runtimes.
 
 ## An Open Foundation for AI Agents
 
