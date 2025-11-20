@@ -81,7 +81,7 @@ Many projects and platforms, from new startups to established enterprises, are t
 
 ## WebAssembly Components and Wasmcp
 
-While WebAssembly (Wasm) is commonly thought of as a browser technology, it has evolved into a versatile platform for building portable, secure, and efficient applications more generally. Wasm components are composable, self-contained binaries that can be compiled from various programming languages and run efficiently across a range of host devices while remaining sandboxed from host resources.
+While WebAssembly (Wasm) is commonly thought of as a browser technology, it has evolved into a versatile platform for building applications more generally. Wasm components are composable, self-contained binaries that can be compiled from various programming languages and run portably and efficiently across a range of host devices while remaining sandboxed from host resources.
 
 The architectural goals of Wasm's [component model](https://component-model.bytecodealliance.org/) align clearly with MCP’s [server design principles](https://modelcontextprotocol.io/specification/2025-06-18/architecture#design-principles). MCP servers are intended to be progressively composed of features, which we can directly map to individual Wasm component binaries. We could author a few components covering various MCP tools, and some anothers for MCP resources, then compose them together as binaries into a complete MCP server component.
 
