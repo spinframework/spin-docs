@@ -79,7 +79,7 @@ Local MCP servers are relatively simple to implement over the stdio transport. O
 
 Many projects and platforms, from new startups to established enterprises, are taking a crack at solutions to each of these problems. These implementations are often piecemeal and built on proprietary stacks. But there is a unique intersection of emerging technologies that stands to provide a more holistic, portable, and open foundation.
 
-## WebAssembly Components and Wasmcp
+## WebAssembly Components
 
 While WebAssembly (Wasm) is commonly thought of as a browser technology, it has evolved into a versatile platform for building applications more generally. Wasm components are composable, self-contained binaries that can be compiled from various programming languages and run portably and efficiently across a range of host devices while remaining sandboxed from host resources.
 
@@ -98,6 +98,8 @@ But first we need a way to author MCP server features as WebAssembly components,
 Simply using existing MCP server SDKs on WebAssembly is increasingly possible, but this approach treats runtime compatibility as an obstacle to overcome, with basic parity as the final goal. Instead we want to leverage the strengths of the component model itself as a paradigm to enable the patterns we just explored.
 
 This is where [wasmcp](https://github.com/wasmcp/wasmcp) comes in.
+
+## [Wasmcp](https://github.com/wasmcp/wasmcp)
 
 Wasmcp isn’t a runtime, and it’s not exactly an SDK. It’s a collection of WebAssembly components and tooling that work together to function as a polyglot framework for authoring MCP features as WebAssembly components. The result is a single MCP server as a WebAssembly component binary.
 
