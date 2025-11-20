@@ -372,8 +372,8 @@ We can publish any individual component, or any sequence of composed MCP feature
 
 ## An Open Foundation for AI Agents
 
-By building on two complementary open standards, MCP and the WebAssembly component model, we can expose new context to AI applications and agents in a portable and composable way.
+By building on two complementary open standards, MCP and the WebAssembly component model, we can expose new context to AI applications and agents in a useful way that solves some of the current challenges towards achieving that goal.
 
-To distribute an MCP server over the network, we can target Spin-compatible cloud platforms like [Fermyon Wasm Functions](https://www.fermyon.com/wasm-functions), which will scale a server component efficiently across the global network edge with access to application-scoped key-value storage. [SpinKube](https://www.spinkube.dev/), which you can host on your own infrastructure, unlocks another level of flexibility. Any platform or runtime that directly supports the Wasm component model becomes a valid deployment target for the same component binary. A hypothetical MCP-specific hosting platform could even leverage this architecture to safely run user-submitted MCP features more directly.
+To distribute an MCP server as a Wasm component over the network, we can target Spin-compatible cloud platforms like [Fermyon Wasm Functions](https://www.fermyon.com/wasm-functions), which will scale a server component efficiently across the global network edge with access to application-scoped key-value storage. [SpinKube](https://www.spinkube.dev/), which you can host on your own infrastructure, unlocks another level of flexibility. Any platform or runtime that directly supports the Wasm component model becomes a valid deployment target for the same component binary. A hypothetical MCP-specific hosting platform could even leverage this architecture to safely run user-submitted MCP features more directly.
  
 This story will only get better as Wasm components improve alongside active advances in language models.
