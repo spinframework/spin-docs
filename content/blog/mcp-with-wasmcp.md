@@ -16,6 +16,8 @@ author = "Ian McDonald"
 
 Together they form a polyglot toolchain for extending the capabilities of language models in a composable, portable, and secure way.
 
+See the [quickstart](#quickstart) or read on for some context.
+
 ## What are tools?
 
 Large language models (LLMs) are trained on vast heaps of data that they use to generate natural language responses to input queries. But that knowledge is static once training is over. They are unable to answer simple questions that require current data, like “What time is it?” or “What's the weather tomorrow in Atlanta?”. This highlights the gap between a simple model and an intelligent system that can actually *do* things and acquire new information, or context, dynamically. This is generally where the term *agent* starts to enter the conversation.
