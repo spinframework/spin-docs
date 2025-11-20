@@ -234,9 +234,9 @@ You can now configure your favorite agent to use the MCP server.
 * [Visual Studio Code](https://code.visualstudio.com/docs/copilot/customization/mcp-servers)
 * [Zed](https://zed.dev/docs/ai/mcp)
 
-## Unlimited Feature Composition
+## Unlimited Composition
 
-The real power of the component model becomes apparent when adding another tool component to our server. We'll use Python this time.
+The real power of the component model and wasmcp's composition architecture becomes apparent when adding another tool component to our server. We'll use Python this time.
 
 ```
 $ wasmcp new python-tools –language python
@@ -317,11 +317,42 @@ Serving http://127.0.0.1:3000
 
 Now our server has four tools: `add`, `subtract`, `reverse`, and `uppercase`! Two are implemented in Python, and two in Rust.
 
+### Wasmcp's architecture
+
+Server features like tools, resources, prompts, and completions, are implemented by individual WebAssembly components that export narrow [WIT](https://component-model.bytecodealliance.org/design/wit.html) interfaces mapped from the MCP spec's [schema types](https://modelcontextprotocol.io/specification/draft/schema).
+
+`wasmcp compose` plugs these feature components into framework components and composes them together behind a transport component as a complete middleware [chain of responsibility](https://en.wikipedia.org/wiki/Chain-of-responsibility_pattern) that implements an MCP server.
+
+Any of the wasmcp framework components, like the transport, can be swapped out for custom implementations during composition, enabling flexible server configurations.
+
+```
+Transport<Protocol>
+        ↓
+    Middleware₀
+        ↓
+    Middleware<Feature>₁
+        ↓
+    Middleware<Feature>₂
+        ↓
+       ...
+        ↓
+    Middlewareₙ
+        ↓
+    MethodNotFound
+```
+
+Each component:
+- Handles requests it understands (e.g., `tools/call`)
+- Delegates others downstream
+- Merges results (e.g., combining tool lists)
+
+This enables dynamic composition without complex configuration, all within a single Wasm binary. Think Unix pipes for MCP using Wasm components.
+
 This example only scratched the surface of what we can potentially do with `wasmcp`. To see some of the more advanced patterns like custom middleware components and session-enabled features, check out the [examples](https://github.com/wasmcp/wasmcp/tree/main/examples).
 
 ## Publishing to OCI Registries
 
-We can use [wkg](https://github.com/bytecodealliance/wasm-pkg-tools) to publish our server to an [OCI](https://opencontainers.org/) registry, like [GitHub Container Registry](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry), [Docker Hub](https://docs.docker.com/docker-hub/repos/manage/hub-images/oci-artifacts/), or [Amazon Elastic Container Registry](https://aws.amazon.com/ecr/).
+We can use [wkg](https://github.com/bytecodealliance/wasm-pkg-tools) to publish our server to an [OCI](https://opencontainers.org/) registry like [GitHub Container Registry](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry), [Docker Hub](https://docs.docker.com/docker-hub/repos/manage/hub-images/oci-artifacts/), or [Amazon Elastic Container Registry](https://aws.amazon.com/ecr/).
 
 ```
 $ wkg publish polyglot.wasm --package mygithub:basic-utils@0.1.0
