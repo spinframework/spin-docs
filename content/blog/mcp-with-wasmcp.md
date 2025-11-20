@@ -38,11 +38,11 @@ Problem solved, right? Not quite…
 
 We’d need to implement a new version of our tool for OpenAI’s GPT models, and another for the Claude family, another for Gemini, etc. So M models x N tools = T total tool implementations. Consider that fetch is only one example, and we might want many different kinds of tools available for various tasks.
 
-Agent SDKs can solve this problem directly at the library level by implementing support for multiple models and exposing a common interface for tools over them.
+[AI SDKs](https://ai-sdk.dev/docs/ai-sdk-core/tools-and-tool-calling) can solve this problem directly for a given programming language by implementing support for multiple models and exposing a common interface for tools over them.
 
-**Problem 2**: Even if tool implementations are not coupled to specific models, they become coupled to the specific agent SDKs used to implement them. Because models themselves have no built-in way of discovering and connecting to new tools over the wire, the tools must run alongside the same code that calls inference to implement the agent's loop.
+**Problem 2**: Even if tool implementations are not coupled to specific models, they become coupled to the specific SDK used to implement them, and by extension to the runtime of that SDK. Because models themselves have no built-in way of discovering and connecting to new tools over the wire, the tools must run alongside the same code that calls inference to implement the agent's loop.
 
-We want tools to be discoverable and accessible portably, potentially across the air, at scale. We need a layer of indirection between models and their tools.
+We want tools to be discoverable and accessible to existing agent processes, potentially across the air, at scale. We need a layer of indirection between models and their tools.
 
 ## The Model Context Protocol
 
