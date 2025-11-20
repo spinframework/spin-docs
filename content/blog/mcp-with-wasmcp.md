@@ -10,6 +10,14 @@ author = "Ian McDonald"
 
 ---
 
+[Spin](https://github.com/spinframework/spin) is an open source framework for building and running fast, secure, and composable cloud microservices with WebAssembly.
+
+[Wasmcp](https://github.com/wasmcp/wasmcp) is a [WebAssembly Component](https://component-model.bytecodealliance.org/) development kit for the [Model Context Protocol](https://modelcontextprotocol.io/docs/getting-started/intro).
+
+Together they form a polyglot toolchain for extending the capabilities of language models in a composable, portable, and secure way.
+
+## What are tools?
+
 Large language models (LLMs) are trained on vast heaps of data that they use to generate natural language responses to input queries. But that knowledge is static once training is over. They are unable to answer simple questions that require current data, like “What time is it?” or “What's the weather tomorrow in Atlanta?”. This highlights the gap between a simple model and an intelligent system that can actually *do* things and acquire new information, or context, dynamically. This is generally where the term *agent* starts to enter the conversation.
 
 All LLMs are dependent on functions, also called tools, to interact with the outside world beyond the prompt and to perform deterministic actions. Just like you might use a calculator to accurately crunch numbers, or a web browser to explore the internet, an LLM might use its own calculator and fetch tools in the same way. Even basic capabilities like reading a file from disk are implemented via tools.
@@ -146,13 +154,7 @@ impl Guest for Calculator {
                         "required": ["a", "b"]
                     }"#
                     .to_string(),
-                    options: Some(ToolOptions {
-                        meta: None,
-                        annotations: None,
-                        description: Some("Add two numbers together".to_string()),
-                        output_schema: None,
-                        title: Some("Add".to_string()),
-                    }),
+                    options: None,
                 },
                 Tool {
                     name: "subtract".to_string(),
@@ -269,13 +271,7 @@ class StringsTools(exports.Tools):
                         },
                         "required": ["text"]
                     }),
-                    options=mcp.ToolOptions(
-                        meta=None,
-                        annotations=None,
-                        description="Convert text to uppercase",
-                        output_schema=None,
-                        title="Uppercase",
-                    ),
+                    options=None,
                 ),
             ],
             meta=None,
@@ -320,6 +316,26 @@ Serving http://127.0.0.1:3000
 Now our server has four tools: `add`, `subtract`, `reverse`, and `uppercase`! Two are implemented in Python, and two in Rust.
 
 This example only scratched the surface of what we can potentially do with `wasmcp`. To see some of the more advanced patterns like custom middleware components and session-enabled features, check out the [examples](https://github.com/wasmcp/wasmcp/tree/main/examples).
+
+## Publishing to OCI Registries
+
+We can use [wkg](https://github.com/bytecodealliance/wasm-pkg-tools) to publish our server to an [OCI](https://opencontainers.org/) registry, like [GitHub Container Registry](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry), [Docker Hub](https://docs.docker.com/docker-hub/repos/manage/hub-images/oci-artifacts/), or [Amazon Elastic Container Registry](https://aws.amazon.com/ecr/).
+
+```
+$ wkg publish polyglot.wasm --package mygithub:basic-utils@0.1.0
+```
+
+Anyone with read access to this artifact can then download and run the server using `wkg`.
+
+```
+$ wkg get mygithub:basic-utils@0.1.0
+
+$ spin up -f mygithub:basic-utils@0.1.0.wasm
+
+Serving http://127.0.0.1:3000
+```
+
+We can publish any individual component, or any sequence of composed MCP feature components and middleware, as a standalone artifact in the same way. This enables dynamic and flexible composition of reusable components across servers in a kind of recursive drag-and-drop way, supporting composition and distribution of pre-built patterns which are themselves further composable. See `wasmcp compose --help` for more details on creating standalone feature compositions.
 
 ## An Open Foundation for AI Agents
 
