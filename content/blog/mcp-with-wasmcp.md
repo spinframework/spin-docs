@@ -198,7 +198,7 @@ Now let’s build this component and compose it into a full MCP server. The `was
 
 This is accomplished with Bytecode Alliance’s [wac](https://github.com/bytecodealliance/wac) tooling, which you can also use directly for composition.
 
-Note that any of the framework-level components can also be interchanged with your own custom implementations, like a custom transport component. See `wasmcp compose server –help` for details.
+Note that any of the framework-level components can also be interchanged with your own custom implementations, like a custom transport component. See `wasmcp compose server --help` for details.
 
 ```shell
 cd my-first-tools/
@@ -267,7 +267,7 @@ Our server also exports [`wasi:cli/run`](https://github.com/WebAssembly/wasi-cli
 wasmtime run server.wasm
 ```
 
-To deploy an MCP server as a Wasm component over the network, we can target a Spin-compatible cloud platform like [Fermyon Wasm Functions](https://www.fermyon.com/wasm-functions), which will scale a server component efficiently across [Akamai's](https://www.akamai.com/why-akamai/global-infrastructure)'s distributed network edge with application-scoped key-value storage. Projects like [SpinKube](https://www.spinkube.dev/) and [wasmCloud](https://github.com/wasmCloud/wasmCloud) allow MCP server components to be deployed on self-hosted Kubernetes clusters. A hypothetical MCP-specific platform could potentially leverage this architecture to manage user-submitted MCP components.
+To deploy an MCP server as a Wasm component over the network, we can target a Spin-compatible cloud platform like [Fermyon Wasm Functions](https://www.fermyon.com/wasm-functions), which will scale a server component efficiently across [Akamai](https://www.akamai.com/why-akamai/global-infrastructure)'s distributed network edge with application-scoped key-value storage. Projects like [SpinKube](https://www.spinkube.dev/) and [wasmCloud](https://github.com/wasmCloud/wasmCloud) allow MCP server components to be deployed on self-hosted Kubernetes clusters. A hypothetical MCP-specific platform could potentially leverage this architecture to manage user-submitted MCP components.
 
 This story will expand as the ecosystems around both WebAssembly components and MCP continue to grow.
 
@@ -369,7 +369,7 @@ class StringsTools(exports.Tools):
             return None  # We don't handle this tool
 ```
 
-We compose our first and second tool components together by adding the paths to both tool component binaries in the `wasmcp compose server` arguments. Note that these local paths can be substituted for OCI registry artifacts. See `wasmcp compose server –help` for details.
+We compose our first and second tool components together by adding the paths to both tool component binaries in the `wasmcp compose server` arguments. Note that these local paths can be substituted for OCI registry artifacts. See `wasmcp compose server -–help` for details.
 
 ```shell
 wasmcp compose server ./my-first-tools/target/wasm32-wasip2/release/my-first-tools.wasm ./python-tools/python-tools.wasm -o polyglot.wasm
@@ -423,4 +423,4 @@ By contrast, Wasmcp is a toolchain for producing an MCP server as a component th
 
 ## Futures
 
-The ecosystems around both WebAssembly components and MCP continue to grow rapidly. As more developers adopt these technologies, we can expect to see more innovative projects and applications emerge across a variety of use cases.
+The ecosystems around both WebAssembly components and MCP continue to grow rapidly. As developers continue to adopt these technologies, we can expect to see more innovative projects and applications emerge across a variety of use cases.
