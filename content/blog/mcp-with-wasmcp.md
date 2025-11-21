@@ -118,12 +118,12 @@ Because the [Spin](https://github.com/spinframework/spin) runtime implements [wa
 ## Quickstart
 
 Install wasmcp via script to get the latest release binary.
-```
-$ curl -fsSL https://raw.githubusercontent.com/wasmcp/wasmcp/main/install.sh | bash
+```shell
+curl -fsSL https://raw.githubusercontent.com/wasmcp/wasmcp/main/install.sh | bash
 ```
 Or build it from source.
-```
-$ cargo install --git https://github.com/wasmcp/wasmcp
+```shell
+cargo install --git https://github.com/wasmcp/wasmcp
 ```
 
 Source / open a new terminal and then scaffold out a tool component with `wasmcp new`. Only basic dependencies and build tooling from Bytecode Alliance are included. TypesScript uses [jco](https://github.com/bytecodealliance/jco), Rust uses [wit-bindgen](https://github.com/bytecodealliance/wit-bindgen), and Python uses [componentize-py](https://github.com/bytecodealliance/componentize-py).
@@ -132,14 +132,14 @@ wasmcp does not maintain any language-specific SDKs. The [WIT](https://component
 
 We'll target Rust for our first one.
 
-```
-$ wasmcp new my-first-tools --language rust
-📦 Fetching WIT dependencies...
+```shell
+wasmcp new my-first-tools --language rust
 ```
 
-If you open up `my-first-tools/src/lib.rs`, you’ll see some boilerplate that you can fill in with your tool implementations. A single tool component can define multiple MCP tools. As we’ll see, multiple tool components can then be chained together and their tools aggregated. This pattern also applies to the other MCP primitives: [resources](https://github.com/wasmcp/wasmcp/blob/main/cli/templates/rust-resources/src/lib.rs) and [prompts](https://github.com/wasmcp/wasmcp/blob/main/cli/templates/rust-prompts/src/lib.rs)
+If you open up `my-first-tools/src/lib.rs`, you’ll see some boilerplate similar to the code block below that you can fill in with your tool implementations. A single tool component can define multiple MCP tools. As we’ll see, multiple tool components can then be chained together and their tools aggregated. This pattern also applies to the other MCP primitives: [resources](https://github.com/wasmcp/wasmcp/blob/main/cli/templates/rust-resources/src/lib.rs) and [prompts](https://github.com/wasmcp/wasmcp/blob/main/cli/templates/rust-prompts/src/lib.rs)
 
 ```rust
+/// my-first-tools/src/lib.rs
 impl Guest for Calculator {
     fn list_tools(
         _ctx: RequestCtx,
@@ -200,30 +200,46 @@ This is accomplished with Bytecode Alliance’s [wac](https://github.com/bytecod
 
 Note that any of the framework-level components can also be interchanged with your own custom implementations, like a custom transport component. See `wasmcp compose server –help` for details.
 
-```
-$ make
-$ wasmcp compose server target/wasm32-wasip2/release/my-first-tools.wasm -o server.wasm
+```shell
+cd my-first-tools/
+make
+wasmcp compose server target/wasm32-wasip2/release/my-first-tools.wasm -o server.wasm
 ```
 
 Now that we have a complete `server.wasm` component, we can run it directly with `spin up`.
 
-```
-$ spin up -f server.wasm
-
-Serving http://127.0.0.1:3000
-Available Routes:
-  http-trigger1-component: http://127.0.0.1:3000 (wildcard)
+```shell
+spin up --from server.wasm
 ```
 
-Note that runtime configuration can be managed with a [spin.toml](https://spinframework.dev/v3/writing-apps) file.
+We can provide more detailed runtime configuration with a [spin.toml](https://spinframework.dev/v3/writing-apps) file.
 
-And _just like that_, we have a functional MCP server over the Streamable HTTP transport! Authorization for providers that implement Dynamic Client Registration is configurable via [environment variables](https://github.com/wasmcp/wasmcp/tree/main/docs). The `stdio` transport can also be used via [Wasmtime](https://github.com/bytecodealliance/wasmtime) directly.
+```toml
+# my-first-tools/spin.toml
+spin_manifest_version = 2
 
+[application]
+name = "mcp"
+version = "0.1.0"
+authors = ["You <you@gmail.com>"]
+description = "My MCP server"
+
+[[trigger.http]]
+route = "/mcp"
+component = "mcp"
+
+[component.mcp]
+source = "server.wasm"
+allowed_outbound_hosts = [] # Update for outbound HTTP
 ```
-$ wasmtime run server.wasm
+
+```shell
+spin up --from spin.toml
 ```
 
-You can now configure your favorite agent to use the MCP server.
+Just like _that_, we have a functional MCP server over the Streamable HTTP transport.
+
+These AI applications are just some of the many that can use this MCP server to extend their capabilities.
 
 * [Antigravity](https://antigravity.google/docs/mcp)
 * [ChatGPT (developer mode)](https://platform.openai.com/docs/guides/developer-mode)
@@ -236,17 +252,68 @@ You can now configure your favorite agent to use the MCP server.
 * [Visual Studio Code](https://code.visualstudio.com/docs/copilot/customization/mcp-servers)
 * [Zed](https://zed.dev/docs/ai/mcp)
 
-## Unlimited Composition
+## Runtime Portability and Deployment Targets
+
+The MCP server component we just created exports the standard [`wasi:http/incoming-handler`](https://github.com/WebAssembly/wasi-http) interface. This means any WebAssembly runtime that supports `wasi:http` can serve the component to MCP clients over the Streamable HTTP transport.
+
+For example, we can use [`wasmtime serve`](https://github.com/bytecodealliance/wasmtime):
+
+```shell
+wasmtime serve -Scli server.wasm
+```
+
+Our server also exports [`wasi:cli/run`](https://github.com/WebAssembly/wasi-cli), which lets it support the stdio MCP transport.
+
+```shell
+wasmtime run server.wasm
+```
+
+To deploy an MCP server as a Wasm component over the network, we can target a Spin-compatible cloud platform like [Fermyon Wasm Functions](https://www.fermyon.com/wasm-functions), which will scale a server component efficiently across [Akamai's](https://www.akamai.com/why-akamai/global-infrastructure)'s distributed network edge with application-scoped key-value storage. Projects like [SpinKube](https://www.spinkube.dev/) and [wasmCloud](https://github.com/wasmCloud/wasmCloud) allow MCP server components to be deployed on self-hosted Kubernetes clusters. A hypothetical MCP-specific hosting platform could potentially leverage this architecture to manage user-submitted MCP components.
+
+This story will expand as the ecosystems around both WebAssembly components and MCP continue to grow.
+
+## Publishing to OCI Registries
+
+With a `spin.toml` file like the one above, we can use the `spin registry` command to publish our server component to an [OCI](https://opencontainers.org/) registry like [GitHub Container Registry](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry), [Docker Hub](https://docs.docker.com/docker-hub/repos/manage/hub-images/oci-artifacts/), or [Amazon Elastic Container Registry](https://aws.amazon.com/ecr/).
+
+```shell
+echo $GHCR_PAT | spin registry login --username mygithub --password-stdin ghcr.io
+spin registry push ghcr.io/mygithub/basic-utils:0.1.0
+```
+
+`spin up` can automatically resolve a component from the registry.
+
+```shell
+spin up --from ghcr.io/mygithub/basic-utils:0.1.0
+```
+
+We can also use [wkg](https://github.com/bytecodealliance/wasm-pkg-tools) directly to publish our server to an [OCI](https://opencontainers.org/) registry like [GitHub Container Registry](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry), [Docker Hub](https://docs.docker.com/docker-hub/repos/manage/hub-images/oci-artifacts/), or [Amazon Elastic Container Registry](https://aws.amazon.com/ecr/).
+
+```shell
+wkg oci push ghcr.io/mygithub/basic-utils:0.1.0 polyglot.wasm
+```
+
+Anyone with read access to this artifact can then pull the component using `wkg` to run it with a particular runtime.
+
+```shell
+wkg oci pull ghcr.io/mygithub/basic-utils:0.1.0
+wasmtime serve -Scli mygithub:basic-utils@0.1.0.wasm
+```
+
+We can publish any individual MCP feature component, or any sequence of composed components (which need not be servers) as a standalone artifact in the same way. This allows for composition and distribution of pre-built component patterns which are themselves not yet servers, and are further composable. See `wasmcp compose --help` for details.
+
+## The Architecture of Wasmcp
 
 The real power of the component model and wasmcp's composition architecture becomes apparent when adding another tool component to our server. We'll use Python this time.
 
-```
-$ wasmcp new python-tools –language python
-$ cd python-tools # Develop
-$ make # Builds to python-tools/python-tools.wasm
+```shell
+wasmcp new python-tools –-language python
+cd python-tools
+make
 ```
 
 ```python
+# python-tools/app.py
 class StringsTools(exports.Tools):
     def list_tools(
         self,
@@ -305,21 +372,18 @@ class StringsTools(exports.Tools):
 
 We compose our first and second tool components together by adding the paths to both tool component binaries in the `wasmcp compose server` arguments. Note that these local paths can be substituted for OCI registry artifacts. See `wasmcp compose server –help` for details.
 
-```
-$ wasmcp compose server ./my-first-tools/target/wasm32-wasip2/release/my-first-tools.wasm ./python-tools/python-tools.wasm -o polyglot.wasm
-
+```shell
+wasmcp compose server ./my-first-tools/target/wasm32-wasip2/release/my-first-tools.wasm ./python-tools/python-tools.wasm -o polyglot.wasm
 ```
 
 Run `polyglot.wasm` with `spin up`.
-```
-$ spin up -f polyglot.wasm
-
-Serving http://127.0.0.1:3000
+```shell
+spin up -f polyglot.wasm
 ```
 
 Now our server has four tools: `add`, `subtract`, `reverse`, and `uppercase`! Two are implemented in Python, and two in Rust.
 
-### Wasmcp's architecture
+### How?
 
 Server features like tools, resources, prompts, and completions, are implemented by individual WebAssembly components that export narrow [WIT](https://component-model.bytecodealliance.org/design/wit.html) interfaces mapped from the MCP spec's [schema types](https://modelcontextprotocol.io/specification/draft/schema).
 
@@ -352,36 +416,12 @@ This enables dynamic composition without complex configuration, all within a sin
 
 This example only scratched the surface of what we can potentially do with `wasmcp`. To see some of the more advanced patterns like custom middleware components and session-enabled features, check out the [examples](https://github.com/wasmcp/wasmcp/tree/main/examples).
 
-## Publishing to OCI Registries
+## Related Projects
 
-We can use [wkg](https://github.com/bytecodealliance/wasm-pkg-tools) to publish our server to an [OCI](https://opencontainers.org/) registry like [GitHub Container Registry](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry), [Docker Hub](https://docs.docker.com/docker-hub/repos/manage/hub-images/oci-artifacts/), or [Amazon Elastic Container Registry](https://aws.amazon.com/ecr/).
+Microsoft's [Wassette](https://github.com/microsoft/wassette) is a security-oriented runtime that runs WebAssembly Components via MCP. It can dynamically load and execute components as individual tools on demand with deeply integrated access controls. Wassette itself is not a component. It is an MCP server than runs components.
 
-```
-$ wkg publish polyglot.wasm --package mygithub:basic-utils@0.1.0
-```
+By contrast, Wasmcp is a toolchain for producing an MCP server as a component that exports the standard [WASI](https://wasi.dev/) interfaces for HTTP and CLI commands: [`wasi:http`](https://github.com/WebAssembly/wasi-http) and [`wasi:cli`](https://github.com/WebAssembly/wasi-cli). This component runs on any server runtime that supports WASI and the component model.
 
-Anyone with read access to this artifact can then download and run the server using `wkg`.
+## Implications
 
-```
-$ wkg get mygithub:basic-utils@0.1.0
-
-$ spin up -f mygithub:basic-utils@0.1.0.wasm
-
-Serving http://127.0.0.1:3000
-```
-
-We can publish any individual component, or any sequence of composed MCP feature components and middleware, as a standalone artifact in the same way. This enables dynamic and flexible composition of reusable components across servers in a kind of recursive drag-and-drop way, supporting composition and distribution of pre-built patterns which are themselves further composable. See `wasmcp compose --help` for details.
-
-## Related projects
-
-Microsoft's [Wassette](https://github.com/microsoft/wassette) is a security-oriented runtime that runs WebAssembly Components via MCP.
-
-While Wassette is a custom MCP-specific runtime that can dynamically load and execute components as individual tools on demand with deeply integrated access control, Wasmcp is a toolchain for producing an MCP server as a component that is compatible across Wasm runtimes.
-
-## An Open Foundation for AI Agents
-
-By building on two complementary open standards, MCP and the WebAssembly component model, we can expose new context to AI applications and agents in a useful way that solves some of the current challenges towards achieving that goal.
-
-To distribute an MCP server as a Wasm component over the network, we can target Spin-compatible cloud platforms like [Fermyon Wasm Functions](https://www.fermyon.com/wasm-functions), which will scale a server component efficiently across the global network edge with access to application-scoped key-value storage. [SpinKube](https://www.spinkube.dev/), which you can host on your own infrastructure, unlocks another level of flexibility. Any platform or runtime that directly supports the Wasm component model becomes a valid deployment target for the same component binary. A hypothetical MCP-specific hosting platform could even leverage this architecture to safely run user-submitted MCP features more directly.
- 
-This story will only get better as Wasm components improve alongside active advances in language models.
+The ecosystems around both WebAssembly components and MCP continue to grow rapidly. As more developers adopt these technologies, we can expect to see more innovative projects and applications emerge across a variety of use cases.
