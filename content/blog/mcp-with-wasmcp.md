@@ -10,13 +10,27 @@ author = "Ian McDonald"
 
 ---
 
-[Spin](https://github.com/spinframework/spin) is an open source framework for building and running fast, secure, and composable cloud microservices with WebAssembly.
+[Wasmcp](https://github.com/wasmcp/wasmcp) is a [WebAssembly Component](https://component-model.bytecodealliance.org/) Development Kit for the [Model Context Protocol](https://modelcontextprotocol.io/docs/getting-started/intro).
 
-[Wasmcp](https://github.com/wasmcp/wasmcp) is a [WebAssembly Component](https://component-model.bytecodealliance.org/) development kit for the [Model Context Protocol](https://modelcontextprotocol.io/docs/getting-started/intro).
+It works with [Spin](https://github.com/spinframework/spin) to let you:
 
-Together they form a polyglot toolchain for extending the capabilities of language models in a new way that offers unique benefits and potential solutions to current pains.
+* Build composable MCP servers as WebAssembly components.
+* Mix tools and features written in Rust, Python, TypeScript, etc. in a single server binary.
+* Plug in shared components for authorization, sessions, logging, and more across multiple MCP servers.
+* Run the same sandboxed MCP server binary locally, on [Fermyon Wasm Functions](https://www.fermyon.com/wasm-functions), on Kubernetes clusters (e.g. via [SpinKube](https://www.spinkube.dev/)), or on any runtime that speaks WASI + components.
+* Expose both stdio and Streamable HTTP transports via standard [WASI](https://wasi.dev/) exports.
 
 See the [quickstart](#quickstart) or read on for some context.
+
+* [What are Tools?](#what-are-tools)
+* [The Model Context Protocol](#the-model-context-protocol)
+* [Challenges](#challenges)
+* [WebAssembly Components](#webassembly-components)
+* [Wasmcp](#wasmcp)
+* [Quickstart](#quickstart)
+* [Compatible Runtimes and Deployments](#compatible-runtimes-and-deployments)
+* [Related Projects](#related-projects)
+* [Why?](#why)
 
 ## What are Tools?
 
@@ -34,17 +48,17 @@ That windowless box gets a desktop with a browser.
 
 Problem solved, right? Not quite.
 
-## Communication Hurdles
+### Communication Hurdles
 
 **Problem 1**: The internal representation of tools is not standard across models. In other words, their hands look different. How do we build a hammer that each of them can grip?
 
-We’d need to implement a new version of each tool for OpenAI’s GPT models, and another for the Claude family, another for Gemini, etc. So M models x N tools = T total tool implementations.
+We’d need to write a new implementation of each tool for OpenAI’s GPT models, another for the Claude family, another for Gemini, etc. So the number of total tool implementations is  `M x N`, where `M` is the number of models and `N` is the number of unique tools.
 
 [AI SDKs](https://ai-sdk.dev/docs/ai-sdk-core/tools-and-tool-calling) can alleviate this problem for a given programming language by implementing tool calling support for multiple models and exposing a common interface for tools over them.
 
-**Problem 2**: With AI SDKs, tools become coupled to the specific SDK used to implement them. Because models themselves have no built-in way of discovering and connecting to new tools over the wire, the tools must run alongside the same code that calls inference to implement the agent's loop. We now have S SDKs x N tools = T total tool implementations. S < M, so this is an improvement, but we're still not at N = T.
+**Problem 2**: Tool calling implemented by an AI SDK couples tool instances to an application's runtime. Tools must run alongside the same code that calls inference to implement the agent's loop. We cannot take one application's tools and call them from an external process.
 
-We want to implement a given tool only once and make it discoverable and accessible dynamically for any AI application, potentially across the air, at scale.
+We want to implement a given tool only once and make it discoverable and accessible dynamically for any AI application, potentially across the network, at scale.
 
 The [Fundamental Theorem of Software Engineering](https://en.wikipedia.org/wiki/Fundamental_theorem_of_software_engineering) states:
 
@@ -54,7 +68,7 @@ We need a layer of indirection between models and their tools.
 
 ## The Model Context Protocol
 
-In November 2024, Anthropic suggested an open-source standard for connecting AI applications to external systems: The [Model Context Protocol (MCP)](https://modelcontextprotocol.io/docs/getting-started/intro).
+In November 2024, Anthropic suggested an open-source standard for connecting AI applications to external systems: The [Model Context Protocol (MCP)](https://modelcontextprotocol.io/docs/getting-started/intro). It aims to be the USB-C for tool calling, and more.
 
 MCP defines a set of context [primitives](https://modelcontextprotocol.io/specification/draft/server) that are implemented as server features.
 
@@ -68,30 +82,31 @@ Beyond server features, MCP defines client-hosted features that servers can call
 
 These bidirectional features are possible because MCP is designed as an inherently bidirectional protocol based on [JSON-RPC](https://www.jsonrpc.org/specification).
 
-MCP is architected as two [layers](https://modelcontextprotocol.io/docs/learn/architecture#layers): the Transport layer and the Data layer. Multiple interchangeable transports ([stdio](https://modelcontextprotocol.io/specification/2025-06-18/basic/transports#stdio), [Streamable HTTP](https://modelcontextprotocol.io/specification/2025-06-18/basic/transports#streamable-http), additional custom transports) can be used to serve the same underlying features.
+MCP is architected as two [layers](https://modelcontextprotocol.io/docs/learn/architecture#layers): the Transport layer and the Data layer. Multiple interchangeable transports can be used to serve the same underlying features. The [stdio](https://modelcontextprotocol.io/specification/2025-06-18/basic/transports#stdio) transport allows a client to launch a local MCP server as a subprocess. The [Streamable HTTP](https://modelcontextprotocol.io/specification/2025-06-18/basic/transports#streamable-http) transport allows multiple clients to connect to a potentially remote MCP server, with support for sessions and authorization. Additional [custom transports](https://modelcontextprotocol.io/specification/2025-06-18/basic/transports#custom-transports) can be implemented to support unique needs.
 
 Since its release, MCP has become the only tool calling protocol with near-consensus adoption and broad client support. It continues to attract interest from both individual developers and organizations. For example, AWS [joined](https://aws.amazon.com/blogs/opensource/open-protocols-for-agent-interoperability-part-1-inter-agent-communication-on-mcp/) the MCP steering committee earlier this year in May, and OpenAI's new [apps](https://openai.com/index/introducing-apps-in-chatgpt/) are MCP-based. 
 
-Many popular agents, including ChatGPT/Codex, Claude Code/Desktop, and Gemini CLI, already support MCP out-of-the-box. In addition, agent SDKs like the OpenAI Agents SDK, Google’s Agent Development Kit, and many others have adopted MCP either as their core tool calling mechanism or else as a first-class option. Inference APIs like the OpenAI [Responses API](https://platform.openai.com/docs/api-reference/responses/create#responses_create-tools) have also rolled out initial support for directly using remote MCP servers during inference itself.
+Many popular agents, including ChatGPT/Codex, Claude Code/Desktop, and Gemini CLI, already support MCP out of the box. In addition, agent SDKs like the OpenAI Agents SDK, Google’s Agent Development Kit, and many others have adopted MCP either as their core tool calling mechanism or else as a first-class option.
 
-So why don't we see every org implementing MCP servers to integrate their applications and data with agents?
+Inference APIs like the OpenAI [Responses API](https://platform.openai.com/docs/api-reference/responses/create#responses_create-tools) have also rolled out initial support for directly calling remote MCP servers during inference itself.
 
-## The Current State of MCP
+## Challenges
 
-Local MCP servers are relatively simple to implement. Official SDKs and advanced third party frameworks are available in nearly every programming language. But distributing an MCP server, either as a local installation or as a service over the network, presents a number of new challenges.
+Local MCP servers are relatively simple to implement. Official SDKs and advanced third-party frameworks are available in nearly every programming language. But local MCP servers can be an attack vector for exploiting host resources, unless they run in a sandboxed environment. Current solutions to MCP sandboxing involve running the server in a container or virtual machine.
 
-1. Local MCP servers can be an attack vector for exploiting host resources, unless they run in a sandboxed environment. Current solutions to MCP sandboxing involve running the server in a container or virtual machine.
-2. Many of MCP's advanced bidirectional features and tool discovery mechanisms are locked behind a dependency on server-managed sessions. This means that we either need servers to run as long-lived processes, keeping their session state directly onboard, or else we need to manage the infrastructure for external session state plus the server code that interacts with it, which may incur additional network latency and complexity.
-3. Scaling and and response latency matter. We may not initially think of the response time of remote tool calls as being important, given inference itself (especially with thinking enabled) is generally slow anyway. But consider that in answering a single query, an agent may need to make many consecutive tool calls to one or more remote MCP servers. The latency of even a few hundred milliseconds for each tool call can quickly snowball to seconds of lag. In realtime use cases like a voice or stock trading agent, even small response delays for tool calls can translate to the success or failure of the overall interaction or goal.
-4. Authorization is not straightforward to implement. The spec-compliant auth flow requires an authorizer that supports [Dynamic Client Registration](https://datatracker.ietf.org/doc/html/rfc7591). Support for a simplified flow via [OAuth Client ID Metadata Documents](https://datatracker.ietf.org/doc/draft-ietf-oauth-client-id-metadata-document/) is confirmed for the November 2025 spec release.
+Running an MCP server as a service over the network unlocks new distribution potential but also presents new challenges:
 
-There is a unique intersection of emerging technologies that could address some of this pain and more.
+1. Session-enabled features over Streamable HTTP are an [open problem](https://github.com/modelcontextprotocol/python-sdk/issues/880) across MCP SDKs, with various solutions fragmented across language ecosystems or otherwise remaining unsolved. These implementations generally require either long-lived compute or specific external session backends with corresponding glue. This complicates the horizontal scalability of servers that use session-dependent bidirectional features and tool discovery mechanisms.
+2. Scaling and performance matter. We may not initially think of the response time of remote tool calls as being important, given inference itself (especially with thinking / reasoning features enabled) is generally slow anyway. But consider that in answering a single query, an agent may need to make many consecutive tool calls to one or more remote MCP servers. The latency of even a few hundred milliseconds for each tool call can quickly snowball to seconds of lag. In realtime use cases like a voice or stock trading agent, even small response delays for tool calls can translate to the success or failure of the overall interaction or goal.
+3. Authorization is not straightforward to implement. The spec-compliant auth flow requires an authorizer that supports [Dynamic Client Registration](https://datatracker.ietf.org/doc/html/rfc7591). Support for a simplified flow via [OAuth Client ID Metadata Documents](https://datatracker.ietf.org/doc/draft-ietf-oauth-client-id-metadata-document/) is confirmed for the November 2025 spec release. Sharing an authorizer across multiple servers is a common goal usually achieved using an HTTP gateway.
+
+To make full-featured MCP servers that are safe, fast, and composable, we'd like an efficient sandbox plus a way build servers within that sandbox from reusable building blocks. This is exactly what the WebAssembly component model gives us.
 
 ## WebAssembly Components
 
 While WebAssembly (Wasm) is commonly thought of as a browser technology, it has evolved into a versatile platform for building applications more generally. Self-contained binaries can be compiled from various programming languages and run portably and efficiently across a range of host devices while remaining sandboxed from host resources. This sandboxing capability presents a lighter alternative to containers and virtual machines that works without having to bundle layers of the operating system and its dependencies.
 
-The Wasm [component model](https://component-model.bytecodealliance.org/) builds on these strengths to implement a broad-reaching architecture for building interoperable WebAssembly libraries, applications, and environments. Wasm components within a single sandboxed process are further isolated from each other, with interop only allowed through explicit interfaces. A visual analogy for this idea might look like a bento box.
+The Wasm [component model](https://component-model.bytecodealliance.org/) builds on these strengths to implement a broad-reaching architecture for building interoperable WebAssembly libraries, applications, and environments. Wasm components within a single sandboxed process are further isolated from each other and interop only through explicit interfaces. A visual analogy for this idea might look like a bento box (independent compartments sharing a box but not mixing contents).
 
 The component model shares architectural similarities with MCP’s [server design principles](https://modelcontextprotocol.io/specification/2025-06-18/architecture#design-principles):
 
@@ -102,27 +117,29 @@ The component model shares architectural similarities with MCP’s [server desig
 
 Imagine mapping individual MCP features to Wasm components, which can be composed together to form a complete MCP server component.
 
-We can push, pull, and compose component binaries from OCI registries just like container images. But unlike containers or virtual machines, components encapsulate only their own functionality and can be mere kilobytes in size. Full servers can weigh in under 1MB.
-
-Wasm components can be served from the network edge, or run directly on edge devices themselves.
-
-Session-enabled features over Streamable HTTP are an [open problem](https://github.com/modelcontextprotocol/python-sdk/issues/880) across existing MCP SDKs, with various solutions fragmented across language ecosystems or otherwise remaining unsolved. These implementations generally require either long-lived compute or specific external session backends with corresponding glue. [WASI](https://wasi.dev/) interfaces like [wasi:keyvalue](https://github.com/WebAssembly/wasi-keyvalue), which Wasm runtimes and platforms can implement, allow for session-enabled features to be implemented portably without being tied to some particular implementation of an external session state bucket.
-
 But first we need the tooling to make this possible. While existing MCP server SDKs are increasingly compatible with WebAssembly runtimes, they do not take advantage of the strengths of the component model.
 
 This is where [wasmcp](https://github.com/wasmcp/wasmcp) comes in.
 
 ## [Wasmcp](https://github.com/wasmcp/wasmcp)
 
-Wasmcp isn’t a runtime, and it’s not exactly an SDK. It is a collection of WebAssembly components and tooling that work together to function as a polyglot framework for authoring and composing MCP features as WebAssembly components. The result of this composition is an MCP server as a single component binary.
+Wasmcp isn’t a runtime, and it’s not exactly an SDK. It is a polyglot framework for developing and composing MCP servers from a collection of WebAssembly components.
 
-Many MCP composition patterns that would otherwise require external networked gateways become possible in memory within a single binary via composition.
+The result of composition is a standalone MCP server as a single WebAssembly component binary that can be deployed to any runtime that supports WebAssembly components.
+
+Many composition patterns that would normally require external gateways can instead happen in-memory by composing component binaries inside a single sandboxed process. That means less glue, fewer moving parts, and fewer network hops.
 
 With wasmcp we can implement a polyglot MCP server composed of Python tools that use [Pandas](https://pandas.pydata.org/), TypeScript tools that use [Zod](https://zod.dev/), and performance-critical tools or [Regorus](https://github.com/microsoft/regorus)-enabled authorization middleware in Rust.
 
-We can also interchangeably compose different transports and middlewares into the server binary.
+We can also interchangeably compose different transports, authorizers, and middleware into the server binary.
 
-Because [Spin](https://github.com/spinframework/spin) implements [wasi:keyvalue](https://github.com/WebAssembly/wasi-keyvalue) at the runtime level, we get a pluggable backend for MCP session state. This means the full range of spec features, including server-sent requests and notifications, work out of the box with compatible MCP clients over the Streamable HTTP transport.
+We can push and pull component binaries from OCI registries just like container images. But unlike containers or virtual machines, components encapsulate only their own functionality and can be mere kilobytes in size. Full servers can weigh in under 1MB.
+
+These components can be served from the network edge or run directly on edge devices themselves.
+
+Because runtimes like Spin implement [wasi:keyvalue](https://github.com/WebAssembly/wasi-keyvalue), wasmcp can support session-enabled features without baking in any particular external session store. We get portable sessions across runtimes rather than a hard dependency on a specific external ‘state bucket X’ service.
+
+This enables the full range of bidirectional and session-enabled features over both stdio and Streamable HTTP.
 
 ## Quickstart
 
@@ -135,7 +152,7 @@ Or build it from source.
 cargo install --git https://github.com/wasmcp/wasmcp
 ```
 
-Open a new terminal and then scaffold out a tool component with `wasmcp new`. Only basic dependencies and build tooling from Bytecode Alliance are included. TypesScript uses [jco](https://github.com/bytecodealliance/jco), Rust uses [wit-bindgen](https://github.com/bytecodealliance/wit-bindgen), and Python uses [componentize-py](https://github.com/bytecodealliance/componentize-py).
+Open a new terminal and then scaffold out a tool component with `wasmcp new`. Only basic dependencies and build tooling from Bytecode Alliance are included. TypeScript uses [jco](https://github.com/bytecodealliance/jco), Rust uses [wit-bindgen](https://github.com/bytecodealliance/wit-bindgen), and Python uses [componentize-py](https://github.com/bytecodealliance/componentize-py).
 
 Wasmcp does not include any language-specific SDKs. The [WIT](https://component-model.bytecodealliance.org/design/wit.html) language describes the framework boundary.
 
@@ -248,7 +265,7 @@ allowed_outbound_hosts = [] # Update for outbound HTTP
 spin up --from spin.toml
 ```
 
-These AI applications are just some of the many that can use this MCP server to extend their capabilities:
+These AI applications are some of the many that can use our new MCP server to extend their capabilities:
 * [Antigravity](https://antigravity.google/docs/mcp)
 * [ChatGPT (developer mode)](https://platform.openai.com/docs/guides/developer-mode)
 * [Claude Code](https://code.claude.com/docs/en/mcp)
@@ -260,31 +277,31 @@ These AI applications are just some of the many that can use this MCP server to 
 * [Visual Studio Code](https://code.visualstudio.com/docs/copilot/customization/mcp-servers)
 * [Zed](https://zed.dev/docs/ai/mcp)
 
-## Runtime Portability and Deployment Targets
+## Compatible Runtimes and Deployments
 
 The MCP server component we just created exports the standard [`wasi:http/incoming-handler`](https://github.com/WebAssembly/wasi-http) interface. This means any WebAssembly runtime that supports `wasi:http` can serve the component to MCP clients over the Streamable HTTP transport.
 
-For example, we can use [`wasmtime serve`](https://github.com/bytecodealliance/wasmtime):
+For example, we can use [`wasmtime serve`](https://github.com/bytecodealliance/wasmtime) which calls `wasi:http/incoming-handler`:
 
 ```shell
-wasmtime serve -Scli server.wasm
+wasmtime serve -Scli -Shttp -Skeyvalue server.wasm
 ```
 
-Our server also exports [`wasi:cli/run`](https://github.com/WebAssembly/wasi-cli), which lets it support the stdio MCP transport.
+Our server also exports [`wasi:cli/run`](https://github.com/WebAssembly/wasi-cli), which lets it operate over the stdio MCP transport using `wasmtime run`:
 
 ```shell
 wasmtime run server.wasm
 ```
 
-To deploy an MCP server as a Wasm component over the network, we can target a Spin-compatible cloud platform like [Fermyon Wasm Functions](https://www.fermyon.com/wasm-functions), which will scale a server component efficiently across [Akamai](https://www.akamai.com/why-akamai/global-infrastructure)'s distributed network edge with application-scoped key-value storage.
+To deploy an MCP server as a Wasm component over the network, we can target a Spin-compatible cloud platform like [Fermyon Wasm Functions](https://www.fermyon.com/wasm-functions), which will scale a server component horizontally across [Akamai](https://www.akamai.com/why-akamai/global-infrastructure)'s distributed network edge with application-scoped key-value storage.
 
 ```
 $ spin aka deploy
-Name of new app: mcp-server
-Creating new app mcp-server in account my-fwf-user
+Name of new app: rust-tools
+Creating new app rust-tools in account my-fwf-user
 Note: If you would instead like to deploy to an existing app, cancel this deploy and link this workspace to the app with `spin aka app link`
 OK to continue? yes
-Workspace linked to app mcp-server
+Workspace linked to app rust-tools
 Waiting for app to be ready... ready
 
 App Routes:
@@ -301,43 +318,43 @@ With a `spin.toml` file like the one above, we can use the `spin registry` comma
 
 ```shell
 echo $GHCR_PAT | spin registry login --username mygithub --password-stdin ghcr.io
-spin registry push ghcr.io/mygithub/basic-utils:0.1.0
+spin registry push ghcr.io/mygithub/rust-tools:0.1.0
 ```
 
 `spin up` can automatically resolve a component from the registry.
 
 ```shell
-spin up --from ghcr.io/mygithub/basic-utils:0.1.0
+spin up --from ghcr.io/mygithub/rust-tools:0.1.0
 ```
 
 We can also use [wkg](https://github.com/bytecodealliance/wasm-pkg-tools) directly to publish our server.
 
 ```shell
-wkg oci push ghcr.io/mygithub/basic-utils:0.1.0 polyglot.wasm
+wkg oci push ghcr.io/mygithub/rust-tools:0.1.0 server.wasm
 ```
 
 Anyone with read access to this artifact can then pull the component using `wkg` to run it with their runtime of choice.
 
 ```shell
-wkg oci pull ghcr.io/mygithub/basic-utils:0.1.0
-wasmtime serve -Scli mygithub:basic-utils@0.1.0.wasm
+wkg oci pull ghcr.io/mygithub/rust-tools:0.1.0
+wasmtime serve -Scli mygithub:rust-tools@0.1.0.wasm
 ```
 
 We can publish any individual MCP feature component, or any sequence of composed components, in the same way.
 
-## Advanced Composition and Wasmcp Architecture
+## Tool Composition
 
-The unique advantages of the component model and wasmcp's composition architecture become apparent when adding another tool component to our server. We'll use Python this time.
+The unique advantages of the component model and wasmcp's component architecture become apparent when adding another tool component to our server. We'll use Python this time.
 
 ```shell
-wasmcp new python-tools –-language python
+wasmcp new python-tools --language python
 cd python-tools
 make
 ```
 
 ```python
 # python-tools/app.py
-class StringsTools(exports.Tools):
+class StringUtils(exports.Tools):
     def list_tools(
         self,
         ctx: server_handler.RequestCtx,
@@ -377,23 +394,26 @@ class StringsTools(exports.Tools):
         ctx: server_handler.RequestCtx,
         request: mcp.CallToolRequest,
     ) -> Optional[mcp.CallToolResult]:
-        if not request.arguments:
-            return error_result("Missing tool arguments")
-
-        try:
-            args = json.loads(request.arguments)
-        except json.JSONDecodeError as e:
-            return error_result(f"Invalid JSON arguments: {e}")
+        input_text = json.loads(request.arguments)["text"]
+        
+        def make_result(text: str) -> mcp.CallToolResult:
+            return mcp.CallToolResult(
+                content=[mcp.ContentBlock_Text(mcp.TextContent(
+                    text=mcp.TextData_Text(text),
+                    options=None,
+                ))],
+                is_error=None,
+                meta=None,
+                structured_content=None,
+            )
 
         if request.name == "reverse":
-            return reverse_string(args.get("text"))
-        elif request.name == "uppercase":
-            return uppercase_string(args.get("text"))
-        else:
-            return None  # We don't handle this tool
+            return make_result(input_text[::-1])
+        if request.name == "uppercase":
+            return make_result(input_text.upper())
 ```
 
-We compose our first and second tool components together by adding the paths to both tool component binaries in the `wasmcp compose server` arguments. Note that these local paths can be substituted for OCI registry artifacts. See `wasmcp compose server -–help` for details.
+We compose our Python tool component together with our Rust tool component by adding the paths to both component binaries in the `wasmcp compose server` arguments. Note that these local paths can be substituted for OCI registry references. See `wasmcp compose server --help` for details.
 
 ```shell
 wasmcp compose server ./python-tools/python-tools.wasm ./rust-tools/target/wasm32-wasip2/release/rust_tools.wasm -o polyglot.wasm
@@ -401,18 +421,16 @@ wasmcp compose server ./python-tools/python-tools.wasm ./rust-tools/target/wasm3
 
 Run `polyglot.wasm` with `spin up`.
 ```shell
-spin up -f polyglot.wasm
+spin up --from polyglot.wasm
 ```
 
-Now our single server binary exposes four tools: `add`, `subtract`, `reverse`, and `uppercase`! Two are implemented in Python, and two in Rust.
+Now our single MCP server binary exposes four tools: `add`, `subtract`, `reverse`, and `uppercase`, implemented in two different languages and composed into a single component.
 
 ### How?
 
 Server features like tools, resources, prompts, and completions are implemented by individual WebAssembly components that export narrow [WIT](https://component-model.bytecodealliance.org/design/wit.html) interfaces mapped from the MCP spec's [schema](https://modelcontextprotocol.io/specification/draft/schema).
 
 `wasmcp compose server` plugs these feature components into framework middleware components and composes them together as a [chain of responsibility](https://en.wikipedia.org/wiki/Chain-of-responsibility_pattern) that implements an MCP server.
-
-Any of the components in the chain, like the transport, can be swapped out during composition.
 
 ```
 Transport<Protocol>
@@ -435,12 +453,16 @@ Each component:
 - Delegates others downstream
 - Merges results (e.g., combining tool lists)
 
-This enables dynamic composition of component binaries into a single MCP server. Sequences of middleware components can be composed together to form reusable functionality that can be saved and plugged into multiple servers.
+Any of the components in the chain, like the transport, can be swapped out during composition. Sequences of middleware components can be composed together to form reusable functionality that can be saved and plugged into multiple servers.
 
 Check out some [examples](https://github.com/wasmcp/wasmcp/tree/main/examples) to see advanced patterns featuring custom middleware components, session-enabled features, and SSE streaming.
 
 ## Related Projects
 
-[Wassette](https://github.com/microsoft/wassette) is a security-oriented runtime that runs WebAssembly Components via MCP. It can dynamically load and execute components as individual tools on-demand with deeply integrated access controls. Wassette itself is not a component. It is an MCP server than runs components.
+[Wassette](https://github.com/microsoft/wassette) is a security-oriented runtime that runs WebAssembly Components via MCP. It can dynamically load and execute components as individual tools on-demand with deeply integrated access controls. Wassette itself is not a component. It is an MCP server that runs components.
 
-Wasmcp is not an MCP server. It is a toolchain for producing an MCP server as a component that exports the standard [WASI](https://wasi.dev/) interfaces for HTTP and CLI commands: [`wasi:http/incoming-handler`](https://github.com/WebAssembly/wasi-http) and [`wasi:cli/run`](https://github.com/WebAssembly/wasi-cli). This server component runs on any runtime or platform that supports WASI and the component model.
+Wasmcp is not an MCP server. It is a toolchain for producing an MCP server as a component that exports the standard [WASI](https://wasi.dev/) interfaces for HTTP and CLI commands. This server component runs on any runtime or platform that supports WASI and the component model.
+
+## Why?
+
+We built wasmcp because we want to run agent-facing applications at scale in a future where MCP is the foundation for distributed intelligent systems. That means enabling powerful new MCP servers that are first-class applications rather than just proxies for REST APIs. Wasmcp is a step toward a polyglot AI application architecture that works consistently across local, cloud, and self-hosted platforms.
