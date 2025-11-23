@@ -76,6 +76,8 @@ if ! blc -rv                                                                    
     --exclude 'https://twitter.com/spinframework'                                                                                                                                           \
     --exclude 'https://linux.die.net/man/1/which'                                                                                                                                           \
     --exclude 'npmjs.com/package/'                                                                                                                                                          \
+    --exclude 'https://openai.com/'                                                                                                                                                          \
+    --exclude 'https://platform.openai.com/'                                                                                                                                                          \
     `## returns 429`                                                                                                                                                                        \
     --exclude 'developer.hashicorp.com'                                                                                                                                                     \
     `## false positives`                                                                                                                                                                    \
