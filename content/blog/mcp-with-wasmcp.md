@@ -100,13 +100,13 @@ Running an MCP server as a service over the network unlocks new distribution pot
 2. Scaling and performance matter. We may not initially think of the response time of remote tool calls as being important, given inference itself (especially with thinking / reasoning features enabled) is generally slow anyway. But consider that in answering a single query, an agent may need to make many consecutive tool calls to one or more remote MCP servers. The latency of even a few hundred milliseconds for each tool call can quickly snowball to seconds of lag. In realtime use cases like a voice or stock trading agent, even small response delays for tool calls can translate to the success or failure of the overall interaction or goal.
 3. Authorization is not straightforward to implement. The spec-compliant auth flow requires an authorizer that supports [Dynamic Client Registration](https://datatracker.ietf.org/doc/html/rfc7591). Support for a simplified flow via [OAuth Client ID Metadata Documents](https://datatracker.ietf.org/doc/draft-ietf-oauth-client-id-metadata-document/) is confirmed for the November 2025 spec release. Sharing an authorizer across multiple servers is a common goal usually achieved using an HTTP gateway.
 
-To make full-featured MCP servers that are safe, fast, and composable, we'd like an efficient sandbox plus a way build servers within that sandbox from reusable building blocks. This is exactly what the WebAssembly component model gives us.
+Next, we introduce a new stack that addresses some of these problems and paves a path to full-featured MCP servers that are sandboxed, fast, composable, and deployable on scalable infrastructure.
 
 ## WebAssembly Components
 
 While WebAssembly (Wasm) is commonly thought of as a browser technology, it has evolved into a versatile platform for building applications more generally. Self-contained binaries can be compiled from various programming languages and run portably and efficiently across a range of host devices while remaining sandboxed from host resources. This sandboxing capability presents a lighter alternative to containers and virtual machines that works without having to bundle layers of the operating system and its dependencies.
 
-The Wasm [component model](https://component-model.bytecodealliance.org/) builds on these strengths to implement a broad-reaching architecture for building interoperable WebAssembly libraries, applications, and environments. Wasm components within a single sandboxed process are further isolated from each other and interop only through explicit interfaces. A visual analogy for this idea might look like a bento box (independent compartments sharing a box but not mixing contents).
+The Wasm [component model](https://component-model.bytecodealliance.org/) builds on these strengths to implement a broad-reaching architecture for building interoperable WebAssembly libraries, applications, and environments. Wasm components within a single sandboxed process are further isolated from each other and interop only through explicit interfaces. A visual analogy for this idea might look like a bento box (independent compartments sharing a box but not contents unless you decide to mix them).
 
 The component model shares architectural similarities with MCP’s [server design principles](https://modelcontextprotocol.io/specification/2025-06-18/architecture#design-principles):
 
@@ -284,13 +284,14 @@ The MCP server component we just created exports the standard [`wasi:http/incomi
 For example, we can use [`wasmtime serve`](https://github.com/bytecodealliance/wasmtime) which calls `wasi:http/incoming-handler`:
 
 ```shell
-wasmtime serve -Scli -Shttp -Skeyvalue server.wasm
+wasmcp compose server target/wasm32-wasip2/release/rust_tools.wasm -o wasmtime-server.wasm --runtime wasmtime
+wasmtime serve -Scli -Shttp -Skeyvalue wasmtime-server.wasm
 ```
 
 Our server also exports [`wasi:cli/run`](https://github.com/WebAssembly/wasi-cli), which lets it operate over the stdio MCP transport using `wasmtime run`:
 
 ```shell
-wasmtime run server.wasm
+wasmtime run -Scli -Skeyvalue -Shttp wasmtime-server.wasm
 ```
 
 To deploy an MCP server as a Wasm component over the network, we can target a Spin-compatible cloud platform like [Fermyon Wasm Functions](https://www.fermyon.com/wasm-functions), which will scale a server component horizontally across [Akamai](https://www.akamai.com/why-akamai/global-infrastructure)'s distributed network edge with application-scoped key-value storage.
@@ -416,6 +417,7 @@ class StringUtils(exports.Tools):
 We compose our Python tool component together with our Rust tool component by adding the paths to both component binaries in the `wasmcp compose server` arguments. Note that these local paths can be substituted for OCI registry references. See `wasmcp compose server --help` for details.
 
 ```shell
+cd ..
 wasmcp compose server ./python-tools/python-tools.wasm ./rust-tools/target/wasm32-wasip2/release/rust_tools.wasm -o polyglot.wasm
 ```
 
