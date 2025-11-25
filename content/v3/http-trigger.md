@@ -364,9 +364,9 @@ For the most part, you'll build HTTP component modules using a language SDK (see
 
 The HTTP component interface is defined using a WebAssembly Interface (WIT) file.  ([Learn more about the WIT language here.](https://component-model.bytecodealliance.org/design/wit.html)).  You can find the latest WITs for Spin HTTP components at [https://github.com/spinframework/spin/tree/main/wit](https://github.com/spinframework/spin/tree/main/wit).
 
-The HTTP types and interfaces are defined in [https://github.com/spinframework/spin/tree/main/wit/deps/http](https://github.com/spinframework/spin/tree/main/wit/deps/http), which tracks [the `wasi-http` specification](https://github.com/WebAssembly/wasi-http).
+The HTTP types and interfaces are defined in [https://github.com/spinframework/spin/tree/main/wit/deps/http@0.2.6](https://github.com/spinframework/spin/tree/main/wit/deps/http@0.2.6), which tracks [the `wasi-http` specification](https://github.com/WebAssembly/wasi-http).
 
-In particular, the entry point for Spin HTTP components is defined in [the `incoming-handler` interface](https://github.com/spinframework/spin/blob/main/wit/deps/http/handler.wit):
+In particular, the entry point for Spin HTTP components is defined in [the `incoming-handler` interface](https://github.com/spinframework/spin/blob/main/wit/deps/http@0.2.6/handler.wit):
 
 <!-- @nocpy -->
 
