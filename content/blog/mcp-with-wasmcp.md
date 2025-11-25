@@ -1,5 +1,5 @@
 title = "Build MCP Servers with Wasmcp and Spin"
-date = "2025-11-20T10:15:47Z"
+date = "2025-11-25T10:15:47Z"
 template = "blog_post"
 description = "Introducing a new approach to building MCP servers on the WebAssembly component model."
 tags = ["agents", "ai", "llm", "mcp", "model"]
@@ -10,14 +10,14 @@ author = "Ian McDonald"
 
 ---
 
-[Wasmcp](https://github.com/wasmcp/wasmcp) is a [WebAssembly Component](https://component-model.bytecodealliance.org/) Development Kit for the [Model Context Protocol](https://modelcontextprotocol.io/docs/getting-started/intro).
+[Wasmcp](https://github.com/wasmcp/wasmcp) is a [WebAssembly component](https://component-model.bytecodealliance.org/) development kit for the [Model Context Protocol](https://modelcontextprotocol.io/docs/getting-started/intro).
 
 It works with [Spin](https://github.com/spinframework/spin) to let you:
 
 * Build composable MCP servers as WebAssembly components.
 * Mix tools and features written in Rust, Python, TypeScript, etc. in a single server binary.
 * Plug in shared components for authorization, sessions, logging, and more across multiple MCP servers.
-* Run the same sandboxed MCP server binary locally, on [Fermyon Wasm Functions](https://www.fermyon.com/wasm-functions), on Kubernetes clusters (e.g. via [SpinKube](https://www.spinkube.dev/)), or on any runtime that speaks WASI + components.
+* Run the same sandboxed MCP server binary locally, on the network edge via [Fermyon Wasm Functions](https://www.fermyon.com/wasm-functions), on Kubernetes clusters (e.g. via [SpinKube](https://www.spinkube.dev/)), or on any runtime that speaks WASI + components.
 * Expose both stdio and Streamable HTTP transports via standard [WASI](https://wasi.dev/) exports.
 
 See the [quickstart](#quickstart) or read on for some context.
@@ -38,7 +38,7 @@ Large language models (LLMs) are trained on vast heaps of data that they use to 
 
 All LLMs depend on calling external [functions](https://gorilla.cs.berkeley.edu/leaderboard.html), also called tools, to interact with the outside world beyond the prompt and to perform deterministic actions. Just like you might use a calculator to accurately crunch numbers, or a web browser to explore the internet, an LLM might use its own calculator and HTTP fetch tools in the same way. Even basic capabilities like reading a file from disk are implemented via tools.
 
-Without tools a language model is like someone sitting in an empty, windowless box with only their memories from an array of random encyclopedias, books, and other training data to pull from. Our interactions with them are something along the lines of: A human slips a question written on a piece of paper under the door for the model to read, and the model slips back a response using only their prior knowledge and imagination.
+Without tools, a language model is like someone sitting in an empty, windowless box with only their memories from an array of random encyclopedias, books, and other training data to pull from. Our interactions with them are something along the lines of: A human slips a question written on a piece of paper under the door for the model to read, and the model slips back a response using only their prior knowledge and imagination.
 
 That's a long way from the promise of autonomous systems that understand and act on the world in realtime, let alone transform it.
 
@@ -60,9 +60,7 @@ We’d need to write a new implementation of each tool for OpenAI’s GPT models
 
 We want to implement a given tool only once and make it discoverable and accessible dynamically for any AI application, potentially across the network, at scale.
 
-The [Fundamental Theorem of Software Engineering](https://en.wikipedia.org/wiki/Fundamental_theorem_of_software_engineering) states:
-
-> We can solve any problem by introducing an extra level of [indirection](https://en.wikipedia.org/wiki/Indirection).
+The [Fundamental Theorem of Software Engineering](https://en.wikipedia.org/wiki/Fundamental_theorem_of_software_engineering) states: "We can solve any problem by introducing an extra level of [indirection](https://en.wikipedia.org/wiki/Indirection)."
 
 We need a layer of indirection between models and their tools.
 
@@ -70,7 +68,7 @@ We need a layer of indirection between models and their tools.
 
 In November 2024, Anthropic suggested an open-source standard for connecting AI applications to external systems: The [Model Context Protocol (MCP)](https://modelcontextprotocol.io/docs/getting-started/intro). It aims to be the USB-C for tool calling, and more.
 
-MCP defines a set of context [primitives](https://modelcontextprotocol.io/specification/draft/server) that are implemented as server features.
+MCP defines a set of context [primitives](https://modelcontextprotocol.io/specification/draft/server) that are implemented as server features. The following table from [MCP's documentation](https://modelcontextprotocol.io/specification/draft/server) summarizes the scope of each primitive. 
 
 | Primitive | Control                | Description                                        | Example                         |
 | --------- | ---------------------- | -------------------------------------------------- | ------------------------------- |
@@ -108,12 +106,12 @@ While WebAssembly (Wasm) is commonly thought of as a browser technology, it has 
 
 The Wasm [component model](https://component-model.bytecodealliance.org/) builds on these strengths to implement a broad-reaching architecture for building interoperable WebAssembly libraries, applications, and environments. Wasm components within a single sandboxed process are further isolated from each other and interop only through explicit interfaces. A visual analogy for this idea might look like a bento box (independent compartments sharing a box but not contents unless you decide to mix them).
 
-The component model shares architectural similarities with MCP’s [server design principles](https://modelcontextprotocol.io/specification/2025-06-18/architecture#design-principles):
+The component model shares architectural similarities with MCP’s [server design principles](https://modelcontextprotocol.io/specification/2025-06-18/architecture#design-principles), which are quoted below.
 
-> 1. Servers should be extremely easy to build
-> 2. Servers should be highly composable
-> 3. Servers should not be able to read the whole conversation, nor “see into” other servers
-> 4. Features can be added to servers and clients progressively
+1. Servers should be extremely easy to build
+2. Servers should be highly composable
+3. Servers should not be able to read the whole conversation, nor “see into” other servers
+4. Features can be added to servers and clients progressively
 
 Imagine mapping individual MCP features to Wasm components, which can be composed together to form a complete MCP server component.
 
