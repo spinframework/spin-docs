@@ -20,7 +20,7 @@ The year closed with the release of the first WASIp3 release candidate. This was
 
 Between those two bookends, Spin continued to evolve in steady but meaningful ways. The project saw a consistent stream of features, refinements, and quality-of-life improvements across the runtime, triggers, SDKs, and tooling. Many of these changes were incremental in isolation, but together they materially improved how it feels to build, run, and operate Spin applications.
 
-Just as importantly, the project welcomed new contribiutors over the course of the year. First-time contributors helped shape and deliver features, improve documentation, test early changes, and surface issues before they reached users. Our growing community of contributors has become an essential part to Spin's evolution.
+Just as importantly, the project welcomed new contributors over the course of the year. First-time contributors helped shape and deliver features, improve documentation, test early changes, and surface issues before they reached users. Our growing community of contributors has become an essential part to Spin's evolution.
 
 ## Looking Ahead
 
@@ -56,7 +56,7 @@ WASIp3 promises composable HTTP, freed from the incoming/outgoing asymmetry of W
 
 ### Dependencies
 
-A little over a year ago, we shipped support for [component dependencies](https://github.com/spinframework/spin/pull/2543), which we rolled out in Spin v3.0. This feature cemented a foundation for developers to define how their dependencies are wired up allowing for a true polyglot experience. In the new year, we will focus on improving the developer experience for working with depenencies, striving for a native experience that most developers are familiar with. We did some initial experiments on this in the [`spin deps` plugin](https://github.com/spinframework/spin-deps-plugin), and in 2026 we plan to iterate and improve on this experience as well as integrating it into the Spin command line. In addition to making it easier to consume dependencies, we are looking to enable a workflow to facilitate their development.
+A little over a year ago, we shipped support for [component dependencies](https://github.com/spinframework/spin/pull/2543), which we rolled out in Spin v3.0. This feature cemented a foundation for developers to define how their dependencies are wired up allowing for a true polyglot experience. In the new year, we will focus on improving the developer experience for working with dependencies, striving for a native experience that most developers are familiar with. We did some initial experiments on this in the [`spin deps` plugin](https://github.com/spinframework/spin-deps-plugin), and in 2026 we plan to iterate and improve on this experience as well as integrating it into the Spin command line. In addition to making it easier to consume dependencies, we are looking to enable a workflow to facilitate their development.
 
 ## Stay In Touch
 
