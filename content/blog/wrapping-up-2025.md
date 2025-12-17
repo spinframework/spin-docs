@@ -12,7 +12,7 @@ author = "The Spin Project"
 
 ## A Year of Momentum
 
-This past year marked an important inflection point for Spin, both for the project and for the commnunity building and consuming it.
+This past year marked an important inflection point for Spin, both for the project and for the community building and consuming it.
 
 Spin began the year by entering the Cloud Native Computing Foundation (CNCF) as a Sandbox project. That milestone reflected the growing confidence in the project's direction and governance, and it was made possible by the sustained efforts of the maintainers and contributors who helped bring Spin to this stage.
 
@@ -20,13 +20,13 @@ The year closed with the release of the first WASIp3 release candidate. This was
 
 Between those two bookends, Spin continued to evolve in steady but meaningful ways. The project saw a consistent stream of features, refinements, and quality-of-life improvements across the runtime, triggers, SDKs, and tooling. Many of these changes were incremental in isolation, but together they materially improved how it feels to build, run, and operate Spin applications.
 
-Just as importantly, the project welcomed new contributors over the course of the year. First-time contributors helped shape and deliver features, improve documentation, test early changes, and surface issues before they reached users. Our growing community of contributors has become an essential part to Spin's evolution.
+Just as importantly, the project welcomed new contributors over the course of the year. First-time contributors helped shape and deliver features, improve documentation, test early changes, and surface issues before they reached users. Our growing community of contributors has become an essential part of Spin's evolution.
 
 ## Looking Ahead
 
 With a more mature codebase, a growing community of contributors, and a WASIp3 release candidate now available, the Spin project will enter the new year focused on building on the foundations already in place.
 
-The months ahead will continue on the path towards WASIp3 stabilization. While the release candidate is a major milestone, feedback from real-world usage, API refinement, and improved migration paths will shape what comes next, in close alignment with upstream WASI developement.
+The months ahead will continue on the path toward WASIp3 stabilization. While the release candidate is a major milestone, feedback from real-world usage, API refinement, and improved migration paths will shape what comes next, in close alignment with upstream WASI development.
 
 Spin will continue to heavily invest in developer experience and operational polish, with incremental improvements to tooling and workflows that make new capabilities easier to adopt without compromising stability. The following is a brief overview of what we are aiming for!
 
