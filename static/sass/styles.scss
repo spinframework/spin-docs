@@ -1079,6 +1079,46 @@ html.dark-theme {
 	}
 }
 
+.blog-title::after {
+	content: none !important;
+	display: none !important;
+}
+
+.blog-title {
+	margin-bottom: 0.5rem;
+	padding-bottom: 0 !important;
+}
+
+.blog-meta-wrapper {
+	display: inline-block;
+	padding-bottom: 1.25rem;
+	margin-bottom: 2rem;
+	border-bottom: 3px solid $lavenderfloral;
+	min-width: 160px;
+}
+
+.blog-meta-author {
+	color: $lavenderfloral;
+	font-weight: 500;
+	line-height: 1.2;
+	margin-bottom: 0.25rem;
+	font-size: 1rem;
+}
+
+.by-label {
+	color: $darkspace;
+	font-weight: 400;
+	margin-right: 4px;
+}
+
+.date {
+	font-size: 0.85rem !important;
+	color: $darkspace;
+	letter-spacing: 0.125em;
+	text-transform: uppercase;
+	font-family: $work;
+}
+
 /* Dark theme for blog listing */
 html.dark-theme {
 	.blog-post-preview {
