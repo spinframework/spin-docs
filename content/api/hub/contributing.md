@@ -190,7 +190,7 @@ $ git config user.email "youremail@somemail.com"
 
 More information can be found at this GitHub documentation page called [signing commits](https://docs.github.com/en/authentication/managing-commit-signature-verification/signing-commits).
 
-Type the following commit command to ensure that you sign off (--signoff), sign the data (-S) - recommended, and also leave a short message (-m):
+Type the following commit command to ensure that you sign off (--signoff), sign the data (-S), and also leave a short message (-m):
 
 <!-- @nocpy -->
 
@@ -198,7 +198,7 @@ Type the following commit command to ensure that you sign off (--signoff), sign 
 $ git commit -S --signoff -m "Updating Spin Hub"
 ```
 
-> Note: the `--signoff` option will only add a Signed-off-by trailer by the committer at the end of the commit log message. In addition to this, it is recommended that you use the `-S` option which will GPG-sign your commits. For more information about using GPG in GitHub see [this GitHub documentation](https://docs.github.com/en/authentication/managing-commit-signature-verification/adding-a-gpg-key-to-your-github-account).
+> Note: the `--signoff` option will only add a Signed-off-by trailer by the committer at the end of the commit log message. In addition to this, it is required that you use the `-S` option which will GPG-sign your commits. For more information about using GPG in GitHub see [this GitHub documentation](https://docs.github.com/en/authentication/managing-commit-signature-verification/adding-a-gpg-key-to-your-github-account).
 
 ### Push Changes
 
