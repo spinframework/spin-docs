@@ -370,7 +370,6 @@ This library only currently supports the following polyfills:
 
 Some NPM packages can be installed and used in the component. If a popular library does not work, please open an issue/feature request in the [spin-js-sdk repository](https://github.com/spinframework/spin-js-sdk/issues).
 
-
 ### Suggested Libraries for Common Tasks
 
 These are some of the suggested libraries that have been tested and confirmed to work with the SDK for common tasks.
@@ -382,6 +381,50 @@ These are some of the suggested libraries that have been tested and confirmed to
 {{ details "Runtime schema validation" "- [zod](https://www.npmjs.com/package/zod)" }} 
 
 {{ details "Unique ID generator" "- [nanoid](https://www.npmjs.com/package/nanoid)\n- [ulidx](https://www.npmjs.com/package/ulidx)\n- [uuid](https://www.npmjs.com/package/uuid)" }} 
+
+## Debugging in VSCode
+
+The [StarlingMonkey Debugger](https://marketplace.visualstudio.com/items?itemName=BytecodeAlliance.starlingmonkey-debugger) enables debugging components built using the SDK. The debugger currently only works with the HTTP trigger and needs to be restarted for every request.
+
+### Using the Debugger
+
+#### Setup
+
+First, make sure that the extension is installed. Next verify that the templates are new enough to support debugging. This can be verified by looking `.vscode/setting.json` and verifying if something like the following is configured:
+
+```json
+// .vscode/setting.json
+{
+    "starlingmonkey": {
+        "componentRuntime": {
+            "executable": "spin",
+            "options": [
+                "up",
+                "-f",
+                "${workspaceFolder}",
+            ],
+        }
+    }
+}
+```
+
+If it does not exist, setup the configuration using the [testcase](https://github.com/spinframework/spin-js-sdk/tree/main/test/debugger-testing/spin-ts/.vscode) as a reference. 
+
+Once that is setup, we need to update the configuration in `spin.toml` to build the debug component. This can be done by updating the build command in `spin.toml` to be `npm run build:debug`. We also need to add `"tcp://127.0.0.1:*"` to the list of `allowed_outbound_hosts`. 
+
+Now we can build the app using the familiar `spin build` command.
+
+#### Attaching the Debugger
+
+We can start the app and attach the debugger to it using `F5` key or using the start debugger button as show below:
+
+![Starting VScode debugger](/static/image/docs/js-debugger.jpg)
+
+Once the debugger is attached, it can used as it normally would to do things like set breakpoints and step through the code. 
+
+![JS debugger running](/static/image/docs/js-debugger-running.png)
+
+**Note:** that the debugger currently does not follow sourcemaps for npm dependencies as some packages may not bundle the source code in the pacakge. 
 
 ## Caveats
 
