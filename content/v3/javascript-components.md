@@ -416,11 +416,11 @@ Now we can build the app using the familiar `spin build` command.
 
 #### Attaching the Debugger
 
-We can start the app and attach the debugger to it using `F5` key or using the start debugger button as show below:
+We can start the app and attach the debugger to it using the `F5` key or using the start debugger button as show below:
 
 ![Starting VScode debugger](/static/image/docs/js-debugger.jpg)
 
-Once the debugger is attached, it can used as it normally would to do things like set breakpoints and step through the code. 
+Once the debugger is attached, it can be used as it normally would be. E.g., you can do things like setting breakpoints and stepping through the code.
 
 ![JS debugger running](/static/image/docs/js-debugger-running.png)
 
