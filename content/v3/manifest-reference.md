@@ -84,6 +84,7 @@ The only variables permitted in manifest expressions are application variables.
 | `version`               | Optional   | String      | The version of the application. The must be a string of the form `major.minor.patch`, where each element is a number. | `"1.0.5"` |
 | `description`           | Optional   | String      | A human-readable description of the application. | `"The best app for all your world-greeting needs"` |
 | `authors`               | Optional   | Array of strings | The authors of the applications. If present, this must ba an array, even if it has only one entry. | `["Jane Q Hacker (<dev@example.com>)"]` |
+| `targets`               | Optional   | Array of strings | The environments that the application is expected to be compatible with. | ["spin-up:3.2"] |
 | `trigger`               | Optional   | Table       | Application-global trigger settings. See [The `application.trigger` Table](#the-applicationtrigger-table) below. | `[application.trigger.redis]`<br />`address = "redis.example.com"` |
 
 ## The `application.trigger` Table
@@ -183,6 +184,7 @@ The value of each key is a table with the following fields.
 | `environment`           | Optional   | Table       | Environment variables to be set for the Wasm module. This is a table. The table keys are user-defined; the values must be strings. | `{ DB_URL = "mysql://spin:spin@localhost/dev" }` |
 | `build`                 | Optional   | Table       | The command that `spin build` uses to build this component. See [The `component.(id).build` Table](#the-componentidbuild-table) below. | `[component.cart.build]`<br />`command = "npm run build"` |
 | `variables`             | Optional   | Table       | Application configuration values to be made available to this component. The table keys are user-defined; the values must be strings, and may use template notation as described under [Application Variables](variables#adding-variables-to-your-applications). | `[component.cart.variables]`<br />`api_base_url = "https://{{ api_host }}/v1"` |
+| `targets`               | Optional   | Array of strings | The environments that the component is expected to be compatible with. The default is the application `targets`. | ["spin-up:3.2"] |
 | `dependencies_inherit_configuration` | Optional | Boolean | If true, dependencies can invoke Spin APIs with the same permissions as the main component. If false, dependencies have no permissions (e.g. network, key-value stores, SQLite databases). The default is false. | `false` |
 | `dependencies`          | Optional   | Table       | Specifies how to satisfy Wasm Component Model imports of this component. See [Using Component Dependencies](writing-apps.md#using-component-dependencies). | `[component.cart.dependencies]`<br />`"example:calculator/adder" = { registry = "example.com", package = "example:adding-calculator", version = "1.0.0" }` |
 
