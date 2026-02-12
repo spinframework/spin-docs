@@ -12,46 +12,30 @@ author = "The Spin Project"
 
 Earlier this week, the CNCF Spin project released [Spin v3.6.0](https://github.com/spinframework/spin/releases/tag/v3.6.0) which includes support for a new release candidate of the upcoming WASI Preview 3 (WASIp3) release, component instance reuse, and experimental support for the [WASI OTel (OpenTelemetry)](https://github.com/webAssembly/wasi-otel) proposal!
 
-## Component Instance Reuse
+## WASI Preview 3 January Release Candidate
 
-A defining capability of WASIp3 is support for asynchronous component exports. Components can expose async functions that suspend and resume around I/O and, critically, multiple calls may execute concurrently within the same component instance.
+Spin 3.6 replaces the WASIp3 release candidate used in 3.5 with the newer January RC. As in Spin 3.5, this remains experimental, and we do not expect to support it in the next release of Spin. WASIp3 Rust SDK users **must** update from 5.1 to 5.2. (But if you're not using WASIp3 then you **don't** need to update.)
 
-Because safe, concurrent instance reuse is a first-class design goal of WASIp3, Spin 3.6 introduces component instance reuse for WASIp3 components. By default, Spin will reuse p3 component instances both concurrently and serially, allowing multiple in-flight requests to share a single instance.
+The main user-facing change in the January RC is that it now distinguishes two uses of HTTP: the case of components passing requests along a composition chain, and the case of components making requests to network services. This means components participating in middleware chains can interoperate according to the P3 specification, instead of ad hoc - that is, middleware components from different authors will mix and match with no additional configuration. This doesn't affect application developers, though - you still use your language or SDK HTTP API. But we're working on a middleware feature to let developers take advantage of it - stay tuned!
 
-In practice, this translates to higher throughput and lower memory usage, since fewer component instances are required to sustain a given request volume. This behavior is intentionally limited to WASIp3: Spin does not reuse WASIp2 instances by default, as those components were not necessarily written with reentrancy or concurrent execution in mind.
+## WASIp3 Component Instance Reuse
 
-Spin 3.6 ships with conservative defaults for tweaking the behavior of instance reuse:
-* Up to 16 concurrent calls per instance
-* Up to 128 total calls before an instance is retired
-* Idle instances retained for up to one second
+A defining capability of WASIp3 is support for asynchronous component exports. Components can expose async functions that suspend and resume around I/O. And, critically for this, multiple calls may execute concurrently within the same component instance.
 
-> NOTE: Once an instance reaches its total call limits, the instance will be disposed. These bounds provide reuse benefits while limiting long-lived state accumulation.
+This leads to a fundamental shift in how WASI components execute. In WASIp2, component instances were effectively single-use. Runtimes assigned each request a fresh instance, which simplified correctness but imposed real costs: higher memory pressure, no amortisation of startup overhead, and tighter coupling between throughput and instance count. WASIp3 changes that contract. By making asynchronous exports and safe concurrency a first-class concern, the model allows a single component instance to serve many in-flight operations. Runtimes like Spin can therefore move from "one instance per request" toward managed concurrency within a bounded instance pool.
 
-All reuse parameters can be tune, or disabled entirely, via `spin up` command-line options. Each option also supports specifying a range of values, in which case Spin will pseudo-randomly select parameters at runtime. This makes it straightforward to stress-test components under varying concurrency and lifecycle conditions without rebuilding or redeploying.
-
-Instance reuse is enabled by default for WASIp3 components, but remains experimental while WASIp3 continues toward formal stabilization. We expect these semantics to solidify alongside the WASI standard itself.
-
-### Why This Matters
-
-Component instance reuse is more than a performance optimization, it reflects a fundamental shift in how WASIp3 components are intended to execute.
-
-In earlier WASI models, including WASIp2, component instances were effectively single-use. Runtimes had to assume that each request required a fresh instance, which simplified correctness but imposed real costs: higher memory pressure, increased startup overhead, and tighter coupling between throughput and instance count.
-
-WASIp3 changes that contract. By making asynchronous exports and safe concurrency a first-class concern, the model allows a single component instance to serve many in-flight operations. This enables runtimes like Spin to move from "one instance per request" toward managed concurrency within a bounded instance pool.
+By default, Spin 3.6 reuses WASIp3 component instances both concurrently and serially, allowing multiple in-flight requests to share a single instance, and allowing an instance which is no longer in use to be reused for newly arriving requests.
 
 For platform operators, this means:
 * Higher request density per node without linear growth in memory usage
 * More predictable performance under bursty or spiky workloads
 * Lower cold-start amplification, since fewer instances need to be created and torn down
 
-For component authors, it establishes a clear execution model:
-* Components should assume reentrancy and concurrent execution
-* Instance-local state must be explicitly managed or protected
-* Long-lived state becomes a deliberate design choice, not an accidental artifact
+It does, though, mean application developers need to alter some assumptions about instance lifecycles. Fortunately, these changes line up well with practices you're familiar with from other runtimes such as Axum or Express. If you're using 'global' (that is, instance-scoped) state as part of your request state, you'll need to address that. If you do truly need instace-level state, you must think about how to manage or protect that in the face of concurrent in-flight requests: long-lived state should be a deliberate design choice, not an accidental artifact.
 
-Most importantly, instance reuse aligns Spin's execution model with where the WASI ecosystem is heading. As WASIp3 stabilizes, reuse becomes the baseline expectation rather than a runtime-specific optimization. Spin 3.6 is an early step in that direction, giving developers and operators a concrete way to evaluate those semantics today.
+Instance reuse is enabled by default for WASIp3 components, but remains experimental while WASIp3 continues toward formal stabilization. We expect these semantics to solidify alongside the WASI standard itself.
 
-## WASI OTel (OpenTelemtry)
+## WASI OTel (OpenTelemetry)
 
 [WASI OTel](https://github.com/WebAssembly/wasi-otel) is a Phase 1 [WASI proposal](https://github.com/WebAssembly/WASI/blob/main/docs/Proposals.md) that defines WIT interfaces for emitting OpenTelemetry signals — traces, metrics, and logs — from within WebAssembly components. Spin 3.6 ships with experimental support for WASI OTel.
 
@@ -86,10 +70,12 @@ tracing-subscriber = "0.3"
 
 Then in `src/lib.rs`:
 
+**1. Make a bunch of OTel types available in the `use` section.**
+
 ```rust
 use opentelemetry::{trace::TracerProvider as _, Context};
 use opentelemetry_sdk::trace::SdkTracerProvider;
-use opentelemetry_wasi::WasiPropagator;
+use opentelemetry_wasi::{TraceContextPropagator, WasiPropagator, WasiSpanProcessor};
 use spin_sdk::{
     http::{IntoResponse, Request, Response},
     http_component,
@@ -97,11 +83,20 @@ use spin_sdk::{
 };
 use tracing::instrument;
 use tracing_subscriber::{layer::SubscriberExt, registry, util::SubscriberInitExt};
+```
 
+The key pieces here are:
+
+- **`WasiSpanProcessor`** — a `SpanProcessor` that forwards span start/end events to the host via WASI OTel WIT calls instead of exporting them over the network from the guest.
+- **`TraceContextPropagator`** — extracts the host's span context so your component's spans are properly parented under the Spin-level request span.
+
+**2. Set up the OTel context and environment.**
+
+```rust
 #[http_component]
 fn handle_request(_req: Request) -> anyhow::Result<impl IntoResponse> {
     // Set up a tracer backed by the WASI span processor
-    let wasi_processor = opentelemetry_wasi::WasiSpanProcessor::new();
+    let wasi_processor = WasiSpanProcessor::new();
     let provider = SdkTracerProvider::builder()
         .with_span_processor(wasi_processor)
         .build();
@@ -113,10 +108,10 @@ fn handle_request(_req: Request) -> anyhow::Result<impl IntoResponse> {
 
     // Propagate the trace context from the Spin host so your
     // spans appear as children of the Spin-level request span
-    let wasi_propagator = opentelemetry_wasi::TraceContextPropagator::new();
+    let wasi_propagator = TraceContextPropagator::new();
     let _guard = wasi_propagator.extract(&Context::current()).attach();
 
-    main_operation();
+    main_operation(); // see below
 
     Ok(Response::builder()
         .status(200)
@@ -124,7 +119,11 @@ fn handle_request(_req: Request) -> anyhow::Result<impl IntoResponse> {
         .body("Hello, Spin!")
         .build())
 }
+```
 
+**3. You can now use the standard `tracing` instrumentation in your functions.** Each function annotated with `#[instrument]` becomes an OTel span, and macros such as `tracing::info!` become span events. Notice that no WASI-specific APIs leak into your application code!
+
+```rust
 #[instrument(fields(my_attribute = "my-value"))]
 fn main_operation() {
     tracing::info!(name: "Main span event", foo = "1");
@@ -139,22 +138,18 @@ fn child_operation() {
 }
 ```
 
+**4. Your instrumented application is ready to build and run!**
+
 Make sure to add the following to your `spin.toml` to allow key value access:
 
 ```toml
 key_value_stores = ["default"]
 ```
 
-The key pieces are:
-
-- **`WasiSpanProcessor`** — a `SpanProcessor` that forwards span start/end events to the host via WASI OTel WIT calls instead of exporting them over the network from the guest.
-- **`TraceContextPropagator`** — extracts the host's span context so your component's spans are properly parented under the Spin-level request span.
-- **`#[instrument]`** — standard `tracing` instrumentation. Each annotated function becomes a span, and `tracing::info!` calls become span events. No WASI-specific APIs leak into your application code.
-
-To run it with Spin's built-in OTel tooling:
+Then, run the application with Spin's built-in OTel tooling:
 
 ```bash
-# Install the otel plugin
+# Install the `otel` plugin
 spin plugin update
 spin plugin install otel
 
