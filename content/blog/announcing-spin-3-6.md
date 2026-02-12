@@ -49,7 +49,7 @@ The [`opentelemetry-wasi`](https://github.com/calebschoepp/opentelemetry-wasi) c
 
 > The plan is to move this crate under the Bytecode Alliance, but for now you can pull it from its current home.
 
-Let's build a minimal Rust Spin appplication to demo the tracing capabilities. The application will use the idiomatic [`tracing`](https://docs.rs/tracing/latest/tracing/) crate backed by OpenTelemetry. First scaffold a new application:
+Let's build a minimal Rust Spin application to demo the tracing capabilities. The application will use the idiomatic [`tracing`](https://docs.rs/tracing/latest/tracing/) crate backed by OpenTelemetry. First scaffold a new application:
 
 ```bash
 spin new wasi-otel-demo -t http-rust --accept-defaults
