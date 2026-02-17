@@ -39,6 +39,9 @@ jobs:
 
       - name: Deploy to Fermyon Cloud
         uses: fermyon/actions/spin/deploy@v1
+        env:
+          # Create archive layers to consolidate the hundreds of static asset layers together
+          SPIN_OCI_ARCHIVE_LAYERS: 1
         with:
           run_build: false
           fermyon_token: "${{ secrets.FERMYON_CLOUD_TOKEN }}"
