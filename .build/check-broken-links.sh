@@ -78,6 +78,7 @@ if ! blc -rv                                                                    
     --exclude 'npmjs.com/package/'                                                                                                                                                          \
     --exclude 'https://openai.com/'                                                                                                                                                          \
     --exclude 'https://platform.openai.com/'                                                                                                                                                          \
+    --exclude 'https://www.akamai.com/why-akamai/global-infrastructure'                                                                                                                     \
     `## returns 429`                                                                                                                                                                        \
     --exclude 'developer.hashicorp.com'                                                                                                                                                     \
     `## false positives`                                                                                                                                                                    \
