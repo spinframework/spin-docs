@@ -60,11 +60,11 @@ Add the following to the `[dependencies]` section in your `Cargo.toml`:
 ```toml
 [dependencies]
 ...
-opentelemetry = "0.29"
-opentelemetry_sdk = "0.29"
+opentelemetry = "0.31"
+opentelemetry_sdk = "0.31"
 opentelemetry-wasi = { git = "https://github.com/calebschoepp/opentelemetry-wasi" }
 tracing = "0.1"
-tracing-opentelemetry = "0.30"
+tracing-opentelemetry = "0.32.1"
 tracing-subscriber = "0.3"
 ```
 
