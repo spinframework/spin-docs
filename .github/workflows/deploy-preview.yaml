@@ -31,6 +31,7 @@ jobs:
         env:
           # Create archive layers to consolidate the hundreds of static asset layers together
           SPIN_OCI_ARCHIVE_LAYERS: 1
+          RUST_LOG: trace
         with:
           fermyon_token: ${{ secrets.FERMYON_CLOUD_TOKEN }}
           github_token: ${{ secrets.GITHUB_TOKEN }}
