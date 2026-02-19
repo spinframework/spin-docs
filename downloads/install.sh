@@ -183,8 +183,10 @@ if [[ $STATIC = "false" ]]; then
 else
     fancy_print 0 "Step 5: Skipping plugin installation for OS with musl"
 fi
+
 # Re-Enable OpenTelemetry SDK
 export OTEL_SDK_DISABLED=
+
 # Direct to quicks-start doc
 fancy_print 0 "You're good to go. Check here for the next steps: https://spinframework.dev/quickstart"
 fancy_print 0 "Run './spin' to get started"
