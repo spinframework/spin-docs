@@ -403,7 +403,7 @@ The extension can be installed from the [extension store](https://marketplace.vi
 
 ##### Setting up the Project
 
-Templates starting from Spin v3.5 include the required setup for supporting debugging. This can be verified by looking `.vscode/setting.json` and `.vscode/launch.json` and verifying if something like the following is configured:
+Templates starting from Spin v3.5 include the required setup for supporting debugging. You can verify this by looking at `.vscode/setting.json` and `.vscode/launch.json` and checking if something like the following is configured:
 
 ```json
 // .vscode/setting.json
@@ -437,19 +437,21 @@ Templates starting from Spin v3.5 include the required setup for supporting debu
 }
 ```
 
-If it does not exist, setup the configuration using the [testcase](https://github.com/spinframework/spin-js-sdk/tree/main/test/debugger-testing/spin-ts/.vscode) as a reference for setting up both the `settings.json` and `launch.json`. Make sure to setup the `program` field in `launch.json` based on whether it is a JavaScript or TypeScript project.
+If it does not exist, create or edit `settings.json` and `launch.json` yourself, using the [testcase](https://github.com/spinframework/spin-js-sdk/tree/main/test/debugger-testing/spin-ts/.vscode) as a reference. Make sure to set up the `program` field in `launch.json` based on whether it is a JavaScript or TypeScript project.
 
-Once that is set up, we need to update the configuration in `spin.toml` to build the debug component. This can be done by setting the build command in `spin.toml` to be `npm run build:debug`. We also need to add `"tcp://127.0.0.1:*"` to the list of `allowed_outbound_hosts`. 
+Once that is set up, update the `build` setting in `spin.toml` to build the debug component. To do this, change the component build `command` to be `npm run build:debug`.
 
-Now we can build the app using the familiar `spin build` command.
+You must also add add `"tcp://127.0.0.1:*"` to the list of `allowed_outbound_hosts`. 
+
+Now you can build the app using the familiar `spin build` command.
 
 #### Attaching the Debugger
 
-We can start the app and attach the debugger to it using `F5` key or using the Start Debugger button as show below:
+You can start the app and attach the debugger to it using the `F5` key or using the Start Debugger button as show below:
 
 ![Starting VScode debugger](/static/image/docs/js-debugger.jpg)
 
-Once the debugger is attached, it can be used as it normally would be. E.g., you can do things like setting breakpoints and stepping through the code.
+Once the debugger is attached, it can be used in the same way as the built-in VS Code debugger. For example, you can do things like setting breakpoints and stepping through the code.
 
 ![JS debugger running](/static/image/docs/js-debugger-running.png)
 
