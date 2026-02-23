@@ -370,7 +370,6 @@ This library only currently supports the following polyfills:
 
 Some NPM packages can be installed and used in the component. If a popular library does not work, please open an issue/feature request in the [spin-js-sdk repository](https://github.com/spinframework/spin-js-sdk/issues).
 
-
 ### Suggested Libraries for Common Tasks
 
 These are some of the suggested libraries that have been tested and confirmed to work with the SDK for common tasks.
@@ -387,3 +386,70 @@ These are some of the suggested libraries that have been tested and confirmed to
 
 - All `spin-sdk` related functions and methods (like `Variables`, `Redis`, `Mysql`, `Pg`, `Kv` and `Sqlite`) can be called only inside the fetch event handler. This includes `fetch`. Any attempts to use it outside the function will lead to an error. This is due to Wizer using only Wasmtime to execute the script at build time, which does not include any Spin SDK support.
 - No crypto operation that involve handling private keys are supported. 
+
+## Debugging in VSCode
+
+You can use the experimental [StarlingMonkey Debugger](https://marketplace.visualstudio.com/items?itemName=BytecodeAlliance.starlingmonkey-debugger) to debug JavaScript HTTP components.
+
+> The debugger is a work in progress, and has some known issues and limitations.  In particular, you will need to restart it for each request.
+
+
+### Installing the Extension
+
+The extension can be installed from the [extension store](https://marketplace.visualstudio.com/items?itemName=BytecodeAlliance.starlingmonkey-debugger). Verify that the installed version is `0.2.1` or higher.
+
+### Setting up the Project for Debugging
+
+Templates starting from Spin v3.5 include the required setup for supporting debugging. You can verify this by looking at `.vscode/setting.json` and `.vscode/launch.json` and checking if something like the following is configured:
+
+```json
+// .vscode/setting.json
+{
+    "starlingmonkey": {
+        "componentRuntime": {
+            "executable": "spin",
+            "options": [
+                "up",
+                "-f",
+                "${workspaceFolder}",
+            ],
+        }
+    }
+}
+
+// .vscode/launch.json
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "starlingmonkey",
+            "request": "launch",
+            "name": "Debug StarlingMonkey component",
+            "component": "${workspaceFolder}/dist/<component_name>.wasm",
+            "program": "${workspaceFolder}/src/index.ts",
+            "stopOnEntry": false,
+            "trace": true
+        }
+    ]
+}
+```
+
+If it does not exist, create or edit `settings.json` and `launch.json` yourself, using the [testcase](https://github.com/spinframework/spin-js-sdk/tree/main/test/debugger-testing/spin-ts/.vscode) as a reference. Make sure to set up the `program` field in `launch.json` based on whether it is a JavaScript or TypeScript project.
+
+Once that is set up, update the `build` setting in `spin.toml` to build the debug component. To do this, change the component build `command` to be `npm run build:debug`.
+
+You must also add add `"tcp://127.0.0.1:*"` to the list of `allowed_outbound_hosts`. 
+
+Now you can build the app using the familiar `spin build` command.
+
+### Running a Project in the Debugger
+
+You can start the app and attach the debugger to it using the `F5` key or using the Start Debugger button as show below:
+
+![Starting VScode debugger](/static/image/docs/js-debugger.jpg)
+
+Once the debugger is attached, it can be used in the same way as the built-in VS Code debugger. For example, you can do things like setting breakpoints and stepping through the code.
+
+![JS debugger running](/static/image/docs/js-debugger-running.png)
+
+**Note:** The debugger does not follow sourcemaps for NPM dependencies, as some packages include sourcemaps but not the actual source code. Breakpoints and stepping work as expected in your own code, but may not work in third-party dependencies.

@@ -87,6 +87,7 @@ if ! blc -rv                                                                    
     --exclude 'https://crates.io/crates/bytes'                                                                                                                                              \
     --exclude 'https://crates.io/crates/http'                                                                                                                                               \
     --exclude 'https://marketplace.visualstudio.com/items?itemName=yzhang.markdown-all-in-one'                                                                                              \
+    --exclude 'https://marketplace.visualstudio.com/items?itemName=BytecodeAlliance.starlingmonkey-debugger'                                                                                \
     --exclude 'http://localhost:16686/'                                                                                                                                                     \
     --exclude 'http://localhost:5050/explore'                                                                                                                                               \
     http://127.0.0.1:3000/v3/javascript-components                                                                                                                                          \
