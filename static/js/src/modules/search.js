@@ -45,8 +45,6 @@ async function setupSearch() {
 class SearchButton {
   constructor(modal) {
     this.modal = modal;
-    this.searchPlaceholder = el("span.search-placeholder", "Search");
-    this.searchCommand = el("span.search-command", "⌘/ctrl + K");
     this.el = el(
       "button.search-button",
       {
@@ -54,7 +52,7 @@ class SearchButton {
           this.modal.open();
         }.bind(this),
       },
-      [this.searchPlaceholder, this.searchCommand],
+      [],
     );
 
     let mobileSearch = document.getElementById("mobile-search");

@@ -12,10 +12,10 @@
 }
 
 .search-button-container {
-	display: inline-block;
-	position: absolute;
+	display: flex;
+	flex: 1;
+	justify-content: flex-end;
 	width: 100%;
-	display: block;
 	top: 0;
 	left: 2px;
 	bottom: 0;
@@ -35,11 +35,9 @@
 
 .search-button {
 	border: none !important;
-	padding: 0.8rem 25rem 0.8rem 0.8rem;
 	z-index: 19;
 	cursor: text;
 	display: block;
-	width: 100%;
 	height: 4.333rem;
 	background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0) 100%);
 	text-align: right;
@@ -65,22 +63,10 @@
 		}
 	}
 
-	&:before {
-		height: 2rem;
-		width: 1px;
-		background: $lavendermid;
-		right: 30.5rem;
-		top: 1rem;
-		display: block;
-		content: " ";
-		position: absolute;
-	}
-
 	&:after {
 		background: url('/static/image/search.svg') no-repeat 0 0;
 		background-size: cover;
 		display: inline-block;
-		position: absolute;
 		z-index: -1;
 		height: 1.35rem;
 		width: 1.35rem;
@@ -89,63 +75,15 @@
 		right: 31.35rem;
 	}
 
-	.search-command {
-		opacity: 0;
-		position: absolute;
-		top: 2.35rem;
-		right: 34rem;
-		@include transition;
-	}
-
-	.search-placeholder {
-		font-family: $mono;
-		font-size: 1rem;
-		opacity: 0;
-		color: darken($lavender, 10%);
-		font-weight: normal;
-		min-width: 6.5vw;
-		display: inline-block;
-		@include transition;
-		position: absolute;
-		right: 43.33rem;
-		top: 1.5rem;
-		text-align: left;
-	}
+	
 
 	&:hover {
 		background: rgb(255, 255, 255);
 		background: linear-gradient(0deg, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0) 100%);
 
-		.search-placeholder,
-		.search-command {
-			opacity: 1;
-		}
+		
 	}
 
-	@media screen and (min-width: 1024px) and (max-width: 1214px) {
-
-		.search-placeholder,
-		.search-command {
-			display: none;
-		}
-	}
-}
-
-
-.search-placeholder {
-	padding: 0 1rem 0 1rem;
-	font-weight: 600;
-	font-size: 0.8rem;
-}
-
-.search-command {
-	background-color: white;
-	color: #345995;
-	padding: 0.333em 0.5em 0.333em;
-	display: inline-block;
-	margin-top: -1rem;
-	font-size: 0.7rem;
-	border-radius: 0.667rem;
 }
 
 .modal-wrapper {
@@ -462,10 +400,6 @@ html.dark-theme {
 		}
 	}
 
-	.search-button .search-placeholder {
-		color: $lightlavender;
-	}
-
 	.search-button {
 		color: white;
 		border: none !important;
@@ -473,11 +407,6 @@ html.dark-theme {
 		&::before {
 			background: rgba($thistle, 0.2) !important;
 		}
-	}
-
-	.search-command {
-		background-color: rgba($darkspace, 0.5);
-		color: $lightlavender;
 	}
 
 	// results
