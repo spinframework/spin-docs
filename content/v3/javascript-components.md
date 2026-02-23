@@ -391,17 +391,14 @@ These are some of the suggested libraries that have been tested and confirmed to
 
 You can use the experimental [StarlingMonkey Debugger](https://marketplace.visualstudio.com/items?itemName=BytecodeAlliance.starlingmonkey-debugger) to debug JavaScript HTTP components.
 
-### Using the Debugger
-
 > The debugger is a work in progress, and has some known issues and limitations.  In particular, you will need to restart it for each request.
 
-#### Setup
 
-##### Installing the Extension
+### Installing the Extension
 
 The extension can be installed from the [extension store](https://marketplace.visualstudio.com/items?itemName=BytecodeAlliance.starlingmonkey-debugger). Verify that the installed version is `0.2.1` or higher.
 
-##### Setting up the Project
+### Setting up the Project for Debugging
 
 Templates starting from Spin v3.5 include the required setup for supporting debugging. You can verify this by looking at `.vscode/setting.json` and `.vscode/launch.json` and checking if something like the following is configured:
 
@@ -445,7 +442,7 @@ You must also add add `"tcp://127.0.0.1:*"` to the list of `allowed_outbound_hos
 
 Now you can build the app using the familiar `spin build` command.
 
-#### Attaching the Debugger
+### Running a Project in the Debugger
 
 You can start the app and attach the debugger to it using the `F5` key or using the Start Debugger button as show below:
 
@@ -455,4 +452,4 @@ Once the debugger is attached, it can be used in the same way as the built-in VS
 
 ![JS debugger running](/static/image/docs/js-debugger-running.png)
 
-**Note:** The debugger currently does not follow sourcemaps for NPM dependencies, as some packages do not bundle the source code in the package. 
+**Note:** The debugger does not follow sourcemaps for NPM dependencies, as some packages include sourcemaps but not the actual source code. Breakpoints and stepping work as expected in your own code, but may not work in third-party dependencies.
