@@ -290,8 +290,11 @@
 	.navbar-menu {
 		position: relative;
 		z-index: 1020;
-
+        display: flex;
+        
 		.navbar-start {
+            display: flex;
+            flex: 1;
 			z-index: 1023;
             align-items: center;
 
