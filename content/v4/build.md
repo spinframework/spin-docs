@@ -11,6 +11,7 @@ url = "https://github.com/spinframework/spin-docs/blob/main/content/v4/build.md"
 - [Running `spin build`](#running-spin-build)
 - [Running the Application After Build](#running-the-application-after-build)
 - [Overriding the Working Directory](#overriding-the-working-directory)
+- [Building With Profiles](#building-with-profiles)
 - [Next Steps](#next-steps)
 
 A Spin application is made up of one or more components. Components are binary Wasm modules; _building_ refers to the process of converting your source code into those modules.
@@ -202,6 +203,44 @@ workdir = "deep"
 ```
 
 > `workdir` must be a relative path, and it is relative to the directory containing `spin.toml`. Specifying an absolute path leads to an error.
+
+## Building With Profiles
+
+A component can define _build profiles_, which override certain component settings to allow for different usages. For example, a component might define a debug profile, which compiles the binary with debugging information. A profile can also override environment variables and dependencies.
+
+To define a profile, create a `profile.<name>` entry in the component TOML. For example:
+
+```toml
+[component.example]
+source = "./out/release/example.wasm"
+[component.example.build]
+command = "make release"
+[component.example.profile.debug]
+source = "./out/debug/example.wasm"
+environment = { TRACE_LEVEL = "full" }
+[component.example.profile.debug.build]
+command = "make debug"
+```
+
+To use a build profile, pass the `--profile <name>` flag to the Spin command you're running.  For example, `spin build --profile debug` or `spin up --profile debug`.
+
+> When you have build profiles in play, you run the risk of accidentally running `spin build` with a profile and then running `spin up` or `spin registry push` without a profile, not realising that you are running or pushing the default profile rather than the one you just built! Spin will warn you if you do this. But a safer technique is to provide `--build` as part of the `up` or `registry` push command, e.g. `spin up --profile debug --build`, `spin registry push --profile publish --build`. This guarantees that the right profile has been freshly built. You can set the `SPIN_ALWAYS_BUILD` environment variable to tell Spin to _always_ use the `--build` option.
+
+If a component doesn't define a profile (or doesn't override a particular field in its profile), Spin will fall back to the 'base' value. You only need to override the specific components and fields where the profile differs from the base. For example:
+
+```toml
+[component.example1]
+source = "./out/example1.wasm"  # source will be the same with or without `--profile debug`
+[component.example1.build]
+command = "make release1"
+[component.example1.profile.debug.build]
+command = "make debug1"
+
+[component.example2]  # everything will be the same with our without `--profile debug`
+source = "./out/example2.wasm"
+[component.example2.build]
+command = "make example2"
+```
 
 ## Next Steps
 
