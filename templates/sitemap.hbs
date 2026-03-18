@@ -21,8 +21,18 @@ For date/time format, see https://www.w3.org/TR/NOTE-datetime
         <changefreq>weekly</changefreq>
         <priority>0.5</priority>
         {{else}}
-        <changefreq>daily</changefreq>
-        <priority>1</priority>
+            {{#if (active_project uri "/spin/v2" )}}
+            <changefreq>weekly</changefreq>
+            <priority>0.5</priority>
+            {{else}}
+                {{#if (active_project uri "/spin/v3" )}}
+                <changefreq>weekly</changefreq>
+                <priority>0.5</priority>
+                {{else}}
+                <changefreq>daily</changefreq>
+                <priority>1</priority>
+                {{/if}}
+            {{/if}}
         {{/if}}
     </url>
     {{/each}}
