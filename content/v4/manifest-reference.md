@@ -18,11 +18,12 @@ url = "https://github.com/spinframework/spin-docs/blob/main/content/v4/manifest-
   - [Additional Fields for `trigger.redis` Tables](#additional-fields-for-triggerredis-tables)
 - [The `component` Table](#the-component-table)
 - [The `component.(id).build` Table](#the-componentidbuild-table)
+- [The `component.(id).profile.(name)` Table](#the-componentidprofilename-table)
 - [Next Steps](#next-steps)
 
 This page describes the contents of the Spin manifest file, typically called `spin.toml`.
 
-> There are two versions of the manifest format. The manifest format described here (version 2) is recommended if you're using Spin 2.0 and above. The [previous format (version 1)](manifest-reference-v1.md) is supported on Spin 2.x for backward compatibility, and is the only format supported by Spin 1.x.
+> There are two versions of the manifest format. The manifest format described here (version 2) is recommended. If you need to maintain an application that uses the old v1 manifest, [see the Spin 3.x documentation](../v3/manifest-reference-v1).
 
 ## Manifest Format
 
@@ -42,10 +43,10 @@ route = "/..."
 component = "spin-manifest-example-in-rust"
 
 [component.spin-manifest-example-in-rust]
-source = "target/wasm32-wasip1/release/spin_manifest_example_in_rust.wasm"
+source = "target/wasm32-wasip2/release/spin_manifest_example_in_rust.wasm"
 allowed_outbound_hosts = []
 [component.spin-manifest-example-in-rust.build]
-command = "cargo build --target wasm32-wasip1 --release"
+command = "cargo build --target wasm32-wasip2 --release"
 watch = ["src/**/*.rs", "Cargo.toml"]
 ```
 
@@ -187,19 +188,24 @@ The value of each key is a table with the following fields.
 | `targets`               | Optional   | Array of strings | The environments that the component is expected to be compatible with. The default is the application `targets`. | ["spin-up:3.2"] |
 | `dependencies_inherit_configuration` | Optional | Boolean | If true, dependencies can invoke Spin APIs with the same permissions as the main component. If false, dependencies have no permissions (e.g. network, key-value stores, SQLite databases). The default is false. | `false` |
 | `dependencies`          | Optional   | Table       | Specifies how to satisfy Wasm Component Model imports of this component. See [Using Component Dependencies](writing-apps.md#using-component-dependencies). | `[component.cart.dependencies]`<br />`"example:calculator/adder" = { registry = "example.com", package = "example:adding-calculator", version = "1.0.0" }` |
-
-> If you're familiar with manifest version 1, note that:
-> * The component `id` is no longer a field within a `[[component]]`, but the key of the component in the table, written as part of the `[component.(id)]` header.
-> * The trigger association is no longer a `[trigger]` sub-table but is written in the separate `trigger` table.
-> * The `config` section is now named `variables`.
+| `profile`               | Optional   | Table       | Overrides corresponding component fields when using a [build profile](build.md#building-with-profiles). Each profile is its own named table. | `[component.cart.profile.debug]`<br />`source = "debug/cart.was"` |
 
 ## The `component.(id).build` Table
 
 | Name                    | Required?  | Type        | Value    | Example   |
 |-------------------------|------------|-------------|----------|-----------|
-| `command`               | Required   | String      | The command to execute on `spin build`. | `"cargo build --target wasm32-wasip1 --release"` |
+| `command`               | Required   | String      | The command to execute on `spin build`. | `"cargo build --target wasm32-wasip2 --release"` |
 | `workdir`               | Optional   | String      | The directory in which to execute `command`, relative to the manifest file. The default is the directory containing the manifest file. An example of where this is needed is a multi-component application where each component is its own source tree in its own directory. | `"my-project"` |
 | `watch`                 | Optional   | Array of strings | The files or glob patterns which `spin watch` should monitor to determine if the component Wasm file needs to be rebuilt. These are relative to `workdir`, or to the directory containing the manifest file if `workdir` is not present. | `["src/**/*.rs", "Cargo.toml"]` |
+
+## The `component.(id).profile.(name)` Table
+
+| Name                    | Required?  | Type        | Value    | Example   |
+|-------------------------|------------|-------------|----------|-----------|
+| `source`                | Optional   | String or table | The Wasm module which should handle the component when run with this profile. The same formats are permitted as for `source` in the `component` table. If omitted, defaults to the value in the `component` table. | `"debug/cart.wasm"` | 
+| `environment`           | Optional   | Table       | Additional environment variables to be set for the Wasm module when run with this profile. This is a table, and is merged with the base `environment` table (with values here taking priority). | `{ TRACE_LEVEL = "full", DB_URL = "mysql://spin:spin@localhost/scratch" }` |
+| `dependencies`          | Optional   | Table       | Overrides dependencies when run with this profile. See `dependencies` in the main `component` table. | `[component.cart.profile.debug.dependencies]`<br />`"example:calculator/adder" = { path = "logging-calculator.wasm" }` |
+| `build.command`         | Required   | String      | The command to execute on `spin build --profile (name)`. | `"cargo build --target wasm32-wasip2"` |
 
 ## Next Steps
 

@@ -981,12 +981,12 @@ route = "/api/..."
 component = "sentiment-analysis"
 
 [component.sentiment-analysis]
-source = "target/wasm32-wasip1/release/sentiment_analysis.wasm"
+source = "target/wasm32-wasip2/release/sentiment_analysis.wasm"
 allow_outbound_hosts = []
 ai_models = ["llama2-chat"]
 key_value_stores = ["default"]
 [component.sentiment-analysis.build]
-command = "cargo build --target wasm32-wasip1 --release"
+command = "cargo build --target wasm32-wasip2 --release"
 watch = ["src/**/*.rs", "Cargo.toml"]
 
 [[trigger.http]]

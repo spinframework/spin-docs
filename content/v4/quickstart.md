@@ -180,12 +180,12 @@ Some languages require additional tool support for Wasm:
 
 {{ startTab "Rust"}}
 
-You'll need the `wasm32-wasip1` target for Rust:
+You'll need the `wasm32-wasip2` target for Rust:
 
 <!-- @selectiveCpy -->
 
 ```bash
-$ rustup target add wasm32-wasip1
+$ rustup target add wasm32-wasip2
 ```
 
 [Learn more in the language guide.](rust-components)
@@ -295,10 +295,10 @@ route = "/..."
 component = "hello-rust"
 
 [component.hello-rust]
-source = "target/wasm32-wasip1/release/hello_rust.wasm"
+source = "target/wasm32-wasip2/release/hello_rust.wasm"
 allowed_outbound_hosts = []
 [component.hello-rust.build]
-command = "cargo build --target wasm32-wasip1 --release"
+command = "cargo build --target wasm32-wasip2 --release"
 watch = ["src/**/*.rs", "Cargo.toml"]
 ```
 
@@ -677,7 +677,7 @@ The Spin template creates starter source code.  Now you need to turn that into a
 
 ```bash
 $ spin build
-Executing the build command for component hello-rust: cargo build --target wasm32-wasip1 --release
+Executing the build command for component hello-rust: cargo build --target wasm32-wasip2 --release
     Updating crates.io index
     Updating git repository `https://github.com/spinframework/spin`
     Updating git repository `https://github.com/bytecodealliance/wit-bindgen`
@@ -693,7 +693,7 @@ Finished building all Spin components
 If the build fails, check:
 
 * Are you in the `hello_rust` directory?
-* Did you successfully [install the `wasm32-wasip1` target](#install-the-tools)?
+* Did you successfully [install the `wasm32-wasip2` target](#install-the-tools)?
 * Is your version of Rust up to date (`cargo --version`)?  The Spin SDK needs Rust 1.78 or above.
 
 > The Rust target used to be called `wasm32-wasi` (without the `p1`). Even if you already installed the old target, you'll need to install the new one!
@@ -702,7 +702,7 @@ If you would like to know what build command Spin runs for a component, you can 
 
 ```toml
 [component.hello-rust.build]
-command = "cargo build --target wasm32-wasip1 --release"
+command = "cargo build --target wasm32-wasip2 --release"
 ```
 
 You can always run this command manually; `spin build` is a shortcut to save you having to remember it.

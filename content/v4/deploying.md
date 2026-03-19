@@ -28,17 +28,9 @@ You can deploy Spin applications to a Kubernetes cluster with [SpinKube](https:/
 
 **To deploy an application:** [see the workflow here](https://github.com/Mossaka/spin-plugin-azure?tab=readme-ov-file#workflow-explanation)
 
-## Fermyon Cloud
+## Akamai Functions
 
-[Fermyon Cloud](https://developer.fermyon.com/cloud) is a self-service application platform for WebAssembly-based serverless functions and microservices. It enables you to run Spin applications, at scale, in the cloud, without any infrastructure setup or maintenance required.
-
-**To install the plugin:** `spin plugins install cloud`
-
-**To deploy an application:** `spin cloud deploy`
-
-## Fermyon Wasm Functions
-
-[Fermyon Wasm Functions](https://developer.fermyon.com/wasm-functions) is an edge environment hosted in the Akamai Cloud. It enables you to run Spin applications with global distribution.
+[Akamai Functions](https://developer.fermyon.com/wasm-functions) is an edge environment hosted in the Akamai Cloud. It enables you to run Spin applications with global distribution.
 
 **To install the plugin:** `spin plugins install aka`
 
