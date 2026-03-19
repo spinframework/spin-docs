@@ -10,6 +10,7 @@ url = "https://github.com/spinframework/spin-docs/blob/main/content/v4/distribut
   - [Logging In Using a Token](#logging-in-using-a-token)
   - [Fallback Credentials](#fallback-credentials)
 - [Publishing a Spin Application to a Registry](#publishing-a-spin-application-to-a-registry)
+  - [Publishing and Build Profiles](#publishing-and-build-profiles)
 - [Running Published Applications](#running-published-applications)
   - [Running Published Applications by Digest](#running-published-applications-by-digest)
   - [Pulling a Published Application](#pulling-a-published-application)
@@ -67,6 +68,19 @@ Pushed with digest sha256:06b19
 Notice that the username is part of the reference; the registry does not infer it from the login.  Also notice that the version is specified explicitly; Spin does not infer it from the `spin.toml` file.
 
 > Whether newly uploaded artifacts are private or public depends on the registry.  See your registry documentation.  This will also tell you how to change the visibility if the default is not what you want.
+
+### Publishing and Build Profiles
+
+If your application has different [build profiles](./build.md#building-with-profiles), and you want to publish it using a profile other than the default, you must specify that profile when you publish. The pushed image will contain _only_ the selected profile. (You won't be able to specify a profile when you run it from the registry.)
+
+<!-- @nocpy -->
+
+```bash
+# Push the application in its default profile
+$ spin registry push --build ghcr.io/alyssa-p-hacker/hello-world:v1
+# Push the application in its debug profile
+$ spin registry push --profile debug --build ghcr.io/alyssa-p-hacker/hello-world-debug:v1
+```
 
 ## Running Published Applications
 
