@@ -68,7 +68,7 @@ The exact detail of calling these operations from your application depends on yo
 
 {{ startTab "Rust"}}
 
-> [**Want to go straight to the reference documentation?**  Find it here.](https://docs.rs/spin-sdk/latest/spin_sdk/llm/index.html)
+> [**Want to go straight to the reference documentation?**  Find it here.](https://docs.rs/spin-sdk/5.2.0/spin_sdk/llm/index.html)
 
 To use Serverless AI functions, the `llm` module from the Spin SDK provides the methods. The following snippet is from the [Rust code generation example](https://github.com/fermyon/ai-examples/tree/main/code-generator-rs):
 

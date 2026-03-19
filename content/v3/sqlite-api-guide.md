@@ -54,7 +54,7 @@ serde = {version = "1.0", features = ["derive"]}
 serde_json = "1.0"
 ```
 
-> [**Want to go straight to the reference documentation?**  Find it here.](https://docs.rs/spin-sdk/latest/spin_sdk/sqlite3/index.html)
+> [**Want to go straight to the reference documentation?**  Find it here.](https://docs.rs/spin-sdk/5.2.0/spin_sdk/sqlite3/index.html)
 
 SQLite functions are available in the `spin_sdk::sqlite3` module
 

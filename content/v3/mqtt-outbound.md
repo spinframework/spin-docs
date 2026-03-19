@@ -32,7 +32,7 @@ The exact detail of calling these operations from your application depends on yo
 
 {{ startTab "Rust"}}
 
-> [**Want to go straight to the reference documentation?**  Find it here.](https://docs.rs/spin-sdk/latest/spin_sdk/mqtt/index.html)
+> [**Want to go straight to the reference documentation?**  Find it here.](https://docs.rs/spin-sdk/5.2.0/spin_sdk/mqtt/index.html)
 
 MQTT functions are available in the `spin_sdk::mqtt` module.
 
@@ -49,7 +49,7 @@ let cat_picture: Vec<u8> = request.body().to_vec();
 connection.publish("pets", &cat_picture, spin_sdk::mqtt::Qos::AtLeastOnce)?;
 ```
 
-For full details of the MQTT API, see the [Spin SDK reference documentation](https://docs.rs/spin-sdk/latest/spin_sdk/mqtt/index.html);
+For full details of the MQTT API, see the [Spin SDK reference documentation](https://docs.rs/spin-sdk/5.2.0/spin_sdk/mqtt/index.html);
 
 You can find a complete Rust code example for using outbound MQTT from an HTTP component in the [Spin Rust SDK repository on GitHub](https://github.com/spinframework/spin-rust-sdk/tree/main/examples/mqtt-outbound).
 

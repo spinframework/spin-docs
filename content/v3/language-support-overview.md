@@ -13,7 +13,7 @@ This page contains information about language support for Spin features:
 
 {{ startTab "Rust"}}
 
-**[📄 Visit the Rust Spin SDK reference documentation](https://docs.rs/spin-sdk/latest/spin_sdk/) to see specific modules, functions, variables and syntax relating to the following Rust features.**
+**[📄 Visit the Rust Spin SDK reference documentation](https://docs.rs/spin-sdk/5.2.0/spin_sdk/) to see specific modules, functions, variables and syntax relating to the following Rust features.**
 
 | Feature | SDK Supported? |
 |-----|-----|

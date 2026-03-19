@@ -41,7 +41,7 @@ The exact detail of calling these operations from your application depends on yo
 
 {{ startTab "Rust"}}
 
-> [**Want to go straight to the reference documentation?**  Find it here.](https://docs.rs/spin-sdk/latest/spin_sdk/redis/index.html)
+> [**Want to go straight to the reference documentation?**  Find it here.](https://docs.rs/spin-sdk/5.2.0/spin_sdk/redis/index.html)
 
 Redis functions are available in the `spin_sdk::redis` module.
 
@@ -58,7 +58,7 @@ connection.set("my-key", &"my-value".into());
 let data = connection.get("my-key")?;
 ```
 
-For full details of the Redis API, see the [Spin SDK reference documentation](https://docs.rs/spin-sdk/latest/spin_sdk/redis/index.html);
+For full details of the Redis API, see the [Spin SDK reference documentation](https://docs.rs/spin-sdk/5.2.0/spin_sdk/redis/index.html);
 
 **General Notes**
 
