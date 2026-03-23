@@ -156,33 +156,24 @@ The exact signature of the HTTP handler, and how a function is identified to be 
 
 > [**Want to go straight to the reference documentation?**  Find it here.](https://docs.rs/spin-sdk/latest/spin_sdk/http/index.html)
 
-In Rust, the handler is identified by the [`#[spin_sdk::http_component]`](https://docs.rs/spin-sdk/latest/spin_sdk/attr.http_component.html) attribute.  The handler function can have one of two forms: _request-response_ or _input-output parameter_.
-
-**Request-Response Handlers**
-
-This form of handler function receives the request as an argument, and returns the response as the return value of the function. For example:
+In Rust, the handler is identified by the [`#[spin_sdk::http_service]`](https://docs.rs/spin-sdk/latest/spin_sdk/attr.http_service.html) attribute.  The handler function is an async function which receives the request as an argument, and returns the response as the return value of the function. For example:
 
 ```rust
-#[http_component]
+#[http_service]
 async fn handle(request: http::Request) -> anyhow::Result<http::Response> { ... }
 ```
-
-In this form, nothing is sent to the client until the entire response is ready. It is convenient for many use cases, but is not suitable for streaming responses.
-
-> The Rust SDK includes **experimental** support for streaming request and response bodies. We currently recommend that you stick with the simpler non-streaming interfaces if you don't require streaming.
 
 You have some flexibility in choosing the types of the request and response.  The request may be:
 
 * [`http::Request`](https://docs.rs/http/latest/http/request/struct.Request.html)
 * [`spin_sdk::http::Request`](https://docs.rs/spin-sdk/latest/spin_sdk/http/struct.Request.html)
-* [`spin_sdk::http::IncomingRequest`](https://docs.rs/spin-sdk/latest/spin_sdk/http/struct.IncomingRequest.html)
-* Any type for which you have implemented the [`spin_sdk::http::conversions::TryFromIncomingRequest`](https://docs.rs/spin-sdk/latest/spin_sdk/http/conversions/trait.TryFromIncomingRequest.html) trait
+* Any type which implements the [`spin_sdk::http::FromRequest`](https://docs.rs/spin-sdk/latest/spin_sdk/http/trait.FromRequest.html) trait
 
 The response may be:
 
 * [`http::Response`](https://docs.rs/http/latest/http/response/struct.Response.html) - typically constructed via `Response::builder()`
 * [`spin_sdk::http::Response`](https://docs.rs/spin-sdk/latest/spin_sdk/http/struct.Response.html) - typically constructed via a [`ResponseBuilder`](https://docs.rs/spin-sdk/latest/spin_sdk/http/struct.ResponseBuilder.html)
-* Any type for which you have implemented the [`spin_sdk::http::IntoResponse`](https://docs.rs/spin-sdk/latest/spin_sdk/http/trait.IntoResponse.html) trait
+* Any type which implements the [`spin_sdk::http::IntoResponse`](https://docs.rs/spin-sdk/latest/spin_sdk/http/trait.IntoResponse.html) trait
 * A `Result` where the success type is one of the above and the error type is `anyhow::Error` or another error type for which you have implemented `spin_sdk::http::IntoResponse` (such as `anyhow::Result<http::Response>`)
 
 For example:
@@ -190,64 +181,14 @@ For example:
 ```rust
 use http::{Request, Response};
 use spin_sdk::http::IntoResponse;
-use spin_sdk::http_component;
+use spin_sdk::http_service;
 
-/// A simple Spin HTTP component.
-#[http_component]
+#[http_service]
 async fn handle_hello_rust(_req: Request<()>) -> anyhow::Result<impl IntoResponse> {
     Ok(Response::builder()
         .status(200)
         .header("content-type", "text/plain")
-        .body("Hello, Fermyon")?)
-}
-```
-
-> If you're familiar with Spin 1.x, note that Spin 2 is more forgiving with the type in the `.body()` call. You don't need to convert it to bytes or wrap it in an `Option`. To return an empty body, you can pass `()` instead of `None`.
-
-To extract data from the request, specify a body type as the generic parameter for the `Request` type. You can use raw content types such as `Vec<u8>` and `String`, or automatically deserialize a JSON body by using the `spin_sdk::http::Json<T>` type.
-
-**Input-Output Parameter Handlers**
-
-In this form, the handler function receives the request as an argument of type [`spin_sdk::http::IncomingRequest`](https://docs.rs/spin-sdk/latest/spin_sdk/http/struct.IncomingRequest.html). It also receives an argument of type [`spin_sdk::http::ResponseOutparam`](https://docs.rs/spin-sdk/latest/spin_sdk/http/struct.ResponseOutparam.html), through which is sends the response. The function does not return a value. This form is recommended for streaming responses.
-
-To send a response:
-
-1. Create a [`spin_sdk::http::OutgoingResponse`](https://docs.rs/spin-sdk/latest/spin_sdk/http/struct.OutgoingResponse.html).
-2. Call `take_body()` on the `OutgoingResponse` - this gives you a [`futures::Sink`](https://docs.rs/futures/latest/futures/sink/trait.Sink.html) that you can later use to send data via the response.
-3. Call `set` on the `ResponseOutparam`, passing the `OutgoingResponse`.
-4. Call `send` on the `Sink` as many times as you like. Each send is carried out as you call it, so you can send the first part of the response without waiting for the whole response to be ready.
-
-> You will need to reference the `futures` crate in `Cargo.toml`, and `use futures::SinkExt;`, to access the `send` method.
-
-```rust
-use futures::SinkExt;
-use spin_sdk::http::{Headers, IncomingRequest, OutgoingResponse, ResponseOutparam};
-use spin_sdk::http_component;
-
-/// A streaming Spin HTTP component.
-#[http_component]
-async fn handle_hello_rust(_req: IncomingRequest, response_out: ResponseOutparam) {
-    // Status code and headers must be supplied before calling take_body
-    let response = OutgoingResponse::new(
-        200,
-        &Headers::new(&[("content-type".to_string(), b"text/plain".to_vec())]),
-    );
-    // Get the sink for writing the body into. This must be mutable!
-    let mut body = response.take_body();
-
-    // Connect the OutgoingResponse to the ResponseOutparam.
-    response_out.set(response);
-
-    // Write to the body sink over a period of time. (In this case we simulate a
-    // long-running operation by manually calling `thread::sleep`.)
-    for i in 1..20 {
-        let payload = format!("Hello {i}\n");
-        if let Err(e) = body.send(payload.into()).await {
-            eprintln!("Error sending payload: {e:#}");
-            return;
-        }
-        std::thread::sleep(std::time::Duration::from_millis(100));
-    }
+        .body("Hello, Spin".to_string())?)
 }
 ```
 

@@ -54,26 +54,22 @@ serde = {version = "1.0", features = ["derive"]}
 serde_json = "1.0"
 ```
 
-> [**Want to go straight to the reference documentation?**  Find it here.](https://docs.rs/spin-sdk/latest/spin_sdk/sqlite3/index.html)
+> [**Want to go straight to the reference documentation?**  Find it here.](https://docs.rs/spin-sdk/latest/spin_sdk/sqlite/index.html)
 
-SQLite functions are available in the `spin_sdk::sqlite3` module
-
-> If you want to be compatible with Spin 3.1 or earlier, or with downstream hosts that have not yet rolled out Spin 3.2 support, you should use the `spin_sdk::sqlite` module for PostgreSQL. The only difference is that `sqlite` doesn't provide the `Connection::last_insert_rowid` and `Connection::changes` functions.
-
-The function names match the operations above. For example:
+SQLite functions are available in the `spin_sdk::sqlite` module. The function names match the operations above. For example:
 
 ```rust
 use anyhow::Result;
 use serde::Serialize;
 use spin_sdk::{
-    http::{Request, Response, IntoResponse},
-    http_component,
+    http::{FullBody, Request, Response, IntoResponse},
+    http_service,
     sqlite::{Connection, Value},
 };
 
-#[http_component]
-fn handle_request(req: Request) -> Result<impl IntoResponse> {
-    let connection = Connection::open_default()?;
+#[http_service]
+async fn handle_request(req: Request) -> Result<impl IntoResponse> {
+    let connection = Connection::open_default().await?;
 
     let execute_params = [
         Value::Text("Try out Spin SQLite".to_owned()),
@@ -82,27 +78,27 @@ fn handle_request(req: Request) -> Result<impl IntoResponse> {
     connection.execute(
         "INSERT INTO todos (description, due) VALUES (?, ?)",
         execute_params.as_slice(),
-    )?;
+    ).await?;
 
-    let rowset = connection.execute(
+    let (columns, mut rows, result) = connection.execute(
         "SELECT id, description, due FROM todos",
         &[]
-    )?;
+    ).await?;
 
-    let todos: Vec<_> = rowset.rows().map(|row|
-        ToDo {
+    let mut todos = vec![];
+    while let Some(row) = rows.next().await? {
+        todos.push(ToDo {
             id: row.get::<u32>("id").unwrap(),
             description: row.get::<&str>("description").unwrap().to_owned(),
             due: row.get::<&str>("due").unwrap().to_owned(),
-        }
-    ).collect();
+        });
+    }
 
     let body = serde_json::to_vec(&todos)?;
     Ok(Response::builder()
         .status(200)
         .header("content-type", "text/plain")
-        .body(body)
-        .build())
+        .body(FullBody::new(Bytes::from_owner(body)))?)
 }
 
 // Helper for returning the query results as JSON

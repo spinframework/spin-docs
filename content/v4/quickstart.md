@@ -312,22 +312,21 @@ This represents a simple Spin HTTP application (triggered by an HTTP request).  
 Now let's have a look at the code. Below is the complete source
 code for a Spin HTTP component written in Rust — a regular Rust function that
 takes an HTTP request as a parameter and returns an HTTP response, and it is
-annotated with the `http_component` macro which identifies it as the entry point
+annotated with the `http_service` macro which identifies it as the entry point
 for HTTP requests:
 
 ```rust
 use spin_sdk::http::{IntoResponse, Request, Response};
-use spin_sdk::http_component;
+use spin_sdk::http_service;
 
 /// A simple Spin HTTP component.
-#[http_component]
-fn handle_hello_rust(req: Request) -> anyhow::Result<impl IntoResponse> {
-    println!("Handling request to {:?}", req.header("spin-full-url"));
+#[http_service]
+async fn handle_hello_rust(req: Request) -> anyhow::Result<impl IntoResponse> {
+    println!("Handling request to {:?}", req.headers().get("spin-full-url"));
     Ok(Response::builder()
         .status(200)
         .header("content-type", "text/plain")
-        .body("Hello, Fermyon")
-        .build())
+        .body("Hello World!".to_string())?)
 }
 ```
 

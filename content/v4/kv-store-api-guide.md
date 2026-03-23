@@ -31,7 +31,7 @@ The set of operations is common across all SDKs:
 | `set` | store, key, value | - | Set the `value` associated with the specified `key` in the specified `store`, overwriting any existing value. |
 | `delete` | store, key | - | Delete the tuple with the specified `key` from the specified `store`. `error::invalid-store` will be raised if `store` is not a valid handle to an open store.  No error is raised if a tuple did not previously exist for `key`.|
 | `exists` | store, key | boolean | Return whether a tuple exists for the specified `key` in the specified `store`.|
-| `get-keys` | store | list<keys> | Return a list of all the keys in the specified `store`. |
+| `get-keys` | store | stream<keys> | Return a stream of all the keys in the specified `store`. NOTE: errors are reported via a future (promise) which resolves once the stream has ended. |
 | `close` | store | - | Close the specified `store`. |
 
 The exact detail of calling these operations from your application depends on your language:
@@ -46,22 +46,19 @@ Key value functions are available in the `spin_sdk::key_value` module. The funct
 
 ```rust
 use anyhow::Result;
+use bytes::Bytes;
 use spin_sdk::{
-    http::{IntoResponse, Request, Response},
-    http_component,
+    http::{FullBody, IntoResponse, Request, Response},
+    http_service,
     key_value::{Store},
 };
-#[http_component]
-fn handle_request(_req: Request) -> Result<impl IntoResponse> {
-    let store = Store::open_default()?;
-    store.set("mykey", b"myvalue")?;
-    let value = store.get("mykey")?;
+#[http_service]
+async fn handle_request(_req: Request) -> Result<impl IntoResponse> {
+    let store = Store::open_default().await?;
+    store.set("mykey", b"myvalue").await?;
+    let value = store.get("mykey").await?;
     let response = value.unwrap_or_else(|| "not found".into());
-    Ok(Response::builder()
-        .status(200)
-        .header("content-type", "text/plain")
-        .body(response)
-        .build())
+    Ok(Response::new(FullBody::new(Bytes::from(response))))
 }
 ```
 
@@ -72,6 +69,9 @@ fn handle_request(_req: Request) -> Result<impl IntoResponse> {
 
 `get` **Operation**
 - For get, the return value is of type `Option<Vec<u8>>`. If the key does not exist it returns `None`.
+
+`get_keys` **Operation**
+- This returns a stream containing the keys, and a future containing a `Result`. You _must_ check the future when the stream ends, to determine if the stream ended normally, or was terminated prematurely due to an error.
 
 `open` and `close` **Operations**
 - The close operation is not surfaced; it is called automatically when the store is dropped.

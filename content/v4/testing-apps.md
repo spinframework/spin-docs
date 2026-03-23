@@ -267,21 +267,22 @@ dir = "tests"
 The goal of tests is to ensure that the business logic in our application works as intended. We haven't yet updated our "business logic" frrom the "Hello, Fermyon" app. To make our new tests pass, copy and paste the following code into the application's source file (located at `my-app/my-component/src/lib.rs`):
 
 ```rust
+use bytes::Bytes;
 use spin_sdk::{
-    http::{IntoResponse, Request, Response, Method},
-    http_component,
+    http::{FullBody, IntoResponse, Request, Response, Method},
+    http_service,
     key_value::Store,
 };
 
-#[http_component]
-fn handle_request(req: Request) -> anyhow::Result<impl IntoResponse> {
+#[http_service]
+async fn handle_request(req: Request) -> anyhow::Result<impl IntoResponse> {
     // Open the default key-value store
-    let store = Store::open_default()?;
+    let store = Store::open_default().await?;
 
     let (status, body) = match *req.method() {
         Method::Get => {
             // Get the value associated with the request URI, or return a 404 if it's not present
-            match store.get(req.query())? {
+            match store.get(req.query()).await? {
                 Some(value) => {
                     println!("Found value for the key {:?}", req.query());
                     (200, Some(value))
@@ -295,7 +296,7 @@ fn handle_request(req: Request) -> anyhow::Result<impl IntoResponse> {
         // No other methods are currently supported
         _ => (405, None),
     };
-    Ok(Response::new(status, body))
+    Ok(Response::builder().status(status).body(FullBody::new(Bytes::from_owner(body))))
 }
 ```
 

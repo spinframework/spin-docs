@@ -30,64 +30,50 @@ The outbound HTTP interface depends on your language.
 
 > [**Want to go straight to the reference documentation?**  Find it here.](https://docs.rs/spin-sdk/latest/spin_sdk/http/index.html)
 
-To send requests, use the [`spin_sdk::http::send`](https://docs.rs/spin-sdk/latest/spin_sdk/http/fn.send.html) function. This takes a request argument and returns a response (or error). It is `async`, so within an async inbound handler you can have multiple outbound `send`s running concurrently.
+To send requests, use the [`spin_sdk::http::send`](https://docs.rs/spin-sdk/latest/spin_sdk/http/fn.send.html) function. This takes a request argument and returns a response (or error).
 
-> Support for streaming request and response bodies is **experimental**. We currently recommend that you stick with the simpler non-streaming interfaces if you don't require streaming.
-
-`send` is quite flexible in its request and response types. The request may be:
+The request you pass to `send` may be:
 
 * [`http::Request`](https://docs.rs/http/latest/http/request/struct.Request.html) - typically constructed via `http::Request::builder()`
 * [`spin_sdk::http::Request`](https://docs.rs/spin-sdk/latest/spin_sdk/http/struct.Request.html) - typically constructed via `spin_sdk::http::Request::get()`, `spin_sdk::http::Request::post()`, or `spin_sdk::http::Request::builder()`
-  * You can also use the [builder type](https://docs.rs/spin-sdk/latest/spin_sdk/http/struct.RequestBuilder.html) directly - `build` will be called automatically for you
-* [`spin_sdk::http::OutgoingRequest`](https://docs.rs/spin-sdk/latest/spin_sdk/http/struct.OutgoingRequest.html) - constructed via `OutgoingRequest::new()`
-* Any type for which you have implemented the `TryInto<spin_sdk::http::OutgoingRequest>` trait
+* Any type which implements the `spin_sdk::http::IntoRequest` trait
 
 Generally, you should use `OutgoingRequest` when you need to stream the outbound request body; otherwise, the `Request` types are usually simpler.
 
-The response may be:
-
-* [`http::Response`](https://docs.rs/http/latest/http/response/struct.Response.html)
-* [`spin_sdk::http::Response`](https://docs.rs/spin-sdk/latest/spin_sdk/http/struct.Response.html)
-* [`spin_sdk::http::IncomingResponse`](https://docs.rs/spin-sdk/latest/spin_sdk/http/struct.IncomingResponse.html)
-* Any type for which you have implemented the [spin_sdk::http::conversions::TryFromIncomingResponse](https://docs.rs/spin-sdk/latest/spin_sdk/http/conversions/trait.TryFromIncomingResponse.html) trait
-
-Generally, you should use `IncomingResponse` when you need to stream the response body; otherwise, the `Response` types are usually simpler.
+The response is a `spin_sdk::http::Response`.
 
 Here is an example of doing outbound HTTP in a simple request-response style:
 
 ```rust
+use futures::StreamExt;
 use spin_sdk::{
-    http::{IntoResponse, Request, Method, Response},
-    http_component,
+    http::{body::IncomingBodyExt, EmptyBody, IntoResponse, Request, Method, Response},
+    http_service,
 };
 
-#[http_component]
-// The trigger handler (in this case an HTTP handler) has to be async
-// so we can `await` the outbound send.
+#[http_service]
 async fn handle_request(_req: Request) -> anyhow::Result<impl IntoResponse> {
-
     // Create the outbound request object
     let request = Request::builder()
         .method(Method::Get)
-        .uri("https://www.fermyon.com/")
-        .build();
+        .uri("https://spinframework.dev/")
+        .body(EmptyBody::new())?;
 
     // Send the request and await the response
-    let response: Response = spin_sdk::http::send(request).await?;
+    let response = spin_sdk::http::send(request).await?;
 
     // Use the outbound response body
-    let response_len = response.body().len();
+    let mut body = response.into_body().stream();
 
-    // Return the response to the inbound request
-    Ok(Response::builder()
-        .status(200)
-        .header("content-type", "text/plain")
-        .body(format!("The test page was {response_len} bytes"))
-        .build())
+    let mut response_len = 0;
+    while let Some(chunk) = body.next().await {
+        response_len += chunk?.len();
+    }
+
+    // Return a response to the inbound request
+    Ok((http::StatusCode::OK, response_len.to_string()))
 }
 ```
-
-For an example of receiving the response in a streaming style, [see this example in the Spin repository](https://github.com/spinframework/spin-rust-sdk/blob/main/examples/wasi-http-streaming-outgoing-body/src/lib.rs).
 
 {{ blockEnd }}
 

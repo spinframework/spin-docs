@@ -73,29 +73,27 @@ To customize each of the two components, we can modify the `lib.rs` (Rust source
 
 ```rust
 use spin_sdk::http::{IntoResponse, Request, Response};
-use spin_sdk::http_component;
+use spin_sdk::http_service;
 
 /// A simple Spin HTTP component.
-#[http_component]
-fn handle_first_http_rust_component(req: Request) -> anyhow::Result<impl IntoResponse> {
-    println!("Handling request to {:?}", req.header("spin-full-url"));
+#[http_service]
+async fn handle_first_http_rust_component(req: Request) -> anyhow::Result<impl IntoResponse> {
+    println!("Handling request to {:?}", req.headers().get("spin-full-url"));
     Ok(Response::builder()
         .status(200)
         .header("content-type", "text/plain")
-        .body("Hello, First Component")
-        .build())
+        .body("Hello, First Component".to_string())?)
 }
 ```
 
 ```rust
-#[http_component]
-fn handle_second_http_rust_component(req: Request) -> anyhow::Result<impl IntoResponse> {
-    println!("Handling request to {:?}", req.header("spin-full-url"));
+#[http_service]
+async fn handle_second_http_rust_component(req: Request) -> anyhow::Result<impl IntoResponse> {
+    println!("Handling request to {:?}", req.headers().get("spin-full-url"));
     Ok(Response::builder()
         .status(200)
         .header("content-type", "text/plain")
-        .body("Hello, Second Component")
-        .build())
+        .body("Hello, Second Component".to_string())?)
 }
 ```
 
