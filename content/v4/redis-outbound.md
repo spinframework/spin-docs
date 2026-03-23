@@ -115,9 +115,9 @@ You can find a complete TypeScript example for using outbound Redis from an HTTP
 
 {{ startTab "Python"}}
 
-> [**Want to go straight to the reference documentation?**  Find it here.](https://spinframework.github.io/spin-python-sdk/v4/redis.html)
+> [**Want to go straight to the reference documentation?**  Find it here.](https://spinframework.github.io/spin-python-sdk/v3/redis.html)
 
-Redis functions are available in [the `redis` module](https://spinframework.github.io/spin-python-sdk/v4/redis.html). The function names are prefixed `redis_`. You must pass the Redis instance address to _each_ operation as its first parameter. For example:
+Redis functions are available in [the `redis` module](https://spinframework.github.io/spin-python-sdk/v3/redis.html). The function names are prefixed `redis_`. You must pass the Redis instance address to _each_ operation as its first parameter. For example:
 
 ```python
 from spin_sdk import redis

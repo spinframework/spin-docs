@@ -174,7 +174,7 @@ command = "componentize-py -w spin-http componentize app -o app.wasm"
 
 In Spin, HTTP components are triggered by the occurrence of an HTTP request and must return an HTTP response at the end of their execution. Components can be built in any language that compiles to WASI. If you would like additional information about building HTTP applications you may find [the HTTP trigger page](./http-trigger.md) useful.
 
-Building a Spin HTTP component using the Python SDK means defining a top-level class named IncomingHandler which inherits from [`IncomingHandler`](https://spinframework.github.io/spin-python-sdk/v4/wit/exports/index.html#spin_sdk.wit.exports.IncomingHandler), overriding the `handle_request` method. Here is an example of the default Python code which the previous `spin new` created for us; a simple example of a request/response:
+Building a Spin HTTP component using the Python SDK means defining a top-level class named IncomingHandler which inherits from [`IncomingHandler`](https://spinframework.github.io/spin-python-sdk/v3/wit/exports/index.html#spin_sdk.wit.exports.IncomingHandler), overriding the `handle_request` method. Here is an example of the default Python code which the previous `spin new` created for us; a simple example of a request/response:
 
 <!-- @nocpy -->
 

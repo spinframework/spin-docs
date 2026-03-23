@@ -226,9 +226,9 @@ addEventListener('fetch', async (event: FetchEvent) => {
 
 {{ startTab "Python"}}
 
-> [**Want to go straight to the reference documentation?**  Find it here.](https://spinframework.github.io/spin-python-sdk/v4/)
+> [**Want to go straight to the reference documentation?**  Find it here.](https://spinframework.github.io/spin-python-sdk/v3/)
 
-In Python, the application must define a top-level class named IncomingHandler which inherits from [IncomingHandler](https://spinframework.github.io/spin-python-sdk/v4/http/index.html#spin_sdk.http.IncomingHandler), overriding the `handle_request` method.
+In Python, the application must define a top-level class named IncomingHandler which inherits from [IncomingHandler](https://spinframework.github.io/spin-python-sdk/v3/http/index.html#spin_sdk.http.IncomingHandler), overriding the `handle_request` method.
 
 ```python
 from spin_sdk import http

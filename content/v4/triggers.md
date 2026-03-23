@@ -11,11 +11,11 @@ url = "https://github.com/spinframework/spin-docs/blob/main/content/v4/triggers.
   - [Writing the Component Inside the Trigger](#writing-the-component-inside-the-trigger)
   - [Choosing Between the Approaches](#choosing-between-the-approaches)
   - [Setting Up Multiple Trigger Types](#setting-up-multiple-trigger-types)
-- [Spin Cron Trigger](#spin-cron-trigger)
+- [Cron Trigger](#cron-trigger)
   - [Cron Trigger Expressions](#cron-trigger-expressions)
   - [Installing the Cron Trigger Plugin](#installing-the-cron-trigger-plugin)
   - [Installing the Cron Trigger Template](#installing-the-cron-trigger-template)
-  - [Creating the Web Application](#creating-the-web-application)
+  - [Creating the Application](#creating-the-application)
   - [Inspecting the Source Code](#inspecting-the-source-code)
   - [Building and Running the Application](#building-and-running-the-application)
 
@@ -26,8 +26,6 @@ An application can contain multiple triggers.
 In Spin 2.2 and earlier, all triggers must be of the same type.  For example, an application can contain triggers for multiple HTTP routes, or for multiple Redis pub-sub channels, but not both.
 
 In Spin 2.3 and later, an application can contain triggers of different types.  For example, a single application can serve HTTP on one or more routes, and at the same time subscribe to one or more Redis pub-sub channels. 
-
-> If you're familiar with [Spin 1.x](/manifest-reference-v1#the-trigger-table), note that [Spin 2 uses the term "trigger"](/manifest-reference#the-trigger-table) to refer to each individual route or channel, rather than the trigger type. It's closer to the `[component.trigger]` usage than to the application trigger.
 
 ## Triggers and Components
 

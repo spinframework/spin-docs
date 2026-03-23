@@ -153,9 +153,9 @@ addEventListener('fetch', async (event: FetchEvent) => {
 
 {{ startTab "Python"}}
 
-> [**Want to go straight to the reference documentation?**  Find it here.](https://spinframework.github.io/spin-python-sdk/v4/sqlite.html)
+> [**Want to go straight to the reference documentation?**  Find it here.](https://spinframework.github.io/spin-python-sdk/v3/sqlite.html)
 
-To use SQLite functions, use the `sqlite` module in the Python SDK. The [`sqlite_open`](https://spinframework.github.io/spin-python-sdk/v4/sqlite.html#spin_sdk.sqlite.open) and [`sqlite_open_default`](https://spinframework.github.io/spin-python-sdk/v4/sqlite.html#spin_sdk.sqlite.open_default) functions return a [connection object](https://spinframework.github.io/spin-python-sdk/v4/wit/imports/sqlite.html#spin_sdk.wit.imports.sqlite.Connection). The connection object provides the [`execute` method](https://spinframework.github.io/spin-python-sdk/v4/wit/imports/sqlite.html#spin_sdk.wit.imports.sqlite.Connection.execute) as described above. For example:
+To use SQLite functions, use the `sqlite` module in the Python SDK. The [`sqlite_open`](https://spinframework.github.io/spin-python-sdk/v3/sqlite.html#spin_sdk.sqlite.open) and [`sqlite_open_default`](https://spinframework.github.io/spin-python-sdk/v3/sqlite.html#spin_sdk.sqlite.open_default) functions return a [connection object](https://spinframework.github.io/spin-python-sdk/v3/wit/imports/sqlite.html#spin_sdk.wit.imports.sqlite.Connection). The connection object provides the [`execute` method](https://spinframework.github.io/spin-python-sdk/v3/wit/imports/sqlite.html#spin_sdk.wit.imports.sqlite.Connection.execute) as described above. For example:
 
 ```python
 from spin_sdk import http, sqlite
@@ -176,7 +176,7 @@ class IncomingHandler(http.IncomingHandler):
 ```
 
 **General Notes**
-* The `execute` method returns [a `QueryResult` object](https://spinframework.github.io/spin-python-sdk/v4/wit/imports/sqlite.html#spin_sdk.wit.imports.sqlite.QueryResult) with `rows` and `columns` methods. `columns` returns a list of strings representing column names. `rows` is an array of rows, each of which is an array of [`RowResult`](https://spinframework.github.io/spin-python-sdk/v4/wit/imports/sqlite.html#spin_sdk.wit.imports.sqlite.RowResult) in the same order as `columns`.
+* The `execute` method returns [a `QueryResult` object](https://spinframework.github.io/spin-python-sdk/v3/wit/imports/sqlite.html#spin_sdk.wit.imports.sqlite.QueryResult) with `rows` and `columns` methods. `columns` returns a list of strings representing column names. `rows` is an array of rows, each of which is an array of [`RowResult`](https://spinframework.github.io/spin-python-sdk/v3/wit/imports/sqlite.html#spin_sdk.wit.imports.sqlite.RowResult) in the same order as `columns`.
 * The connection object doesn't surface the `close` function.
 * Errors are surfaced as exceptions.
 
