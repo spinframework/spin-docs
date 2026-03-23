@@ -24,6 +24,9 @@ url = "https://github.com/spinframework/spin-docs/blob/main/content/v4/http-trig
 - [Exposing HTTP Triggers Using HTTPS](#exposing-http-triggers-using-https)
   - [Trigger Options](#trigger-options)
   - [Environment Variables](#environment-variables)
+- [Controlling Instance Reuse](#controlling-instance-reuse)
+  - [Developer Guidelines for Instance Reuse](#developer-guidelines-for-instance-reuse)
+  - [Preventing Instance Reuse](#preventing-instance-reuse)
 
 HTTP applications are an important workload in event-driven environments,
 and Spin has built-in support for creating and running HTTP
@@ -481,3 +484,31 @@ Once set, `spin up` will automatically use these explicitly set environment vari
 export SPIN_TLS_CERT=<path/to/cert>
 export SPIN_TLS_KEY=<path/to/key>
 ```
+
+## Controlling Instance Reuse
+
+Instance reuse is when Spin handles more than one HTTP request within a single component instance. Instance reuse improves performance and density, because Spin does not need to create a new instance for every request. Spin can reuse instances both consecutively and concurrently - that is, it can assign a new request to either a freshly created instance, an instance that has finished handling a request, or an instance that is _in the middle of_ handling another request.
+
+The exact details depend on your component.
+
+A WASI P2 component is _not_ subject to instance reuse. This includes all triggers other than HTTP.
+
+A WASI P3 component is _always_ subject to instance reuse, unless it calls specific APIs to prevent concurrent use. You can control instance reuse behaviour using the following `spin up` flags:
+
+* `--max-instance-reuse-count` sets the maximum number of times a single instance can be reused
+* `--max-instance-concurrent-reuse-count` sets the maximum number of requests that can be running in a single instance at the same time
+* `--idle-instance-timeout` controls how long Spin will allow a reusable instance to be sit idle before evicting it
+
+All of these flags accept ranges. When you provide a range, Spin assigns each new instance a random value from that range. This is to help you test that your component works correctly both when fresh (e.g. you do not rely on long-running state) and when reused (e.g. you are not unintentionally leaking data from one request to another).
+
+### Developer Guidelines for Instance Reuse
+
+When writing WASI P3 HTTP components, you can take advantage of reuse in your code, by placing static data in static or global variables, which will become part of the instance state. For example, if your component contains a routing table, you could cache the parsed table in a static variable - you would then parse the table only if the cache had not been initialised (i.e. in a fresh instance), avoiding the overhead of parsing on every request.
+
+> Don't rely on techniques like this for expensive operations. Spin doesn't guarantee the degree of instance reuse, and reuse may vary across differnt Spin hosts.
+
+Conversely, take care that request data is not stored in static or global variables. If you're used to the WASI P2 model, you may have an implicit expectation that each request finds your component in an entirely fresh state. In WASI P3, that's no longer the case. You should store data that's private to a request in local variables; if you must store it in a static variable, make sure to isolate it (for example storing it in a map under a request-specific key).
+
+### Preventing Instance Reuse
+
+Although you can control instance reuse on the `spin up` command line, this isn't necessarily available in other hosts. If the structure of your code means that it's not safe to reuse instances, then you can use Wasm Component Model backpressure functions in your code to tell the host not to schedule further requests to the current instance. How these are surfaced will depend on your language - for example, in Rust you would use `wit_bindgen::backpressure_inc` to suspend re-use and a balancing `wit_bindgen::backpressure_dec` to re-enable it. See the [Component Model documentation](https://github.com/WebAssembly/component-model/blob/main/design/mvp/Concurrency.md#backpressure) for detailed information.
