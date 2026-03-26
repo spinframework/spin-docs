@@ -45,15 +45,15 @@ The exact detail of calling these operations from your application depends on yo
 Key value functions are available in the `spin_sdk::key_value` module. The function names match the operations above. For example:
 
 ```rust
-use anyhow::Result;
 use bytes::Bytes;
 use spin_sdk::{
     http::{FullBody, IntoResponse, Request, Response},
     http_service,
-    key_value::{Store},
+    key_value::Store,
 };
+
 #[http_service]
-async fn handle_request(_req: Request) -> Result<impl IntoResponse> {
+async fn handle_request(_req: Request) -> anyhow::Result<impl IntoResponse> {
     let store = Store::open_default().await?;
     store.set("mykey", b"myvalue").await?;
     let value = store.get("mykey").await?;

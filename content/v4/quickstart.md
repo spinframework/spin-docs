@@ -15,9 +15,6 @@ keywords = "quickstart"
 - [Structure of a Python Component](#structure-of-a-python-component)
 - [Build Your Application](#build-your-application)
 - [Run Your Application](#run-your-application)
-- [Deploy Your Application to Fermyon Cloud](#deploy-your-application-to-fermyon-cloud)
-  - [Log in to Fermyon Cloud](#log-in-to-fermyon-cloud)
-  - [Deploy the Application](#deploy-the-application)
 - [Next Steps](#next-steps)
 
 Let's get Spin and take it from nothing to a "hello world" application!
@@ -683,7 +680,7 @@ Executing the build command for component hello-rust: cargo build --target wasm3
    Compiling anyhow v1.0.69
    Compiling version_check v0.9.4
    # ...
-   Compiling spin-sdk v0.10.0 
+   Compiling spin-sdk v6.0.0 
    Compiling hello-rust v0.1.0 (/home/ivan/testing/start/hello_rust)
     Finished release [optimized] target(s) in 11.94s
 Finished building all Spin components
@@ -693,9 +690,7 @@ If the build fails, check:
 
 * Are you in the `hello_rust` directory?
 * Did you successfully [install the `wasm32-wasip2` target](#install-the-tools)?
-* Is your version of Rust up to date (`cargo --version`)?  The Spin SDK needs Rust 1.78 or above.
-
-> The Rust target used to be called `wasm32-wasi` (without the `p1`). Even if you already installed the old target, you'll need to install the new one!
+* Is your version of Rust up to date (`cargo --version`)?  The Spin SDK needs Rust 1.91 or above.
 
 If you would like to know what build command Spin runs for a component, you can find it in the manifest, in the `component.(id).build` section:
 
@@ -759,7 +754,7 @@ You can always run this command manually; `spin build` is a shortcut.
 
 As a standard practice for Python, create and activate a virtual env:
 
-If you are on a Mac/linux based operating system use the following commands:
+If you are on a Mac/Linux based operating system use the following commands:
 
 ```bash
 $ python3 -m venv venv
@@ -877,7 +872,7 @@ content-type: text/plain
 content-length: 14
 date = "2023-11-04T00:00:01Z"
 
-Hello, Fermyon
+Hello, Spin
 ```
 
 > The `curl` output may vary based on which language SDK you use. 
@@ -886,65 +881,8 @@ You'll also see any logging (stdout/stderr) from the generated code printed to t
 
 Congratulations! You just created, built and ran your first Spin application!
 
-## Deploy Your Application to Fermyon Cloud
-
-`spin up` runs your application locally. Now it's time to put it on the Web via [Fermyon Cloud](https://cloud.fermyon.com).
-
-> Fermyon Cloud's Starter tier is free, and doesn't require you to enter any kind of payment instrument. You only need a [GitHub account](https://docs.github.com/account-and-profile/setting-up-and-managing-your-personal-account-on-github/managing-email-preferences/remembering-your-github-username-or-email).
-
-### Log in to Fermyon Cloud
-
-Before deploying your application to Fermyon Cloud, you have to log in, using the `spin login` command. This generates a code to authorize your current device against the Fermyon Cloud, and prints a link that will take you to where you enter the code. (You will need to be logged into your GitHub account; if you're not, it will prompt you to log in.) Follow the instructions in the prompt to complete the authorization process.
-
-`spin login` prints a confirmation message when authorization completes:
-
-<!-- @selectiveCpy -->
-
-```bash
-$ spin login
-
-Copy your one-time code:
-
-XXXXXXXX
-
-...and open the authorization page in your browser:
-
-https://cloud.fermyon.com/device-authorization
-
-Waiting for device authorization...
-Device authorized!
-```
-
-### Deploy the Application
-
-Now let's deploy the application:
-
-<!-- @selectiveCpy -->
-
-```bash
-$ spin deploy
-```
-
-The deployment process prints progress information as your application uploads and is rolled out to the cloud:
-
-<!-- @nocpy -->
-
-```console
-Uploading hello_typescript version 0.1.0+XXXXXXXX to Fermyon Cloud...
-Deploying...
-Waiting for application to become ready... ready
-Available Routes:
-  hello-typescript: https://hello-typescript-XXXXXXXX.fermyon.app (wildcard)
-```
-
-You can Ctrl+Click on the link in the terminal to visit the web application you just deployed.
-
-> In the example output above, `hello_typescript` is a placeholder for your application name - you'll see whatever you entered as the application name when you ran `spin new` earlier. The `XXXXXXXX` fragment is randomly generated to make a unique URL.
-
-Congratulations again - you've now deployed your first Spin application to [Fermyon Cloud](https://cloud.fermyon.com)!
-
 ## Next Steps
 
 - Learn more about [writing Spin components and manifests](writing-apps)
 - Learn how to [build your Spin application code](build)
-- Learn more about [Fermyon Cloud](https://developer.fermyon.com/cloud)
+- Learn how to [deploy your application to a cloud host](deploying)

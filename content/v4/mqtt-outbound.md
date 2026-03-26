@@ -39,14 +39,14 @@ MQTT functions are available in the `spin_sdk::mqtt` module.
 To access an MQTT server, use the `Connection::open` function.
 
 ```rust
-let connection = spin_sdk::mqtt::Connection::open(&address, &username, &password, keep_alive_secs)?;
+let connection = spin_sdk::mqtt::Connection::open(&address, &username, &password, keep_alive_secs).await?;
 ```
 
 You can then call the `Connection::publish` function to send MQTT messages:
 
 ```rust
 let cat_picture: Vec<u8> = request.body().to_vec();
-connection.publish("pets", &cat_picture, spin_sdk::mqtt::Qos::AtLeastOnce)?;
+connection.publish("pets", &cat_picture, spin_sdk::mqtt::Qos::AtLeastOnce).await?;
 ```
 
 For full details of the MQTT API, see the [Spin SDK reference documentation](https://docs.rs/spin-sdk/latest/spin_sdk/mqtt/index.html);
