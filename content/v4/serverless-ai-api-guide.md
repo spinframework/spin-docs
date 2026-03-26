@@ -80,7 +80,7 @@ use spin_sdk::{
 
 // -- snip --
 
-fn handle_code(req: Request) -> anyhow::Result<impl IntoResponse> {
+async fn handle_code(req: Request) -> anyhow::Result<impl IntoResponse> {
     // -- snip --
 
     let result = llm::infer_with_options(
