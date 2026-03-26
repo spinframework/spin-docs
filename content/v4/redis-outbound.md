@@ -48,14 +48,14 @@ Redis functions are available in the `spin_sdk::redis` module.
 To access a Redis instance, use the `Connection::open` function.
 
 ```rust
-let connection = spin_sdk::redis::Connection::open(&address)?;
+let connection = spin_sdk::redis::Connection::open(&address).await?;
 ```
 
 You can then call functions on the `Connection` to work with the Redis instance:
 
 ```rust
-connection.set("my-key", &"my-value".into());
-let data = connection.get("my-key")?;
+connection.set("my-key", &"my-value".into()).await?;
+let data = connection.get("my-key").await?;
 ```
 
 For full details of the Redis API, see the [Spin SDK reference documentation](https://docs.rs/spin-sdk/latest/spin_sdk/redis/index.html);

@@ -9,7 +9,7 @@ url = "https://github.com/spinframework/spin-docs/blob/main/content/v4/redis-tri
 - [Specifying a Redis Trigger](#specifying-a-redis-trigger)
   - [Setting a Default Server](#setting-a-default-server)
 - [Redis Trigger Authentication](#redis-trigger-authentication)
-- [Redis Components](#redis-components)
+- [Redis Subscriber Components](#redis-subscriber-components)
   - [The Message Handler](#the-message-handler)
 - [Inside Redis Components](#inside-redis-components)
 
@@ -49,21 +49,17 @@ address = "redis://notifications.example.com:6379"
 
 > If you create an application from a Redis template, the trigger will be already set up for you.
 
-You can use [application variables](./variables.md#adding-variables-to-your-applications) in the `address` field.
+You can use [application variables](./variables.md#adding-variables-to-your-applications) in the `address` field. This can be particularly useful for credentials, allowing you to pass credentials in via [variables providers](./dynamic-configuration.md#application-variables-runtime-configuration) rather than including them in `spin.toml`; you can also use it to use a local Redis in your dev environment and a cloud instance when deployed.
 
 ## Redis Trigger Authentication
 
-By default, Spin does not authenticate to Redis. You can work around this by providing a password in the `redis://` URL.  For example: `address = "redis://:p4ssw0rd@localhost:6379"`
+By default, Spin does not authenticate to Redis. You can work around this by providing a password in the `redis://` URL.  For example: `address = "redis://:{{ password }}@localhost:6379"`.  Here `password` is an [application variable](./variables.md#adding-variables-to-your-applications) as mentioned above.
 
-> Do not use passwords in code committed to version control systems.
+> Do not hard-code passwords in code committed to version control systems.
 
-> We plan to offer secrets-based authentication in future versions of Spin.
+## Redis Subscriber Components
 
-As mentioned above, you can use [application variables](./variables.md#adding-variables-to-your-applications) in Redis `address` fields. This can be particularly useful for credentials, allowing you to pass credentials in via [variables providers](./dynamic-configuration.md#application-variables-runtime-configuration) rather than including them in `spin.toml`.
-
-## Redis Components
-
-Spin runs Redis components using the [WebAssembly component model](https://component-model.bytecodealliance.org/).  In this model, the Wasm module exports a well-known interface that Spin calls to handle the Redis message.
+To run code that listens for Redis messages, Spin uses the [WebAssembly component model](https://component-model.bytecodealliance.org/).  In this model, the Wasm module exports a well-known interface that Spin calls to handle the Redis message. You can export this interface directly using [`wit-bindgen`](https://github.com/bytecodealliance/wit-bindgen) or use a convenience wrapper provided by a language SDK.
 
 ### The Message Handler
 
@@ -75,17 +71,16 @@ The exact signature of the Redis handler, and how a function is identified to be
 
 > [**Want to go straight to the reference documentation?**  Find it here.](https://docs.rs/spin-sdk/latest/spin_sdk/index.html)
 
-In Rust, the handler is identified by the `#[spin_sdk::redis_component]` attribute.  It takes a `bytes::Bytes`, representing the raw payload of the Redis message, and returns an `anyhow::Result` indicating success or an error with details.  This example just logs the payload as a string:
+In Rust, the handler is identified by the `#[spin_sdk::redis_subscriber]` attribute.  The handler is an `async` function. Its sole argument is a `Vec<u8>`, representing the raw payload of the Redis message. The function returns an `anyhow::Result` indicating success or an error with details.  This example just logs the payload as a string:
 
 ```rust
 use anyhow::Result;
-use bytes::Bytes;
-use spin_sdk::redis_component;
+use spin_sdk::redis_subscriber;
 use std::str::from_utf8;
 
 /// A simple Spin Redis component.
-#[redis_component]
-fn on_message(message: Bytes) -> Result<()> {
+#[redis_subscriber]
+async fn on_message(message: Vec<u8>) -> Result<()> {
     println!("{}", from_utf8(&message)?);
     Ok(())
 }
@@ -149,16 +144,16 @@ For the most part, you'll build Redis component modules using a language SDK (se
 
 The Redis component interface is defined using a WebAssembly Interface (WIT) file.  ([Learn more about the WIT language here.](https://component-model.bytecodealliance.org/design/wit.html)).  You can find the latest WITs for Spin Redis components at [https://github.com/spinframework/spin/tree/main/wit](https://github.com/spinframework/spin/tree/main/wit).
 
-In particular, the entry point for Spin Redis components is defined in [the `inbound-redis` interface](https://github.com/spinframework/spin/blob/main/wit/deps/spin%40unversioned/inbound-redis.wit):
+In particular, the entry point for Spin Redis components is defined in [the `inbound-redis` interface](https://github.com/spinframework/spin/blob/main/wit/deps/spin-redis%403.0.0/redis.wit):
 
 <!-- @nocpy -->
 
 ```fsharp
 interface inbound-redis {
-  use redis-types.{payload, error}
+    use redis.{payload, error};
 
-  // The entrypoint for a Redis handler.
-  handle-message: func(message: payload) -> result<_, error>
+    // The entrypoint for a Redis handler.
+    handle-message: async func(message: payload) -> result<_, error>;
 }
 ```
 
