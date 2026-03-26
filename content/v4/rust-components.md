@@ -8,8 +8,8 @@ url = "https://github.com/spinframework/spin-docs/blob/main/content/v4/rust-comp
 - [Prerequisites](#prerequisites)
   - [Install the Templates](#install-the-templates)
   - [Install the Tools](#install-the-tools)
-- [HTTP Components](#http-components)
-- [Redis Components](#redis-components)
+- [HTTP Service Components](#http-service-components)
+- [Redis Subscriber Components](#redis-subscriber-components)
 - [Sending Outbound HTTP Requests](#sending-outbound-http-requests)
 - [Routing in a Component](#routing-in-a-component)
 - [Storing Data in Redis From Rust Components](#storing-data-in-redis-from-rust-components)
@@ -19,7 +19,6 @@ url = "https://github.com/spinframework/spin-docs/blob/main/content/v4/rust-comp
 - [Storing Data in SQLite](#storing-data-in-sqlite)
 - [Storing Data in Relational Databases](#storing-data-in-relational-databases)
 - [Using External Crates in Rust Components](#using-external-crates-in-rust-components)
-  - [Using the `http` crate](#using-the-http-crate)
 - [AI Inferencing From Rust Components](#ai-inferencing-from-rust-components)
 - [Troubleshooting](#troubleshooting)
 - [Manually Creating New Projects With Cargo](#manually-creating-new-projects-with-cargo)
@@ -87,9 +86,9 @@ For more information about this error, try `rustc --explain E0463`.
 
 Check that you have the WASI target installed by running `rustup target list --installed`, or follow the instructions in the message and run `rustup target add wasm32-wasip2`. This is the most common source of problems when starting out with Rust in Spin!
 
-## HTTP Components
+## HTTP Service Components
 
-In Spin, HTTP components are triggered by the occurrence of an HTTP request, and
+In Spin, HTTP service components are triggered by the occurrence of an HTTP request, and
 must return an HTTP response at the end of their execution. Components can be
 built in any language that compiles to WASI, but Rust has improved support
 for writing Spin components with the Spin Rust SDK.
@@ -97,10 +96,7 @@ for writing Spin components with the Spin Rust SDK.
 > Make sure to read [the page describing the HTTP trigger](./http-trigger.md) for more
 > details about building HTTP applications.
 
-Building a Spin HTTP component using the Rust SDK means writing a single function decorated with the [`#[http_service]`](https://docs.rs/spin-sdk/latest/spin_sdk/attr.http_service.html) attribute. The function can have one of two forms:
-
-* takes an HTTP request as a parameter, and returns an HTTP response — shown below
-* taken as parameters _both_ the HTTP request and an object through which to write a response - see [the HTTP trigger page](./http-trigger#authoring-http-components) for an example.
+Building a Spin HTTP component using the Rust SDK means writing a single function decorated with the [`#[http_service]`](https://docs.rs/spin-sdk/latest/spin_sdk/attr.http_service.html) attribute. The function must be `async`. It takes an HTTP request as its only parameter, and returns an HTTP response. (More precisely, the parameter can be anything that implements the `FromRequest` trait, and the result can be anything that implements the `IntoResponse` trait.) Here's a typical simple example:
 
 ```rust
 use spin_sdk::http::{Request, Response, IntoResponse};
@@ -122,7 +118,9 @@ The important things to note in the implementation above:
 - the function signature — `async fn hello_world(req: Request) -> Result<impl IntoResponse>` —
   the Spin HTTP component allows for a flexible set of response types via the [`IntoResponse`](https://docs.rs/spin-sdk/latest/spin_sdk/http/trait.IntoResponse.html) trait, including the SDK's `Response` type and the `Response` type from the Rust [`http` crate](https://crates.io/crates/http). See the section on [using the `http` crate](#using-the-http-crate) for more information.
 
-## Redis Components
+> The `spin_sdk::http` types are re-exports from the `http` crate. You can use them with other Rust crates that work with `http`, and related ecosystem crates such as `http_body` and `http_body_util`. We'll show an example of working with the popular Axum framework below.
+
+## Redis Subscriber Components
 
 Besides the HTTP trigger, Spin has built-in support for a Redis trigger —
 which will connect to a Redis instance and will execute Spin components for
@@ -134,20 +132,19 @@ Writing a Redis component in Rust also takes advantage of the SDK:
 
 ```rust
 use anyhow::Result;
-use bytes::Bytes;
-use spin_sdk::redis_component;
+use spin_sdk::redis_subscriber;
 
 /// A simple Spin Redis component.
-#[redis_component]
-fn on_message(message: Bytes) -> Result<()> {
+#[redis_subscriber]
+async fn on_message(message: Vec<u8>) -> Result<()> {
     println!("{}", std::str::from_utf8(&message)?);
     Ok(())
 }
 ```
 
-- the `spin_sdk::redis_component` macro marks the function as the
+- the `spin_sdk::redis_subscriber` macro marks the function as the
   entry point for the Spin component
-- in the function signature — `fn on_message(msg: Bytes) -> anyhow::Result<()>` —
+- in the function signature — `async fn on_message(msg: Vec<u8>) -> anyhow::Result<()>` —
 `msg` contains the payload from the Redis channel
 - the component returns a Rust `anyhow::Result`, so if there is an error
 processing the request, it returns an `anyhow::Error`.
@@ -187,7 +184,7 @@ message on the `messages` channel, the `echo-message` component will be executed
 # first, start redis-server on the default port 6379
 $ redis-server --port 6379
 # then, start the Spin application
-$ spin up --file spin.toml
+$ spin up
 # the application log file will output the following
 INFO spin_redis_engine: Connecting to Redis server at redis://localhost:6379
 INFO spin_redis_engine: Subscribed component 0 (echo-message) to channel: messages
@@ -209,7 +206,7 @@ INFO spin_redis_engine: Received message on channel "messages"
 Hello, there!
 ```
 
-> You can find a complete example for a Redis triggered component in the
+> You can find a complete example for a Redis-triggered Rust component in the
 > [Spin repository on GitHub](https://github.com/spinframework/spin-rust-sdk/tree/main/examples/redis).
 
 ## Sending Outbound HTTP Requests
@@ -222,7 +219,7 @@ inserts a custom header into the response before returning:
 ```rust
 use anyhow::Result;
 use spin_sdk::{
-    http::{IntoResponse, Request, Method, Response},
+    http::{EmptyBody, IntoResponse, Request, Method, Response},
     http_service,
 };
 
@@ -235,9 +232,11 @@ async fn send_outbound(_req: Request) -> Result<impl IntoResponse> {
         .body(EmptyBody::new())?;
 
     // Send the request and await the response
-    let res: Response = spin_sdk::http_wasip3::send(req).await?;
+    let res: Response = spin_sdk::http::send(req).await?;
 
     println!("Random data status code {}", res.status());  // log the response status
+
+    // Pass the upstream response back to the client
     Ok(res)
 }
 ```
@@ -300,50 +299,50 @@ proxies or URL shorteners.
 
 ## Routing in a Component
 
-<!-- @searchTerm "async" -->
+You can route within a Rust HTTP component using your favourite Rust HTTP routing library.
 
-The Rust SDK [provides a router](https://github.com/spinframework/spin-rust-sdk/tree/main/examples/http-router) that makes it easier to handle routing within a component:
+> Earlier versions of the Spin SDK included a their own `Router`, which was able to work with WASI/Spin HTTP types. From Spin SDK 6, the SDK uses the ecosystem-standard `http` types, and so you can ecosystem routers without changes.
+
+This example uses the Axum router in a Spin component:
 
 ```rust
-use anyhow::Result;
-use spin_sdk::{
-    http::{IntoResponse, Params, Request, Response, Router},
-    http_service,
+use axum::{
+    routing::{any, get},
+    Router,
 };
+use spin_sdk::http::{IntoResponse, Request, Response};
+use spin_sdk::http_service;
+use tower_service::Service;
 
-/// A Spin HTTP component that internally routes requests.
+/// Demonstrates integration with the Axum web framework
 #[http_service]
-async fn handle_route(req: Request) -> Response {
-    let mut router = Router::new();
-    router.get("/goodbye/:planet", api::goodbye_planet);
-    router.any_async("/*", api::echo_wildcard);
-    router.handle_async(req).await
+async fn handler(req: Request) -> impl IntoResponse {
+    Router::new()
+        .route("/{*all}", any(api::echo_wildcard))
+        .route("/goodbye/{planet}", get(api::goodbye_planet))
+        .call(req)
+        .await
 }
 
 mod api {
     use super::*;
+    use axum::extract::Path;
 
     // /goodbye/:planet
-    pub fn goodbye_planet(_req: Request, params: Params) -> Result<impl IntoResponse> {
-        let planet = params.get("planet").expect("PLANET");
-        Ok(Response::new(200, planet.to_string()))
+    pub async fn goodbye_planet(Path(planet): Path<String>) -> impl axum::response::IntoResponse {
+        Response::new(planet)
     }
 
     // /*
-    pub async fn echo_wildcard(_req: Request, params: Params) -> Result<impl IntoResponse> {
-        let capture = params.wildcard().unwrap_or_default();
-        Ok(Response::new(200, capture.to_string()))
+    pub async fn echo_wildcard(Path(all): Path<String>) -> impl axum::response::IntoResponse {
+        Response::new(all)
     }
 }
 ```
 
-Handlers within a `Router` can be sync or async. Use `Router`'s "plain" methods (e.g. `get`, `post`) to assign synchronous handlers, and its "async" methods (e.g. `get_async`, `post_async`) for asynchronous handlers.  You can mix sync and async handlers in the same `Router`, and can use `handle` or `handle_async` to invoke `Router` processing, regardless of whether invididual handlers are sync or async.
-
-> For further reference, see the [Spin SDK HTTP router](https://docs.rs/spin-sdk/latest/spin_sdk/http/struct.Router.html).
-
 ## Storing Data in Redis From Rust Components
 
-Using the Spin's Rust SDK, you can use the Redis key/value store and to publish
+Using the Spin Rust SDK, you can use the Redis key/value store, and publish
 messages to Redis channels. This can be used from both HTTP and Redis triggered
 components.
 
@@ -427,7 +426,7 @@ messages on the `messages` Redis channel.
 
 ## Async and Streaming Idioms in Rust
 
-When a Spin API returns a potentially large number of values, such as database query APIs, the convention is to return the values as a stream, plus a future containing the result of the operation. For example, the key-value `Store::get_keys` function returns `(impl Stream<Item = String>, impl Future<Output = Result<(), Error>>)`. This signature is likely to be unfamiliar. The way to read it is:
+When a Spin API returns a potentially large number of values, such as database query APIs, the convention is to return the values as a stream, plus a future containing the result of the operation. For example, the key-value `Store::get_keys` function returns `(StreamReader<String>, impl Future<Output = Result<(), Error>>)`. This signature is likely to be unfamiliar. The way to read it is:
 
 - Spin will stream values to you until either there are no more values, or an error occurs.
 - When that happens, you must `await` the future to find out which one it was.
@@ -450,21 +449,21 @@ Spin has a key-value store built in. For information about using it from Rust, s
 
 ### Serializing Objects to the Key-Value Store
 
-The Spin key-value API stores and retrieves only lists of bytes. The Rust SDK provides helper functions that allow you to store and retrieve [Serde](https://docs.rs/serde/latest/serde) serializable values in a typed way. The underlying storage format is JSON (and is accessed via the `get_json` and `set_json` helpers). 
+The Spin key-value API stores and retrieves only lists of bytes. The Rust SDK provides helper functions that allow you to store and retrieve [Serde](https://docs.rs/serde/latest/serde) serializable values in a typed way. The underlying storage format is JSON (and is accessed via the `get_json` and `set_json` helpers).
 
 To make your objects serializable, you will also need a reference to `serde`. The relevant `Cargo.toml` entries look like this:
 
 ```
 [dependencies]
 // --snip --
-serde = { version = "1.0.163", features = ["derive"] }
+serde = { version = "1", features = ["derive"] }
 // --snip --
 ```
 
 We configure our application to provision the default `key_value_stores` by adding the following line to our application's manifest (the `spin.toml` file), at the component level:
 
 ```
-[component.redis-test]
+[component.json-test]
 key_value_stores = ["default"]
 ```
 
@@ -532,33 +531,6 @@ In Rust, Spin components are regular libraries that contain a function
 annotated using the `http_service` macro, compiled to the `wasm32-wasip2` target.
 This means that any [crate](https://crates.io) that compiles to `wasm32-wasip2` can
 be used when implementing the component.
-
-### Using the `http` crate
-
-If you're already familiar with the popular [`http` crate](https://crates.io/crates/http), you may wish to use that instead of using the HTTP types included in the Spin SDK. Generally, the `http` crate's types can be used anywhere the Spin SDK HTTP types can be used. For example, the first basic HTTP component can be rewritten to use the `http` crate like so:
-
-```rust 
-use http::{Request, Response};
-use spin_sdk::http::IntoResponse;
-use spin_sdk::http_service;
-
-#[http_service]
-async fn handle_hello_rust(_req: Request<()>) -> anyhow::Result<impl IntoResponse> {
-    Ok(Response::builder()
-        .status(200)
-        .header("content-type", "text/plain")
-        .body("Hello from Spin".to_string())?)
-}
-```
-
-Of course, you'll need to remember to add the http crate to your `Cargo.toml`:
-
-```toml
-[dependencies]
-# --snip --
-http = "1.4"
-# --snip --
-```
 
 ## AI Inferencing From Rust Components
 

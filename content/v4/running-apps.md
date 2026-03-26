@@ -44,7 +44,7 @@ The `spin up --from` (`spin up -f`) option can point to a pre-existing Wasm bina
 <!-- @selectiveCpy -->
 
 ```bash
-$ spin up --from mymodule.wasm
+$ spin up --from myapp.wasm
 ```
 
 Please note that the uses for performing `spin up` using just a Wasm file are very limited outside of basic testing of the Wasm file. This is because Wasm files run in this way have no access to application-level configuration that allows storage, outbound HTTP and so on. Only incoming HTTP handlers are supported.
