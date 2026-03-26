@@ -48,8 +48,6 @@ component = "my-application"  # the name of the component to handle this route
 
 Such a trigger says that HTTP requests matching the specified _route_ should be handled by the specified _component_. The `component` field works the same way across all triggers - see [Triggers](triggers) for the details.
 
-> Earlier versions of Spin supported an application-wide base path; this is removed in Spin 3.
-
 ## HTTP Trigger Routes
 
 An HTTP route may be _exact_ or _wildcard_.
@@ -178,6 +176,8 @@ The response may be:
 * [`spin_sdk::http::Response`](https://docs.rs/spin-sdk/latest/spin_sdk/http/struct.Response.html) - typically constructed via a [`ResponseBuilder`](https://docs.rs/spin-sdk/latest/spin_sdk/http/struct.ResponseBuilder.html)
 * Any type which implements the [`spin_sdk::http::IntoResponse`](https://docs.rs/spin-sdk/latest/spin_sdk/http/trait.IntoResponse.html) trait
 * A `Result` where the success type is one of the above and the error type is `anyhow::Error` or another error type for which you have implemented `spin_sdk::http::IntoResponse` (such as `anyhow::Result<http::Response>`)
+
+> The HTTP template generates a return type of `anyhow::Result<impl IntoResponse>`, so you don't need to tweak it if you change the concrete type of the response.
 
 For example:
 
@@ -308,35 +308,32 @@ For the most part, you'll build HTTP component modules using a language SDK (see
 
 The HTTP component interface is defined using a WebAssembly Interface (WIT) file.  ([Learn more about the WIT language here.](https://component-model.bytecodealliance.org/design/wit.html)).  You can find the latest WITs for Spin HTTP components at [https://github.com/spinframework/spin/tree/main/wit](https://github.com/spinframework/spin/tree/main/wit).
 
-The HTTP types and interfaces are defined in [https://github.com/spinframework/spin/tree/main/wit/deps/http@0.2.6](https://github.com/spinframework/spin/tree/main/wit/deps/http@0.2.6), which tracks [the `wasi-http` specification](https://github.com/WebAssembly/wasi-http).
+The HTTP types and interfaces are defined in [https://github.com/spinframework/spin/tree/main/wit/deps/http@0.3.0-rc-2026-03-15](https://github.com/spinframework/spin/tree/main/wit/deps/http@0.3.0-rc-2026-03-15), which tracks [the `wasi-http` specification](https://github.com/WebAssembly/wasi-http).
 
-In particular, the entry point for Spin HTTP components is defined in [the `incoming-handler` interface](https://github.com/spinframework/spin/blob/main/wit/deps/http@0.2.6/handler.wit):
+In particular, the entry point for Spin HTTP components is defined in [the `handler` interface](https://github.com/spinframework/spin/blob/main/wit/deps/http@0.3.0-rc-2026-03-15/handler.wit):
 
 <!-- @nocpy -->
 
 ```fsharp
-// incoming-handler.wit
+// handler.wit
 
-interface incoming-handler {
-  use types.{incoming-request, response-outparam}
+interface handler {
+  use types.{request, response, error-code};
 
-  handle: func(
-    request: incoming-request,
-    response-out: response-outparam
-  )
+  /// This function may be called with either an incoming request read from the
+  /// network or a request synthesized or forwarded by another component.
+  handle: async func(
+    request: request,
+  ) -> result<response, error-code>;
 }
 ```
 
 This is the interface that all HTTP components must implement, and which is used by the Spin HTTP executor when instantiating and invoking the component.
 
-However, this is not necessarily the interface you, the component author, work with. It may not even be the interface of the component you build!
-
-In many cases, you will use a more idiomatic wrapper provided by the Spin SDK, which implements the "true" interface internally. In some cases, you will build a Wasm "core module" which implements an earlier version of the Spin HTTP interface, which Spin internally adapts to the "true" interface as it loads your module.
+However, this is not necessarily the interface you, the component author, work with. In many cases, you will use a more idiomatic wrapper provided by the Spin SDK, which implements the "true" interface internally.
 
 But if you wish, and if your language supports it, you can implement the `incoming-handler` interface directly, using tools such as the
 [Bytecode Alliance `wit-bindgen` project](https://github.com/bytecodealliance/wit-bindgen). Spin will happily load and run such a component. This is exactly how Spin SDKs, such as the [Rust](rust-components) SDK, are built; as component authoring tools roll out for Go, JavaScript, Python, and other languages, you'll be able to use those tools to build `wasi-http` handlers and therefore Spin HTTP components.
-
-> The WASI family of specifications, and tool support for some component model features that WASI depends on, are not yet fully stabilized. If you implement `wasi-http` directly, you may need to do some trialing to find tool versions which work together and with Spin.
 
 ## Static Responses with the HTTP Trigger
 
@@ -511,4 +508,4 @@ Conversely, take care that request data is not stored in static or global variab
 
 ### Preventing Instance Reuse
 
-Although you can control instance reuse on the `spin up` command line, this isn't necessarily available in other hosts. If the structure of your code means that it's not safe to reuse instances, then you can use Wasm Component Model backpressure functions in your code to tell the host not to schedule further requests to the current instance. How these are surfaced will depend on your language - for example, in Rust you would use `wit_bindgen::backpressure_inc` to suspend re-use and a balancing `wit_bindgen::backpressure_dec` to re-enable it. See the [Component Model documentation](https://github.com/WebAssembly/component-model/blob/main/design/mvp/Concurrency.md#backpressure) for detailed information.
+Although you can control instance reuse on the `spin up` command line, this isn't necessarily available in other hosts. If the structure of your code means that it's not safe to reuse instances, then you can use Wasm Component Model backpressure functions in your code to tell the host not to schedule further requests to the current instance. How these are surfaced will depend on your language - for example, in Rust you would use `spin_sdk::wit_bindgen::backpressure_inc` to suspend re-use and a balancing `spin_sdk::wit_bindgen::backpressure_dec` to re-enable it. See the [Component Model documentation](https://github.com/WebAssembly/component-model/blob/main/design/mvp/Concurrency.md#backpressure) for detailed information.
