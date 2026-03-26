@@ -371,7 +371,7 @@ WASI can be used when implementing a Spin component.
 
 ## Storing Data in the Spin Key-Value Store
 
-Spin has a key-value store built in. For information about using it from TinyGo, see [the key-value store tutorial](key-value-store-tutorial).
+Spin has a key-value store built in. For information about using it from TinyGo, see [the key-value API guide](kv-store-api-guide).
 
 ## Storing Data in SQLite
 

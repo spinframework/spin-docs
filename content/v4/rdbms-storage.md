@@ -31,6 +31,8 @@ The Spin SDK surfaces the Spin MySQL and PostgreSQL interfaces to your language.
 | `query`    | statement, SQL parameters  | database records    | Runs the specified statement against the database, returning the query results as a set of rows. |
 | `execute`  | statement, SQL parameters  | integer (not MySQL) | Runs the specified statement against the database, returning the number of rows modified by the statement.  (MySQL does not return the modified row count.) |
 
+> The PostgreSQL interface is asynchronous (a blocking one is available for backward compatibility); the MySQL interface is blocking.
+
 The exact detail of calling these operations from your application depends on your language:
 
 {{ tabs "sdk-type" }}
@@ -39,28 +41,47 @@ The exact detail of calling these operations from your application depends on yo
 
 > [**Want to go straight to the reference documentation?**  Find it here.](https://docs.rs/spin-sdk/latest/spin_sdk/index.html)
 
-MySQL functions are available in the `spin_sdk::mysql` module, and PostgreSQL functions in the `spin_sdk::pg4` module.
+MySQL functions are available in the `spin_sdk::mysql` module, and PostgreSQL functions in the `spin_sdk::pg` module.
 
-> If you want to be compatible with Spin 3.3 or earlier, or with downstream hosts that have not yet rolled out Spin 3.4 support, you should use the `spin_sdk::pg3` module for PostgreSQL. The module interfaces are identical, but `pg3` does not support all the data types in `pg4`.
-
-The function names match the operations above. This example shows MySQL:
+The function names match the operations above. This example shows MySQL (blocking):
 
 ```rust
-// For PostgreSQL, use `spin_sdk::pg` or `spin_sdk::pg3`
 use spin_sdk::mysql::{self, Connection, Decode, ParameterValue};
 
 let connection = Connection::open(&address)?;
 
 let params = vec![ParameterValue::Int32(id)];
-// For PostgreSQL, use `$1` placeholder syntax
+
 let rowset = connection.query("SELECT id, name FROM pets WHERE id = ?", &params)?;
 
+// MySQL returns the rows as a vector
 match rowset.rows.first() {
     None => /* no rows matched query */,
     Some(row) => {
         let name = String::decode(&row[1])?;
     }
 }
+```
+
+And PostgreSQL (async):
+
+```rust
+use spin_sdk::pg::{self, Connection, Decode, ParameterValue};
+
+let connection = Connection::open(&address).await?;
+
+let params = vec![ParameterValue::Int32(id)];
+
+let (columns, rows, result) = connection.query("SELECT id, name FROM pets WHERE id = $1", &params).await?;
+
+// PostgreSQL returns the rows as a stream
+while let Some(row) = rows.next().await {
+	let name = String::decode(&row[1])?;
+	// ... more processing ...
+}
+
+// Check if the row stream ended due to completion or an error
+result.await?;
 ```
 
 **Notes**

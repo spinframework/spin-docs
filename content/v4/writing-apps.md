@@ -356,7 +356,7 @@ By default, Spin components are not allowed to access Spin's storage services.  
 key_value_stores = [ "default" ]
 ```
 
-See [Persisting Data with Spin](key-value-store-tutorial) for more information.
+See [the key-value API guide](kv-store-api-guide) for more information.
 
 ## Example Manifests
 

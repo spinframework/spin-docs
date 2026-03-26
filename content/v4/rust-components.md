@@ -446,7 +446,7 @@ The future does not resolve until the stream ends, so be sure not to await it un
 
 ## Storing Data in the Spin Key-Value Store
 
-Spin has a key-value store built in. For information about using it from Rust, see [the key-value store tutorial](key-value-store-tutorial).
+Spin has a key-value store built in. For information about using it from Rust, see [the key-value API guide](kv-store-api-guide).
 
 ### Serializing Objects to the Key-Value Store
 

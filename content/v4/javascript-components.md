@@ -309,7 +309,7 @@ allowed_outbound_hosts = ["redis://localhost:6379"]
 
 ## Storing Data in the Spin Key-Value Store
 
-Spin has a key-value store built in. For information about using it from TypeScript/JavaScript, see [the key-value store tutorial](key-value-store-tutorial).
+Spin has a key-value store built in. For information about using it from TypeScript/JavaScript, see [the key-value API guide](kv-store-api-guide).
 
 ## Storing Data in SQLite
 

@@ -46,8 +46,6 @@ code-generator-rs/.spin/ai-models/llama/codellama-instruct/config.json
 code-generator-rs/.spin/ai-models/llama/codellama-instruct/tokenizer.json
 ```
 
-See the [serverless AI Tutorial](./ai-sentiment-analysis-api-tutorial) documentation for more concrete examples of implementing the Fermyon Serverless AI API, in your favorite language.
-
 > For embeddings models, it is expected that both a `tokenizer.json` and a `model.safetensors` are located in the directory named after the model. For example, for the `foo-bar-baz` model, Spin will look in the `.spin/ai-models/foo-bar-baz` directory for `tokenizer.json` and a `model.safetensors`.
 
 ## Serverless AI Interface

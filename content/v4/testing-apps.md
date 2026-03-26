@@ -230,7 +230,7 @@ key_value_stores = ["default"]
 ...
 ```
 
-> If you would like to learn more about Key Value storage, see [this tutorial](./key-value-store-tutorial.md).
+> If you would like to learn more about Key Value storage, see [the key-value API guide](kv-store-api-guide).
 
 After editing, the whole `my-app/spin.toml` file will look like the following:
 

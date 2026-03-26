@@ -8,10 +8,9 @@ keywords = "contribute contributing"
 ---
 
 - [Technical Documentation Types](#technical-documentation-types)
-  - [1. Tutorials](#1-tutorials)
-  - [2. How-To Guides](#2-how-to-guides)
-  - [3. Reference](#3-reference)
-  - [4. Explanation](#4-explanation)
+  - [1. How-To Guides](#1-how-to-guides)
+  - [2. Reference](#2-reference)
+  - [3. Explanation](#3-explanation)
 - [Technical Documentation Procedure](#technical-documentation-procedure)
   - [1. Fork the Repository](#1-fork-the-repository)
   - [2. Clone the Fork](#2-clone-the-fork)
@@ -40,21 +39,17 @@ Below are a few pointers designed to help you contribute.
 
 ## Technical Documentation Types
 
-The following points will help guide your contribution from a resource-type perspective; essentially we would really appreciate you creating and contributing any of the following 4 resource types. 
+The following points will help guide your contribution from a resource-type perspective; essentially we would really appreciate you creating and contributing any of the following 3 resource types. 
 
-### 1. Tutorials
-
-Tutorials are oriented toward learning. Tutorials are designed to get a user started on something new (that they have not tried before). You can think of a tutorial as a lesson i.e. teaching a Spin user [how to use the Key Value store to persist data](/key-value-store-tutorial.md). The tutorial may contain many logically ordered steps i.e. installing Spin, using Spin templates, configuring a Spin application and so forth. The desired outcome for a tutorial is for the user to have a working deployment or application. Think of it as a lesson in how to bake a cake.
-
-### 2. How-To Guides
+### 1. How-To Guides
 
 How-to guides are oriented towards showing a user how to solve a problem, which leads them to be able to achieve their own goal. The how-to guide will follow a series of logical steps. Think of it as providing a recipe for the user's creativity. For example, you can show a user how to [develop a Spin application](/writing-apps.md) without telling them what the application must do; that is up to the user's imagination.
 
-### 3. Reference
+### 2. Reference
 
 Reference resources are merely a dry description; describing the feature in its simplest form. An example of a reference resource is the [Spin application manifest reference](./manifest-reference). You will notice that the Manifest Reference page simply lists all of the manifest entries and available options.
 
-### 4. Explanation
+### 3. Explanation
 
 An explanation resource is written using a deep-dive approach i.e. providing a deep explanation with the view to impart a deep understanding of a particular concept, feature or product. You may find your contribution is so in-depth that it becomes a long form article like a blog post. If that is the case, consider an addition to the Spin Blog.
 
@@ -147,7 +142,7 @@ If you want the code in a code block to be copyable with no "smarts" to remove t
 
 **Multi-tab code blocks**
 
-Examples of multi-tab blocks can be seen in the [Spin installer documentation](./install#installing-spin) and [Spin Key/Value documentation](./key-value-store-tutorial#the-spin-toml-file). The above examples demonstrate how tabs can either represent platforms i.e. `Windows`, `Linux` and `macOS` or represent specific programming languages i.e. `Rust`, `JavaScript` and `Golang` etc. Here is a brief example of how to implement multi-tab code blocks when writing technical documentation for this site, using markdown.
+Examples of multi-tab blocks can be seen in the [Spin installer documentation](./install#installing-spin). The above examples demonstrate how tabs can either represent platforms i.e. `Windows`, `Linux` and `macOS` or represent specific programming languages i.e. `Rust`, `JavaScript` and `Golang` etc. Here is a brief example of how to implement multi-tab code blocks when writing technical documentation for this site, using markdown.
 
 The first step to implementing multi-tab code blocks is placing the `enable_shortcodes = true` configuration at the start of the `.md` file. Specifically, in the `.md` file's frontmatter.
 

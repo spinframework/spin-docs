@@ -310,7 +310,7 @@ The HTTP component interface is defined using a WebAssembly Interface (WIT) file
 
 The HTTP types and interfaces are defined in [https://github.com/spinframework/spin/tree/main/wit/deps/http@0.3.0-rc-2026-03-15](https://github.com/spinframework/spin/tree/main/wit/deps/http@0.3.0-rc-2026-03-15), which tracks [the `wasi-http` specification](https://github.com/WebAssembly/wasi-http).
 
-In particular, the entry point for Spin HTTP components is defined in [the `handler` interface](https://github.com/spinframework/spin/blob/main/wit/deps/http@0.3.0-rc-2026-03-15/handler.wit):
+In particular, the entry point for Spin HTTP components is defined in [the `handler` interface](https://github.com/spinframework/spin/blob/main/wit/deps/http@0.3.0-rc-2026-03-15/worlds.wit):
 
 <!-- @nocpy -->
 
