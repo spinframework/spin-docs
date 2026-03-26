@@ -42,29 +42,60 @@ Generally, you should use `OutgoingRequest` when you need to stream the outbound
 
 The response is a `spin_sdk::http::Response`.
 
-Here is an example of doing outbound HTTP in a simple request-response style:
+Here is an example of doing outbound HTTP when you want to wait for the entire response and load it into memory as a single blob:
+
+```rust
+use spin_sdk::http::{EmptyBody, FullBody, IntoResponse, Request, Response};
+use spin_sdk::http::body::IncomingBodyExt;
+use spin_sdk::http_service;
+use http::Method;
+
+#[http_service]
+async fn handle_p3_body_test(req: Request) -> anyhow::Result<impl IntoResponse> {
+    // Create the outbound request object
+    let request = Request::builder()
+        .method(Method::GET)
+        .uri("https://spinframework.dev/")
+        .body(EmptyBody::new())?;
+
+    // Send the request and await the response
+    let response = spin_sdk::http_wasip3::send(request).await?;
+
+    // Get the outbound response body as a bytes::Bytes
+    let body = response.into_body().bytes().await?;
+
+    // Process the response bytes
+    let response_len = body.len();
+
+    // Return a response to the inbound request
+    Ok((http::StatusCode::OK, response_len.to_string()))
+}
+```
+
+Here is an example of doing outbound HTTP when you want to process the response as a stream, handling each chunk as it arrives from the server and then discarding it:
 
 ```rust
 use futures::StreamExt;
-use spin_sdk::{
-    http::{body::IncomingBodyExt, EmptyBody, IntoResponse, Request, Method, Response},
-    http_service,
-};
+use spin_sdk::http::{EmptyBody, FullBody, IntoResponse, Request, Response};
+use spin_sdk::http::body::IncomingBodyExt;
+use spin_sdk::http_service;
+use http::Method;
 
 #[http_service]
 async fn handle_request(_req: Request) -> anyhow::Result<impl IntoResponse> {
     // Create the outbound request object
     let request = Request::builder()
-        .method(Method::Get)
+        .method(Method::GET)
         .uri("https://spinframework.dev/")
         .body(EmptyBody::new())?;
 
     // Send the request and await the response
     let response = spin_sdk::http::send(request).await?;
 
-    // Use the outbound response body
+    // Get the outbound response body as a stream
     let mut body = response.into_body().stream();
 
+    // Use the response stream
     let mut response_len = 0;
     while let Some(chunk) = body.next().await {
         response_len += chunk?.len();
@@ -74,6 +105,56 @@ async fn handle_request(_req: Request) -> anyhow::Result<impl IntoResponse> {
     Ok((http::StatusCode::OK, response_len.to_string()))
 }
 ```
+
+Here is an example of doing outbound HTTP when you want to stream outbound request data to the remote host:
+
+```rust
+use bytes::Bytes;
+use futures::{SinkExt, StreamExt};
+use http_body_util::StreamBody;
+use spin_sdk::http::body::IncomingBodyExt;
+use spin_sdk::http::{IntoResponse, Request};
+use spin_sdk::http_service;
+use http::Method;
+
+#[http_service]
+async fn handle_p3_body_test(req: Request) -> anyhow::Result<impl IntoResponse> {
+    // Set up a channel - one end of this is the streaming body, the other
+    // end is where the client writes data into the streaming body.
+    let (mut tx, rx) = futures::channel::mpsc::channel::<Bytes>(1024);
+
+    // Spawn a task to send data into the stream
+    spin_sdk::spawn(async move {
+        for index in 0..20 {
+            let line = format!("test line {index}\n");
+            tx.send(line.into()).await.unwrap();
+        }
+    });
+
+    // Create the outbound request object
+    let request = Request::builder()
+        .method(Method::POST)
+        .uri("https://spinframework.dev/")
+        .body(StreamBody::new(rx))?;
+
+    // Adapt the Bytes-based stream to something that `http` understands
+    let rx = rx.map(|value| anyhow::Ok(http_body::Frame::data(value)));
+
+    // Send the request with the streaming body, and await the response.
+    // The outbound body could still be streaming during the await, and
+    // even while the response body is being processed (although that won't
+    // happen in this simple case!).
+    let response = spin_sdk::http::send(request).await?;
+
+    // Process the response, in this case buffering in memory, but
+    // this could be streaming too as in the previous example
+    let body = response.into_body().bytes().await?;
+    let text = String::from_utf8_lossy(&body[..]);
+    Ok((http::StatusCode::OK, text.to_string()))
+}
+```
+
+For more examples, [see the `spin-rust-sdk` repository](https://github.com/spinframework/spin-rust-sdk/blob/main/examples).
 
 {{ blockEnd }}
 

@@ -13,7 +13,7 @@ The following table shows the status of the interfaces Spin provides to applicat
 | Host Capabilities/Interfaces                 | Stability    | Async? (see NOTE)   |
 |----------------------------------------------|--------------|---------------------|
 | [HTTP Trigger](./http-trigger)               | Stable       | Async entry point   |
-| [Redis Trigger](./redis-trigger)             | Stable       | Sync entry point    |
+| [Redis Trigger](./redis-trigger)             | Stable       | Async entry point   |
 | [Cron Trigger](./triggers)                   | Experimental | Sync entry point    |
 | [Outbound HTTP](./http-outbound)             | Stable       | Async               |
 | [Outbound Redis](./redis-outbound)           | Stable       | Async               |
