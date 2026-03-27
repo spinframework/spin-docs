@@ -83,13 +83,13 @@ component = "api-consumer"
 source = "app.wasm"
 [component.api-consumer.variables]
 token = "\{{ api_token }}"
-api_uri = "\{{ api_uri }}
+api_uri = "\{{ api_uri }}"
 api_version = "v1"
 ```
 
 ## Using Variables From Applications
 
-The Spin SDK surfaces the Spin configuration interface to your language. The [interface](https://github.com/spinframework/spin/blob/main/wit/deps/spin@2.0.0/variables.wit) consists of one operation:
+The Spin SDK surfaces the Spin configuration interface to your language. The [interface](https://github.com/spinframework/spin/blob/main/wit/deps/spin-variables%403.0.0/variables.wit) consists of one operation:
 
 | Operation  | Parameters         | Returns             | Behavior |
 |------------|--------------------|---------------------|----------|
@@ -123,7 +123,7 @@ async fn handle_api_call_with_token(_req: Request) -> anyhow::Result<impl IntoRe
         .method(Method::Get)
         .uri(versioned_api_uri)
         .header("Authorization", format!("Bearer {}", token))
-        .body(EmptyBody::new());
+        .body(EmptyBody::new())?;
     let response: Response = spin_sdk::http::send(request).await?;
     // Do something with the response ...
     Ok(Response::builder()
@@ -338,4 +338,4 @@ If you run into the following error, you've most likely not configured the compo
 Handler returned an error: Error::Undefined("no variable for \"<component-id>\".\"your-variable\"")
 ```
 
-To fix this, edit the `spin.toml` and add to the `[component.<component-id>.variables]` table a line such as `<your-variable> = "{{ app-variable }}".` See [above](#adding-variables-to-your-applications) for more information.
+To fix this, edit the `spin.toml` and add to the `[component.<component-id>.variables]` table a line such as `<your-variable> = "\{{ app-variable }}".` See [above](#adding-variables-to-your-applications) for more information.

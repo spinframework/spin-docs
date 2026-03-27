@@ -53,7 +53,7 @@ You can use [application variables](./variables.md#adding-variables-to-your-appl
 
 ## Redis Trigger Authentication
 
-By default, Spin does not authenticate to Redis. You can work around this by providing a password in the `redis://` URL.  For example: `address = "redis://:{{ password }}@localhost:6379"`.  Here `password` is an [application variable](./variables.md#adding-variables-to-your-applications) as mentioned above.
+By default, Spin does not authenticate to Redis. You can work around this by providing a password in the `redis://` URL.  For example: `address = "redis://:\{{ password }}@localhost:6379"`.  Here `password` is an [application variable](./variables.md#adding-variables-to-your-applications) as mentioned above.
 
 > Do not hard-code passwords in code committed to version control systems.
 
