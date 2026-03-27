@@ -41,10 +41,6 @@ If `spin doctor` detects a problem it can fix, you can choose to accept the fix,
 
 > `spin doctor` is in an early stage of development, and there are many potential problems it doesn't yet check for. Please [raise an issue](https://github.com/spinframework/spin/issues/new?template=suggestion.md) if you have a problem you think `spin doctor` should check for.
 
-## Spin Test
-
-The [spin test plugin](https://github.com/spinframework/spin-test) allows you to write test scenarios for your application's business logic. For more information, see [testing applications](./testing-apps.md).
-
 ## Viewing Spin Debug Logs
 
 If you need to follow what Spin is doing internally, set the RUST_LOG environment variable for detailed logs, before running `spin up`:
