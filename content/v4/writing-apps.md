@@ -337,8 +337,6 @@ allowed_outbound_hosts = ["redis://redis.example.com:6379", "https://api.example
 
 If a port is specified, the component can make requests only to that port.  If no port is specified, the component can make requests only to the default port for the scheme (e.g. port 443 for the `https` scheme, port 5432 for the `postgres` scheme).  If you need to allow requests to _any_ port, use the wildcard `*` (e.g. `mysql://db.example.com:*`).
 
-> If you're familiar with Spin 1, `allowed_outbound_hosts` replaces `allowed_http_hosts`. Spin 2 still accepts `allowed_http_hosts` but will recommend migrating to `allowed_outbound_hosts`. Additionally, if your application uses the version 1 manifest format, _and_ the manifest does not specify `allowed_outbound_hosts`, then version 1 components are allowed to use Redis, MySQL and PostgreSQL without restriction.
-
 The Wasm module can send network traffic _only_ to the hosts specified in these two fields. Requests to other hosts (or other ports) will fail with an error.
 
 {{ details "This feels like extra work! Why do I have to list the hosts?" "This comes from the Wasm principle of deny by default: the user of a component, rather than the component itself, should decide what resource it's allowed to access. But this isn't just an abstract principle: it's critical to being able to trust third party components. For example, suppose you add `bad-boy-brians-totally-legitimate-file-server.wasm` to your application. Unless you unwisely grant it network permissions, you can be _provably certain_ that it doesn't access your Postgres database or send information to evildoers." }}
