@@ -249,29 +249,54 @@ class IncomingHandler(http.IncomingHandler):
 
 > [**Want to go straight to the reference documentation?**  Find it here.](https://pkg.go.dev/github.com/spinframework/spin-go-sdk/v2@v2.2.1/http)
 
-In Go, you register the handler as a callback in your program's `init` function.  Call `spinhttp.Handle`, passing your handler as the sole argument.  Your handler takes a `http.Request` record, from the standard `net/http` package, and a `ResponseWriter` to construct the response.
+In Go, you register the handler as a callback in your program's `init` function.  Set `handler.Exports.Handle` to your handler function.  Your handler takes a `*Request` pointer, and returns a `Result[Response, ErrorCode]` with the response.
 
 ```go
 package main
 
 import (
-        "fmt"
-        "net/http"
+    "fmt"
+    "net/http"
 
-        spinhttp "github.com/spinframework/spin-go-sdk/v2/http"
-)
+    handler "github.com/spinframework/spin-go-sdk/v3/exports/wasi_http_service_0_3_0_rc_2026_03_15/export_wasi_http_0_3_0_rc_2026_03_15_handler"
+    _ "github.com/spinframework/spin-go-sdk/v3/exports/wasi_http_service_0_3_0_rc_2026_03_15/wit_exports"
+    client "github.com/spinframework/spin-go-sdk/v3/imports/wasi_http_0_3_0_rc_2026_03_15_client"
+    . "github.com/spinframework/spin-go-sdk/v3/imports/wasi_http_0_3_0_rc_2026_03_15_types"
+    . "go.bytecodealliance.org/pkg/wit/types")
+
+func Handle(request *Request) Result[*Response, ErrorCode] {
+    tx, rx := MakeStreamU8()
+
+    go func() {
+        defer tx.Drop()
+        tx.WriteAll([]uint8("hello, world!"))
+    }()
+
+    response, send := ResponseNew(
+        FieldsFromList([]Tuple2[string, []uint8]{
+            Tuple2[string, []uint8]{"content-type", []uint8("text/plain")},
+        }).Ok(),
+        Some(rx),
+        trailersFuture(),
+    )
+    send.Drop()
+
+    return Ok[*Response, ErrorCode](response)
+}
+
+// Helper function
+func trailersFuture() *FutureReader[Result[Option[*Fields], ErrorCode]] {
+    tx, rx := MakeFutureResultOptionFieldsErrorCode()
+    go tx.Write(Ok[Option[*Fields], ErrorCode](None[*Fields]()))
+    return rx
+}
 
 func init() {
-        spinhttp.Handle(func(w http.ResponseWriter, r *http.Request) {
-                w.Header().Set("Content-Type", "text/plain")
-                fmt.Fprintln(w, "Hello Fermyon!")
-        })
+    handler.Exports.Handle = Handle
 }
 
 func main() {}
 ```
-
-> If you are moving between languages, note that in most other Spin SDKs, your handler _constructs and returns_ a response, but in Go, _Spin_ constructs a `ResponseWriter`, and you write to it; your handler does not return a value.
 
 {{ blockEnd }}
 
