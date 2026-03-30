@@ -63,25 +63,26 @@ match rowset.rows.first() {
 }
 ```
 
-And PostgreSQL (async):
+PostgreSQL (async) uses a `QueryResult` struct to encapsulate the streaming results:
 
 ```rust
-use spin_sdk::pg::{self, Connection, Decode, ParameterValue};
+use spin_sdk::pg::{Connection, Decode, ParameterValue};
 
 let connection = Connection::open(&address).await?;
 
-let params = vec![ParameterValue::Int32(id)];
+let query_result = connection.query(
+    "SELECT id, name FROM pets WHERE id = $1",
+    &[ParameterValue::Int32(id)]
+).await?;
 
-let (columns, rows, result) = connection.query("SELECT id, name FROM pets WHERE id = $1", &params).await?;
-
-// PostgreSQL returns the rows as a stream
-while let Some(row) = rows.next().await {
-	let name = String::decode(&row[1])?;
-	// ... more processing ...
+// PostgreSQL returns the rows asynchronously (stream-like)
+while let Some(row) = query_result.next().await {
+    let name = row.get::<String>("name")?;
+    // ... more processing ...
 }
 
 // Check if the row stream ended due to completion or an error
-result.await?;
+query_result.result().await?;
 ```
 
 **Notes**
@@ -89,7 +90,7 @@ result.await?;
 * Parameters are instances of the `ParameterValue` enum; you must wrap raw values in this type.
 * A row is a vector of the `DbValue` enum. Use the `Decode` trait to access conversions to common types.
 * Using PostgreSQL works in the same way, except that you `use` the `spin_sdk::pg` module instead of `spin_sdk::mysql`.
-* Modified row counts are returned as `u64`. (MySQL `execute` does not return the modified row count.)
+* Modified row counts are returned as `u64`.
 * All functions wrap the return in `anyhow::Result`.
 
 You can find complete examples for using relational databases in the Spin repository on GitHub ([MySQL](https://github.com/spinframework/spin-rust-sdk/tree/main/examples/mysql), [PostgreSQL](https://github.com/spinframework/spin-rust-sdk/tree/main/examples/postgres)).

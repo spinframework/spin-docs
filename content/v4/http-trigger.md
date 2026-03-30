@@ -488,9 +488,9 @@ Instance reuse is when Spin handles more than one HTTP request within a single c
 
 The exact details depend on your component.
 
-A WASI P2 component is _not_ subject to instance reuse. This includes all triggers other than HTTP.
+A WASI P2 HTTP component is _not_ subject to instance reuse. This includes all triggers other than HTTP.
 
-A WASI P3 component is _always_ subject to instance reuse, unless it calls specific APIs to prevent concurrent use. You can control instance reuse behaviour using the following `spin up` flags:
+A WASI P3 HTTP component is _always_ subject to instance reuse, unless it calls specific APIs to prevent concurrent use. You can control instance reuse behaviour using the following `spin up` flags:
 
 * `--max-instance-reuse-count` sets the maximum number of times a single instance can be reused
 * `--max-instance-concurrent-reuse-count` sets the maximum number of requests that can be running in a single instance at the same time
