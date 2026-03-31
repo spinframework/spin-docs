@@ -25,8 +25,6 @@ By default, a given component of an app will not have access to any SQLite Datab
 sqlite_databases = ["default"]
 ```
 
-> Note: To deploy your Database application to Fermyon Cloud using `spin cloud deploy`, see the [SQLite Database](https://developer.fermyon.com/cloud/noops-sql-db#accessing-private-beta) section in the documentation. It covers signing up for the private beta and setting up your Cloud database tables and initial data.
-
 ## Using SQLite Storage From Applications
 
 The Spin SDK surfaces the Spin SQLite Database interface to your language.
@@ -75,10 +73,12 @@ async fn handle_request(req: Request) -> Result<impl IntoResponse> {
         Value::Text("Try out Spin SQLite".to_owned()),
         Value::Text("Friday".to_owned()),
     ];
-    connection.execute(
+    
+    let (_, _, result) = connection.execute(
         "INSERT INTO todos (description, due) VALUES (?, ?)",
         execute_params.as_slice(),
     ).await?;
+    result.await?
 
     let (columns, mut rows, result) = connection.execute(
         "SELECT id, description, due FROM todos",
@@ -86,13 +86,14 @@ async fn handle_request(req: Request) -> Result<impl IntoResponse> {
     ).await?;
 
     let mut todos = vec![];
-    while let Some(row) = rows.next().await? {
+    while let Some(row) = rows.next().await {
         todos.push(ToDo {
             id: row.get::<u32>("id").unwrap(),
             description: row.get::<&str>("description").unwrap().to_owned(),
             due: row.get::<&str>("due").unwrap().to_owned(),
         });
     }
+    result.await?;
 
     let body = serde_json::to_vec(&todos)?;
     Ok(Response::builder()
