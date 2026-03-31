@@ -134,6 +134,9 @@ current_dir=$(pwd)
 # Define Spin directory name
 spin_directory_name="/spin"
 
+# Disable OpenTelemetry SDK
+export OTEL_SDK_DISABLED=true
+
 if [ -d "${current_dir}$spin_directory_name" ]; then
     fancy_print 1 "Error: .$spin_directory_name already exists, please delete ${current_dir}$spin_directory_name and run the installer again."
     exit 1
@@ -180,6 +183,10 @@ if [[ $STATIC = "false" ]]; then
 else
     fancy_print 0 "Step 5: Skipping plugin installation for OS with musl"
 fi
+
+# Re-Enable OpenTelemetry SDK
+export OTEL_SDK_DISABLED=
+
 # Direct to quicks-start doc
 fancy_print 0 "You're good to go. Check here for the next steps: https://spinframework.dev/quickstart"
 fancy_print 0 "Run './spin' to get started"

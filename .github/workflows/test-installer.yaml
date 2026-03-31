@@ -1,0 +1,15 @@
+name: Test Installer Script
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - downloads/install.sh
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+      - name: Run installer
+        run: bash downloads/install.sh
