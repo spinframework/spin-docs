@@ -260,7 +260,6 @@ import (
 
     handler "github.com/spinframework/spin-go-sdk/v3/exports/wasi_http_service_0_3_0_rc_2026_03_15/export_wasi_http_0_3_0_rc_2026_03_15_handler"
     _ "github.com/spinframework/spin-go-sdk/v3/exports/wasi_http_service_0_3_0_rc_2026_03_15/wit_exports"
-    client "github.com/spinframework/spin-go-sdk/v3/imports/wasi_http_0_3_0_rc_2026_03_15_client"
     . "github.com/spinframework/spin-go-sdk/v3/imports/wasi_http_0_3_0_rc_2026_03_15_types"
     . "go.bytecodealliance.org/pkg/wit/types")
 
@@ -284,7 +283,6 @@ func Handle(request *Request) Result[*Response, ErrorCode] {
     return Ok[*Response, ErrorCode](response)
 }
 
-// Helper function
 func trailersFuture() *FutureReader[Result[Option[*Fields], ErrorCode]] {
     tx, rx := MakeFutureResultOptionFieldsErrorCode()
     go tx.Write(Ok[Option[*Fields], ErrorCode](None[*Fields]()))
@@ -297,6 +295,8 @@ func init() {
 
 func main() {}
 ```
+
+See [Go Components](./go-components) for an explanation of this code.
 
 {{ blockEnd }}
 

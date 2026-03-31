@@ -39,36 +39,73 @@ must return an HTTP response at the end of their execution. Components can be
 built in any language that compiles to WASI, and Go has improved support for
 writing applications, through its SDK.
 
-Building a Spin HTTP component using the Go SDK means writing a single function,
-`init` — below is a complete implementation for such a component:
+Building a Spin HTTP component using the Go SDK means using the `init` function
+to assign a handler function to `handler.Exports.Handle`. Below is a complete
+implementation for a component that returns "Hello, Spin" as its response:
 
 <!-- @nocpy -->
 
 ```go
-// A Spin component written in Go that returns "Hello, Fermyon!"
 package main
 
 import (
- "fmt"
- "net/http"
+    "fmt"
+    "net/http"
 
- spinhttp "github.com/spinframework/spin-go-sdk/v2/http"
-)
+    // The WASI contracts for receiving HTTP requests
+    handler "github.com/spinframework/spin-go-sdk/v3/exports/wasi_http_service_0_3_0_rc_2026_03_15/export_wasi_http_0_3_0_rc_2026_03_15_handler"
+    _ "github.com/spinframework/spin-go-sdk/v3/exports/wasi_http_service_0_3_0_rc_2026_03_15/wit_exports"
+    . "github.com/spinframework/spin-go-sdk/v3/imports/wasi_http_0_3_0_rc_2026_03_15_types"
+    . "go.bytecodealliance.org/pkg/wit/types")
+
+func Handle(request *Request) Result[*Response, ErrorCode] {
+    // The byte stream which will become the response body
+    tx, rx := MakeStreamU8()
+
+    // Start a goroutine to write the response body to the stream
+    go func() {
+        defer tx.Drop()
+        tx.WriteAll([]uint8("Hello, Spin"))
+    }()
+
+    // Create the response object
+    response, send := ResponseNew(
+        // Response headers
+        FieldsFromList([]Tuple2[string, []uint8]{
+            Tuple2[string, []uint8]{"content-type", []uint8("text/plain")},
+        }).Ok(),
+        // Response body stream
+        Some(rx),
+        // A future that will provide (an empty set of) trailers once the body completes
+        trailersFuture(),
+    )
+    send.Drop()
+
+    return Ok[*Response, ErrorCode](response)
+}
+
+// Creates a future that will resolve to an (empty) set of HTTP trailers
+func trailersFuture() *FutureReader[Result[Option[*Fields], ErrorCode]] {
+    tx, rx := MakeFutureResultOptionFieldsErrorCode()
+    go tx.Write(Ok[Option[*Fields], ErrorCode](None[*Fields]()))
+    return rx
+}
 
 func init() {
- spinhttp.Handle(func(w http.ResponseWriter, r *http.Request) {
-  w.Header().Set("Content-Type", "text/plain")
-  fmt.Fprintln(w, "Hello Fermyon!")
- })
+    // Assign the Handle function as the WASI HTTP `handler`
+    handler.Exports.Handle = Handle
 }
+
+// Formally required but never used
+func main() {}
 ```
 
-The Spin HTTP component (written in Go) can be built using the `tingygo` toolchain:
+This component can be built using the `componentize-go` tool:
 
 <!-- @selectiveCpy -->
 
 ```bash
-$ tinygo build -target=wasip1 -gc=leaking -buildmode=c-shared -no-debug -o main.wasm .
+$ componentize-go -w wasi:http/service@0.3.0-rc-2026-03-15 -w platform build
 ```
 
 Once built, we can run our Spin HTTP component using the Spin up command:
@@ -87,20 +124,10 @@ The Spin HTTP component can now receive and process incoming requests:
 $ curl -i localhost:3000
 HTTP/1.1 200 OK
 content-type: text/plain
-content-length: 15
+content-length: 12
 
-Hello Fermyon!
+Hello, Spin
 ```
-
-The important things to note in the implementation above:
-
-- the entry point to the component is the standard `func init()` for Go programs
-- handling the request is done by calling the `spinhttp.Handle` function,
-which takes a `func(w http.ResponseWriter, r *http.Request)` as parameter — these
-contain the HTTP request and response writer you can use to handle the request
-- the HTTP objects (`*http.Request`, `http.Response`, and `http.ResponseWriter`)
-are the Go objects from the standard library, so working with them should feel
-familiar if you are a Go developer
 
 ## Sending Outbound HTTP Requests
 
