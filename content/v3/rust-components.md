@@ -310,7 +310,7 @@ proxies or URL shorteners.
 
 <!-- @searchTerm "async" -->
 
-The Rust SDK [provides a router](https://github.com/spinframework/spin-rust-sdk/tree/main/examples/http-router) that makes it easier to handle routing within a component:
+The Rust SDK [provides a router](https://github.com/spinframework/spin-rust-sdk/tree/v5.2.0/examples/http-router) that makes it easier to handle routing within a component:
 
 ```rust
 use anyhow::Result;

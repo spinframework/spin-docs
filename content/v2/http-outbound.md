@@ -88,7 +88,7 @@ async fn handle_request(_req: Request) -> anyhow::Result<impl IntoResponse> {
 }
 ```
 
-For an example of receiving the response in a streaming style, [see this example in the Spin repository](https://github.com/spinframework/spin-rust-sdk/blob/main/examples/wasi-http-streaming-outgoing-body/src/lib.rs).
+For an example of receiving the response in a streaming style, [see this example in the Spin repository](https://github.com/spinframework/spin-rust-sdk/tree/v5.2.0/examples/wasi-http-streaming-outgoing-body/src/lib.rs).
 
 {{ blockEnd }}
 

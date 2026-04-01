@@ -54,7 +54,7 @@ One thing you’ll notice the moment you try out the new SDK is that you’re us
   <img src="/static/image/blog/announcing-spin-3-5-gh-comment.png" alt="Bytecode Alliance member github comment on wasi-rs contribution">
 </figure>
 
-But that’s not where the interoperability story ends. Because of the design of the SDK in conjunction with the async support provided by WASIp3, it is now more seamless to bring your own web frameworks to use in Spin components. See for instance the Axum example [here](https://github.com/spinframework/spin-rust-sdk/tree/main/examples/wasip3-http-axum-router). Historically, this was possible to do but required management of more lower level types. See the Axum example with WASIp2 [here](https://github.com/fermyon/wasi-hyperium/blob/main/examples/axum-server/src/lib.rs) for comparison. We’d love to hear more feedback on this experience through [GitHub issues](https://github.com/spinframework/spin-rust-sdk/issues), on [Slack](https://cloud-native.slack.com/archives/C089NJ9G1V0), or during [project meetings](https://github.com/spinframework/spin#getting-involved-and-contributing).
+But that’s not where the interoperability story ends. Because of the design of the SDK in conjunction with the async support provided by WASIp3, it is now more seamless to bring your own web frameworks to use in Spin components. See for instance the Axum example [here](https://github.com/spinframework/spin-rust-sdk/tree/v5.2.0/examples/wasip3-http-axum-router). Historically, this was possible to do but required management of more lower level types. See the Axum example with WASIp2 [here](https://github.com/fermyon/wasi-hyperium/blob/main/examples/axum-server/src/lib.rs) for comparison. We’d love to hear more feedback on this experience through [GitHub issues](https://github.com/spinframework/spin-rust-sdk/issues), on [Slack](https://cloud-native.slack.com/archives/C089NJ9G1V0), or during [project meetings](https://github.com/spinframework/spin#getting-involved-and-contributing).
 
 #### More on Language Support
 
@@ -84,7 +84,7 @@ You should now see a `hello-p3` directory containing a basic p3 application usin
 
 ### Deep Dive Into Example
 
-The Rust SDK repo provides examples of things you can now do with p3 support. Let’s dive into one of them. With WASIp3 support in Spin, you can make concurrent outbound HTTP requests from within a component. See full example [here](https://github.com/spinframework/spin-rust-sdk/tree/main/examples/wasip3-concurrent-outbound-http-calls).
+The Rust SDK repo provides examples of things you can now do with p3 support. Let’s dive into one of them. With WASIp3 support in Spin, you can make concurrent outbound HTTP requests from within a component. See full example [here](https://github.com/spinframework/spin-rust-sdk/tree/v5.2.0/examples/wasip3-concurrent-outbound-http-calls).
 
 The first step of using the SDK is opting into the `wasip3-unstable` feature as is done on the last line of the `Cargo.toml` file above. Also note Rust 1.90 and the `wasm32-wasip2` target are required to build WASIp3 components. (WASIp2 and p3 have the same binary representation, with p3 adding additional features. The `wasm32-wasip2` target causes the Rust compiler to emit the right binary format, with the SDK adding the additional p3 features.)
 
