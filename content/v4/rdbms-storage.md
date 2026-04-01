@@ -70,7 +70,7 @@ use spin_sdk::pg::{Connection, Decode, ParameterValue};
 
 let connection = Connection::open(&address).await?;
 
-let query_result = connection.query(
+let mut query_result = connection.query(
     "SELECT id, name FROM pets WHERE id = $1",
     &[ParameterValue::Int32(id)]
 ).await?;
@@ -85,11 +85,12 @@ while let Some(row) = query_result.next().await {
 query_result.result().await?;
 ```
 
+> If you are querying for a small result set, you can load all the rows into a `Vec` by calling `QueryResult::collect()`. This can be more convenient for some operations.
+
 **Notes**
 
 * Parameters are instances of the `ParameterValue` enum; you must wrap raw values in this type.
 * A row is a vector of the `DbValue` enum. Use the `Decode` trait to access conversions to common types.
-* Using PostgreSQL works in the same way, except that you `use` the `spin_sdk::pg` module instead of `spin_sdk::mysql`.
 * Modified row counts are returned as `u64`.
 * All functions wrap the return in `anyhow::Result`.
 

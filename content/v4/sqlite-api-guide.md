@@ -74,11 +74,11 @@ async fn handle_request(req: Request) -> Result<impl IntoResponse> {
         Value::Text("Friday".to_owned()),
     ];
     
-    let (_, _, result) = connection.execute(
+    let mut query_result = connection.execute(
         "INSERT INTO todos (description, due) VALUES (?, ?)",
         execute_params.as_slice(),
     ).await?;
-    result.await?
+    query_result.result().await?
 
     let (columns, mut rows, result) = connection.execute(
         "SELECT id, description, due FROM todos",
@@ -86,14 +86,14 @@ async fn handle_request(req: Request) -> Result<impl IntoResponse> {
     ).await?;
 
     let mut todos = vec![];
-    while let Some(row) = rows.next().await {
+    while let Some(row) = query_result.next().await {
         todos.push(ToDo {
             id: row.get::<u32>("id").unwrap(),
             description: row.get::<&str>("description").unwrap().to_owned(),
             due: row.get::<&str>("due").unwrap().to_owned(),
         });
     }
-    result.await?;
+    query_result.result()
 
     let body = serde_json::to_vec(&todos)?;
     Ok(Response::builder()
@@ -117,6 +117,8 @@ struct ToDo {
 * The `execute` function returns a `QueryResult`. To iterate over the rows use the `rows()` function. This returns an iterator; use `collect()` if you want to load it all into a collection.
 * The values in rows are instances of the `Value` enum.  However, you can use `row.get(column_name)` to extract a specific column from a row.  `get` casts the database value to the target Rust type. If the compiler can't infer the target type, write `row.get::<&str>(column_name)` (or whatever the desired type is).
 * All functions wrap the return in `Result`, with the error type being `spin_sdk::sqlite::Error`.
+
+> If you are querying for a small result set, you can load all the rows into a `Vec` by calling `QueryResult::collect()`. This can be more convenient for some operations.
 
 {{ blockEnd }}
 
