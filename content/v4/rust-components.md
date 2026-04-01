@@ -15,6 +15,7 @@ url = "https://github.com/spinframework/spin-docs/blob/main/content/v4/rust-comp
 - [Storing Data in Redis From Rust Components](#storing-data-in-redis-from-rust-components)
 - [Async and Streaming Idioms in Rust](#async-and-streaming-idioms-in-rust)
   - [Spawning Asynchronous Tasks](#spawning-asynchronous-tasks)
+  - [Creating Futures and Streams](#creating-futures-and-streams)
 - [Storing Data in the Spin Key-Value Store](#storing-data-in-the-spin-key-value-store)
   - [Serializing Objects to the Key-Value Store](#serializing-objects-to-the-key-value-store)
 - [Storing Data in SQLite](#storing-data-in-sqlite)
@@ -446,7 +447,7 @@ The future does not resolve until the stream ends, so be sure not to await it un
 
 ### Spawning Asynchronous Tasks
 
-You can spawn an asynchronous task in a component using the `spin_sdk::wit_bindgen::spawn()` function, passing it a `Future<Output = ()>`. The future is then run to completion in the background.  The task may outlive the entry point of your component - this is crucial in, for example, the HTTP trigger, where your handler function doesn't necessarily want to wait for all response data to be available before it starts sending.
+You can spawn an asynchronous task in a component using the `spin_sdk::wasip3::spawn()` function, passing it a `Future<Output = ()>`. The future is then run to completion in the background.  The task may outlive the entry point of your component - this is crucial in, for example, the HTTP trigger, where your handler function doesn't necessarily want to wait for all response data to be available before it starts sending.
 
 Here's a small example.
 
@@ -471,7 +472,7 @@ async fn handle(_req: Request) -> anyhow::Result<impl IntoResponse> {
 
     // Spawn a WebAssmbly task. This is going to run in the background,
     // even after the `handle` function has returned.
-    spin_sdk::wit_bindgen::spawn(async move {
+    spin_sdk::wasip3::spawn(async move {
         // Fetch the first part of the data...
         if let Ok(Some(greeting)) = store.get("greeting").await {
             // ...and send it over the channel into the response...
@@ -492,6 +493,16 @@ async fn handle(_req: Request) -> anyhow::Result<impl IntoResponse> {
     Ok(response)
 }
 ```
+
+### Creating Futures and Streams
+
+The Rust SDK `wasip3` module provides functions for creating Wasm Component Model futures and streams. These are low-level primitives that you will usually interact with only when bypassing Rust SDK wrappers to use raw WIT bindings.
+
+Use `spin_sdk::wasip3::wit_future::new()` to create a future.
+
+Use `spin_sdk::wasip3::wit_stream::new()` to create a stream. This returns a writer and a reader. The writer is typically handed to a `spin_sdk::wasip3::spawn` task to asynchronously send values into the stream. The reader is typically passed to an API that takes a stream parameter, for example acting as the body in an HTTP response.
+
+You can use these functions _only_ for types which appear in (respectively) futures or streams in a Spin or WASI API. (They'd be useless for other types anyway.) If you get a compilation error saying the type does not implement `FuturePayload` or `StreamPayload`, check the API where you intend to use the future or stream - you have a type mismatch somewhere! (These traits are generated for the types that need them - you can't implement them yourself.)
 
 ## Storing Data in the Spin Key-Value Store
 

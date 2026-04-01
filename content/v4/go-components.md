@@ -10,6 +10,9 @@ url = "https://github.com/spinframework/spin-docs/blob/main/content/v4/go-compon
 - [HTTP Components](#http-components)
 - [Sending Outbound HTTP Requests](#sending-outbound-http-requests)
 - [Redis Components](#redis-components)
+- [Asynchronous and Streaming Idioms in Go](#asynchronous-and-streaming-idioms-in-go)
+  - [Spawning Asynchronous Tasks](#spawning-asynchronous-tasks)
+  - [Creating Futures and Streams](#creating-futures-and-streams)
 - [Storing Data in Redis From Go Components](#storing-data-in-redis-from-go-components)
 - [Using Go Packages in Spin Components](#using-go-packages-in-spin-components)
 - [Storing Data in the Spin Key-Value Store](#storing-data-in-the-spin-key-value-store)
@@ -310,6 +313,22 @@ INFO spin_redis_engine: Received message on channel "messages"
 Payload::::
 Hello, there!
 ```
+
+## Asynchronous and Streaming Idioms in Go
+
+### Spawning Asynchronous Tasks
+
+Just as in native code, you can spawn an asynchronous task in Go using the `go` language keyword. (We mention this because some other languages require special library functions for this. But in Go you can use the normal language idiom.)
+
+### Creating Futures and Streams
+
+The Go SDK provides `Make*` functions for creating Wasm Component Model futures and streams. The bindings contain a corresponding function for each concrete future or stream type mentioned in the Spin and WASI APIs.
+
+To create a future, call `MakeFuture<Type>` - for example, `MakeFutureFields`. This returns a writer (which you can use later to complete the future) and a reader (representing the future which will eventually resolve to a value).
+
+To create a stream, call `MakeStream<Type>` - for example, `MakeStreamU8` is a byte stream. Again, this returns a writer and a reader. The writer is typically handed to a goroutine to asynchronously send values into the stream. The reader is typically passed to an API that takes a stream parameter, for example acting as the body in an HTTP response.
+
+For generic types, the type name in the function is formed by concatenation, so you may see things like `MakeFutureResultOptionFieldsErrorCode` at the bindings level. You shouldn't normally have to deal with these in application code though!
 
 ## Storing Data in Redis From Go Components
 
