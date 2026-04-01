@@ -14,6 +14,7 @@ url = "https://github.com/spinframework/spin-docs/blob/main/content/v4/rust-comp
 - [Routing in a Component](#routing-in-a-component)
 - [Storing Data in Redis From Rust Components](#storing-data-in-redis-from-rust-components)
 - [Async and Streaming Idioms in Rust](#async-and-streaming-idioms-in-rust)
+  - [Spawning Asynchronous Tasks](#spawning-asynchronous-tasks)
 - [Storing Data in the Spin Key-Value Store](#storing-data-in-the-spin-key-value-store)
   - [Serializing Objects to the Key-Value Store](#serializing-objects-to-the-key-value-store)
 - [Storing Data in SQLite](#storing-data-in-sqlite)
@@ -442,6 +443,55 @@ result.await?; // check if the key stream hit an error
 ```
 
 The future does not resolve until the stream ends, so be sure not to await it until you've finished with the stream.
+
+### Spawning Asynchronous Tasks
+
+You can spawn an asynchronous task in a component using the `spin_sdk::wit_bindgen::spawn()` function, passing it a `Future<Output = ()>`. The future is then run to completion in the background.  The task may outlive the entry point of your component - this is crucial in, for example, the HTTP trigger, where your handler function doesn't necessarily want to wait for all response data to be available before it starts sending.
+
+Here's a small example.
+
+```rust
+use bytes::Bytes;
+use futures::{SinkExt, StreamExt};
+use http_body_util::StreamBody;
+use spin_sdk::http::{IntoResponse, Request, Response};
+use spin_sdk::http_service;
+
+#[http_service]
+async fn handle(_req: Request) -> anyhow::Result<impl IntoResponse> {
+    let store = spin_sdk::key_value::Store::open_default().await?;
+
+    // Create a Rust channel for the async task to communicate over.
+    let (mut tx, rx) = futures::channel::mpsc::channel::<Bytes>(1024);
+
+    // We will use the read end of the channel as the HTTP body. This
+    // involves some type adaptation, but again is normal Rust.
+    let rx = rx.map(|value| anyhow::Ok(http_body::Frame::data(value)));
+    let response = Response::new(StreamBody::new(rx));
+
+    // Spawn a WebAssmbly task. This is going to run in the background,
+    // even after the `handle` function has returned.
+    spin_sdk::wit_bindgen::spawn(async move {
+        // Fetch the first part of the data...
+        if let Ok(Some(greeting)) = store.get("greeting").await {
+            // ...and send it over the channel into the response...
+            tx.send(greeting.into()).await.unwrap();
+        };
+        // ...and now the second part of the data.
+        if let Ok(Some(who_to_greet)) = store.get("greetee").await {
+            tx.send(" ".into()).await.unwrap();
+            tx.send(who_to_greet.into()).await.unwrap();
+        };
+        // When the async block exits, Rust drops `tx`. This marks
+        // the end of the body stream, and Spin will end the response.
+    });
+
+    // Return the response to Spin. Spin starts streaming the response
+    // immediately. The client will see response data as it becomes available
+    // rather than having to wait while Spin gathers the entire response.
+    Ok(response)
+}
+```
 
 ## Storing Data in the Spin Key-Value Store
 
