@@ -72,28 +72,20 @@ After adding two new components, we can see the visual representation of our app
 To customize each of the two components, we can modify the `lib.rs` (Rust source code) of each component:
 
 ```rust
-use spin_sdk::http::{IntoResponse, Request, Response};
+use spin_sdk::http::{IntoResponse, Request};
 use spin_sdk::http_service;
 
 /// A simple Spin HTTP component.
 #[http_service]
 async fn handle_first_http_rust_component(req: Request) -> anyhow::Result<impl IntoResponse> {
-    println!("Handling request to {:?}", req.headers().get("spin-full-url"));
-    Ok(Response::builder()
-        .status(200)
-        .header("content-type", "text/plain")
-        .body("Hello, First Component".to_string())?)
+    Ok("Hello, First Component")
 }
 ```
 
 ```rust
 #[http_service]
 async fn handle_second_http_rust_component(req: Request) -> anyhow::Result<impl IntoResponse> {
-    println!("Handling request to {:?}", req.headers().get("spin-full-url"));
-    Ok(Response::builder()
-        .status(200)
-        .header("content-type", "text/plain")
-        .body("Hello, Second Component".to_string())?)
+    Ok("Hello, Second Component")
 }
 ```
 
