@@ -35,7 +35,6 @@ The 'Building a Social App with Spin' series covers the process and decision-mak
 * [Part 2: Vue.js App and Token Verification](https://www.fermyon.com/blog/building-a-social-app-with-spin-2)
 * [Part 3: Post API and Spin SDK Bindings](https://www.fermyon.com/blog/building-a-social-app-with-spin-3)
 * [Part 3.5: Go Postgres Usage](https://www.fermyon.com/blog/building-a-social-app-with-spin-3-5)
-* [Part 4: Key-Value Storage and Fermyon Cloud](https://www.fermyon.com/blog/building-a-social-app-with-spin-4)
 
 ## Static Content Server
 
@@ -43,7 +42,7 @@ The 'Building a Social App with Spin' series covers the process and decision-mak
 
 ## Bots
 
-[Bots With Spin and Fermyon Cloud](https://www.fermyon.com/blog/bots-with-spin-and-fermyon-cloud)
+[Bots With Spin](https://www.fermyon.com/blog/bots-with-spin-and-fermyon-cloud)
 
 ## URL Shortener and QR Code Generator
 

@@ -33,7 +33,7 @@ For more information about what is possible in the programming language of your 
 
 In Spin 3.x, all APIs and entry points were blocking. These blocking APIs and entry points are still supported in Spin 4.x, but Spin 4.x also supports asynchronous versions of most of them.
 
-Generally, you can mix async and blocking APIs as necessary. There are one important restriction: a sync entry point _must not_ call an async API. If you are using a sync trigger (as shown above), you _must_ call _only_ blocking APIs. Depending on your language and Spin SDK version, blocking APIs may be available in your SDK, or you may need to switch to an older SDK.
+Generally, you can mix async and blocking APIs as necessary. There is one important restriction: a sync entry point _must not_ call an async API. If you are using a sync trigger (as shown above), you _must_ call _only_ blocking APIs. Depending on your language and Spin SDK version, blocking APIs may be available in your SDK, or you may need to switch to an older SDK.
 
 Older builds of trigger plugins may be sync even if marked async above. Check the plugin documentation, and make sure you are running an up-to-date version, if you want to use async APIs.
 

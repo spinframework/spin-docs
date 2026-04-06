@@ -63,8 +63,6 @@ Spin resolves manifest expressions at application load time. Subsequent changes 
 
 The only variables permitted in manifest expressions are application variables.
 
-> Manifest expressions are not yet supported on Fermyon Cloud.
-
 ## Manifest Fields
 
 | Name                    | Required?  | Type        | Value    | Example   |

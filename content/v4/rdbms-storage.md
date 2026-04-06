@@ -263,4 +263,4 @@ allowed_outbound_hosts = ["postgres://postgres.example.com:5432"]
 
 ### Configuration-Based Permissions
 
-You can use [application variables](./variables.md#adding-variables-to-your-applications) in the `allowed_outbound_hosts` field. However, this feature is not yet available on Fermyon Cloud.
+You can use [application variables](./variables.md#adding-variables-to-your-applications) in the `allowed_outbound_hosts` field.

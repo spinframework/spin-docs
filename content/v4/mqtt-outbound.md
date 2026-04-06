@@ -105,7 +105,7 @@ allowed_outbound_hosts = ["mqtt://messaging.example.com:1883"]
 
 ### Configuration-Based Permissions
 
-You can use [application variables](./variables.md#adding-variables-to-your-applications) in the `allowed_outbound_hosts` field. However, this feature is not yet available on Fermyon Cloud.
+You can use [application variables](./variables.md#adding-variables-to-your-applications) in the `allowed_outbound_hosts` field.
 
 ## Known Issues
 

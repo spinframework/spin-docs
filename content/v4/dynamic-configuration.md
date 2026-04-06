@@ -403,8 +403,6 @@ Remote compute supports two APIs, selected using the `api_type` field.
 
 If the `api_type` is `default`, Spin uses its own "Cloud GPU" API. This requires you to deploy your own LLM proxy service. You can find a reference implementation of a proxy service in the [`spin-cloud-gpu plugin repository`](https://github.com/fermyon/spin-cloud-gpu/blob/main/fermyon-cloud-gpu/src/index.ts).
 
-> If you have a Fermyon Cloud account, you can deploy a proxy service there using the [`cloud-gpu` plugin](https://github.com/fermyon/spin-cloud-gpu).   
-
 #### `open_ai` API
 
 If the `api_type` is `open_ai`, Spin uses the [OpenAI API](https://github.com/openai/openai-openapi). This API is offered by some commercial LLM providers.

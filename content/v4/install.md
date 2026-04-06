@@ -236,9 +236,9 @@ Installing Spin from source does not install any Spin templates or plugins. For 
 
 ## Installing Templates and Plugins
 
-Spin has a variety of templates and plugins to make it easier to create Spin applications in your favorite programming language. [The install script](install#installing-spin) automatically installs a starter set of templates and plugins, namely templates from the Spin repository and JavaScript and Python toolchain plugins and the Fermyon Cloud plugin. 
+Spin has a variety of templates and plugins to make it easier to create Spin applications in your favorite programming language. [The install script](install#installing-spin) automatically installs a starter set of templates from the Spin Framework project.
 
-If you used a different installation method, we recommend you install these templates and plugins manually, as follows.
+If you used a different installation method, you can install templates and plugins manually, as follows.
 
 ### Templates
 
@@ -286,22 +286,20 @@ First update the local cache by running the `spin plugins update` command:
 $ spin plugins update
 ```
 
-Then install plugins by name.
-
-Fermyon Cloud:
-
-<!-- @selectiveCpy -->
-
-```bash
-$ spin plugins install cloud --yes
-```
-
 To list available plugins, run:
 
 <!-- @selectiveCpy -->
 
 ```bash
 $ spin plugins search
+```
+
+Then install plugins by name:
+
+<!-- @selectiveCpy -->
+
+```bash
+$ spin plugins install foo --yes
 ```
 
 For more information, please visit the [managing plugins](./managing-plugins) section of the documentation.

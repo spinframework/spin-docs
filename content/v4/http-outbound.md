@@ -261,7 +261,7 @@ For development-time convenience, you can also pass the string `"https://*:*"` i
 
 ### Configuration-Based Permissions
 
-You can use [application variables](./variables.md#adding-variables-to-your-applications) in the `allowed_outbound_hosts` field. However, this feature is not yet available on Fermyon Cloud.
+You can use [application variables](./variables.md#adding-variables-to-your-applications) in the `allowed_outbound_hosts` field.
 
 ## Making HTTP Requests Within an Application
 
@@ -296,7 +296,7 @@ allowed_outbound_hosts = ["http://*.spin.internal"]
 
 However, the wildcard implies that the component requires _all other_ components to be local to it. You will therefore not be able to use [selective deployment](./running-apps#splitting-an-application-across-environments) for an application that uses wildcard service chaining.
 
-> Local service chaining is not currently supported on Fermyon Cloud.
+> Local service chaining may not be supported on distributed Spin hosts.
 
 ### Intra-Application HTTP Requests by Route
 

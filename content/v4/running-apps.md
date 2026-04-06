@@ -126,9 +126,9 @@ The following `spin.toml` configuration (belonging to a Spin `http-rust` applica
 [component.test]
 // -- snip
 files = ["my-files/changing-file.txt"]
-source = "target/wasm32-wasi/release/test.wasm"
+source = "target/wasm32-wasip2/release/test.wasm"
 [component.test.build]
-command = "cargo build --target wasm32-wasi --release"
+command = "cargo build --target wasm32-wasip2 --release"
 # Example watch configuration for a Rust application
 watch = ["src/**/*.rs", "Cargo.toml"]
 ```

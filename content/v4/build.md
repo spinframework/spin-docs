@@ -38,7 +38,7 @@ To use `spin build`, each component that you want to build must specify the comm
 command = "npm run build"
 ```
 
-If you generated the component from a Fermyon-supplied template, the `build` section should be set up correctly for you.  You don't need to change or add anything.
+If you generated the component from a Spin Framework project-supplied template, the `build` section should be set up correctly for you.  You don't need to change or add anything.
 
 > Different components may be built from different languages, and so each component can have its own build command.  In addition, some components may be precompiled into Wasm modules, and don't need a build command at all.  If a component doesn't have a build command, `spin build` just skips it.
 
@@ -77,12 +77,10 @@ It's normally convenient to put the detailed build instructions in `package.json
 ```json
 {
   "scripts": {
-    "build": "npx webpack && mkdirp dist && j2w -i build/bundle.js -o target/spin-http-js.wasm"
+    "build": "node build.mjs && mkdirp dist && j2w -i build/bundle.js --initLocation http://hello.localhost -o dist/hello.wasm"
   }
 }
 ```
-
-{{ details "Parts of the build script" "The build script calls out to [`webpack`](https://webpack.js.org/) and `j2w` which is a script provided by the `@fermyon/spin-sdk` package that utilizes [`ComponentizeJS`](https://github.com/bytecodealliance/ComponentizeJS). [`knitwit`](https://github.com/fermyon/knitwit) is a utility that helps combine `wit` worlds "}}
 
 The build command can then call the NPM script:
 

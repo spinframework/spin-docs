@@ -19,8 +19,6 @@ The Redis trigger in Spin subscribes to messages from a given Redis instance, an
 
 > This page deals with the Redis trigger for subscribing to pub-sub messages. For information about reading and writing the Redis key-value store, or for publishing messages, see the Language Guides.
 
-> The Redis trigger is not yet available in Fermyon Cloud.
-
 ## Specifying a Redis Trigger
 
 A Redis trigger maps a Redis channel to a component. For example:

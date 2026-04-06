@@ -519,7 +519,7 @@ A WASI P3 HTTP component is _always_ subject to instance reuse, unless it calls 
 
 * `--max-instance-reuse-count` sets the maximum number of times a single instance can be reused
 * `--max-instance-concurrent-reuse-count` sets the maximum number of requests that can be running in a single instance at the same time
-* `--idle-instance-timeout` controls how long Spin will allow a reusable instance to be sit idle before evicting it
+* `--idle-instance-timeout` controls how long Spin will allow a reusable instance to sit idle before evicting it
 
 All of these flags accept ranges. When you provide a range, Spin assigns each new instance a random value from that range. This is to help you test that your component works correctly both when fresh (e.g. you do not rely on long-running state) and when reused (e.g. you are not unintentionally leaking data from one request to another).
 
@@ -527,7 +527,7 @@ All of these flags accept ranges. When you provide a range, Spin assigns each ne
 
 When writing WASI P3 HTTP components, you can take advantage of reuse in your code, by placing static data in static or global variables, which will become part of the instance state. For example, if your component contains a routing table, you could cache the parsed table in a static variable - you would then parse the table only if the cache had not been initialised (i.e. in a fresh instance), avoiding the overhead of parsing on every request.
 
-> Don't rely on techniques like this for expensive operations. Spin doesn't guarantee the degree of instance reuse, and reuse may vary across differnt Spin hosts.
+> Don't rely on techniques like this for expensive operations. Spin doesn't guarantee the degree of instance reuse, and reuse may vary across different Spin hosts.
 
 Conversely, take care that request data is not stored in static or global variables. If you're used to the WASI P2 model, you may have an implicit expectation that each request finds your component in an entirely fresh state. In WASI P3, that's no longer the case. You should store data that's private to a request in local variables; if you must store it in a static variable, make sure to isolate it (for example storing it in a map under a request-specific key).
 

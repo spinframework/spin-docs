@@ -20,7 +20,7 @@ url = "https://github.com/spinframework/spin-docs/blob/main/content/v4/managing-
 - [Downgrading Plugins](#downgrading-plugins)
 - [Next Steps](#next-steps)
 
-Plugins are a way to extend the functionality of Spin. Spin provides commands for installing and removing them, so you don't need to use separate installation tools. When you have installed a plugin into Spin, you can call it as if it were a Spin subcommand. For example, Fermyon Cloud can be accessed with a plugin called `cloud`, and you run it via the `spin cloud` command.
+Plugins are a way to extend the functionality of Spin. Spin provides commands for installing and removing them, so you don't need to use separate installation tools. When you have installed a plugin into Spin, you can call it as if it were a Spin subcommand. For example, you can run the `otel`  the `spin otel` command.
 
 ## Installing Plugins
 
