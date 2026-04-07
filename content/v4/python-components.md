@@ -21,6 +21,9 @@ url = "https://github.com/spinframework/spin-docs/blob/main/content/v4/python-co
 - [An Outbound Redis Example](#an-outbound-redis-example)
   - [Configuring Outbound Redis](#configuring-outbound-redis)
   - [Building and Running the Application](#building-and-running-the-application-3)
+- [Async and Streaming Idioms in Python](#async-and-streaming-idioms-in-python)
+  - [Spawning Asynchronous Tasks](#spawning-asynchronous-tasks)
+  - [Creating Futures and Streams](#creating-futures-and-streams)
 - [Storing Data in the Spin Key-Value Store](#storing-data-in-the-spin-key-value-store)
 - [Storing Data in SQLite](#storing-data-in-sqlite)
 - [AI Inferencing From Python Components](#ai-inferencing-from-python-components)
@@ -480,6 +483,48 @@ redis-cli
 127.0.0.1:6379> get foo
 "bar"
 ```
+
+## Async and Streaming Idioms in Python
+
+When a Spin API returns a potentially large number of values, such as database query APIs, the convention is to return the values as a asynchronous iterator (`componentize_py_async_support.streams.StreamReader`), plus a future (`componentize_py_async_support.futures.FutureReader`) containing the result of the operation. For example, the key-value `Store::get_keys` function returns a stream of strings and a future of 'either OK or error'. This signature is likely to be unfamiliar. The way to read it is:
+
+- Spin will stream values to you until either there are no more values, or an error occurs.
+- When that happens, you must `await` the future to find out which one it was.
+
+For example, here's how you might use `Store::get_keys`:
+
+```python
+stream, future = await store.get_keys()
+
+with stream, future:
+    while not stream.writer_dropped: # check if at the end of the stream
+        batch = await stream.read(max_count=100)
+        # do something with `batch`
+
+    result = await result.read() # check if the key stream hit an error
+    if isinstance(result, Err):
+        raise result
+    else:
+        pass
+```
+
+The future does not resolve until the stream ends, so be sure not to await it until you've finished with the stream.
+
+> If the data set is small enough to fit in memory and you are happy to wait for the last item, use `spin_sdk.util.collect` function that collects all the streamed values into a list, and checks for an error. For example, `all_keys = spin_sdk.util.collect(await store.get_keys())`.
+
+### Spawning Asynchronous Tasks
+
+You can spawn an asynchronous task in a component using the `componentize_py_async_support.spawn()` function, passing it a future. The future is then run to completion in the background.  The task may outlive the entry point of your component - this is crucial in, for example, the HTTP trigger, where your handler function doesn't necessarily want to wait for all response data to be available before it starts sending.
+
+### Creating Futures and Streams
+
+The Python SDK provides `spin_sdk.wit.*` functions for creating Wasm Component Model futures and streams. The bindings contain a corresponding function for each concrete future or stream type mentioned in the Spin and WASI APIs.
+
+To create a future, call `spin_sdk.wit.<type>_future()` - for example, `spin_sdk.wit.fields_future()`. This returns a writer (which you can use later to complete the future) and a reader (representing the future which will eventually resolve to a value).
+
+To create a stream, call `spin_sdk.wit.<type>_stream()` - for example, `spin_sdk.wit.byte_stream()` is a byte stream. Again, this returns a writer and a reader. The writer is typically handed to a background task (created using `spawn`) to asynchronously send values into the stream. The reader is typically passed to an API that takes a stream parameter, for example acting as the body in an HTTP response.
+
+For generic types, the type name in the function is formed by concatenation, so you may see things like `result_option_wasi_http_types_fields_wasi_http_types_error_code_future` at the bindings level.
 
 ## Storing Data in the Spin Key-Value Store
 
