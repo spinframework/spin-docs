@@ -498,14 +498,14 @@ The `requirements.txt`, by default, contains the references to the `spin-sdk` an
 
 ```bash
 $ pip3 install -r requirements.txt 
-Collecting spin-sdk==3.1.0 (from -r requirements.txt (line 1))
-  Using cached spin_sdk-3.1.0-py3-none-any.whl.metadata (16 kB)
-Collecting componentize-py==0.13.3 (from -r requirements.txt (line 2))
-  Using cached componentize_py-0.13.3-cp37-abi3-macosx_10_12_x86_64.whl.metadata (3.4 kB)
-Using cached spin_sdk-3.1.0-py3-none-any.whl (94 kB)
-Using cached componentize_py-0.13.3-cp37-abi3-macosx_10_12_x86_64.whl (38.8 MB)
+Collecting spin-sdk==4.0.0 (from -r requirements.txt (line 1))
+  Using cached spin_sdk-4.0.0-py3-none-any.whl.metadata (16 kB)
+Collecting componentize-py==0.22.0 (from -r requirements.txt (line 2))
+  Using cached componentize_py-0.22.0-cp37-abi3-macosx_10_12_x86_64.whl.metadata (3.4 kB)
+Using cached spin_sdk-4.0.0-py3-none-any.whl (94 kB)
+Using cached componentize_py-0.22.0-cp37-abi3-macosx_10_12_x86_64.whl (38.8 MB)
 Installing collected packages: spin-sdk, componentize-py
-Successfully installed componentize-py-0.13.3 spin-sdk-3.1.0
+Successfully installed componentize-py-0.22.0 spin-sdk-4.0.0
 ```
 
 ## Structure of a Python Component
@@ -540,7 +540,8 @@ component = "hello-python"
 [component.hello-python]
 source = "app.wasm"
 [component.hello-python.build]
-command = "componentize-py -w spin-http componentize app -o app.wasm"
+command = "componentize-py -w spin:up/http-trigger@4.0.0 componentize app -o app.wasm"
+watch = ["*.py", "requirements.txt"]
 ```
 This represents a simple Spin HTTP application (triggered by an HTTP request).  It has:
 
@@ -556,14 +557,14 @@ takes an HTTP request as a parameter and returns an HTTP response.
 <!-- @nocpy -->
 
 ```python
-from spin_sdk.http import IncomingHandler, Request, Response
+from spin_sdk.http import Handler, Request, Response
 
-class IncomingHandler(IncomingHandler):
-    def handle_request(self, request: Request) -> Response:
+class WasiHttpHandler030Rc20260315(Handler):
+    async def handle_request(self, request: Request) -> Response:
         return Response(
             200,
             {"content-type": "text/plain"},
-            bytes("Hello from the Python SDK!", "utf-8")
+            bytes("Hello from Python!", "utf-8")
         )
 ```
 
@@ -782,7 +783,8 @@ Then run:
 
 ```bash
 $ spin build
-Executing the build command for component hello-python: "componentize-py -w spin-http componentize app -o app.wasm"
+Building component hello-python with `componentize-py -w spin:up/http-trigger@4.0.0 componentize app -o app.wasm
+Component built successfully
 Finished building all Spin components
 ```
 
@@ -796,7 +798,7 @@ If you would like to know what build command Spin runs for a component, you can 
 
 ```toml
 [component.hello-python.build]
-command = "componentize-py -w spin-http componentize app -o app.wasm"
+command = "componentize-py -w spin:up/http-trigger@4.0.0 componentize app -o app.wasm"
 ```
 
 You can always run this command manually; `spin build` is a shortcut.

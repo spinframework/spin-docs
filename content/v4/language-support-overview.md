@@ -77,7 +77,7 @@ This page contains information about language support for Spin features:
 | PostgreSQL |  Supported |
 | [Outbound Redis](./python-components#an-outbound-redis-example) | Supported |
 | [Serverless AI](./serverless-ai-api-guide) | Supported |
-| [MQTT Messaging](./mqtt-outbound) | Not Supported |
+| [MQTT Messaging](./mqtt-outbound) | Supported |
 | **Extensibility** |
 | Authoring Custom Triggers | Not Supported |
 

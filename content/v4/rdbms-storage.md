@@ -144,17 +144,16 @@ addEventListener('fetch', async (event: FetchEvent) => {
 
 {{ startTab "Python"}}
 
-> [**Want to go straight to the reference documentation?**  Find it here.](https://spinframework.github.io/spin-python-sdk/v3/)
+> [**Want to go straight to the reference documentation?**  Find it here.](https://spinframework.github.io/spin-python-sdk/v4/)
 
 The code below is an [Outbound MySQL example](https://github.com/spinframework/spin-python-sdk/tree/main/examples/spin-mysql). There is also an outbound [PostgreSQL example](https://github.com/spinframework/spin-python-sdk/tree/main/examples/spin-postgres) available.
 
 ```python
-from spin_sdk import http
+from spin_sdk import http, mysql
 from spin_sdk.http import Request, Response
-from spin_sdk import mysql
 
-class IncomingHandler(http.IncomingHandler):
-    def handle_request(self, request: Request) -> Response:
+class WasiHttpHandler030Rc20260315(http.Handler):
+    async def handle_request(self, request: Request) -> Response:
         with mysql.open("mysql://root:@127.0.0.1/spin_dev") as db:
             print(db.query("select * from test", []))
         

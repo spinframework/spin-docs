@@ -217,7 +217,7 @@ HTTP path: /...
 
 Choose the `http-py` template to create a new HTTP application.
 
-> The Python development kit doesn't yet support Redis applications.
+> The Python development kit doesn't yet offer a Redis application template.
 
 <!-- @selectiveCpy -->
 

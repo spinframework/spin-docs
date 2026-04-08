@@ -226,22 +226,24 @@ addEventListener('fetch', async (event: FetchEvent) => {
 
 {{ startTab "Python"}}
 
-> [**Want to go straight to the reference documentation?**  Find it here.](https://spinframework.github.io/spin-python-sdk/v3/)
+> [**Want to go straight to the reference documentation?**  Find it here.](https://spinframework.github.io/spin-python-sdk/v4/)
 
-In Python, the application must define a top-level class named IncomingHandler which inherits from [IncomingHandler](https://spinframework.github.io/spin-python-sdk/v3/http/index.html#spin_sdk.http.IncomingHandler), overriding the `handle_request` method.
+In Python, the application must define a top-level class named `WasiHttpHandler030Rc20260315` which inherits from [http.Handler](https://spinframework.github.io/spin-python-sdk/v4/http/index.html#spin_sdk.http.Handler), overriding the `handle_request` method.
 
 ```python
 from spin_sdk import http
 from spin_sdk.http import Request, Response
 
-class IncomingHandler(http.IncomingHandler):
-      def handle_request(self, request: Request) -> Response:
+class WasiHttpHandler030Rc20260315(http.Handler):
+      async def handle_request(self, request: Request) -> Response:
         return Response(
             200,
             {"content-type": "text/plain"},
             bytes("Hello from Python!", "utf-8")
         )
 ```
+
+You can find a complete example for handling a HTTP request in the [Python SDK repository on GitHub](https://github.com/spinframework/spin-python-sdk/tree/main/examples/hello).
 
 {{ blockEnd }}
 

@@ -158,30 +158,33 @@ addEventListener('fetch', async (event: FetchEvent) => {
 
 {{ startTab "Python"}}
 
-> [**Want to go straight to the reference documentation?**  Find it here.](https://spinframework.github.io/spin-python-sdk/v3/llm.html)
+> [**Want to go straight to the reference documentation?**  Find it here.](https://spinframework.github.io/spin-python-sdk/v4/llm.html)
 
 ```python
-from spin_sdk import http
+from spin_sdk import http, llm
 from spin_sdk.http import Request, Response
-from spin_sdk import llm
 
-class IncomingHandler(http.IncomingHandler):
-    def handle_request(self, request: Request) -> Response:
+class WasiHttpHandler030Rc20260315(http.Handler):
+    async def handle_request(self, request: Request) -> Response:
         prompt="You are a stand up comedy writer. Tell me a joke."
         result = llm.infer("llama2-chat", prompt)
-        return Response(200,
-                        {"content-type": "application/json"},
-                        bytes(result.text, "utf-8"))
+
+        return Response(
+            200,
+            {"content-type": "text/plain"},
+            bytes(result.text, "utf-8")
+        )
 ```
 
 **General Notes**
 
-[`infer` operation](https://spinframework.github.io/spin-python-sdk/v3/llm.html#spin_sdk.llm.infer):
-
+[`infer` operation](https://spinframework.github.io/spin-python-sdk/v4/llm.html#spin_sdk.llm.infer):
 - The model name is passed in as a string (as shown above; `"llama2-chat"`).
-[`infer_with_options` operation](https://spinframework.github.io/spin-python-sdk/v3/llm.html#spin_sdk.llm.infer_with_options):
 
-- It takes in a model name, prompt text, and optionally a [parameter object](https://spinframework.github.io/spin-python-sdk/v3/llm.html#spin_sdk.llm.InferencingParams) to control the inferencing.
+[`infer_with_options` operation](https://spinframework.github.io/spin-python-sdk/v4/llm.html#spin_sdk.llm.infer_with_options):
+- It takes in a model name, prompt text, and optionally a [parameter object](https://spinframework.github.io/spin-python-sdk/v4/llm.html#spin_sdk.llm.InferencingParams) to control the inferencing.
+
+You can find a complete Python code example using the LLM module in the [Spin Python SDK repository on GitHub](https://github.com/spinframework/spin-python-sdk/tree/main/examples/spin-llm).
 
 {{ blockEnd }}
 
