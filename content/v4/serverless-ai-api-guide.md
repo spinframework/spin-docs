@@ -164,7 +164,7 @@ addEventListener('fetch', async (event: FetchEvent) => {
 from spin_sdk import http, llm
 from spin_sdk.http import Request, Response
 
-class WasiHttpHandler030Rc20260315(http.Handler):
+class HttpHandler(http.Handler):
     async def handle_request(self, request: Request) -> Response:
         prompt="You are a stand up comedy writer. Tell me a joke."
         result = llm.infer("llama2-chat", prompt)

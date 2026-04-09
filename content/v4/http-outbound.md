@@ -178,13 +178,13 @@ You can find a complete example of using outbound HTTP in the JavaScript SDK rep
 
 > [**Want to go straight to the reference documentation?**  Find it here.](https://spinframework.github.io/spin-python-sdk/v4/http/index.html)
 
-HTTP functions and classes are available in the `http` module. The function name is [`send`](https://spinframework.github.io/spin-python-sdk/v4/http/index.html#spin_sdk.http.send). The [request type](https://spinframework.github.io/spin-python-sdk/http/index.html#spin_sdk.http.Request) is `Request`, and the [response type](https://spinframework.github.io/spin-python-sdk/v4/http/index.html#spin_sdk.http.Response) is `Response`. For example:
+HTTP functions and classes are available in the `http` module. The function name is [`send`](https://spinframework.github.io/spin-python-sdk/v4/http/index.html#spin_sdk.http.send). The [request type](https://spinframework.github.io/spin-python-sdk/v4/http/index.html#spin_sdk.http.Request) is `Request`, and the [response type](https://spinframework.github.io/spin-python-sdk/v4/http/index.html#spin_sdk.http.Response) is `Response`. For example:
 
 ```python
 from spin_sdk import http
 from spin_sdk.http import Request, Response, send
 
-class WasiHttpHandler030Rc20260315(http.Handler):
+class HttpHandler(http.Handler):
     async def handle_request(self, request: Request) -> Response:
         response = await send(Request("GET", "https://random-data-api.fermyon.app/animals/json", {}, None))
         return response

@@ -146,23 +146,25 @@ addEventListener('fetch', async (event: FetchEvent) => {
 
 > [**Want to go straight to the reference documentation?**  Find it here.](https://spinframework.github.io/spin-python-sdk/v4/)
 
-The code below is an [Outbound MySQL example](https://github.com/spinframework/spin-python-sdk/tree/main/examples/spin-mysql). There is also an outbound [PostgreSQL example](https://github.com/spinframework/spin-python-sdk/tree/main/examples/spin-postgres) available.
+The code below shows use of the [Postgres](https://spinframework.github.io/spin-python-sdk/v4/postgres.html) module and its [open](https://spinframework.github.io/spin-python-sdk/v4/postgres.html#spin_sdk.postgres.open) function for opening a connection to the database:
 
 ```python
-from spin_sdk import http, mysql
+from spin_sdk import http, postgres
 from spin_sdk.http import Request, Response
 
-class WasiHttpHandler030Rc20260315(http.Handler):
+class HttpHandler(http.Handler):
     async def handle_request(self, request: Request) -> Response:
-        with mysql.open("mysql://root:@127.0.0.1/spin_dev") as db:
-            print(db.query("select * from test", []))
-        
+        with await postgres.open("user=postgres dbname=spin_dev host=localhost sslmode=disable password=password") as db:
+            print(db.query("SELECT * FROM test", []))
+
         return Response(
             200,
             {"content-type": "text/plain"},
             bytes("Hello from Python!", "utf-8")
         )
 ```
+
+You can find a complete outbound PostgreSQL example in the [Spin Python SDK repository on GitHub](https://github.com/spinframework/spin-python-sdk/tree/main/examples/spin-postgres). There is also an [Outbound MySQL example](https://github.com/spinframework/spin-python-sdk/tree/main/examples/spin-mysql) available.
 
 {{ blockEnd }}
 

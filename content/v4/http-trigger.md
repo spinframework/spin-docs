@@ -228,13 +228,13 @@ addEventListener('fetch', async (event: FetchEvent) => {
 
 > [**Want to go straight to the reference documentation?**  Find it here.](https://spinframework.github.io/spin-python-sdk/v4/)
 
-In Python, the application must define a top-level class named `WasiHttpHandler030Rc20260315` which inherits from [http.Handler](https://spinframework.github.io/spin-python-sdk/v4/http/index.html#spin_sdk.http.Handler), overriding the `handle_request` method.
+In Python, the application must define a top-level class named `HttpHandler` which inherits from [http.Handler](https://spinframework.github.io/spin-python-sdk/v4/http/index.html#spin_sdk.http.Handler), overriding the `handle_request` method.
 
 ```python
 from spin_sdk import http
 from spin_sdk.http import Request, Response
 
-class WasiHttpHandler030Rc20260315(http.Handler):
+class HttpHandler(http.Handler):
       async def handle_request(self, request: Request) -> Response:
         return Response(
             200,

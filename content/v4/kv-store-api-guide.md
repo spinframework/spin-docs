@@ -131,7 +131,7 @@ The key value functions are provided through the `key_value` module in the Pytho
 from spin_sdk import http, key_value
 from spin_sdk.http import Request, Response
 
-class WasiHttpHandler030Rc20260315(http.Handler):
+class HttpHandler(http.Handler):
     async def handle_request(self, request: Request) -> Response:
         with await key_value.open_default() as store:
             await store.set("test", bytes("hello world!", "utf-8"))
@@ -168,8 +168,9 @@ class WasiHttpHandler030Rc20260315(http.Handler):
     - Return whether the specified key is present in the store
 
     [`get_keys` **Operation**](https://spinframework.github.io/spin-python-sdk/v4/wit/imports/spin_key_value_key_value_3_0_0.html#spin_sdk.wit.imports.spin_key_value_key_value_3_0_0.Store.get_keys)
-    - The underlying `get_keys` implementation no longer returns a list of strings in v4 of the SDK. Rather, due to the asynchronous nature of this method, it now returns a `Tuple` containing a [StreamReader](https://github.com/bytecodealliance/componentize-py/blob/1b3d2e936868307a48fb70941dcad71b54e844f8/bundled/componentize_py_async_support/streams.py#L101) and a [FutureReader](https://github.com/bytecodealliance/componentize-py/blob/1b3d2e936868307a48fb70941dcad71b54e844f8/bundled/componentize_py_async_support/futures.py#L11). You _must_ check when the stream ends, to determine if the stream ended normally, or was terminated prematurely due to an error.
-    - However, a new [util](https://spinframework.github.io/spin-python-sdk/v4/util.html) module offers a convenience method called [collect](https://spinframework.github.io/spin-python-sdk/v4/util.html#spin_sdk.util.collect), which does return the list of keys, after reading them from the stream and handling the future, raising an exception if an error results. (You can use this helper to collect values from any `Tuple[StreamReader, FutureReader]` - it isn't specific to KV.)
+    - Returns a `Tuple` containing a [StreamReader](https://github.com/bytecodealliance/componentize-py/blob/1b3d2e936868307a48fb70941dcad71b54e844f8/bundled/componentize_py_async_support/streams.py#L101) and a [FutureReader](https://github.com/bytecodealliance/componentize-py/blob/1b3d2e936868307a48fb70941dcad71b54e844f8/bundled/componentize_py_async_support/futures.py#L11). You _must_ check when the stream ends, to determine if the stream ended normally, or was terminated prematurely due to an error.
+
+    > If you're familiar with previous versions of the Python SDK, note that `get_keys` no longer returns a list.  To get the keys as a list, use `await util.collect(await store.get_keys())`. See [collect](https://spinframework.github.io/spin-python-sdk/v4/util.html#spin_sdk.util.collect) for more details.
 
 You can find a complete Python code example using the Key Value store in the [Spin Python SDK repository on GitHub](https://github.com/spinframework/spin-python-sdk/tree/main/examples/spin-kv).
 

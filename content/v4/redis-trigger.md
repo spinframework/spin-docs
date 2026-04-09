@@ -94,12 +94,12 @@ The JavaScript/TypeScript SDK doesn't currently support Redis components.  Pleas
 
 {{ startTab "Python"}}
 
-In Python, the handler needs to implement the [`SpinRedisInboundRedis300`](https://spinframework.github.io/spin-python-sdk/v4/wit/exports/index.html#spin_sdk.wit.exports.SpinRedisInboundRedis300) class, and override the `handle_message` method:
+In Python, the handler needs to implement the [`RedisHandler`](https://spinframework.github.io/spin-python-sdk/v4/wit/exports/index.html#spin_sdk.wit.exports.RedisHandler) class, and override the `handle_message` method:
 
 ```python
 from spin_sdk.wit import exports
 
-class SpinRedisInboundRedis300(exports.SpinRedisInboundRedis300):
+class RedisHandler(exports.RedisHandler):
     async def handle_message(self, message: bytes) -> None:
         print(message)
 ```
