@@ -35,7 +35,7 @@ With <a href="https://www.python.org/" target="_blank">Python</a> being a very p
 
 > This guide assumes you are familiar with the Python programming language, but if you are just getting started, be sure to check out <a href="https://docs.python.org/3/" target="_blank">the official Python documentation</a> and comprehensive <a href="https://docs.python.org/3/reference/" target="_blank">language reference</a>.
 
-[**Want to go straight to the Spin SDK reference documentation?**  Find it here.](https://spinframework.github.io/spin-python-sdk/v3)
+[**Want to go straight to the Spin SDK reference documentation?**  Find it here.](https://spinframework.github.io/spin-python-sdk/v4)
 
 ## Prerequisite
 
@@ -49,7 +49,7 @@ If you do not have Python 3.10 or later, you can install it by following the ins
 
 ## Spin's Python HTTP Request Handler Template
 
-Spin's Python HTTP Request Handler Template can be installed from [spin-python-sdk repository](https://github.com/spinframework/spin-python-sdk/tree/main/) using the following command:
+Spin's Python HTTP Request Handler Template can be installed from [spin-python-sdk repository](https://github.com/spinframework/spin-python-sdk) using the following command:
 
 <!-- @selectiveCpy -->
 
@@ -170,22 +170,22 @@ component = "hello-world"
 [component.hello-world]
 source = "app.wasm"
 [component.hello-world.build]
-command = "componentize-py -w spin-http componentize app -o app.wasm"
+command = "componentize-py -w spin:up/http-trigger@4.0.0 componentize app -o app.wasm"
 ```
 
 ## A Simple HTTP Components Example
 
 In Spin, HTTP components are triggered by the occurrence of an HTTP request and must return an HTTP response at the end of their execution. Components can be built in any language that compiles to WASI. If you would like additional information about building HTTP applications you may find [the HTTP trigger page](./http-trigger.md) useful.
 
-Building a Spin HTTP component using the Python SDK means defining a top-level class named IncomingHandler which inherits from [`IncomingHandler`](https://spinframework.github.io/spin-python-sdk/v3/wit/exports/index.html#spin_sdk.wit.exports.IncomingHandler), overriding the `handle_request` method. Here is an example of the default Python code which the previous `spin new` created for us; a simple example of a request/response:
+Building a Spin HTTP component using the Python SDK means defining a top-level class named HttpHandler which inherits from [`HttpHandler`](https://spinframework.github.io/spin-python-sdk/v4/wit/exports/index.html#spin_sdk.wit.exports.HttpHandler), overriding the `handle_request` method. Here is an example of the default Python code which the previous `spin new` created for us; a simple example of a request/response:
 
 <!-- @nocpy -->
 
 ```python
-from spin_sdk.http import IncomingHandler, Request, Response
+from spin_sdk.http import Handler, Request, Response
 
-class IncomingHandler(IncomingHandler):
-    def handle_request(self, request: Request) -> Response:
+class HttpHandler(Handler):
+    async def handle_request(self, request: Request) -> Response:
         return Response(
             200,
             {"content-type": "text/plain"},
@@ -241,8 +241,8 @@ import json
 from spin_sdk import http
 from spin_sdk.http import Request, Response
 
-class IncomingHandler(http.IncomingHandler):
-    def handle_request(self, request: Request) -> Response:
+class HttpHandler(http.Handler):
+    async def handle_request(self, request: Request) -> Response:
         # Access the request.method
         if request.method == 'POST':
             # Read the request.body as a string
@@ -330,14 +330,15 @@ This next example will create an outbound request, to obtain a random fact about
 from spin_sdk import http   
 from spin_sdk.http import Request, Response, send
 
-class IncomingHandler(http.IncomingHandler):
-    def handle_request(self, request: Request) -> Response:
-        resp = send(Request("GET", "https://random-data-api.fermyon.app/animals/json", {}, None))
+class HttpHandler(http.Handler):
+    async def handle_request(self, request: Request) -> Response:
+        resp = await send(Request("GET", "https://random-data-api.fermyon.app/animals/json", {}, None))
 
-        return  Response(200,
-                    {"content-type": "text/plain"},
-                    bytes(f"Here is an animal fact: {str(resp.body, 'utf-8')}", "utf-8"))
-
+        return Response(
+            200,
+            {"content-type": "text/plain"},
+            bytes(f"Here is an animal fact: {str(resp.body, 'utf-8')}", "utf-8")
+        )
 ```
 
 ### Configuring Outbound Requests
@@ -363,7 +364,7 @@ component = "hello-world"
 source = "app.wasm"
 allowed_outbound_hosts = ["https://random-data-api.fermyon.app"]
 [component.hello-world.build]
-command = "componentize-py -w spin-http componentize app -o app.wasm"
+command = "componentize-py -w spin:up/http-trigger@4.0.0 componentize app -o app.wasm"
 watch = ["*.py", "requirements.txt"]
 ```
 
@@ -418,12 +419,11 @@ route = "/..."
 component = "hello-world"
 
 [component.hello-world]
-id = "hello-world"
 source = "app.wasm"
 variables = { redis_address = "redis://127.0.0.1:6379" }
 allowed_outbound_hosts = ["redis://127.0.0.1:6379"]
 [component.hello-world.build]
-command = "spin py2wasm app -o app.wasm"
+command = "componentize-py -w spin:up/http-trigger@4.0.0 componentize app -o app.wasm"
 ```
 
 If you are still following along, please go ahead and update your `app.py` file one more time, as follows:
@@ -434,20 +434,22 @@ If you are still following along, please go ahead and update your `app.py` file 
 from spin_sdk import http, redis, variables
 from spin_sdk.http import Request, Response
 
-class IncomingHandler(http.IncomingHandler):
-    def handle_request(self, request: Request) -> Response:
-        with redis.open(variables.get("redis_address")) as db:
-            db.set("foo", b"bar")
-            value = db.get("foo")
-            db.incr("testIncr")
-            db.sadd("testSets", ["hello", "world"])
-            content = db.smembers("testSets")
-            db.srem("testSets", ["hello"])
+class HttpHandler(http.Handler):
+    async def handle_request(self, request: Request) -> Response:
+        with await redis.open(await variables.get("redis_address")) as db:
+            await db.set("foo", b"bar")
+            value = await db.get("foo")
+            await db.incr("testIncr")
+            await db.sadd("testSets", ["hello", "world"])
+            content = await db.smembers("testSets")
+            await db.srem("testSets", ["hello"])
             assert value == b"bar", f"expected \"bar\", got \"{str(value, 'utf-8')}\""
 
-        return Response(200,
-                    {"content-type": "text/plain"},
-                    bytes(f"Executed outbound Redis commands: {request.uri}", "utf-8"))
+        return Response(
+            200,
+            {"content-type": "text/plain"},
+            bytes(f"Executed outbound Redis commands: {request.uri}", "utf-8")
+        )
 ```
 
 ### Building and Running the Application

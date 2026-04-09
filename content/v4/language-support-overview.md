@@ -61,7 +61,7 @@ This page contains information about language support for Spin features:
 
 {{ startTab "Python"}}
 
-**[📄 Visit the Python Spin SDK reference documentation](https://spinframework.github.io/spin-python-sdk/v3) to see specific modules, functions, variables and syntax relating to the following Python SDK.**
+**[📄 Visit the Python Spin SDK reference documentation](https://spinframework.github.io/spin-python-sdk/v4) to see specific modules, functions, variables and syntax relating to the following Python SDK.**
 
 | Feature | SDK Supported? |
 |-----|-----|
@@ -77,7 +77,7 @@ This page contains information about language support for Spin features:
 | PostgreSQL |  Supported |
 | [Outbound Redis](./python-components#an-outbound-redis-example) | Supported |
 | [Serverless AI](./serverless-ai-api-guide) | Supported |
-| [MQTT Messaging](./mqtt-outbound) | Not Supported |
+| [MQTT Messaging](./mqtt-outbound) | Supported |
 | **Extensibility** |
 | Authoring Custom Triggers | Not Supported |
 

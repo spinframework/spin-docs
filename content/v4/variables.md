@@ -173,24 +173,24 @@ addEventListener('fetch', async (event: FetchEvent) => {
 
 {{ startTab "Python"}}
 
-> [**Want to go straight to the reference documentation?**  Find it here.](https://spinframework.github.io/spin-python-sdk/v3/variables.html)
+> [**Want to go straight to the reference documentation?**  Find it here.](https://spinframework.github.io/spin-python-sdk/v4/variables.html)
 
-The `variables` module has a function called `get`(https://spinframework.github.io/spin-python-sdk/v3/variables.html#spin_sdk.variables.get).
+The `variables` module has a function called `get`(https://spinframework.github.io/spin-python-sdk/v4/variables.html#spin_sdk.variables.get).
 
 ```py
-from spin_sdk.http import IncomingHandler, Request, Response, send
-from spin_sdk import variables
+from spin_sdk import http, variables  
+from spin_sdk.http import Request, Response
 
-class IncomingHandler(IncomingHandler):
-    def handle_request(self, request: Request) -> Response:
-        token = variables.get("token")
-        api_uri = variables.get("api_uri")
-        version = variables.get("version")
+class HttpHandler(http.Handler):
+    async def handle_request(self, request: Request) -> Response:
+        token = await variables.get("token")
+        api_uri = await variables.get("api_uri")
+        version = await variables.get("version")
         versioned_api_uri = f"{api_uri}/{version}"
         headers = {
             "Authorization": f"Bearer {token}"
         }
-        response = send(Request("GET", versioned_api_uri, headers, None))
+        response = await send(Request("GET", versioned_api_uri, headers, None))
         # Do something with the response ...
         return Response(
             200,
@@ -198,6 +198,8 @@ class IncomingHandler(IncomingHandler):
             bytes("Used an API", "utf-8")
         )
 ```
+
+You can find a complete Python code example using Variables in the [Spin Python SDK repository on GitHub](https://github.com/spinframework/spin-python-sdk/tree/main/examples/spin-variables).
 
 {{ blockEnd }}
 

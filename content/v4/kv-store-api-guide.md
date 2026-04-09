@@ -123,19 +123,19 @@ addEventListener('fetch', async (event: FetchEvent) => {
 
 {{ startTab "Python"}}
 
-> [**Want to go straight to the reference documentation?** Find it here.](https://spinframework.github.io/spin-python-sdk/v3/key_value.html)
+> [**Want to go straight to the reference documentation?** Find it here.](https://spinframework.github.io/spin-python-sdk/v4/key_value.html)
 
-The key value functions are provided through the `spin_key_value` module in the Python SDK. For example:
+The key value functions are provided through the `key_value` module in the Python SDK. For example:
 
 ```python
 from spin_sdk import http, key_value
 from spin_sdk.http import Request, Response
 
-class IncomingHandler(http.IncomingHandler):
-    def handle_request(self, request: Request) -> Response:
-        with key_value.open_default() as store:
-            store.set("test", bytes("hello world!", "utf-8"))
-            val = store.get("test")
+class HttpHandler(http.Handler):
+    async def handle_request(self, request: Request) -> Response:
+        with await key_value.open_default() as store:
+            await store.set("test", bytes("hello world!", "utf-8"))
+            val = await store.get("test")
             
         return Response(
             200,
@@ -148,8 +148,31 @@ class IncomingHandler(http.IncomingHandler):
 **General Notes**
 - The Python SDK doesn't surface the `close` operation. It automatically closes all stores at the end of the request; there's no way to close them early.
 
-[`get` **Operation**](https://spinframework.github.io/spin-python-sdk/v3/wit/imports/key_value.html#spin_sdk.wit.imports.key_value.Store.get)
-- If a key does not exist, it returns `None`
+- To open the default key-value store, you can use the [`key_value.open_default`](https://spinframework.github.io/spin-python-sdk/v4/key_value.html#spin_sdk.key_value.open_default) function. You can use [`key_value.open`](https://spinframework.github.io/spin-python-sdk/v4/key_value.html#spin_sdk.key_value.open) to open any store by label.
+
+- Below is a breakdown of the methods surfaced directly from the underlying [spin-key-value-3.0.0 WIT definition](https://spinframework.github.io/spin-python-sdk/v4/wit/imports/spin_key_value_key_value_3_0_0.html):
+
+    [`open` **Operation**](https://spinframework.github.io/spin-python-sdk/v4/wit/imports/spin_key_value_key_value_3_0_0.html#spin_sdk.wit.imports.spin_key_value_key_value_3_0_0.Store.open)
+    - Open the store with the specified label
+
+    [`get` **Operation**](https://spinframework.github.io/spin-python-sdk/v4/wit/imports/spin_key_value_key_value_3_0_0.html#spin_sdk.wit.imports.spin_key_value_key_value_3_0_0.Store.get)
+    - If a key does not exist, it returns `None`
+
+    [`set` **Operation**](https://spinframework.github.io/spin-python-sdk/v4/wit/imports/spin_key_value_key_value_3_0_0.html#spin_sdk.wit.imports.spin_key_value_key_value_3_0_0.Store.set)
+    - Sets a value associated with the specified key, overwriting any existing value.
+
+    [`delete` **Operation**](https://spinframework.github.io/spin-python-sdk/v4/wit/imports/spin_key_value_key_value_3_0_0.html#spin_sdk.wit.imports.spin_key_value_key_value_3_0_0.Store.delete)
+    - Deletes the specified item from the store
+
+    [`exists` **Operation**](https://spinframework.github.io/spin-python-sdk/v4/wit/imports/spin_key_value_key_value_3_0_0.html#spin_sdk.wit.imports.spin_key_value_key_value_3_0_0.Store.exists)
+    - Return whether the specified key is present in the store
+
+    [`get_keys` **Operation**](https://spinframework.github.io/spin-python-sdk/v4/wit/imports/spin_key_value_key_value_3_0_0.html#spin_sdk.wit.imports.spin_key_value_key_value_3_0_0.Store.get_keys)
+    - Returns a `Tuple` containing a [StreamReader](https://github.com/bytecodealliance/componentize-py/blob/1b3d2e936868307a48fb70941dcad71b54e844f8/bundled/componentize_py_async_support/streams.py#L101) and a [FutureReader](https://github.com/bytecodealliance/componentize-py/blob/1b3d2e936868307a48fb70941dcad71b54e844f8/bundled/componentize_py_async_support/futures.py#L11). You _must_ check when the stream ends, to determine if the stream ended normally, or was terminated prematurely due to an error.
+
+    > If you're familiar with previous versions of the Python SDK, note that `get_keys` no longer returns a list.  To get the keys as a list, use `await util.collect(await store.get_keys())`. See [collect](https://spinframework.github.io/spin-python-sdk/v4/util.html#spin_sdk.util.collect) for more details.
+
+You can find a complete Python code example using the Key Value store in the [Spin Python SDK repository on GitHub](https://github.com/spinframework/spin-python-sdk/tree/main/examples/spin-kv).
 
 {{ blockEnd }}
 

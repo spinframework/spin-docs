@@ -82,7 +82,24 @@ You can find a complete Rust code example for using outbound MQTT from an HTTP c
 
 {{ startTab "Python"}}
 
-MQTT is not available in the current version of the Python SDK.
+> [**Want to go straight to the reference documentation?**  Find it here.](https://spinframework.github.io/spin-python-sdk/v4/mqtt.html)
+
+To access an MQTT server, use the `open` function. You can then call the `publish` method on the connection to send MQTT messages:
+
+```python
+from spin_sdk import http, mqtt 
+from spin_sdk.mqtt import Qos
+from spin_sdk.http import Request, Response
+
+class HttpHandler(http.Handler):
+  async def handle_request(self, request: Request) -> Response:
+        with await mqtt.open("mqtt://localhost:1883?client_id=client001", "user", "password", 30) as conn:
+            await conn.publish("telemetry", bytes("Eureka!", "utf-8"), Qos.AT_LEAST_ONCE)
+```
+
+For full details of the MQTT API, see the [Spin SDK reference documentation](https://spinframework.github.io/spin-python-sdk/v4/mqtt.html)
+
+You can find a complete Python code example for using outbound MQTT from an HTTP component in the [Spin Python SDK repository on GitHub](https://github.com/spinframework/spin-python-sdk/tree/main/examples/spin-outbound-mqtt).
 
 {{ blockEnd }}
 
