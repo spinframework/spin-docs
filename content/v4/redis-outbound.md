@@ -117,7 +117,9 @@ You can find a complete TypeScript example for using outbound Redis from an HTTP
 
 > [**Want to go straight to the reference documentation?**  Find it here.](https://spinframework.github.io/spin-python-sdk/v4/redis.html)
 
-Redis functions are available in [the `redis` module](https://spinframework.github.io/spin-python-sdk/v4/redis.html). You must pass the Redis instance address to _each_ operation as its first parameter. For example:
+Redis functions are available in [the `redis` module](https://spinframework.github.io/spin-python-sdk/v4/redis.html).
+
+To open a connection to a Redis instance, use the `redis.open` function. You can then call methods on the connection object to work with the Redis instance. For example:
 
 ```python
 from spin_sdk import http, redis 
@@ -132,7 +134,7 @@ class WasiHttpHandler030Rc20260315(http.Handler):
 **General Notes**
 
 * Address and key parameters are strings (`str`).
-* Bytes parameters and return values are `bytes`. (You can pass literal strings using the `b` prefix, e.g. `set(address, key, b"hello")`.)
+* Bytes parameters and return values are `bytes`. (You can pass literal strings using the `b` prefix, e.g. `set(key, b"hello")`.)
 * Numeric return values are of type `int`.
 * Lists are passed and returned as Python lists.
 * Errors are signalled through exceptions.
