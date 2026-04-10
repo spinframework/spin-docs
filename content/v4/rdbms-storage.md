@@ -149,20 +149,30 @@ addEventListener('fetch', async (event: FetchEvent) => {
 The code below shows use of the [Postgres](https://spinframework.github.io/spin-python-sdk/v4/postgres.html) module and its [open](https://spinframework.github.io/spin-python-sdk/v4/postgres.html#spin_sdk.postgres.open) function for opening a connection to the database:
 
 ```python
-from spin_sdk import http, postgres
+from spin_sdk import http, util
 from spin_sdk.http import Request, Response
+from spin_sdk.postgres import Connection
 
 class HttpHandler(http.Handler):
     async def handle_request(self, request: Request) -> Response:
-        with await postgres.open("user=postgres dbname=spin_dev host=localhost sslmode=disable password=password") as db:
-            print(db.query("SELECT * FROM test", []))
+        with await Connection.open("user=postgres dbname=spin_dev host=localhost sslmode=disable password=password") as db:
+            columns, stream, future = await db.query("SELECT * FROM test", [])
+            rows = await util.collect((stream, future))
 
         return Response(
             200,
             {"content-type": "text/plain"},
-            bytes("Hello from Python!", "utf-8")
+            bytes(str(rows), "utf-8")
         )
 ```
+
+**General Notes**
+* The `query` method returns a Tuple containing a list of `columns`, a list of `rows` encapsulated via a [StreamReader](https://github.com/bytecodealliance/componentize-py/blob/1b3d2e936868307a48fb70941dcad71b54e844f8/bundled/componentize_py_async_support/streams.py#L101), and a [FutureReader](https://github.com/bytecodealliance/componentize-py/blob/1b3d2e936868307a48fb70941dcad71b54e844f8/bundled/componentize_py_async_support/futures.py#L11). You _must_ check when the stream ends, to determine if the stream ended normally, or was terminated prematurely due to an error.
+
+    > As seen in the example above, you can utilize the [collect](https://spinframework.github.io/spin-python-sdk/v4/util.html#spin_sdk.util.collect) method from the `util` package to handle the `StreamReader` and `FutureReader` pair, aggregating the resulting rows into memory.
+
+* The `Connection` object doesn't surface the `close` function.
+* Errors are surfaced as exceptions.
 
 You can find a complete outbound PostgreSQL example in the [Spin Python SDK repository on GitHub](https://github.com/spinframework/spin-python-sdk/tree/main/examples/spin-postgres). There is also an [Outbound MySQL example](https://github.com/spinframework/spin-python-sdk/tree/main/examples/spin-mysql) available.
 
