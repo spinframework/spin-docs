@@ -158,19 +158,20 @@ addEventListener('fetch', async (event: FetchEvent) => {
 
 > [**Want to go straight to the reference documentation?**  Find it here.](https://spinframework.github.io/spin-python-sdk/v4/sqlite.html)
 
-To use SQLite functions, use the `sqlite` module in the Python SDK. The [`open`](https://spinframework.github.io/spin-python-sdk/v4/sqlite.html#spin_sdk.sqlite.open) and [`open_default`](https://spinframework.github.io/spin-python-sdk/v4/sqlite.html#spin_sdk.sqlite.open_default) functions return a [`Connection` object](https://spinframework.github.io/spin-python-sdk/v4/wit/imports/spin_sqlite_sqlite_3_1_0.html#spin_sdk.wit.imports.spin_sqlite_sqlite_3_1_0.Connection). The `Connection` object provides the [`execute` method](https://spinframework.github.io/spin-python-sdk/v4/wit/imports/spin_sqlite_sqlite_3_1_0.html#spin_sdk.wit.imports.spin_sqlite_sqlite_3_1_0.Connection.execute) as described above. For example:
+To use SQLite functions, use the `sqlite` module in the Python SDK. The [`open`](https://spinframework.github.io/spin-python-sdk/v4/sqlite.html#spin_sdk.sqlite.open) and [`open_default`](https://spinframework.github.io/spin-python-sdk/v4/sqlite.html#spin_sdk.sqlite.open_default) functions return a [`Connection` object](https://spinframework.github.io/spin-python-sdk/v4/sqlite.html#spin_sdk.sqlite.Connection). The `Connection` object provides the [`execute` method](https://spinframework.github.io/spin-python-sdk/v4/sqlite.html#spin_sdk.sqlite.Connection.execute) as described above. For example:
 
 ```python
-from spin_sdk import http, sqlite
+from spin_sdk import http, util
 from spin_sdk.http import Request, Response
-from spin_sdk.sqlite import Value_Integer
+from spin_sdk.sqlite import Connection, Value_Text, Value_Integer
 
 class HttpHandler(http.Handler):
     async def handle_request(self, request: Request) -> Response:
-        with await sqlite.open_default() as db:
-            result = db.execute("SELECT * FROM todos WHERE id > (?);", [Value_Integer(1)])
-            rows = result.rows
-        
+        with await Connection.open_default() as db:
+            await db.execute("INSERT INTO todos (description, due) VALUES (?, ?)", [Value_Text("Try out Spin SQLite"), Value_Text("Friday")])
+            columns, stream, future = await db.execute("SELECT * FROM todos WHERE id > (?);", [Value_Integer(1)])
+            rows = await util.collect((stream, future))
+
         return Response(
             200,
             {"content-type": "text/plain"},
@@ -179,7 +180,10 @@ class HttpHandler(http.Handler):
 ```
 
 **General Notes**
-* The `execute` method returns [a `QueryResult` object](https://spinframework.github.io/spin-python-sdk/v4/wit/imports/spin_sqlite_sqlite_3_1_0.html#spin_sdk.wit.imports.spin_sqlite_sqlite_3_1_0.QueryResult) with `rows` and `columns` methods. `columns` returns a list of strings representing column names. `rows` is an array of rows, each of which is an array of [`RowResult`](https://spinframework.github.io/spin-python-sdk/v4/wit/imports/spin_sqlite_sqlite_3_1_0.html#spin_sdk.wit.imports.spin_sqlite_sqlite_3_1_0.RowResult) in the same order as `columns`.
+* The `execute` method returns a Tuple containing a list of `columns`, a list of `rows` encapsulated via a [StreamReader](https://github.com/bytecodealliance/componentize-py/blob/1b3d2e936868307a48fb70941dcad71b54e844f8/bundled/componentize_py_async_support/streams.py#L101), and a [FutureReader](https://github.com/bytecodealliance/componentize-py/blob/1b3d2e936868307a48fb70941dcad71b54e844f8/bundled/componentize_py_async_support/futures.py#L11). You _must_ check when the stream ends, to determine if the stream ended normally, or was terminated prematurely due to an error.
+
+    > As seen in the example above, you can utilize the [collect](https://spinframework.github.io/spin-python-sdk/v4/util.html#spin_sdk.util.collect) method from the `util` package to handle the `StreamReader` and `FutureReader` pair, aggregating the resulting rows into memory.
+
 * The `Connection` object doesn't surface the `close` function.
 * Errors are surfaced as exceptions.
 
