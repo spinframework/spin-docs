@@ -3,7 +3,7 @@ template = "main"
 date = "2023-11-04T00:00:01Z"
 enable_shortcodes = true
 [extra]
-url = "https://github.com/spinframework/spin-docs/blob/main/content/v3/redis-outbound.md"
+url = "https://github.com/spinframework/spin-docs/blob/main/content/v4/redis-outbound.md"
 
 ---
 - [Using Redis From Applications](#using-redis-from-applications)
@@ -41,24 +41,24 @@ The exact detail of calling these operations from your application depends on yo
 
 {{ startTab "Rust"}}
 
-> [**Want to go straight to the reference documentation?**  Find it here.](https://docs.rs/spin-sdk/5.2.0/spin_sdk/redis/index.html)
+> [**Want to go straight to the reference documentation?**  Find it here.](https://docs.rs/spin-sdk/latest/spin_sdk/redis/index.html)
 
 Redis functions are available in the `spin_sdk::redis` module.
 
 To access a Redis instance, use the `Connection::open` function.
 
 ```rust
-let connection = spin_sdk::redis::Connection::open(&address)?;
+let connection = spin_sdk::redis::Connection::open(&address).await?;
 ```
 
 You can then call functions on the `Connection` to work with the Redis instance:
 
 ```rust
-connection.set("my-key", &"my-value".into());
-let data = connection.get("my-key")?;
+connection.set("my-key", &"my-value".into()).await?;
+let data = connection.get("my-key").await?;
 ```
 
-For full details of the Redis API, see the [Spin SDK reference documentation](https://docs.rs/spin-sdk/5.2.0/spin_sdk/redis/index.html);
+For full details of the Redis API, see the [Spin SDK reference documentation](https://docs.rs/spin-sdk/latest/spin_sdk/redis/index.html);
 
 **General Notes**
 
@@ -115,23 +115,30 @@ You can find a complete TypeScript example for using outbound Redis from an HTTP
 
 {{ startTab "Python"}}
 
-> [**Want to go straight to the reference documentation?**  Find it here.](https://spinframework.github.io/spin-python-sdk/v3/redis.html)
+> [**Want to go straight to the reference documentation?**  Find it here.](https://spinframework.github.io/spin-python-sdk/v4/redis.html)
 
-Redis functions are available in [the `redis` module](https://spinframework.github.io/spin-python-sdk/v3/redis.html). The function names are prefixed `redis_`. You must pass the Redis instance address to _each_ operation as its first parameter. For example:
+Redis functions are available in [the `redis` module](https://spinframework.github.io/spin-python-sdk/v4/redis.html).
+
+To open a connection to a Redis instance, use the `redis.open` function. You can then call methods on the connection object to work with the Redis instance. For example:
 
 ```python
-from spin_sdk import redis
-with redis.open("redis://localhost:6379") as db:
-    val = db.get("test")
+from spin_sdk import http, redis 
+from spin_sdk.http import Request, Response
+
+class HttpHandler(http.Handler):
+    async def handle_request(self, request: Request) -> Response:
+        with await redis.open("redis://localhost:6379") as db:
+            print(await db.get("test"))
 ```
 
 **General Notes**
 
 * Address and key parameters are strings (`str`).
-* Bytes parameters and return values are `bytes`. (You can pass literal strings using the `b` prefix, e.g. `redis_set(address, key, b"hello")`.)
-* Numeric return values are of type `int64`.
+* Bytes parameters and return values are `bytes`. (You can pass literal strings using the `b` prefix, e.g. `set(key, b"hello")`.)
+* Numeric return values are of type `int`.
 * Lists are passed and returned as Python lists.
 * Errors are signalled through exceptions.
+* For a deep dive into the all of the methods available from this module, see the [spin_redis_3.0.0 WIT documentation](https://spinframework.github.io/spin-python-sdk/v4/wit/imports/spin_redis_redis_3_0_0.html).
 
 You can find a complete Python code example for using outbound Redis from an HTTP component in the [Python SDK repository on GitHub](https://github.com/spinframework/spin-python-sdk/tree/main/examples/spin-redis). Please also see this, related, [outbound Redis (using Python) section](./python-components#an-outbound-redis-example).
 
@@ -181,4 +188,4 @@ allowed_outbound_hosts = ["redis://redis.example.com:6379"]
 
 ### Configuration-Based Permissions
 
-You can use [application variables](./variables.md#adding-variables-to-your-applications) in the `allowed_outbound_hosts` field. However, this feature is not yet available on Fermyon Cloud.
+You can use [application variables](./variables.md#adding-variables-to-your-applications) in the `allowed_outbound_hosts` field.

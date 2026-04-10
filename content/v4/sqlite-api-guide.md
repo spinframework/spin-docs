@@ -3,7 +3,7 @@ template = "main"
 date = "2023-11-04T00:00:01Z"
 enable_shortcodes = true
 [extra]
-url = "https://github.com/spinframework/spin-docs/blob/main/content/v3/sqlite-api-guide.md"
+url = "https://github.com/spinframework/spin-docs/blob/main/content/v4/sqlite-api-guide.md"
 
 ---
 - [Granting SQLite Database Permissions to Components](#granting-sqlite-database-permissions-to-components)
@@ -24,8 +24,6 @@ By default, a given component of an app will not have access to any SQLite Datab
 [component.example]
 sqlite_databases = ["default"]
 ```
-
-> Note: To deploy your Database application to Fermyon Cloud using `spin cloud deploy`, see the [SQLite Database](https://developer.fermyon.com/cloud/noops-sql-db#accessing-private-beta) section in the documentation. It covers signing up for the private beta and setting up your Cloud database tables and initial data.
 
 ## Using SQLite Storage From Applications
 
@@ -54,55 +52,54 @@ serde = {version = "1.0", features = ["derive"]}
 serde_json = "1.0"
 ```
 
-> [**Want to go straight to the reference documentation?**  Find it here.](https://docs.rs/spin-sdk/5.2.0/spin_sdk/sqlite3/index.html)
+> [**Want to go straight to the reference documentation?**  Find it here.](https://docs.rs/spin-sdk/latest/spin_sdk/sqlite/index.html)
 
-SQLite functions are available in the `spin_sdk::sqlite3` module
-
-> If you want to be compatible with Spin 3.1 or earlier, or with downstream hosts that have not yet rolled out Spin 3.2 support, you should use the `spin_sdk::sqlite` module for PostgreSQL. The only difference is that `sqlite` doesn't provide the `Connection::last_insert_rowid` and `Connection::changes` functions.
-
-The function names match the operations above. For example:
+SQLite functions are available in the `spin_sdk::sqlite` module. The function names match the operations above. For example:
 
 ```rust
 use anyhow::Result;
 use serde::Serialize;
 use spin_sdk::{
-    http::{Request, Response, IntoResponse},
-    http_component,
+    http::{FullBody, Request, Response, IntoResponse},
+    http_service,
     sqlite::{Connection, Value},
 };
 
-#[http_component]
-fn handle_request(req: Request) -> Result<impl IntoResponse> {
-    let connection = Connection::open_default()?;
+#[http_service]
+async fn handle_request(req: Request) -> Result<impl IntoResponse> {
+    let connection = Connection::open_default().await?;
 
     let execute_params = [
         Value::Text("Try out Spin SQLite".to_owned()),
         Value::Text("Friday".to_owned()),
     ];
-    connection.execute(
+    
+    let mut query_result = connection.execute(
         "INSERT INTO todos (description, due) VALUES (?, ?)",
         execute_params.as_slice(),
-    )?;
+    ).await?;
+    query_result.result().await?
 
-    let rowset = connection.execute(
+    let (columns, mut rows, result) = connection.execute(
         "SELECT id, description, due FROM todos",
         &[]
-    )?;
+    ).await?;
 
-    let todos: Vec<_> = rowset.rows().map(|row|
-        ToDo {
+    let mut todos = vec![];
+    while let Some(row) = query_result.next().await {
+        todos.push(ToDo {
             id: row.get::<u32>("id").unwrap(),
             description: row.get::<&str>("description").unwrap().to_owned(),
             due: row.get::<&str>("due").unwrap().to_owned(),
-        }
-    ).collect();
+        });
+    }
+    query_result.result()
 
     let body = serde_json::to_vec(&todos)?;
     Ok(Response::builder()
         .status(200)
         .header("content-type", "text/plain")
-        .body(body)
-        .build())
+        .body(FullBody::new(Bytes::from_owner(body)))?)
 }
 
 // Helper for returning the query results as JSON
@@ -120,6 +117,8 @@ struct ToDo {
 * The `execute` function returns a `QueryResult`. To iterate over the rows use the `rows()` function. This returns an iterator; use `collect()` if you want to load it all into a collection.
 * The values in rows are instances of the `Value` enum.  However, you can use `row.get(column_name)` to extract a specific column from a row.  `get` casts the database value to the target Rust type. If the compiler can't infer the target type, write `row.get::<&str>(column_name)` (or whatever the desired type is).
 * All functions wrap the return in `Result`, with the error type being `spin_sdk::sqlite::Error`.
+
+> If you are querying for a small result set, you can load all the rows into a `Vec` by calling `QueryResult::collect()`. This can be more convenient for some operations.
 
 {{ blockEnd }}
 
@@ -157,19 +156,19 @@ addEventListener('fetch', async (event: FetchEvent) => {
 
 {{ startTab "Python"}}
 
-> [**Want to go straight to the reference documentation?**  Find it here.](https://spinframework.github.io/spin-python-sdk/v3/sqlite.html)
+> [**Want to go straight to the reference documentation?**  Find it here.](https://spinframework.github.io/spin-python-sdk/v4/sqlite.html)
 
-To use SQLite functions, use the `sqlite` module in the Python SDK. The [`sqlite_open`](https://spinframework.github.io/spin-python-sdk/v3/sqlite.html#spin_sdk.sqlite.open) and [`sqlite_open_default`](https://spinframework.github.io/spin-python-sdk/v3/sqlite.html#spin_sdk.sqlite.open_default) functions return a [connection object](https://spinframework.github.io/spin-python-sdk/v3/wit/imports/sqlite.html#spin_sdk.wit.imports.sqlite.Connection). The connection object provides the [`execute` method](https://spinframework.github.io/spin-python-sdk/v3/wit/imports/sqlite.html#spin_sdk.wit.imports.sqlite.Connection.execute) as described above. For example:
+To use SQLite functions, use the `sqlite` module in the Python SDK. The [`open`](https://spinframework.github.io/spin-python-sdk/v4/sqlite.html#spin_sdk.sqlite.open) and [`open_default`](https://spinframework.github.io/spin-python-sdk/v4/sqlite.html#spin_sdk.sqlite.open_default) functions return a [`Connection` object](https://spinframework.github.io/spin-python-sdk/v4/wit/imports/spin_sqlite_sqlite_3_1_0.html#spin_sdk.wit.imports.spin_sqlite_sqlite_3_1_0.Connection). The `Connection` object provides the [`execute` method](https://spinframework.github.io/spin-python-sdk/v4/wit/imports/spin_sqlite_sqlite_3_1_0.html#spin_sdk.wit.imports.spin_sqlite_sqlite_3_1_0.Connection.execute) as described above. For example:
 
 ```python
 from spin_sdk import http, sqlite
 from spin_sdk.http import Request, Response
-from spin_sdk.sqlite import ValueInteger
+from spin_sdk.sqlite import Value_Integer
 
-class IncomingHandler(http.IncomingHandler):
-    def handle_request(self, request: Request) -> Response:
-        with sqlite.open_default() as db:
-            result = db.execute("SELECT * FROM todos WHERE id > (?);", [ValueInteger(1)])
+class HttpHandler(http.Handler):
+    async def handle_request(self, request: Request) -> Response:
+        with await sqlite.open_default() as db:
+            result = db.execute("SELECT * FROM todos WHERE id > (?);", [Value_Integer(1)])
             rows = result.rows
         
         return Response(
@@ -180,9 +179,11 @@ class IncomingHandler(http.IncomingHandler):
 ```
 
 **General Notes**
-* The `execute` method returns [a `QueryResult` object](https://spinframework.github.io/spin-python-sdk/v3/wit/imports/sqlite.html#spin_sdk.wit.imports.sqlite.QueryResult) with `rows` and `columns` methods. `columns` returns a list of strings representing column names. `rows` is an array of rows, each of which is an array of [`RowResult`](https://spinframework.github.io/spin-python-sdk/v3/wit/imports/sqlite.html#spin_sdk.wit.imports.sqlite.RowResult) in the same order as `columns`.
-* The connection object doesn't surface the `close` function.
+* The `execute` method returns [a `QueryResult` object](https://spinframework.github.io/spin-python-sdk/v4/wit/imports/spin_sqlite_sqlite_3_1_0.html#spin_sdk.wit.imports.spin_sqlite_sqlite_3_1_0.QueryResult) with `rows` and `columns` methods. `columns` returns a list of strings representing column names. `rows` is an array of rows, each of which is an array of [`RowResult`](https://spinframework.github.io/spin-python-sdk/v4/wit/imports/spin_sqlite_sqlite_3_1_0.html#spin_sdk.wit.imports.spin_sqlite_sqlite_3_1_0.RowResult) in the same order as `columns`.
+* The `Connection` object doesn't surface the `close` function.
 * Errors are surfaced as exceptions.
+
+You can find a complete Python code example using SQLite storage in the [Spin Python SDK repository on GitHub](https://github.com/spinframework/spin-python-sdk/tree/main/examples/spin-sqlite).
 
 {{ blockEnd }}
 

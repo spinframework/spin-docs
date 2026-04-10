@@ -3,7 +3,7 @@ template = "main"
 date = "2023-11-04T00:00:01Z"
 enable_shortcodes = true
 [extra]
-url = "https://github.com/spinframework/spin-docs/blob/main/content/v3/http-trigger.md"
+url = "https://github.com/spinframework/spin-docs/blob/main/content/v4/http-trigger.md"
 
 ---
 - [Specifying an HTTP Trigger](#specifying-an-http-trigger)
@@ -24,6 +24,9 @@ url = "https://github.com/spinframework/spin-docs/blob/main/content/v3/http-trig
 - [Exposing HTTP Triggers Using HTTPS](#exposing-http-triggers-using-https)
   - [Trigger Options](#trigger-options)
   - [Environment Variables](#environment-variables)
+- [Controlling Instance Reuse](#controlling-instance-reuse)
+  - [Developer Guidelines for Instance Reuse](#developer-guidelines-for-instance-reuse)
+  - [Preventing Instance Reuse](#preventing-instance-reuse)
 
 HTTP applications are an important workload in event-driven environments,
 and Spin has built-in support for creating and running HTTP
@@ -44,8 +47,6 @@ component = "my-application"  # the name of the component to handle this route
 ```
 
 Such a trigger says that HTTP requests matching the specified _route_ should be handled by the specified _component_. The `component` field works the same way across all triggers - see [Triggers](triggers) for the details.
-
-> Earlier versions of Spin supported an application-wide base path; this is removed in Spin 3.
 
 ## HTTP Trigger Routes
 
@@ -154,104 +155,47 @@ The exact signature of the HTTP handler, and how a function is identified to be 
 
 {{ startTab "Rust"}}
 
-> [**Want to go straight to the reference documentation?**  Find it here.](https://docs.rs/spin-sdk/5.2.0/spin_sdk/http/index.html)
+> [**Want to go straight to the reference documentation?**  Find it here.](https://docs.rs/spin-sdk/latest/spin_sdk/http/index.html)
 
-In Rust, the handler is identified by the [`#[spin_sdk::http_component]`](https://docs.rs/spin-sdk/5.2.0/spin_sdk/attr.http_component.html) attribute.  The handler function can have one of two forms: _request-response_ or _input-output parameter_.
-
-**Request-Response Handlers**
-
-This form of handler function receives the request as an argument, and returns the response as the return value of the function. For example:
+In Rust, the handler is identified by the [`#[spin_sdk::http_service]`](https://docs.rs/spin-sdk/latest/spin_sdk/attr.http_service.html) attribute.  The handler function is an async function which receives the request as an argument, and returns the response as the return value of the function. For example:
 
 ```rust
-#[http_component]
+#[http_service]
 async fn handle(request: http::Request) -> anyhow::Result<http::Response> { ... }
 ```
-
-In this form, nothing is sent to the client until the entire response is ready. It is convenient for many use cases, but is not suitable for streaming responses.
-
-> The Rust SDK includes **experimental** support for streaming request and response bodies. We currently recommend that you stick with the simpler non-streaming interfaces if you don't require streaming.
 
 You have some flexibility in choosing the types of the request and response.  The request may be:
 
 * [`http::Request`](https://docs.rs/http/latest/http/request/struct.Request.html)
-* [`spin_sdk::http::Request`](https://docs.rs/spin-sdk/5.2.0/spin_sdk/http/struct.Request.html)
-* [`spin_sdk::http::IncomingRequest`](https://docs.rs/spin-sdk/5.2.0/spin_sdk/http/struct.IncomingRequest.html)
-* Any type for which you have implemented the [`spin_sdk::http::conversions::TryFromIncomingRequest`](https://docs.rs/spin-sdk/5.2.0/spin_sdk/http/conversions/trait.TryFromIncomingRequest.html) trait
+* [`spin_sdk::http::Request`](https://docs.rs/spin-sdk/latest/spin_sdk/http/struct.Request.html)
+* Any type which implements the [`spin_sdk::http::FromRequest`](https://docs.rs/spin-sdk/latest/spin_sdk/http/trait.FromRequest.html) trait
 
 The response may be:
 
 * [`http::Response`](https://docs.rs/http/latest/http/response/struct.Response.html) - typically constructed via `Response::builder()`
-* [`spin_sdk::http::Response`](https://docs.rs/spin-sdk/5.2.0/spin_sdk/http/struct.Response.html) - typically constructed via a [`ResponseBuilder`](https://docs.rs/spin-sdk/5.2.0/spin_sdk/http/struct.ResponseBuilder.html)
-* Any type for which you have implemented the [`spin_sdk::http::IntoResponse`](https://docs.rs/spin-sdk/5.2.0/spin_sdk/http/trait.IntoResponse.html) trait
+* [`spin_sdk::http::Response`](https://docs.rs/spin-sdk/latest/spin_sdk/http/struct.Response.html) - typically constructed via a [`ResponseBuilder`](https://docs.rs/spin-sdk/latest/spin_sdk/http/struct.ResponseBuilder.html)
+* Any type which implements the [`spin_sdk::http::IntoResponse`](https://docs.rs/spin-sdk/latest/spin_sdk/http/trait.IntoResponse.html) trait
 * A `Result` where the success type is one of the above and the error type is `anyhow::Error` or another error type for which you have implemented `spin_sdk::http::IntoResponse` (such as `anyhow::Result<http::Response>`)
+
+> The HTTP template generates a return type of `anyhow::Result<impl IntoResponse>`, so you don't need to tweak it if you change the concrete type of the response.
 
 For example:
 
 ```rust
 use http::{Request, Response};
 use spin_sdk::http::IntoResponse;
-use spin_sdk::http_component;
+use spin_sdk::http_service;
 
-/// A simple Spin HTTP component.
-#[http_component]
+#[http_service]
 async fn handle_hello_rust(_req: Request<()>) -> anyhow::Result<impl IntoResponse> {
     Ok(Response::builder()
         .status(200)
         .header("content-type", "text/plain")
-        .body("Hello, Fermyon")?)
+        .body("Hello, Spin".to_string())?)
 }
 ```
 
-> If you're familiar with Spin 1.x, note that Spin 2 is more forgiving with the type in the `.body()` call. You don't need to convert it to bytes or wrap it in an `Option`. To return an empty body, you can pass `()` instead of `None`.
-
-To extract data from the request, specify a body type as the generic parameter for the `Request` type. You can use raw content types such as `Vec<u8>` and `String`, or automatically deserialize a JSON body by using the `spin_sdk::http::Json<T>` type.
-
-**Input-Output Parameter Handlers**
-
-In this form, the handler function receives the request as an argument of type [`spin_sdk::http::IncomingRequest`](https://docs.rs/spin-sdk/5.2.0/spin_sdk/http/struct.IncomingRequest.html). It also receives an argument of type [`spin_sdk::http::ResponseOutparam`](https://docs.rs/spin-sdk/5.2.0/spin_sdk/http/struct.ResponseOutparam.html), through which is sends the response. The function does not return a value. This form is recommended for streaming responses.
-
-To send a response:
-
-1. Create a [`spin_sdk::http::OutgoingResponse`](https://docs.rs/spin-sdk/5.2.0/spin_sdk/http/struct.OutgoingResponse.html).
-2. Call `take_body()` on the `OutgoingResponse` - this gives you a [`futures::Sink`](https://docs.rs/futures/latest/futures/sink/trait.Sink.html) that you can later use to send data via the response.
-3. Call `set` on the `ResponseOutparam`, passing the `OutgoingResponse`.
-4. Call `send` on the `Sink` as many times as you like. Each send is carried out as you call it, so you can send the first part of the response without waiting for the whole response to be ready.
-
-> You will need to reference the `futures` crate in `Cargo.toml`, and `use futures::SinkExt;`, to access the `send` method.
-
-```rust
-use futures::SinkExt;
-use spin_sdk::http::{Headers, IncomingRequest, OutgoingResponse, ResponseOutparam};
-use spin_sdk::http_component;
-
-/// A streaming Spin HTTP component.
-#[http_component]
-async fn handle_hello_rust(_req: IncomingRequest, response_out: ResponseOutparam) {
-    // Status code and headers must be supplied before calling take_body
-    let response = OutgoingResponse::new(
-        200,
-        &Headers::new(&[("content-type".to_string(), b"text/plain".to_vec())]),
-    );
-    // Get the sink for writing the body into. This must be mutable!
-    let mut body = response.take_body();
-
-    // Connect the OutgoingResponse to the ResponseOutparam.
-    response_out.set(response);
-
-    // Write to the body sink over a period of time. (In this case we simulate a
-    // long-running operation by manually calling `thread::sleep`.)
-    for i in 1..20 {
-        let payload = format!("Hello {i}\n");
-        if let Err(e) = body.send(payload.into()).await {
-            eprintln!("Error sending payload: {e:#}");
-            return;
-        }
-        std::thread::sleep(std::time::Duration::from_millis(100));
-    }
-}
-```
-
-For a full Rust SDK reference, see the [Rust Spin SDK documentation](https://docs.rs/spin-sdk/5.2.0/spin_sdk/index.html).
+For a full Rust SDK reference, see the [Rust Spin SDK documentation](https://docs.rs/spin-sdk/latest/spin_sdk/index.html).
 
 {{ blockEnd }}
 
@@ -282,16 +226,16 @@ addEventListener('fetch', async (event: FetchEvent) => {
 
 {{ startTab "Python"}}
 
-> [**Want to go straight to the reference documentation?**  Find it here.](https://spinframework.github.io/spin-python-sdk/v3/)
+> [**Want to go straight to the reference documentation?**  Find it here.](https://spinframework.github.io/spin-python-sdk/v4/)
 
-In Python, the application must define a top-level class named IncomingHandler which inherits from [IncomingHandler](https://spinframework.github.io/spin-python-sdk/v3/http/index.html#spin_sdk.http.IncomingHandler), overriding the `handle_request` method.
+In Python, the application must define a top-level class named `HttpHandler` which inherits from [http.Handler](https://spinframework.github.io/spin-python-sdk/v4/http/index.html#spin_sdk.http.Handler), overriding the `handle_request` method.
 
 ```python
 from spin_sdk import http
 from spin_sdk.http import Request, Response
 
-class IncomingHandler(http.IncomingHandler):
-      def handle_request(self, request: Request) -> Response:
+class HttpHandler(http.Handler):
+      async def handle_request(self, request: Request) -> Response:
         return Response(
             200,
             {"content-type": "text/plain"},
@@ -299,35 +243,62 @@ class IncomingHandler(http.IncomingHandler):
         )
 ```
 
+You can find a complete example for handling a HTTP request in the [Python SDK repository on GitHub](https://github.com/spinframework/spin-python-sdk/tree/main/examples/hello).
+
 {{ blockEnd }}
 
 {{ startTab "TinyGo"}}
 
 > [**Want to go straight to the reference documentation?**  Find it here.](https://pkg.go.dev/github.com/spinframework/spin-go-sdk/v2@v2.2.1/http)
 
-In Go, you register the handler as a callback in your program's `init` function.  Call `spinhttp.Handle`, passing your handler as the sole argument.  Your handler takes a `http.Request` record, from the standard `net/http` package, and a `ResponseWriter` to construct the response.
+In Go, you register the handler as a callback in your program's `init` function.  Set `handler.Exports.Handle` to your handler function.  Your handler takes a `*Request` pointer, and returns a `Result[Response, ErrorCode]` with the response.
 
 ```go
 package main
 
 import (
-        "fmt"
-        "net/http"
+    "fmt"
+    "net/http"
 
-        spinhttp "github.com/spinframework/spin-go-sdk/v2/http"
-)
+    handler "github.com/spinframework/spin-go-sdk/v3/exports/wasi_http_service_0_3_0_rc_2026_03_15/export_wasi_http_0_3_0_rc_2026_03_15_handler"
+    _ "github.com/spinframework/spin-go-sdk/v3/exports/wasi_http_service_0_3_0_rc_2026_03_15/wit_exports"
+    . "github.com/spinframework/spin-go-sdk/v3/imports/wasi_http_0_3_0_rc_2026_03_15_types"
+    . "go.bytecodealliance.org/pkg/wit/types")
+
+func Handle(request *Request) Result[*Response, ErrorCode] {
+    tx, rx := MakeStreamU8()
+
+    go func() {
+        defer tx.Drop()
+        tx.WriteAll([]uint8("hello, world!"))
+    }()
+
+    response, send := ResponseNew(
+        FieldsFromList([]Tuple2[string, []uint8]{
+            Tuple2[string, []uint8]{"content-type", []uint8("text/plain")},
+        }).Ok(),
+        Some(rx),
+        trailersFuture(),
+    )
+    send.Drop()
+
+    return Ok[*Response, ErrorCode](response)
+}
+
+func trailersFuture() *FutureReader[Result[Option[*Fields], ErrorCode]] {
+    tx, rx := MakeFutureResultOptionFieldsErrorCode()
+    go tx.Write(Ok[Option[*Fields], ErrorCode](None[*Fields]()))
+    return rx
+}
 
 func init() {
-        spinhttp.Handle(func(w http.ResponseWriter, r *http.Request) {
-                w.Header().Set("Content-Type", "text/plain")
-                fmt.Fprintln(w, "Hello Fermyon!")
-        })
+    handler.Exports.Handle = Handle
 }
 
 func main() {}
 ```
 
-> If you are moving between languages, note that in most other Spin SDKs, your handler _constructs and returns_ a response, but in Go, _Spin_ constructs a `ResponseWriter`, and you write to it; your handler does not return a value.
+See [Go Components](./go-components) for an explanation of this code.
 
 {{ blockEnd }}
 
@@ -364,35 +335,32 @@ For the most part, you'll build HTTP component modules using a language SDK (see
 
 The HTTP component interface is defined using a WebAssembly Interface (WIT) file.  ([Learn more about the WIT language here.](https://component-model.bytecodealliance.org/design/wit.html)).  You can find the latest WITs for Spin HTTP components at [https://github.com/spinframework/spin/tree/main/wit](https://github.com/spinframework/spin/tree/main/wit).
 
-The HTTP types and interfaces are defined in [https://github.com/spinframework/spin/tree/main/wit/deps/http@0.2.6](https://github.com/spinframework/spin/tree/main/wit/deps/http@0.2.6), which tracks [the `wasi-http` specification](https://github.com/WebAssembly/wasi-http).
+The HTTP types and interfaces are defined in [https://github.com/spinframework/spin/tree/main/wit/deps/http@0.3.0-rc-2026-03-15](https://github.com/spinframework/spin/tree/main/wit/deps/http@0.3.0-rc-2026-03-15), which tracks [the `wasi-http` specification](https://github.com/WebAssembly/wasi-http).
 
-In particular, the entry point for Spin HTTP components is defined in [the `incoming-handler` interface](https://github.com/spinframework/spin/blob/main/wit/deps/http@0.2.6/handler.wit):
+In particular, the entry point for Spin HTTP components is defined in [the `handler` interface](https://github.com/spinframework/spin/blob/main/wit/deps/http@0.3.0-rc-2026-03-15/worlds.wit):
 
 <!-- @nocpy -->
 
 ```fsharp
-// incoming-handler.wit
+// handler.wit
 
-interface incoming-handler {
-  use types.{incoming-request, response-outparam}
+interface handler {
+  use types.{request, response, error-code};
 
-  handle: func(
-    request: incoming-request,
-    response-out: response-outparam
-  )
+  /// This function may be called with either an incoming request read from the
+  /// network or a request synthesized or forwarded by another component.
+  handle: async func(
+    request: request,
+  ) -> result<response, error-code>;
 }
 ```
 
 This is the interface that all HTTP components must implement, and which is used by the Spin HTTP executor when instantiating and invoking the component.
 
-However, this is not necessarily the interface you, the component author, work with. It may not even be the interface of the component you build!
-
-In many cases, you will use a more idiomatic wrapper provided by the Spin SDK, which implements the "true" interface internally. In some cases, you will build a Wasm "core module" which implements an earlier version of the Spin HTTP interface, which Spin internally adapts to the "true" interface as it loads your module.
+However, this is not necessarily the interface you, the component author, work with. In many cases, you will use a more idiomatic wrapper provided by the Spin SDK, which implements the "true" interface internally.
 
 But if you wish, and if your language supports it, you can implement the `incoming-handler` interface directly, using tools such as the
 [Bytecode Alliance `wit-bindgen` project](https://github.com/bytecodealliance/wit-bindgen). Spin will happily load and run such a component. This is exactly how Spin SDKs, such as the [Rust](rust-components) SDK, are built; as component authoring tools roll out for Go, JavaScript, Python, and other languages, you'll be able to use those tools to build `wasi-http` handlers and therefore Spin HTTP components.
-
-> The WASI family of specifications, and tool support for some component model features that WASI depends on, are not yet fully stabilized. If you implement `wasi-http` directly, you may need to do some trialing to find tool versions which work together and with Spin.
 
 ## Static Responses with the HTTP Trigger
 
@@ -448,7 +416,7 @@ Wagi supports non-default entry points, and allows you to pass an arguments stri
 ### Request Handling in Wagi
 
 Building a Wagi component in a particular programming language that can compile
-to `wasm32-wasip1` does not require any special libraries — instead,
+to `wasm32-wasip2` does not require any special libraries — instead,
 [building Wagi components](https://github.com/deislabs/wagi/tree/main/docs) can
 be done by reading the HTTP request from the standard input and environment
 variables, and sending the HTTP response to the module's standard output.
@@ -540,3 +508,31 @@ Once set, `spin up` will automatically use these explicitly set environment vari
 export SPIN_TLS_CERT=<path/to/cert>
 export SPIN_TLS_KEY=<path/to/key>
 ```
+
+## Controlling Instance Reuse
+
+Instance reuse is when Spin handles more than one HTTP request within a single component instance. Instance reuse improves performance and density, because Spin does not need to create a new instance for every request. Spin can reuse instances both consecutively and concurrently - that is, it can assign a new request to either a freshly created instance, an instance that has finished handling a request, or an instance that is _in the middle of_ handling another request.
+
+The exact details depend on your component.
+
+A WASI P2 HTTP component is _not_ subject to instance reuse. This includes all triggers other than HTTP.
+
+A WASI P3 HTTP component is _always_ subject to instance reuse, unless it calls specific APIs to prevent concurrent use. You can control instance reuse behaviour using the following `spin up` flags:
+
+* `--max-instance-reuse-count` sets the maximum number of times a single instance can be reused
+* `--max-instance-concurrent-reuse-count` sets the maximum number of requests that can be running in a single instance at the same time
+* `--idle-instance-timeout` controls how long Spin will allow a reusable instance to sit idle before evicting it
+
+All of these flags accept ranges. When you provide a range, Spin assigns each new instance a random value from that range. This is to help you test that your component works correctly both when fresh (e.g. you do not rely on long-running state) and when reused (e.g. you are not unintentionally leaking data from one request to another).
+
+### Developer Guidelines for Instance Reuse
+
+When writing WASI P3 HTTP components, you can take advantage of reuse in your code, by placing static data in static or global variables, which will become part of the instance state. For example, if your component contains a routing table, you could cache the parsed table in a static variable - you would then parse the table only if the cache had not been initialised (i.e. in a fresh instance), avoiding the overhead of parsing on every request.
+
+> Don't rely on techniques like this for expensive operations. Spin doesn't guarantee the degree of instance reuse, and reuse may vary across different Spin hosts.
+
+Conversely, take care that request data is not stored in static or global variables. If you're used to the WASI P2 model, you may have an implicit expectation that each request finds your component in an entirely fresh state. In WASI P3, that's no longer the case. You should store data that's private to a request in local variables; if you must store it in a static variable, make sure to isolate it (for example storing it in a map under a request-specific key).
+
+### Preventing Instance Reuse
+
+Although you can control instance reuse on the `spin up` command line, this isn't necessarily available in other hosts. If the structure of your code means that it's not safe to reuse instances, then you can use Wasm Component Model backpressure functions in your code to tell the host not to schedule further requests to the current instance. How these are surfaced will depend on your language - for example, in Rust you would use `spin_sdk::wit_bindgen::backpressure_inc` to suspend re-use and a balancing `spin_sdk::wit_bindgen::backpressure_dec` to re-enable it. See the [Component Model documentation](https://github.com/WebAssembly/component-model/blob/main/design/mvp/Concurrency.md#backpressure) for detailed information.

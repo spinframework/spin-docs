@@ -3,7 +3,7 @@ template = "main"
 date = "2023-11-04T00:00:01Z"
 enable_shortcodes = true
 [extra]
-url = "https://github.com/spinframework/spin-docs/blob/main/content/v3/variables.md"
+url = "https://github.com/spinframework/spin-docs/blob/main/content/v4/variables.md"
 
 ---
 - [Adding Variables to Your Applications](#adding-variables-to-your-applications)
@@ -83,13 +83,13 @@ component = "api-consumer"
 source = "app.wasm"
 [component.api-consumer.variables]
 token = "\{{ api_token }}"
-api_uri = "\{{ api_uri }}
+api_uri = "\{{ api_uri }}"
 api_version = "v1"
 ```
 
 ## Using Variables From Applications
 
-The Spin SDK surfaces the Spin configuration interface to your language. The [interface](https://github.com/spinframework/spin/blob/main/wit/deps/spin@2.0.0/variables.wit) consists of one operation:
+The Spin SDK surfaces the Spin configuration interface to your language. The [interface](https://github.com/spinframework/spin/blob/main/wit/deps/spin-variables%403.0.0/variables.wit) consists of one operation:
 
 | Operation  | Parameters         | Returns             | Behavior |
 |------------|--------------------|---------------------|----------|
@@ -103,32 +103,32 @@ The exact details of calling the config SDK from a Spin application depends on t
 
 {{ startTab "Rust"}}
 
-> [**Want to go straight to the reference documentation?**  Find it here.](https://docs.rs/spin-sdk/5.2.0/spin_sdk/variables/index.html)
+> [**Want to go straight to the reference documentation?**  Find it here.](https://docs.rs/spin-sdk/latest/spin_sdk/variables/index.html)
 
 The interface is available in the `spin_sdk::variables` module and is named `get`.
 
 ```rust
 use spin_sdk::{
-    http::{IntoResponse, Method, Request, Response},
-    http_component, variables,
+    http::{EmptyBody, IntoResponse, Method, Request, Response},
+    http_service, variables,
 };
 
-#[http_component]
+#[http_service]
 async fn handle_api_call_with_token(_req: Request) -> anyhow::Result<impl IntoResponse> {
-    let token = variables::get("token")?;
-    let api_uri = variables::get("api_uri")?;
-    let version = variables::get("version")?;
+    let token = variables::get("token").await?;
+    let api_uri = variables::get("api_uri").await?;
+    let version = variables::get("version").await?;
     let versioned_api_uri = format!("{}/{}", api_uri, version);
     let request = Request::builder()
         .method(Method::Get)
         .uri(versioned_api_uri)
         .header("Authorization", format!("Bearer {}", token))
-        .build();
+        .body(EmptyBody::new())?;
     let response: Response = spin_sdk::http::send(request).await?;
     // Do something with the response ...
     Ok(Response::builder()
         .status(200)
-        .build())
+        .body(EmptyBody::new())?)
 }
 ```
 
@@ -173,24 +173,24 @@ addEventListener('fetch', async (event: FetchEvent) => {
 
 {{ startTab "Python"}}
 
-> [**Want to go straight to the reference documentation?**  Find it here.](https://spinframework.github.io/spin-python-sdk/v3/variables.html)
+> [**Want to go straight to the reference documentation?**  Find it here.](https://spinframework.github.io/spin-python-sdk/v4/variables.html)
 
-The `variables` module has a function called `get`(https://spinframework.github.io/spin-python-sdk/v3/variables.html#spin_sdk.variables.get).
+The `variables` module has a function called `get`(https://spinframework.github.io/spin-python-sdk/v4/variables.html#spin_sdk.variables.get).
 
 ```py
-from spin_sdk.http import IncomingHandler, Request, Response, send
-from spin_sdk import variables
+from spin_sdk import http, variables  
+from spin_sdk.http import Request, Response
 
-class IncomingHandler(IncomingHandler):
-    def handle_request(self, request: Request) -> Response:
-        token = variables.get("token")
-        api_uri = variables.get("api_uri")
-        version = variables.get("version")
+class HttpHandler(http.Handler):
+    async def handle_request(self, request: Request) -> Response:
+        token = await variables.get("token")
+        api_uri = await variables.get("api_uri")
+        version = await variables.get("version")
         versioned_api_uri = f"{api_uri}/{version}"
         headers = {
             "Authorization": f"Bearer {token}"
         }
-        response = send(Request("GET", versioned_api_uri, headers, None))
+        response = await send(Request("GET", versioned_api_uri, headers, None))
         # Do something with the response ...
         return Response(
             200,
@@ -198,6 +198,8 @@ class IncomingHandler(IncomingHandler):
             bytes("Used an API", "utf-8")
         )
 ```
+
+You can find a complete Python code example using Variables in the [Spin Python SDK repository on GitHub](https://github.com/spinframework/spin-python-sdk/tree/main/examples/spin-variables).
 
 {{ blockEnd }}
 
@@ -338,4 +340,4 @@ If you run into the following error, you've most likely not configured the compo
 Handler returned an error: Error::Undefined("no variable for \"<component-id>\".\"your-variable\"")
 ```
 
-To fix this, edit the `spin.toml` and add to the `[component.<component-id>.variables]` table a line such as `<your-variable> = "{{ app-variable }}".` See [above](#adding-variables-to-your-applications) for more information.
+To fix this, edit the `spin.toml` and add to the `[component.<component-id>.variables]` table a line such as `<your-variable> = "\{{ app-variable }}".` See [above](#adding-variables-to-your-applications) for more information.

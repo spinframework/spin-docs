@@ -3,7 +3,7 @@ template = "main"
 date = "2023-11-04T00:00:01Z"
 enable_shortcodes = true
 [extra]
-url = "https://github.com/spinframework/spin-docs/blob/main/content/v3/serverless-ai-api-guide.md"
+url = "https://github.com/spinframework/spin-docs/blob/main/content/v4/serverless-ai-api-guide.md"
 
 ---
 - [Using Serverless AI From Applications](#using-serverless-ai-from-applications)
@@ -46,8 +46,6 @@ code-generator-rs/.spin/ai-models/llama/codellama-instruct/config.json
 code-generator-rs/.spin/ai-models/llama/codellama-instruct/tokenizer.json
 ```
 
-See the [serverless AI Tutorial](./ai-sentiment-analysis-api-tutorial) documentation for more concrete examples of implementing the Fermyon Serverless AI API, in your favorite language.
-
 > For embeddings models, it is expected that both a `tokenizer.json` and a `model.safetensors` are located in the directory named after the model. For example, for the `foo-bar-baz` model, Spin will look in the `.spin/ai-models/foo-bar-baz` directory for `tokenizer.json` and a `model.safetensors`.
 
 ## Serverless AI Interface
@@ -68,7 +66,7 @@ The exact detail of calling these operations from your application depends on yo
 
 {{ startTab "Rust"}}
 
-> [**Want to go straight to the reference documentation?**  Find it here.](https://docs.rs/spin-sdk/5.2.0/spin_sdk/llm/index.html)
+> [**Want to go straight to the reference documentation?**  Find it here.](https://docs.rs/spin-sdk/latest/spin_sdk/llm/index.html)
 
 To use Serverless AI functions, the `llm` module from the Spin SDK provides the methods. The following snippet is from the [Rust code generation example](https://github.com/fermyon/ai-examples/tree/main/code-generator-rs):
 
@@ -82,7 +80,7 @@ use spin_sdk::{
 
 // -- snip --
 
-fn handle_code(req: Request) -> anyhow::Result<impl IntoResponse> {
+async fn handle_code(req: Request) -> anyhow::Result<impl IntoResponse> {
     // -- snip --
 
     let result = llm::infer_with_options(
@@ -160,30 +158,33 @@ addEventListener('fetch', async (event: FetchEvent) => {
 
 {{ startTab "Python"}}
 
-> [**Want to go straight to the reference documentation?**  Find it here.](https://spinframework.github.io/spin-python-sdk/v3/llm.html)
+> [**Want to go straight to the reference documentation?**  Find it here.](https://spinframework.github.io/spin-python-sdk/v4/llm.html)
 
 ```python
-from spin_sdk import http
+from spin_sdk import http, llm
 from spin_sdk.http import Request, Response
-from spin_sdk import llm
 
-class IncomingHandler(http.IncomingHandler):
-    def handle_request(self, request: Request) -> Response:
+class HttpHandler(http.Handler):
+    async def handle_request(self, request: Request) -> Response:
         prompt="You are a stand up comedy writer. Tell me a joke."
         result = llm.infer("llama2-chat", prompt)
-        return Response(200,
-                        {"content-type": "application/json"},
-                        bytes(result.text, "utf-8"))
+
+        return Response(
+            200,
+            {"content-type": "text/plain"},
+            bytes(result.text, "utf-8")
+        )
 ```
 
 **General Notes**
 
-[`infer` operation](https://spinframework.github.io/spin-python-sdk/v3/llm.html#spin_sdk.llm.infer):
-
+[`infer` operation](https://spinframework.github.io/spin-python-sdk/v4/llm.html#spin_sdk.llm.infer):
 - The model name is passed in as a string (as shown above; `"llama2-chat"`).
-[`infer_with_options` operation](https://spinframework.github.io/spin-python-sdk/v3/llm.html#spin_sdk.llm.infer_with_options):
 
-- It takes in a model name, prompt text, and optionally a [parameter object](https://spinframework.github.io/spin-python-sdk/v3/llm.html#spin_sdk.llm.InferencingParams) to control the inferencing.
+[`infer_with_options` operation](https://spinframework.github.io/spin-python-sdk/v4/llm.html#spin_sdk.llm.infer_with_options):
+- It takes in a model name, prompt text, and optionally a [parameter object](https://spinframework.github.io/spin-python-sdk/v4/llm.html#spin_sdk.llm.InferencingParams) to control the inferencing.
+
+You can find a complete Python code example using the LLM module in the [Spin Python SDK repository on GitHub](https://github.com/spinframework/spin-python-sdk/tree/main/examples/spin-llm).
 
 {{ blockEnd }}
 
@@ -258,4 +259,4 @@ Most Spin builds support local LLMs as described above. However, the models buil
 In such cases, you can:
 
 * See if there is another Spin build available for your platform. All current builds from the [Spin GitHub repository](https://github.com/spinframework/spin) or [Spin installer support](./install.md) support local LLMs.
-* Use the [`cloud-gpu` plugin and runtime config option](./serverless-ai-hello-world.md#building-and-deploying-your-spin-application) to have LLM inferencing serviced in Fermyon Cloud instead of locally.
+* Use the [`cloud-gpu` plugin and runtime config option](../v3/serverless-ai-hello-world.md#building-and-deploying-your-spin-application) to have LLM inferencing serviced remotely instead of locally.

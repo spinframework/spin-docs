@@ -3,7 +3,7 @@ template = "main"
 date = "2023-11-04T00:00:01Z"
 enable_shortcodes = true
 [extra]
-url = "https://github.com/spinframework/spin-docs/blob/main/content/v3/rdbms-storage.md"
+url = "https://github.com/spinframework/spin-docs/blob/main/content/v4/rdbms-storage.md"
 
 ---
 - [Using MySQL and PostgreSQL From Applications](#using-mysql-and-postgresql-from-applications)
@@ -31,30 +31,30 @@ The Spin SDK surfaces the Spin MySQL and PostgreSQL interfaces to your language.
 | `query`    | statement, SQL parameters  | database records    | Runs the specified statement against the database, returning the query results as a set of rows. |
 | `execute`  | statement, SQL parameters  | integer (not MySQL) | Runs the specified statement against the database, returning the number of rows modified by the statement.  (MySQL does not return the modified row count.) |
 
+> The PostgreSQL interface is asynchronous (a blocking one is available for backward compatibility); the MySQL interface is blocking.
+
 The exact detail of calling these operations from your application depends on your language:
 
 {{ tabs "sdk-type" }}
 
 {{ startTab "Rust"}}
 
-> [**Want to go straight to the reference documentation?**  Find it here.](https://docs.rs/spin-sdk/5.2.0/spin_sdk/index.html)
+> [**Want to go straight to the reference documentation?**  Find it here.](https://docs.rs/spin-sdk/latest/spin_sdk/index.html)
 
-MySQL functions are available in the `spin_sdk::mysql` module, and PostgreSQL functions in the `spin_sdk::pg4` module.
+MySQL functions are available in the `spin_sdk::mysql` module, and PostgreSQL functions in the `spin_sdk::pg` module.
 
-> If you want to be compatible with Spin 3.3 or earlier, or with downstream hosts that have not yet rolled out Spin 3.4 support, you should use the `spin_sdk::pg3` module for PostgreSQL. The module interfaces are identical, but `pg3` does not support all the data types in `pg4`.
-
-The function names match the operations above. This example shows MySQL:
+The function names match the operations above. This example shows MySQL (blocking):
 
 ```rust
-// For PostgreSQL, use `spin_sdk::pg` or `spin_sdk::pg3`
 use spin_sdk::mysql::{self, Connection, Decode, ParameterValue};
 
 let connection = Connection::open(&address)?;
 
 let params = vec![ParameterValue::Int32(id)];
-// For PostgreSQL, use `$1` placeholder syntax
+
 let rowset = connection.query("SELECT id, name FROM pets WHERE id = ?", &params)?;
 
+// MySQL returns the rows as a vector
 match rowset.rows.first() {
     None => /* no rows matched query */,
     Some(row) => {
@@ -63,17 +63,40 @@ match rowset.rows.first() {
 }
 ```
 
+PostgreSQL (async) uses a `QueryResult` struct to encapsulate the streaming results:
+
+```rust
+use spin_sdk::pg::{Connection, Decode, ParameterValue};
+
+let connection = Connection::open(&address).await?;
+
+let mut query_result = connection.query(
+    "SELECT id, name FROM pets WHERE id = $1",
+    &[ParameterValue::Int32(id)]
+).await?;
+
+// PostgreSQL returns the rows asynchronously (stream-like)
+while let Some(row) = query_result.next().await {
+    let name = row.get::<String>("name")?;
+    // ... more processing ...
+}
+
+// Check if the row stream ended due to completion or an error
+query_result.result().await?;
+```
+
+> If you are querying for a small result set, you can load all the rows into a `Vec` by calling `QueryResult::collect()`. This can be more convenient for some operations.
+
 **Notes**
 
 * Parameters are instances of the `ParameterValue` enum; you must wrap raw values in this type.
 * A row is a vector of the `DbValue` enum. Use the `Decode` trait to access conversions to common types.
-* Using PostgreSQL works in the same way, except that you `use` the `spin_sdk::pg` module instead of `spin_sdk::mysql`.
-* Modified row counts are returned as `u64`. (MySQL `execute` does not return the modified row count.)
+* Modified row counts are returned as `u64`.
 * All functions wrap the return in `anyhow::Result`.
 
 You can find complete examples for using relational databases in the Spin repository on GitHub ([MySQL](https://github.com/spinframework/spin-rust-sdk/tree/main/examples/mysql), [PostgreSQL](https://github.com/spinframework/spin-rust-sdk/tree/main/examples/postgres)).
 
-For full information about the MySQL and PostgreSQL APIs, see [the Spin SDK reference documentation](https://docs.rs/spin-sdk/5.2.0/spin_sdk/index.html).
+For full information about the MySQL and PostgreSQL APIs, see [the Spin SDK reference documentation](https://docs.rs/spin-sdk/latest/spin_sdk/index.html).
 
 {{ blockEnd }}
 
@@ -121,26 +144,27 @@ addEventListener('fetch', async (event: FetchEvent) => {
 
 {{ startTab "Python"}}
 
-> [**Want to go straight to the reference documentation?**  Find it here.](https://spinframework.github.io/spin-python-sdk/v3/)
+> [**Want to go straight to the reference documentation?**  Find it here.](https://spinframework.github.io/spin-python-sdk/v4/)
 
-The code below is an [Outbound MySQL example](https://github.com/spinframework/spin-python-sdk/tree/main/examples/spin-mysql). There is also an outbound [PostgreSQL example](https://github.com/spinframework/spin-python-sdk/tree/main/examples/spin-postgres) available.
+The code below shows use of the [Postgres](https://spinframework.github.io/spin-python-sdk/v4/postgres.html) module and its [open](https://spinframework.github.io/spin-python-sdk/v4/postgres.html#spin_sdk.postgres.open) function for opening a connection to the database:
 
 ```python
-from spin_sdk import http
+from spin_sdk import http, postgres
 from spin_sdk.http import Request, Response
-from spin_sdk import mysql
 
-class IncomingHandler(http.IncomingHandler):
-    def handle_request(self, request: Request) -> Response:
-        with mysql.open("mysql://root:@127.0.0.1/spin_dev") as db:
-            print(db.query("select * from test", []))
-        
+class HttpHandler(http.Handler):
+    async def handle_request(self, request: Request) -> Response:
+        with await postgres.open("user=postgres dbname=spin_dev host=localhost sslmode=disable password=password") as db:
+            print(db.query("SELECT * FROM test", []))
+
         return Response(
             200,
             {"content-type": "text/plain"},
             bytes("Hello from Python!", "utf-8")
         )
 ```
+
+You can find a complete outbound PostgreSQL example in the [Spin Python SDK repository on GitHub](https://github.com/spinframework/spin-python-sdk/tree/main/examples/spin-postgres). There is also an [Outbound MySQL example](https://github.com/spinframework/spin-python-sdk/tree/main/examples/spin-mysql) available.
 
 {{ blockEnd }}
 
@@ -240,4 +264,4 @@ allowed_outbound_hosts = ["postgres://postgres.example.com:5432"]
 
 ### Configuration-Based Permissions
 
-You can use [application variables](./variables.md#adding-variables-to-your-applications) in the `allowed_outbound_hosts` field. However, this feature is not yet available on Fermyon Cloud.
+You can use [application variables](./variables.md#adding-variables-to-your-applications) in the `allowed_outbound_hosts` field.

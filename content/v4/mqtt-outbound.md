@@ -3,7 +3,7 @@ template = "main"
 date = "2023-11-04T00:00:01Z"
 enable_shortcodes = true
 [extra]
-url = "https://github.com/spinframework/spin-docs/blob/main/content/v3/mqtt-outbound.md"
+url = "https://github.com/spinframework/spin-docs/blob/main/content/v4/mqtt-outbound.md"
 
 ---
 - [Sending MQTT Messages From Applications](#sending-mqtt-messages-from-applications)
@@ -32,24 +32,24 @@ The exact detail of calling these operations from your application depends on yo
 
 {{ startTab "Rust"}}
 
-> [**Want to go straight to the reference documentation?**  Find it here.](https://docs.rs/spin-sdk/5.2.0/spin_sdk/mqtt/index.html)
+> [**Want to go straight to the reference documentation?**  Find it here.](https://docs.rs/spin-sdk/latest/spin_sdk/mqtt/index.html)
 
 MQTT functions are available in the `spin_sdk::mqtt` module.
 
 To access an MQTT server, use the `Connection::open` function.
 
 ```rust
-let connection = spin_sdk::mqtt::Connection::open(&address, &username, &password, keep_alive_secs)?;
+let connection = spin_sdk::mqtt::Connection::open(&address, &username, &password, keep_alive_secs).await?;
 ```
 
 You can then call the `Connection::publish` function to send MQTT messages:
 
 ```rust
 let cat_picture: Vec<u8> = request.body().to_vec();
-connection.publish("pets", &cat_picture, spin_sdk::mqtt::Qos::AtLeastOnce)?;
+connection.publish("pets", &cat_picture, spin_sdk::mqtt::Qos::AtLeastOnce).await?;
 ```
 
-For full details of the MQTT API, see the [Spin SDK reference documentation](https://docs.rs/spin-sdk/5.2.0/spin_sdk/mqtt/index.html);
+For full details of the MQTT API, see the [Spin SDK reference documentation](https://docs.rs/spin-sdk/latest/spin_sdk/mqtt/index.html);
 
 You can find a complete Rust code example for using outbound MQTT from an HTTP component in the [Spin Rust SDK repository on GitHub](https://github.com/spinframework/spin-rust-sdk/tree/main/examples/mqtt-outbound).
 
@@ -82,7 +82,24 @@ You can find a complete Rust code example for using outbound MQTT from an HTTP c
 
 {{ startTab "Python"}}
 
-MQTT is not available in the current version of the Python SDK.
+> [**Want to go straight to the reference documentation?**  Find it here.](https://spinframework.github.io/spin-python-sdk/v4/mqtt.html)
+
+To access an MQTT server, use the `open` function. You can then call the `publish` method on the connection to send MQTT messages:
+
+```python
+from spin_sdk import http, mqtt 
+from spin_sdk.mqtt import Qos
+from spin_sdk.http import Request, Response
+
+class HttpHandler(http.Handler):
+  async def handle_request(self, request: Request) -> Response:
+        with await mqtt.open("mqtt://localhost:1883?client_id=client001", "user", "password", 30) as conn:
+            await conn.publish("telemetry", bytes("Eureka!", "utf-8"), Qos.AT_LEAST_ONCE)
+```
+
+For full details of the MQTT API, see the [Spin SDK reference documentation](https://spinframework.github.io/spin-python-sdk/v4/mqtt.html)
+
+You can find a complete Python code example for using outbound MQTT from an HTTP component in the [Spin Python SDK repository on GitHub](https://github.com/spinframework/spin-python-sdk/tree/main/examples/spin-outbound-mqtt).
 
 {{ blockEnd }}
 
@@ -105,7 +122,7 @@ allowed_outbound_hosts = ["mqtt://messaging.example.com:1883"]
 
 ### Configuration-Based Permissions
 
-You can use [application variables](./variables.md#adding-variables-to-your-applications) in the `allowed_outbound_hosts` field. However, this feature is not yet available on Fermyon Cloud.
+You can use [application variables](./variables.md#adding-variables-to-your-applications) in the `allowed_outbound_hosts` field.
 
 ## Known Issues
 

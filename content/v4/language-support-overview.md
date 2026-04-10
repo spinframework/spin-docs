@@ -3,7 +3,7 @@ template = "main"
 date = "2023-11-04T00:00:01Z"
 enable_shortcodes = true
 [extra]
-url = "https://github.com/spinframework/spin-docs/blob/main/content/v3/language-support-overview.md"
+url = "https://github.com/spinframework/spin-docs/blob/main/content/v4/language-support-overview.md"
 
 ---
 
@@ -13,7 +13,7 @@ This page contains information about language support for Spin features:
 
 {{ startTab "Rust"}}
 
-**[📄 Visit the Rust Spin SDK reference documentation](https://docs.rs/spin-sdk/5.2.0/spin_sdk/) to see specific modules, functions, variables and syntax relating to the following Rust features.**
+**[📄 Visit the Rust Spin SDK reference documentation](https://docs.rs/spin-sdk/latest/spin_sdk/) to see specific modules, functions, variables and syntax relating to the following Rust features.**
 
 | Feature | SDK Supported? |
 |-----|-----|
@@ -61,7 +61,7 @@ This page contains information about language support for Spin features:
 
 {{ startTab "Python"}}
 
-**[📄 Visit the Python Spin SDK reference documentation](https://spinframework.github.io/spin-python-sdk/v3) to see specific modules, functions, variables and syntax relating to the following Python SDK.**
+**[📄 Visit the Python Spin SDK reference documentation](https://spinframework.github.io/spin-python-sdk/v4) to see specific modules, functions, variables and syntax relating to the following Python SDK.**
 
 | Feature | SDK Supported? |
 |-----|-----|
@@ -77,7 +77,7 @@ This page contains information about language support for Spin features:
 | PostgreSQL |  Supported |
 | [Outbound Redis](./python-components#an-outbound-redis-example) | Supported |
 | [Serverless AI](./serverless-ai-api-guide) | Supported |
-| [MQTT Messaging](./mqtt-outbound) | Not Supported |
+| [MQTT Messaging](./mqtt-outbound) | Supported |
 | **Extensibility** |
 | Authoring Custom Triggers | Not Supported |
 

@@ -3,10 +3,11 @@ template = "main"
 date = "2023-11-04T00:00:01Z"
 enable_shortcodes = true
 [extra]
-url = "https://github.com/spinframework/spin-docs/blob/main/content/v2/http-outbound.md"
+url = "https://github.com/spinframework/spin-docs/blob/main/content/v4/http-outbound.md"
 
 ---
 - [Using HTTP From Applications](#using-http-from-applications)
+- [Restrictions](#restrictions)
 - [Granting HTTP Permissions to Components](#granting-http-permissions-to-components)
   - [Configuration-Based Permissions](#configuration-based-permissions)
 - [Making HTTP Requests Within an Application](#making-http-requests-within-an-application)
@@ -23,72 +24,137 @@ The outbound HTTP interface depends on your language.
 
 > Under the surface, Spin uses the `wasi-http` interface. If your tools support the Wasm Component Model, you can work with that directly; but for most languages the Spin SDK is more idiomatic.
 
-**Please note:** When using Spin `v2.6.0` or newer, Spin app guest modules can no longer set the `Host` header on outbound requests. (The Wasmtime runtime, that underpins Spin, has recently updated how headers are handled).
-
 {{ tabs "sdk-type" }}
 
 {{ startTab "Rust"}}
 
 > [**Want to go straight to the reference documentation?**  Find it here.](https://docs.rs/spin-sdk/latest/spin_sdk/http/index.html)
 
-To send requests, use the [`spin_sdk::http::send`](https://docs.rs/spin-sdk/latest/spin_sdk/http/fn.send.html) function. This takes a request argument and returns a response (or error). It is `async`, so within an async inbound handler you can have multiple outbound `send`s running concurrently.
+To send requests, use the [`spin_sdk::http::send`](https://docs.rs/spin-sdk/latest/spin_sdk/http/fn.send.html) function. This takes a request argument and returns a response (or error).
 
-> Support for streaming request and response bodies is **experimental**. We currently recommend that you stick with the simpler non-streaming interfaces if you don't require streaming.
-
-`send` is quite flexible in its request and response types. The request may be:
+The request you pass to `send` may be:
 
 * [`http::Request`](https://docs.rs/http/latest/http/request/struct.Request.html) - typically constructed via `http::Request::builder()`
 * [`spin_sdk::http::Request`](https://docs.rs/spin-sdk/latest/spin_sdk/http/struct.Request.html) - typically constructed via `spin_sdk::http::Request::get()`, `spin_sdk::http::Request::post()`, or `spin_sdk::http::Request::builder()`
-  * You can also use the [builder type](https://docs.rs/spin-sdk/latest/spin_sdk/http/struct.RequestBuilder.html) directly - `build` will be called automatically for you
-* [`spin_sdk::http::OutgoingRequest`](https://docs.rs/spin-sdk/latest/spin_sdk/http/struct.OutgoingRequest.html) - constructed via `OutgoingRequest::new()`
-* Any type for which you have implemented the `TryInto<spin_sdk::http::OutgoingRequest>` trait
+* Any type which implements the `spin_sdk::http::IntoRequest` trait
 
 Generally, you should use `OutgoingRequest` when you need to stream the outbound request body; otherwise, the `Request` types are usually simpler.
 
-The response may be:
+The response is a `spin_sdk::http::Response`.
 
-* [`http::Response`](https://docs.rs/http/latest/http/response/struct.Response.html)
-* [`spin_sdk::http::Response`](https://docs.rs/spin-sdk/latest/spin_sdk/http/struct.Response.html)
-* [`spin_sdk::http::IncomingResponse`](https://docs.rs/spin-sdk/latest/spin_sdk/http/struct.IncomingResponse.html)
-* Any type for which you have implemented the [spin_sdk::http::conversions::TryFromIncomingResponse](https://docs.rs/spin-sdk/latest/spin_sdk/http/conversions/trait.TryFromIncomingResponse.html) trait
-
-Generally, you should use `IncomingResponse` when you need to stream the response body; otherwise, the `Response` types are usually simpler.
-
-Here is an example of doing outbound HTTP in a simple request-response style:
+Here is an example of doing outbound HTTP when you want to wait for the entire response and load it into memory as a single blob:
 
 ```rust
-use spin_sdk::{
-    http::{IntoResponse, Request, Method, Response},
-    http_component,
-};
+use spin_sdk::http::{EmptyBody, FullBody, IntoResponse, Request, Response};
+use spin_sdk::http::body::IncomingBodyExt;
+use spin_sdk::http_service;
+use http::Method;
 
-#[http_component]
-// The trigger handler (in this case an HTTP handler) has to be async
-// so we can `await` the outbound send.
-async fn handle_request(_req: Request) -> anyhow::Result<impl IntoResponse> {
-
+#[http_service]
+async fn handle_p3_body_test(req: Request) -> anyhow::Result<impl IntoResponse> {
     // Create the outbound request object
     let request = Request::builder()
-        .method(Method::Get)
-        .uri("https://www.fermyon.com/")
-        .build();
+        .method(Method::GET)
+        .uri("https://spinframework.dev/")
+        .body(EmptyBody::new())?;
 
     // Send the request and await the response
-    let response: Response = spin_sdk::http::send(request).await?;
+    let response = spin_sdk::http_wasip3::send(request).await?;
 
-    // Use the outbound response body
-    let response_len = response.body().len();
+    // Get the outbound response body as a bytes::Bytes
+    let body = response.into_body().bytes().await?;
 
-    // Return the response to the inbound request
-    Ok(Response::builder()
-        .status(200)
-        .header("content-type", "text/plain")
-        .body(format!("The test page was {response_len} bytes"))
-        .build())
+    // Process the response bytes
+    let response_len = body.len();
+
+    // Return a response to the inbound request
+    Ok((http::StatusCode::OK, response_len.to_string()))
 }
 ```
 
-For an example of receiving the response in a streaming style, [see this example in the Spin repository](https://github.com/spinframework/spin-rust-sdk/tree/v5.2.0/examples/wasi-http-streaming-outgoing-body/src/lib.rs).
+Here is an example of doing outbound HTTP when you want to process the response as a stream, handling each chunk as it arrives from the server and then discarding it:
+
+```rust
+use futures::StreamExt;
+use spin_sdk::http::{EmptyBody, FullBody, IntoResponse, Request, Response};
+use spin_sdk::http::body::IncomingBodyExt;
+use spin_sdk::http_service;
+use http::Method;
+
+#[http_service]
+async fn handle_request(_req: Request) -> anyhow::Result<impl IntoResponse> {
+    // Create the outbound request object
+    let request = Request::builder()
+        .method(Method::GET)
+        .uri("https://spinframework.dev/")
+        .body(EmptyBody::new())?;
+
+    // Send the request and await the response
+    let response = spin_sdk::http::send(request).await?;
+
+    // Get the outbound response body as a stream
+    let mut body = response.into_body().stream();
+
+    // Use the response stream
+    let mut response_len = 0;
+    while let Some(chunk) = body.next().await {
+        response_len += chunk?.len();
+    }
+
+    // Return a response to the inbound request
+    Ok((http::StatusCode::OK, response_len.to_string()))
+}
+```
+
+Here is an example of doing outbound HTTP when you want to stream outbound request data to the remote host:
+
+```rust
+use bytes::Bytes;
+use futures::{SinkExt, StreamExt};
+use http_body_util::StreamBody;
+use spin_sdk::http::body::IncomingBodyExt;
+use spin_sdk::http::{IntoResponse, Request};
+use spin_sdk::http_service;
+use http::Method;
+
+#[http_service]
+async fn handle_p3_body_test(req: Request) -> anyhow::Result<impl IntoResponse> {
+    // Set up a channel - one end of this is the streaming body, the other
+    // end is where the client writes data into the streaming body.
+    let (mut tx, rx) = futures::channel::mpsc::channel::<Bytes>(1024);
+
+    // Spawn a task to send data into the stream
+    spin_sdk::spawn(async move {
+        for index in 0..20 {
+            let line = format!("test line {index}\n");
+            tx.send(line.into()).await.unwrap();
+        }
+    });
+
+    // Create the outbound request object
+    let request = Request::builder()
+        .method(Method::POST)
+        .uri("https://spinframework.dev/")
+        .body(StreamBody::new(rx))?;
+
+    // Adapt the Bytes-based stream to something that `http` understands
+    let rx = rx.map(|value| anyhow::Ok(http_body::Frame::data(value)));
+
+    // Send the request with the streaming body, and await the response.
+    // The outbound body could still be streaming during the await, and
+    // even while the response body is being processed (although that won't
+    // happen in this simple case!).
+    let response = spin_sdk::http::send(request).await?;
+
+    // Process the response, in this case buffering in memory, but
+    // this could be streaming too as in the previous example
+    let body = response.into_body().bytes().await?;
+    let text = String::from_utf8_lossy(&body[..]);
+    Ok((http::StatusCode::OK, text.to_string()))
+}
+```
+
+For more examples, [see the `spin-rust-sdk` repository](https://github.com/spinframework/spin-rust-sdk/blob/main/examples).
 
 {{ blockEnd }}
 
@@ -102,7 +168,7 @@ const response = await fetch("https://example.com/users");
 
 **Notes**
 
-You can find a complete example of using outbound HTTP in the JavaScript SDK repository on [GitHub](https://github.com/spinframework/spin-js-sdk/tree/sdk-v2/examples/common-patterns/outbound-http)
+You can find a complete example of using outbound HTTP in the JavaScript SDK repository on [GitHub](https://github.com/spinframework/spin-js-sdk/tree/main/examples/common-patterns/outbound-http)
 
 **Note**: `fetch` currently only works when building for the HTTP trigger.  
 
@@ -110,13 +176,18 @@ You can find a complete example of using outbound HTTP in the JavaScript SDK rep
 
 {{ startTab "Python"}}
 
-> [**Want to go straight to the reference documentation?**  Find it here.](https://spinframework.github.io/spin-python-sdk/http/index.html)
+> [**Want to go straight to the reference documentation?**  Find it here.](https://spinframework.github.io/spin-python-sdk/v4/http/index.html)
 
-HTTP functions and classes are available in the `http` module. The function name is [`send`](https://spinframework.github.io/spin-python-sdk/http/index.html#spin_sdk.http.send). The [request type](https://spinframework.github.io/spin-python-sdk/http/index.html#spin_sdk.http.Request) is `Request`, and the [response type](https://spinframework.github.io/spin-python-sdk/http/index.html#spin_sdk.http.Response) is `Response`. For example:
+HTTP functions and classes are available in the `http` module. The function name is [`send`](https://spinframework.github.io/spin-python-sdk/v4/http/index.html#spin_sdk.http.send). The [request type](https://spinframework.github.io/spin-python-sdk/v4/http/index.html#spin_sdk.http.Request) is `Request`, and the [response type](https://spinframework.github.io/spin-python-sdk/v4/http/index.html#spin_sdk.http.Response) is `Response`. For example:
 
 ```python
+from spin_sdk import http
 from spin_sdk.http import Request, Response, send
-response = send(Request("GET", "https://random-data-api.fermyon.app/animals/json", {}, None))
+
+class HttpHandler(http.Handler):
+    async def handle_request(self, request: Request) -> Response:
+        response = await send(Request("GET", "https://random-data-api.fermyon.app/animals/json", {}, None))
+        return response
 ```
 
 **Notes**
@@ -162,6 +233,10 @@ You can find a complete example for using outbound HTTP in the [Spin repository 
 
 {{ blockEnd }}
 
+## Restrictions
+
+Spin applications cannot set the `Host` header on outbound requests. (This is a limitation of the Wasmtime runtime which underpins Spin.)
+
 ## Granting HTTP Permissions to Components
 
 By default, Spin components are not allowed to make outgoing HTTP requests. This follows the general Wasm rule that modules must be explicitly granted capabilities, which is important to sandboxing. To grant a component permission to make HTTP requests to a particular host, use the `allowed_outbound_hosts` field in the component manifest:
@@ -191,7 +266,7 @@ For development-time convenience, you can also pass the string `"https://*:*"` i
 
 ### Configuration-Based Permissions
 
-You can use [application variables](./variables.md#adding-variables-to-your-applications) in the `allowed_outbound_hosts` field. However, this feature is not yet available on Fermyon Cloud.
+You can use [application variables](./variables.md#adding-variables-to-your-applications) in the `allowed_outbound_hosts` field.
 
 ## Making HTTP Requests Within an Application
 
@@ -224,16 +299,22 @@ To allow local chaining to _any_ component in your application, you can use a su
 allowed_outbound_hosts = ["http://*.spin.internal"]
 ```
 
-> Local service chaining is not currently supported on Fermyon Cloud.
+However, the wildcard implies that the component requires _all other_ components to be local to it. You will therefore not be able to use [selective deployment](./running-apps#splitting-an-application-across-environments) for an application that uses wildcard service chaining.
+
+> Local service chaining may not be supported on distributed Spin hosts.
 
 ### Intra-Application HTTP Requests by Route
 
 To make an HTTP request to another route with your application, you can pass just the route as the URL. For example, if you make an outbound HTTP request to `/api/customers/`, Spin prepends the route with whatever host the application is running on. It also replaces the URL scheme (`http` or `https`) with the scheme of the current HTTP request. For example, if the application is running in the cloud, Spin changes `/api` to `https://.../api`.
 
+> You can also use the special host `self.alt` to perform self-requests by route. This is important for the JavaScript `fetch` wrapper, which handles relative requests in a way that doesn't work with `allowed_outbound_hosts`. For example, you would write `fetch('http://self.alt/api')`.
+> 
 In this way of doing self-requests, the request undergoes normal HTTP processing once Spin has prepended the host. For example, in a cloud deployment, the request passes through the network, and potentially back in through a load balancer or other gateway. The benefit of this is that it allows load to be distributed across the environment, but it may count against your use of bandwidth.
 
-You must still grant permission by including `self` in `allowed_outbound_hosts`:
+You must still grant permission by including `self` or `self.alt` in `allowed_outbound_hosts`:
 
 ```toml
-allowed_outbound_hosts = ["http://self", "https://self"]
+allowed_outbound_hosts = ["http://self", "https://self.alt"]
 ```
+
+> It doesn't matter which you use - either 'allow' form enables both relative and `self.alt` URLs.

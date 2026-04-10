@@ -7,14 +7,17 @@
         {{! This adds the sidebar }}
         <div class="menu-wrap is-narrow is-fixed-desktop" id="docsMenu">
             <aside class="menu">
-                {{! This adds the version selector - uncomment after v2 launch }}
+                {{! This adds the version selector }}
                 <select class="version-dropdown"
                     onchange="this.options[this.selectedIndex].value && (window.location = this.options[this.selectedIndex].value);">
-                    <option value="/v3/index">Spin v3.x</option>
+                    <option value="/v3/index" {{#if (active_project request.spin-full-url "/v3/" )}} selected {{/if}}>
+                        Spin v3.x</option>
                     <option value="/v2/index" {{#if (active_project request.spin-full-url "/v2/" )}} selected {{/if}}>
                         Spin v2.x</option>
                     <option value="/v1/index" {{#if (active_project request.spin-full-url "/v1/" )}} selected {{/if}}>
                         Spin v1.x</option>
+                    <option value="/v4/index" {{#if (active_project request.spin-full-url "/v4/" )}} selected {{/if}}>
+                        Spin v4.x (Preview)</option>
                 </select>
 
                 {{#if (active_project request.spin-full-url "/v1/")}}
@@ -23,7 +26,11 @@
                     {{#if (active_project request.spin-full-url "/v2/")}}
                         {{> sidebar_v2 }}
                     {{else}}
-                        {{> sidebar_v3 }}
+                        {{#if (active_project request.spin-full-url "/v4/")}}
+                            {{> sidebar_v4 }}
+                        {{else}}
+                            {{> sidebar_v3 }}
+                        {{/if}}
                     {{/if}}
                 {{/if}}
             </aside>

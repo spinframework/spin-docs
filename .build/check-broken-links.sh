@@ -90,6 +90,9 @@ if ! blc -rv                                                                    
     --exclude 'https://marketplace.visualstudio.com/items?itemName=BytecodeAlliance.starlingmonkey-debugger'                                                                                \
     --exclude 'http://localhost:16686/'                                                                                                                                                     \
     --exclude 'http://localhost:5050/explore'                                                                                                                                               \
+    `## Spin 4 bits not yet published`                                                                                                                                                                    \
+    --exclude 'https://github.com/spinframework/spin-docs/blob/main/content/v4'                                                                                                                                               \
+    --exclude 'https://docs.rs/spin-sdk/latest/spin_sdk'                                                                                                                                               \
     http://127.0.0.1:3000/v3/javascript-components                                                                                                                                          \
     | tee "${report}"
 then 

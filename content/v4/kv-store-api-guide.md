@@ -3,14 +3,14 @@ template = "main"
 date = "2023-11-04T00:00:01Z"
 enable_shortcodes = true
 [extra]
-url = "https://github.com/spinframework/spin-docs/blob/main/content/v3/kv-store-api-guide.md"
+url = "https://github.com/spinframework/spin-docs/blob/main/content/v4/kv-store-api-guide.md"
 
 ---
 - [Using Key Value Store From Applications](#using-key-value-store-from-applications)
 - [Custom Key Value Stores](#custom-key-value-stores)
 - [Granting Key Value Store Permissions to Components](#granting-key-value-store-permissions-to-components)
 
-Spin provides an interface for you to persist data in a key value store managed by Spin. This key value store allows Spin developers to persist non-relational data across application invocations. To learn more about key value store use cases and how to enable your Spin application to use a key value store, check out our [key value tutorial](./key-value-store-tutorial.md).
+Spin provides an interface for you to persist data in a key value store managed by Spin. This key value store allows Spin developers to persist non-relational data across application invocations.
 
 {{ details "Why do I need a Spin interface? Why can't I just use my own external store?" "You can absolutely still use your own external store either with the Redis or Postgres APIs, or outbound HTTP. However, if you're interested in quick, non-relational local storage without any infrastructure set-up then Spin's key value store is a great option." }}
 
@@ -31,7 +31,7 @@ The set of operations is common across all SDKs:
 | `set` | store, key, value | - | Set the `value` associated with the specified `key` in the specified `store`, overwriting any existing value. |
 | `delete` | store, key | - | Delete the tuple with the specified `key` from the specified `store`. `error::invalid-store` will be raised if `store` is not a valid handle to an open store.  No error is raised if a tuple did not previously exist for `key`.|
 | `exists` | store, key | boolean | Return whether a tuple exists for the specified `key` in the specified `store`.|
-| `get-keys` | store | list<keys> | Return a list of all the keys in the specified `store`. |
+| `get-keys` | store | stream<keys> | Return a stream of all the keys in the specified `store`. NOTE: errors are reported via a future (promise) which resolves once the stream has ended. |
 | `close` | store | - | Close the specified `store`. |
 
 The exact detail of calling these operations from your application depends on your language:
@@ -40,28 +40,25 @@ The exact detail of calling these operations from your application depends on yo
 
 {{ startTab "Rust"}}
 
-> [**Want to go straight to the reference documentation?**  Find it here.](https://docs.rs/spin-sdk/5.2.0/spin_sdk/key_value/index.html)
+> [**Want to go straight to the reference documentation?**  Find it here.](https://docs.rs/spin-sdk/latest/spin_sdk/key_value/index.html)
 
 Key value functions are available in the `spin_sdk::key_value` module. The function names match the operations above. For example:
 
 ```rust
-use anyhow::Result;
+use bytes::Bytes;
 use spin_sdk::{
-    http::{IntoResponse, Request, Response},
-    http_component,
-    key_value::{Store},
+    http::{FullBody, IntoResponse, Request, Response},
+    http_service,
+    key_value::Store,
 };
-#[http_component]
-fn handle_request(_req: Request) -> Result<impl IntoResponse> {
-    let store = Store::open_default()?;
-    store.set("mykey", b"myvalue")?;
-    let value = store.get("mykey")?;
+
+#[http_service]
+async fn handle_request(_req: Request) -> anyhow::Result<impl IntoResponse> {
+    let store = Store::open_default().await?;
+    store.set("mykey", b"myvalue").await?;
+    let value = store.get("mykey").await?;
     let response = value.unwrap_or_else(|| "not found".into());
-    Ok(Response::builder()
-        .status(200)
-        .header("content-type", "text/plain")
-        .body(response)
-        .build())
+    Ok(Response::new(FullBody::new(Bytes::from(response))))
 }
 ```
 
@@ -72,6 +69,9 @@ fn handle_request(_req: Request) -> Result<impl IntoResponse> {
 
 `get` **Operation**
 - For get, the return value is of type `Option<Vec<u8>>`. If the key does not exist it returns `None`.
+
+`get_keys` **Operation**
+- This returns a stream containing the keys, and a future containing a `Result`. You _must_ check the future when the stream ends, to determine if the stream ended normally, or was terminated prematurely due to an error.
 
 `open` and `close` **Operations**
 - The close operation is not surfaced; it is called automatically when the store is dropped.
@@ -123,19 +123,19 @@ addEventListener('fetch', async (event: FetchEvent) => {
 
 {{ startTab "Python"}}
 
-> [**Want to go straight to the reference documentation?** Find it here.](https://spinframework.github.io/spin-python-sdk/v3/key_value.html)
+> [**Want to go straight to the reference documentation?** Find it here.](https://spinframework.github.io/spin-python-sdk/v4/key_value.html)
 
-The key value functions are provided through the `spin_key_value` module in the Python SDK. For example:
+The key value functions are provided through the `key_value` module in the Python SDK. For example:
 
 ```python
 from spin_sdk import http, key_value
 from spin_sdk.http import Request, Response
 
-class IncomingHandler(http.IncomingHandler):
-    def handle_request(self, request: Request) -> Response:
-        with key_value.open_default() as store:
-            store.set("test", bytes("hello world!", "utf-8"))
-            val = store.get("test")
+class HttpHandler(http.Handler):
+    async def handle_request(self, request: Request) -> Response:
+        with await key_value.open_default() as store:
+            await store.set("test", bytes("hello world!", "utf-8"))
+            val = await store.get("test")
             
         return Response(
             200,
@@ -148,8 +148,31 @@ class IncomingHandler(http.IncomingHandler):
 **General Notes**
 - The Python SDK doesn't surface the `close` operation. It automatically closes all stores at the end of the request; there's no way to close them early.
 
-[`get` **Operation**](https://spinframework.github.io/spin-python-sdk/v3/wit/imports/key_value.html#spin_sdk.wit.imports.key_value.Store.get)
-- If a key does not exist, it returns `None`
+- To open the default key-value store, you can use the [`key_value.open_default`](https://spinframework.github.io/spin-python-sdk/v4/key_value.html#spin_sdk.key_value.open_default) function. You can use [`key_value.open`](https://spinframework.github.io/spin-python-sdk/v4/key_value.html#spin_sdk.key_value.open) to open any store by label.
+
+- Below is a breakdown of the methods surfaced directly from the underlying [spin-key-value-3.0.0 WIT definition](https://spinframework.github.io/spin-python-sdk/v4/wit/imports/spin_key_value_key_value_3_0_0.html):
+
+    [`open` **Operation**](https://spinframework.github.io/spin-python-sdk/v4/wit/imports/spin_key_value_key_value_3_0_0.html#spin_sdk.wit.imports.spin_key_value_key_value_3_0_0.Store.open)
+    - Open the store with the specified label
+
+    [`get` **Operation**](https://spinframework.github.io/spin-python-sdk/v4/wit/imports/spin_key_value_key_value_3_0_0.html#spin_sdk.wit.imports.spin_key_value_key_value_3_0_0.Store.get)
+    - If a key does not exist, it returns `None`
+
+    [`set` **Operation**](https://spinframework.github.io/spin-python-sdk/v4/wit/imports/spin_key_value_key_value_3_0_0.html#spin_sdk.wit.imports.spin_key_value_key_value_3_0_0.Store.set)
+    - Sets a value associated with the specified key, overwriting any existing value.
+
+    [`delete` **Operation**](https://spinframework.github.io/spin-python-sdk/v4/wit/imports/spin_key_value_key_value_3_0_0.html#spin_sdk.wit.imports.spin_key_value_key_value_3_0_0.Store.delete)
+    - Deletes the specified item from the store
+
+    [`exists` **Operation**](https://spinframework.github.io/spin-python-sdk/v4/wit/imports/spin_key_value_key_value_3_0_0.html#spin_sdk.wit.imports.spin_key_value_key_value_3_0_0.Store.exists)
+    - Return whether the specified key is present in the store
+
+    [`get_keys` **Operation**](https://spinframework.github.io/spin-python-sdk/v4/wit/imports/spin_key_value_key_value_3_0_0.html#spin_sdk.wit.imports.spin_key_value_key_value_3_0_0.Store.get_keys)
+    - Returns a `Tuple` containing a [StreamReader](https://github.com/bytecodealliance/componentize-py/blob/1b3d2e936868307a48fb70941dcad71b54e844f8/bundled/componentize_py_async_support/streams.py#L101) and a [FutureReader](https://github.com/bytecodealliance/componentize-py/blob/1b3d2e936868307a48fb70941dcad71b54e844f8/bundled/componentize_py_async_support/futures.py#L11). You _must_ check when the stream ends, to determine if the stream ended normally, or was terminated prematurely due to an error.
+
+    > If you're familiar with previous versions of the Python SDK, note that `get_keys` no longer returns a list.  To get the keys as a list, use `await util.collect(await store.get_keys())`. See [collect](https://spinframework.github.io/spin-python-sdk/v4/util.html#spin_sdk.util.collect) for more details.
+
+You can find a complete Python code example using the Key Value store in the [Spin Python SDK repository on GitHub](https://github.com/spinframework/spin-python-sdk/tree/main/examples/spin-kv).
 
 {{ blockEnd }}
 
