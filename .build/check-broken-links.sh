@@ -81,6 +81,7 @@ if ! blc -rv                                                                    
     --exclude 'https://www.akamai.com/why-akamai/global-infrastructure'                                                                                                                     \
     `## returns 429`                                                                                                                                                                        \
     --exclude 'developer.hashicorp.com'                                                                                                                                                     \
+    --exclude 'https://cursor.com/docs/context/mcp'                                                                                                                                                     \
     `## false positives`                                                                                                                                                                    \
     --exclude 'https://www.gnu.org/software/coreutils/'                                                                                                                                     \
     --exclude 'https://crates.io/'                                                                                                                                                          \
@@ -91,7 +92,6 @@ if ! blc -rv                                                                    
     --exclude 'http://localhost:16686/'                                                                                                                                                     \
     --exclude 'http://localhost:5050/explore'                                                                                                                                               \
     `## Spin 4 bits not yet published`                                                                                                                                                                    \
-    --exclude 'https://github.com/spinframework/spin-docs/blob/main/content/v4'                                                                                                                                               \
     --exclude 'https://docs.rs/spin-sdk/latest/spin_sdk'                                                                                                                                               \
     http://127.0.0.1:3000/v3/javascript-components                                                                                                                                          \
     | tee "${report}"
