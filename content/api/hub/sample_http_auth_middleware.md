@@ -24,19 +24,12 @@ This sample shows how to compose a middleware component with a business logic co
 
 ### Install Prerequisites
 
-* Install [`cargo component`](https://github.com/bytecodealliance/cargo-component):
+* Install the `wasm32-wasip2` Rust target:
 
 ```bash
-cargo install --git https://github.com/bytecodealliance/cargo-component cargo-component
+rustup target add wasm32-wasip2
 ```
 
-* Install a fork of [wasm-tools](https://github.com/dicej/wasm-tools/tree/wasm-compose-resource-imports):
-
-```bash
-cargo install --git https://github.com/dicej/wasm-tools --branch wasm-compose-resource-imports wasm-tools --locked
-```
-
-* Install latest [Spin](../../spin/v2/install)
 * Create an OAuth App in your [GitHub Developer Settings](https://github.com/settings/developers). 
   * Set the callback URL to `http://127.0.0.1:3000/login/callback`. 
   * Accept defaults and input dummy values for the rest of the fields.
@@ -46,16 +39,10 @@ cargo install --git https://github.com/dicej/wasm-tools --branch wasm-compose-re
 ### Build And Run The Spin App
 
 ```bash
-# Build the middleware
-cargo component build --manifest-path github-oauth/Cargo.toml --release
-
 # Build and run the example
 spin up --build -f example -e CLIENT_ID=<YOUR_GITHUB_APP_CLIENT_ID> -e CLIENT_SECRET=<YOUR_GITHUB_APP_CLIENT_SECRET>
 
 # Open http://127.0.0.1:3000/login in a browser
-
-# Deploy to Fermyon Cloud
-spin cloud deploy
 ```
 
 ## Running with Wasmtime
