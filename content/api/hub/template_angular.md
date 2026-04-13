@@ -2,7 +2,7 @@ title = "Spin Angular"
 template = "render_hub_content_body"
 date = "2024-09-30T15:30:32.000Z"
 content-type = "text/plain"
-tags = ["javascript", "angular", "fermyon cloud",]
+tags = ["javascript", "angular",]
 
 [extra]
 author = "yasinatalar"
