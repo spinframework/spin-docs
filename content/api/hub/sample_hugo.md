@@ -2,7 +2,7 @@ title = "Spin Hugo"
 template = "render_hub_content_body"
 date = "2023-08-31T10:52:54Z"
 content-type = "text/plain"
-tags = ["hugo", "fileserver", "ssg", "fermyon cloud"]
+tags = ["hugo", "fileserver", "ssg",]
 
 [extra]
 author = "ThorstenHans"
