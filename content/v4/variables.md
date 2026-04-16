@@ -203,11 +203,11 @@ You can find a complete Python code example using Variables in the [Spin Python 
 
 {{ blockEnd }}
 
-{{ startTab "TinyGo"}}
+{{ startTab "Go"}}
 
-> [**Want to go straight to the reference documentation?**  Find it here.](https://pkg.go.dev/github.com/spinframework/spin-go-sdk/v2@v2.2.1/variables)
+> [**Want to go straight to the reference documentation?**  Find it here.](https://pkg.go.dev/github.com/spinframework/spin-go-sdk/v3@v3.0.0/variables)
 
-The function is available in the `github.com/spinframework/spin-go-sdk/v2/variables` package and is named `Get`. See [Go package](https://pkg.go.dev/github.com/spinframework/spin-go-sdk/v2/variables) for reference documentation.
+The function is available in the `github.com/spinframework/spin-go-sdk/v3/variables` package and is named `Get`. See [Go package](https://pkg.go.dev/github.com/spinframework/spin-go-sdk/v3/variables) for reference documentation.
 
 ```go
 import (
@@ -215,8 +215,8 @@ import (
 	"fmt"
 	"net/http"
 
-	spinhttp "github.com/spinframework/spin-go-sdk/v2/http"
-	"github.com/spinframework/spin-go-sdk/v2/variables"
+	spinhttp "github.com/spinframework/spin-go-sdk/v3/http"
+	"github.com/spinframework/spin-go-sdk/v3/variables"
 )
 
 func init() {

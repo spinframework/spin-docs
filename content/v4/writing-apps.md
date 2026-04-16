@@ -178,12 +178,12 @@ $ spin new
 Pick a template to start your application with:
   http-c (HTTP request handler using C and the Zig toolchain)
   http-csharp (HTTP request handler using C# (EXPERIMENTAL))
-  http-go (HTTP request handler using (Tiny)Go)
+  http-go (HTTP request handler using Go)
   http-grain (HTTP request handler using Grain)
 > http-rust (HTTP request handler using Rust)
   http-swift (HTTP request handler using SwiftWasm)
   http-zig (HTTP request handler using Zig)
-  redis-go (Redis message handler using (Tiny)Go)
+  redis-go (Redis message handler using Go)
   redis-rust (Redis message handler using Rust)
 
 Enter a name for your new application: hello_rust
@@ -232,7 +232,7 @@ HTTP path: /...
 
 {{ blockEnd }}
 
-{{ startTab "TinyGo"}}
+{{ startTab "Go"}}
 
 Choose the `http-go` template to create a HTTP application, or `redis-go` to create a Redis application.
 
@@ -243,7 +243,7 @@ $ spin new
 Pick a template to start your application with:
   http-c (HTTP request handler using C and the Zig toolchain)
   http-empty (HTTP application with no components)
-> http-go (HTTP request handler using (Tiny)Go)
+> http-go (HTTP request handler using Go)
   http-grain (HTTP request handler using Grain)
   http-php (HTTP request handler using PHP)
   http-rust (HTTP request handler using Rust)

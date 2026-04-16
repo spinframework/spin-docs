@@ -144,15 +144,15 @@ You can find a complete Python code example for using outbound Redis from an HTT
 
 {{ blockEnd }}
 
-{{ startTab "TinyGo"}}
+{{ startTab "Go"}}
 
-> [**Want to go straight to the reference documentation?**  Find it here.](https://pkg.go.dev/github.com/spinframework/spin-go-sdk/v2@v2.2.1/redis)
+> [**Want to go straight to the reference documentation?**  Find it here.](https://pkg.go.dev/github.com/spinframework/spin-go-sdk/v3@v3.0.0/redis)
 
-Redis functions are available in the `github.com/spinframework/spin-go-sdk/v2/redis` package. [See Go Packages for reference documentation.](https://pkg.go.dev/github.com/spinframework/spin-go-sdk/v2/redis) The function names are TitleCased. For example:
+Redis functions are available in the `github.com/spinframework/spin-go-sdk/v3/redis` package. [See Go Packages for reference documentation.](https://pkg.go.dev/github.com/spinframework/spin-go-sdk/v3/redis) The function names are TitleCased. For example:
 
 ```go
 import (
-	"github.com/spinframework/spin-go-sdk/v2/redis"
+	"github.com/spinframework/spin-go-sdk/v3/redis"
 )
 
 rdb := redis.NewClient(addr)
@@ -171,7 +171,7 @@ payload, err := rdb.Get(key)
 * The arguments are passed as `[]redis.RedisParameter`. You can construct `RedisParameter` instances around an `interface{}` but must provide a `Kind`. For example, `hello := redis.RedisParameter{Kind: redis.RedisParameterKindBinary, Val: []byte("hello")}`.
 * The results are returned as `[]redis.Result`. You can use the `Kind` member of `redis.Result` to interpret the `Val`.
 
-You can find a complete TinyGo example for using outbound Redis from an HTTP component in the [Spin repository on GitHub](https://github.com/spinframework/spin-go-sdk/tree/main/examples/redis-outbound). Please also see this, related, [outbound Redis (using TinyGo) section](./go-components#storing-data-in-redis-from-go-components). 
+You can find a complete Go example for using outbound Redis from an HTTP component in the [Spin repository on GitHub](https://github.com/spinframework/spin-go-sdk/tree/main/examples/redis-outbound). Please also see this, related, [outbound Redis (using Go) section](./go-components#storing-data-in-redis-from-go-components). 
 
 {{ blockEnd }}
 

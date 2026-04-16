@@ -14,26 +14,21 @@ url = "https://github.com/spinframework/spin-docs/blob/main/content/v4/go-compon
   - [Spawning Asynchronous Tasks](#spawning-asynchronous-tasks)
   - [Creating Futures and Streams](#creating-futures-and-streams)
 - [Storing Data in Redis From Go Components](#storing-data-in-redis-from-go-components)
-- [Using Go Packages in Spin Components](#using-go-packages-in-spin-components)
 - [Storing Data in the Spin Key-Value Store](#storing-data-in-the-spin-key-value-store)
 - [Storing Data in SQLite](#storing-data-in-sqlite)
 - [AI Inferencing From Go Components](#ai-inferencing-from-go-components)
 
 > This guide assumes you have Spin installed. If this is your first encounter with Spin, please see the [Quick Start](quickstart), which includes information about installing Spin with the Go templates, installing required tools, and creating Go applications.
 
-> This guide assumes you are familiar with the Go programming language, and that
-> you have
-> [configured the TinyGo toolchain locally](https://tinygo.org/getting-started/install/).
-Using TinyGo to compile components for Spin is currently required, as the
-[Go compiler doesn't currently have support for compiling to WASI](https://github.com/golang/go/issues/31105).
+> This guide assumes you are familiar with the Go programming language.
 
 > All examples from this page can be found in [the Spin Go SDK repository on GitHub](https://github.com/spinframework/spin-go-sdk/tree/main/examples).
 
-[**Want to go straight to the Spin SDK reference documentation?**  Find it here.](https://pkg.go.dev/github.com/spinframework/spin-go-sdk/v2)
+[**Want to go straight to the Spin SDK reference documentation?**  Find it here.](https://pkg.go.dev/github.com/spinframework/spin-go-sdk/v3)
 
 ## Versions
 
-TinyGo `0.35.0` is recommended, which requires Go `v1.22+`. Older versions of TinyGo may not support the command-line flags used when building Spin applications.
+You will need Go 1.25.5 or above.
 
 ## HTTP Components
 
@@ -55,48 +50,18 @@ import (
     "fmt"
     "net/http"
 
-    // The WASI contracts for receiving HTTP requests
-    handler "github.com/spinframework/spin-go-sdk/v3/exports/wasi_http_service_0_3_0_rc_2026_03_15/export_wasi_http_0_3_0_rc_2026_03_15_handler"
-    _ "github.com/spinframework/spin-go-sdk/v3/exports/wasi_http_service_0_3_0_rc_2026_03_15/wit_exports"
-    . "github.com/spinframework/spin-go-sdk/v3/imports/wasi_http_0_3_0_rc_2026_03_15_types"
-    . "go.bytecodealliance.org/pkg/wit/types")
-
-func Handle(request *Request) Result[*Response, ErrorCode] {
-    // The byte stream which will become the response body
-    tx, rx := MakeStreamU8()
-
-    // Start a goroutine to write the response body to the stream
-    go func() {
-        defer tx.Drop()
-        tx.WriteAll([]uint8("Hello, Spin"))
-    }()
-
-    // Create the response object
-    response, send := ResponseNew(
-        // Response headers
-        FieldsFromList([]Tuple2[string, []uint8]{
-            Tuple2[string, []uint8]{"content-type", []uint8("text/plain")},
-        }).Ok(),
-        // Response body stream
-        Some(rx),
-        // A future that will provide (an empty set of) trailers once the body completes
-        trailersFuture(),
-    )
-    send.Drop()
-
-    return Ok[*Response, ErrorCode](response)
-}
-
-// Creates a future that will resolve to an (empty) set of HTTP trailers
-func trailersFuture() *FutureReader[Result[Option[*Fields], ErrorCode]] {
-    tx, rx := MakeFutureResultOptionFieldsErrorCode()
-    go tx.Write(Ok[Option[*Fields], ErrorCode](None[*Fields]()))
-    return rx
-}
+    spinhttp "github.com/spinframework/spin-go-sdk/v3/http"
+)
 
 func init() {
-    // Assign the Handle function as the WASI HTTP `handler`
-    handler.Exports.Handle = Handle
+	spinhttp.Handle(func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Content-Type", "text/plain")
+		w.Header().Set("foo", "bar")
+
+		fmt.Fprintln(w, "== RESPONSE ==")
+		fmt.Fprintln(w, "Hello spinframework!")
+		fmt.Fprintln(w, "Hello again spinframework!")
+	})
 }
 
 // Formally required but never used
@@ -108,7 +73,7 @@ This component can be built using the `componentize-go` tool:
 <!-- @selectiveCpy -->
 
 ```bash
-$ componentize-go -w wasi:http/service@0.3.0-rc-2026-03-15 -w platform build
+$ go tool componentize-go build
 ```
 
 Once built, we can run our Spin HTTP component using the Spin up command:
@@ -148,35 +113,53 @@ inserts a custom header into the response before returning:
 package main
 
 import (
- "fmt"
- "net/http"
- "os"
+    "fmt"
+    "io"
+    "net/http"
+    "os"
+    "strings"
 
- spinhttp "github.com/spinframework/spin-go-sdk/v2/http"
+    spinhttp "github.com/spinframework/spin-go-sdk/v3/http"
 )
 
 func init() {
- spinhttp.Handle(func(w http.ResponseWriter, r *http.Request) {
-    resp, _ := spinhttp.Get("https://random-data-api.fermyon.app/animals/json")
+    spinhttp.Handle(func(w http.ResponseWriter, r *http.Request) {
+        resp, err := spinhttp.Get("https://random-data-api.fermyon.app/animals/json")
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
 
-  fmt.Fprintln(w, resp.Body)
-  fmt.Fprintln(w, resp.Header.Get("content-type"))
+		if body, err := readToString(r1.Body); err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		} else {
+			fmt.Fprintln(w, body)
+		}
 
-  // `spin.toml` is not configured to allow outbound HTTP requests to this host,
-  // so this request will fail.
-  if _, err := spinhttp.Get("https://fermyon.com"); err != nil {
-   fmt.Fprintf(os.Stderr, "Cannot send HTTP request: %v", err)
-  }
- })
+        // `spin.toml` is not configured to allow outbound HTTP requests to this host,
+        // so this request will fail.
+        if _, err := spinhttp.Get("https://forbidden.com"); err != nil {
+            fmt.Fprintf(os.Stderr, "Cannot send HTTP request: %v", err)
+        }
+    })
+}
+
+func readToString(input io.Reader) (string, error) {
+	buf := new(strings.Builder)
+	if _, err := io.Copy(buf, input); err != nil {
+		return "", err
+	}
+	return buf.String(), nil
 }
 ```
 
-The Outbound HTTP Request example above can be built using the `tingygo` toolchain:
+The Outbound HTTP Request example above can be built using `go tool componentize-go build`:
 
 <!-- @selectiveCpy -->
 
 ```bash
-$ tinygo build -target=wasip1 -gc=leaking -buildmode=c-shared -no-debug -o main.wasm .
+$ go tool componentize-go build
 ```
 
 Before we can execute this component, we need to add the
@@ -191,14 +174,14 @@ requests to:
 spin_manifest_version = 2
 
 [application]
-name = "spin-hello-tinygo"
+name = "spin-hello-go"
 version = "1.0.0"
 
 [[trigger.http]]
 route = "/hello"
-component = "tinygo-hello"
+component = "go-hello"
 
-[component.tinygo-hello]
+[component.go-hello]
 source = "main.wasm"
 allowed_outbound_hosts = [ "https://random-data-api.fermyon.app" ]
 ```
@@ -243,7 +226,7 @@ package main
 import (
  "fmt"
 
- "github.com/spinframework/spin-go-sdk/v2/redis"
+ "github.com/spinframework/spin-go-sdk/v3/redis"
 )
 
 func init() {
@@ -278,7 +261,7 @@ component = "echo-message"
 [component.echo-message]
 source = "main.wasm"
 [component.echo-message.build]
-command = "tinygo build -target=wasip1 -gc=leaking -buildmode=c-shared -no-debug -o main.wasm ."
+command = "go tool componentize-go --world spin:up/redis-trigger@4.0.0 build"
 ```
 
 The application will connect to `redis://localhost:6379`, and for every new message
@@ -322,13 +305,15 @@ Just as in native code, you can spawn an asynchronous task in Go using the `go` 
 
 ### Creating Futures and Streams
 
-The Go SDK provides `Make*` functions for creating Wasm Component Model futures and streams. The bindings contain a corresponding function for each concrete future or stream type mentioned in the Spin and WASI APIs.
+> You won't normally need this section, because the Go SDK provides a more ergonomic API. But you may run into it if you ever need to use raw WIT bindings.
+
+Generated WIT bindings define `Make*` functions for creating Wasm Component Model futures and streams. The bindings contain a corresponding function for each concrete future or stream type mentioned in the Spin and WASI APIs.
 
 To create a future, call `MakeFuture<Type>` - for example, `MakeFutureFields`. This returns a writer (which you can use later to complete the future) and a reader (representing the future which will eventually resolve to a value).
 
 To create a stream, call `MakeStream<Type>` - for example, `MakeStreamU8` is a byte stream. Again, this returns a writer and a reader. The writer is typically handed to a goroutine to asynchronously send values into the stream. The reader is typically passed to an API that takes a stream parameter, for example acting as the body in an HTTP response.
 
-For generic types, the type name in the function is formed by concatenation, so you may see things like `MakeFutureResultOptionFieldsErrorCode` at the bindings level. You shouldn't normally have to deal with these in application code though!
+For generic types, the type name in the function is formed by concatenation, so you may see things like `MakeFutureResultOptionFieldsErrorCode` at the bindings level. Again, you won't need to deal with these when using the Go SDK!
 
 ## Storing Data in Redis From Go Components
 
@@ -348,8 +333,8 @@ import (
  "net/http"
  "os"
 
- spin_http "github.com/spinframework/spin-go-sdk/v2/http"
- "github.com/spinframework/spin-go-sdk/v2/redis"
+ spin_http "github.com/spinframework/spin-go-sdk/v3/http"
+ "github.com/spinframework/spin-go-sdk/v3/redis"
 )
 
 func init() {
@@ -365,7 +350,7 @@ func init() {
   channel := os.Getenv("REDIS_CHANNEL")
 
   // payload is the data publish to the redis channel.
-  payload := []byte(`Hello redis from tinygo!`)
+  payload := []byte(`Hello redis from Go!`)
 
   // create a new redis client.
   rdb := redis.NewClient(addr)
@@ -407,22 +392,14 @@ This HTTP component can be paired with a Redis component, triggered on new messa
 > You can find a complete example for using outbound Redis from an HTTP component
 > in the [Spin repository on GitHub](https://github.com/spinframework/spin-go-sdk/tree/main/examples/redis-outbound).
 
-## Using Go Packages in Spin Components
-
-Any [package from the Go standard library](https://tinygo.org/docs/reference/lang-support/stdlib/) that can be imported in TinyGo and that compiles to
-WASI can be used when implementing a Spin component.
-
-> Make sure to read [the page describing the HTTP trigger](./http-trigger.md) for more
-> details about building HTTP applications.
-
 ## Storing Data in the Spin Key-Value Store
 
-Spin has a key-value store built in. For information about using it from TinyGo, see [the key-value API guide](kv-store-api-guide).
+Spin has a key-value store built in. For information about using it from Go, see [the key-value API guide](kv-store-api-guide).
 
 ## Storing Data in SQLite
 
-For more information about using SQLite from TinyGo, see [SQLite storage](sqlite-api-guide).
+For more information about using SQLite from Go, see [SQLite storage](sqlite-api-guide).
 
 ## AI Inferencing From Go Components
 
-For more information about using Serverless AI from TinyGo, see the [Serverless AI](serverless-ai-api-guide) API guide.
+For more information about using Serverless AI from Go, see the [Serverless AI](serverless-ai-api-guide) API guide.

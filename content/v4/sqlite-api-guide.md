@@ -10,7 +10,7 @@ url = "https://github.com/spinframework/spin-docs/blob/main/content/v4/sqlite-ap
 - [Using SQLite Storage From Applications](#using-sqlite-storage-from-applications)
 - [Preparing an SQLite Database](#preparing-an-sqlite-database)
 - [Custom SQLite Databases](#custom-sqlite-databases)
-  - [Granting Access to Custom SQLite Databases](#granting-access-to-custom-sqlite-databases)
+	- [Granting Access to Custom SQLite Databases](#granting-access-to-custom-sqlite-databases)
 
 Spin provides an interface for you to persist data in an SQLite Database managed by Spin. This database allows Spin developers to persist relational data across application invocations.
 
@@ -60,54 +60,54 @@ SQLite functions are available in the `spin_sdk::sqlite` module. The function na
 use anyhow::Result;
 use serde::Serialize;
 use spin_sdk::{
-    http::{FullBody, Request, Response, IntoResponse},
-    http_service,
-    sqlite::{Connection, Value},
+	http::{FullBody, Request, Response, IntoResponse},
+	http_service,
+	sqlite::{Connection, Value},
 };
 
 #[http_service]
 async fn handle_request(req: Request) -> Result<impl IntoResponse> {
-    let connection = Connection::open_default().await?;
+	let connection = Connection::open_default().await?;
 
-    let execute_params = [
-        Value::Text("Try out Spin SQLite".to_owned()),
-        Value::Text("Friday".to_owned()),
-    ];
-    
-    let mut query_result = connection.execute(
-        "INSERT INTO todos (description, due) VALUES (?, ?)",
-        execute_params.as_slice(),
-    ).await?;
-    query_result.result().await?
+	let execute_params = [
+		Value::Text("Try out Spin SQLite".to_owned()),
+		Value::Text("Friday".to_owned()),
+	];
+	
+	let mut query_result = connection.execute(
+		"INSERT INTO todos (description, due) VALUES (?, ?)",
+		execute_params.as_slice(),
+	).await?;
+	query_result.result().await?
 
-    let (columns, mut rows, result) = connection.execute(
-        "SELECT id, description, due FROM todos",
-        &[]
-    ).await?;
+	let (columns, mut rows, result) = connection.execute(
+		"SELECT id, description, due FROM todos",
+		&[]
+	).await?;
 
-    let mut todos = vec![];
-    while let Some(row) = query_result.next().await {
-        todos.push(ToDo {
-            id: row.get::<u32>("id").unwrap(),
-            description: row.get::<&str>("description").unwrap().to_owned(),
-            due: row.get::<&str>("due").unwrap().to_owned(),
-        });
-    }
-    query_result.result()
+	let mut todos = vec![];
+	while let Some(row) = query_result.next().await {
+		todos.push(ToDo {
+			id: row.get::<u32>("id").unwrap(),
+			description: row.get::<&str>("description").unwrap().to_owned(),
+			due: row.get::<&str>("due").unwrap().to_owned(),
+		});
+	}
+	query_result.result()
 
-    let body = serde_json::to_vec(&todos)?;
-    Ok(Response::builder()
-        .status(200)
-        .header("content-type", "text/plain")
-        .body(FullBody::new(Bytes::from_owner(body)))?)
+	let body = serde_json::to_vec(&todos)?;
+	Ok(Response::builder()
+		.status(200)
+		.header("content-type", "text/plain")
+		.body(FullBody::new(Bytes::from_owner(body)))?)
 }
 
 // Helper for returning the query results as JSON
 #[derive(Serialize)]
 struct ToDo {
-    id: u32,
-    description: String,
-    due: String,
+	id: u32,
+	description: String,
+	due: String,
 }
 ```
 
@@ -134,16 +134,16 @@ import { Sqlite } from '@spinframework/spin-sqlite';
 
 let router = AutoRouter();
 router
-    .get("/", () => {
-        let conn = Sqlite.openDefault();
-        let result = conn.execute("SELECT * FROM todos WHERE id > (?);", [1]);
+	.get("/", () => {
+		let conn = Sqlite.openDefault();
+		let result = conn.execute("SELECT * FROM todos WHERE id > (?);", [1]);
 
-        return new Response(JSON.stringify(result, null, 2));
-    })
+		return new Response(JSON.stringify(result, null, 2));
+	})
 
 //@ts-ignore
 addEventListener('fetch', async (event: FetchEvent) => {
-    event.respondWith(router.fetch(event.request));
+	event.respondWith(router.fetch(event.request));
 });
 
 ```
@@ -166,23 +166,23 @@ from spin_sdk.http import Request, Response
 from spin_sdk.sqlite import Connection, Value_Text, Value_Integer
 
 class HttpHandler(http.Handler):
-    async def handle_request(self, request: Request) -> Response:
-        with await Connection.open_default() as db:
-            await db.execute("INSERT INTO todos (description, due) VALUES (?, ?)", [Value_Text("Try out Spin SQLite"), Value_Text("Friday")])
-            columns, stream, future = await db.execute("SELECT * FROM todos WHERE id > (?);", [Value_Integer(1)])
-            rows = await util.collect((stream, future))
+	async def handle_request(self, request: Request) -> Response:
+		with await Connection.open_default() as db:
+			await db.execute("INSERT INTO todos (description, due) VALUES (?, ?)", [Value_Text("Try out Spin SQLite"), Value_Text("Friday")])
+			columns, stream, future = await db.execute("SELECT * FROM todos WHERE id > (?);", [Value_Integer(1)])
+			rows = await util.collect((stream, future))
 
-        return Response(
-            200,
-            {"content-type": "text/plain"},
-            bytes(str(rows), "utf-8")
-        )
+		return Response(
+			200,
+			{"content-type": "text/plain"},
+			bytes(str(rows), "utf-8")
+		)
 ```
 
 **General Notes**
 * The `execute` method returns a Tuple containing a list of `columns`, a list of `rows` encapsulated via a [StreamReader](https://github.com/bytecodealliance/componentize-py/blob/1b3d2e936868307a48fb70941dcad71b54e844f8/bundled/componentize_py_async_support/streams.py#L101), and a [FutureReader](https://github.com/bytecodealliance/componentize-py/blob/1b3d2e936868307a48fb70941dcad71b54e844f8/bundled/componentize_py_async_support/futures.py#L11). You _must_ check when the stream ends, to determine if the stream ended normally, or was terminated prematurely due to an error.
 
-    > As seen in the example above, you can utilize the [collect](https://spinframework.github.io/spin-python-sdk/v4/util.html#spin_sdk.util.collect) method from the `util` package to handle the `StreamReader` and `FutureReader` pair, aggregating the resulting rows into memory.
+	> As seen in the example above, you can utilize the [collect](https://spinframework.github.io/spin-python-sdk/v4/util.html#spin_sdk.util.collect) method from the `util` package to handle the `StreamReader` and `FutureReader` pair, aggregating the resulting rows into memory.
 
 * The `Connection` object doesn't surface the `close` function.
 * Errors are surfaced as exceptions.
@@ -191,9 +191,9 @@ You can find a complete Python code example using SQLite storage in the [Spin Py
 
 {{ blockEnd }}
 
-{{ startTab "TinyGo"}}
+{{ startTab "Go"}}
 
-> [**Want to go straight to the reference documentation?**  Find it here.](https://pkg.go.dev/github.com/spinframework/spin-go-sdk/v2@v2.2.1/sqlite)
+> [**Want to go straight to the reference documentation?**  Find it here.](https://pkg.go.dev/github.com/spinframework/spin-go-sdk/v3@v3.0.0/sqlite)
 
 The Go SDK is implemented as a driver for the standard library's [database/sql](https://pkg.go.dev/database/sql) interface.
 
@@ -204,8 +204,8 @@ import (
 	"encoding/json"
 	"net/http"
 
-	spinhttp "github.com/spinframework/spin-go-sdk/v2/http"
-	"github.com/spinframework/spin-go-sdk/v2/sqlite"
+	spinhttp "github.com/spinframework/spin-go-sdk/v3/http"
+	"github.com/spinframework/spin-go-sdk/v3/sqlite"
 )
 
 type Todo struct {
@@ -226,6 +226,7 @@ func init() {
 		}
 
 		rows, err := db.Query("SELECT id, description, due FROM todos")
+		defer rows.Close()
 		if err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 			return
@@ -239,6 +240,10 @@ func init() {
 				return
 			}
 			todos = append(todos, &todo)
+		}
+		if err := rows.Err(); err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
 		}
 		json.NewEncoder(w).Encode(todos)
 	})

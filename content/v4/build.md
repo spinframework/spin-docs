@@ -122,17 +122,15 @@ command = "componentize-py -w spin-http componentize app -o app.wasm"
 
 {{ blockEnd }}
 
-{{ startTab "TinyGo" }}
+{{ startTab "Go" }}
 
-For Go applications, you must use the TinyGo compiler, as the standard Go compiler does not yet support the WASI standard.  See the [TinyGo installation guide](https://tinygo.org/getting-started/install/).
-
-The build command calls TinyGo with the WASI backend and appropriate options:
+The build command calls `go tool` to run the `componentize-go` tool with appropriate options:
 
 <!-- @nocpy -->
 
 ```toml
 [component.hello.build]
-command = "tinygo build -target=wasip1 -gc=leaking -buildmode=c-shared -no-debug -o main.wasm ."
+command = "go tool componentize-go build"
 ```
 
 {{ blockEnd }}

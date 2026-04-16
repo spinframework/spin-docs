@@ -103,7 +103,7 @@ You can find a complete Python code example for using outbound MQTT from an HTTP
 
 {{ blockEnd }}
 
-{{ startTab "TinyGo"}}
+{{ startTab "Go"}}
 
 MQTT is not available in the current version of the Go SDK.
 
