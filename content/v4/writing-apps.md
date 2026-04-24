@@ -432,7 +432,7 @@ source = "spinredis.wasm"
 
 Few of us write applications without relying on libraries. Traditionally, those libraries have had to come from the language ecosystem - e.g. `npm` for JavaScript, `pip` for Python, etc. - and you can still work this way in Spin. However, the WebAssembly Component Model means that you can also depend on other WebAssembly components. The process of combining your application component with the Wasm components it depends on is called _composition_, and Spin supports this natively.
 
-> Spin's composition is limited to "plug" style scenarios where each of your component's imports is satisfied independently, and where the dependency component does not need to be further composed with any other components. The analogy is plugging each of your imports into a socket provided by a dependency. If you need to construct a more complex composition, you must use a dedicated tool such as [`wac`](https://github.com/bytecodealliance/wac) as part of your build. See the [Component Model book](https://component-model.bytecodealliance.org/creating-and-consuming/composing.html) for details and examples.
+> Spin composes each of your component's imports independently against a single dependency: the dependency component is not further composed with any other components. Spin also wires up the dependency's own capability imports selectively, based on the permissions you explicitly grant it (see [Dependency Permissions](#dependency-permissions)) — any capability you do not grant is satisfied by a stub that returns an error at runtime, rather than being connected to the host. If you need to construct a more complex composition, you must use a dedicated tool such as [`wac`](https://github.com/bytecodealliance/wac) as part of your build. See the [Component Model book](https://component-model.bytecodealliance.org/creating-and-consuming/composing.html) for details and examples.
 
 To use composition through Spin, your component must import a [WIT (Wasm Interface Type) interface](https://component-model.bytecodealliance.org/design/wit.html), and the dependency must export the same WIT interface. The details of working with WIT interfaces is language-specific, and is beyond the scope of the Spin documentation. You can learn more from the [language guides in the Component Model book](https://component-model.bytecodealliance.org/language-support.html). This section focuses on describing the dependency composition support in Spin.
 
@@ -516,9 +516,17 @@ and Spin will map all of your `security:http` imports to the matching exports fr
 
 ### Dependency Permissions
 
-By default, dependencies do not have access to Spin resources that require permission to be given in the manifest - network hosts, key-value stores, SQLite databases, variables, etc.
+By default, dependencies do not have access to Spin resources that require permission to be given in the manifest - network hosts, key-value stores, SQLite databases, variables, etc. Any capability imports a dependency makes that you have not granted are wired to stub implementations that return errors at runtime, so an over-reaching dependency will fail loudly rather than silently bypass the parent's configuration.
 
-If a component has a dependency which requires resource access, you can grant it by setting the `inherit_configuration` flag on that dependency in the Spin component manifest, listing the capabilities you want to allow to the dependency:
+You control this per dependency with the `inherit_configuration` field, which accepts three forms:
+
+- A list of capability names — the dependency is granted only those capabilities.
+- `true` — the dependency inherits every capability configured on the parent component.
+- `false` — the dependency inherits nothing. This is the default when `inherit_configuration` is omitted.
+
+#### Granting specific capabilities
+
+To grant a dependency a subset of the parent's capabilities, list them on the dependency:
 
 ```toml
 [component.my-app.dependencies]
@@ -537,16 +545,36 @@ The permission names are the same as the corresponding permission names in the m
 | `sqlite_databases` | The dependency can access all SQLite databases listed in the component manifest. The dependency may use the [SQLite API](./sqlite-api-guide.md). |
 | `variables` | The dependency can read all Spin configuration variables listed in the component manifest. The dependency may use the [variables API](./variables.md). |
 
-The dependency does not receive any permissions other than those you list.
+The dependency does not receive any permissions other than those you list. Any other capability imports the dependency makes will return errors at runtime.
 
-If you want to grant the dependency the same permissions as the main component, set `inherit_configuration` to `true`:
+`inherit_configuration` applies uniformly to every dependency source — registry packages, local paths, HTTP URLs, and in-app component references. For example, the same permission form works for a local dependency:
+
+```toml
+[component.my-app.dependencies]
+"my:dependency" = { path = "../deps/my-dependency.wasm", inherit_configuration = ["allowed_outbound_hosts"] }
+```
+
+> The shorthand version-string form (`"my:dependency" = "1.0.0"`) cannot carry `inherit_configuration`. Use the expanded table form whenever you need to grant permissions.
+
+#### Granting all or no capabilities
+
+To grant the dependency the same permissions as the main component, set `inherit_configuration` to `true`:
 
 ```toml
 [component.my-app.dependencies]
 "highly:trusted/dependency" = { version = "1.0.0", inherit_configuration = true }
 ```
 
-If you want to grant _all_ dependencies the same permissions as the parent component, you can set `dependencies_inherit_configuration = true` at the component level:
+To make the isolation explicit (for example, in a manifest where other dependencies do inherit), set `inherit_configuration` to `false`. This is identical to omitting the field:
+
+```toml
+[component.my-app.dependencies]
+"untrusted:dependency" = { version = "1.0.0", inherit_configuration = false }
+```
+
+#### Granting all dependencies the same permissions
+
+If you want to grant _all_ dependencies of a component the same permissions as the parent component, you can set `dependencies_inherit_configuration = true` at the component level:
 
 ```toml
 [component.my-app]
@@ -554,6 +582,26 @@ dependencies_inherit_configuration = true
 [component.my-app.dependencies]
 "my:dependency" = "1.0.0"  # has all capabilities of the main component
 ```
+
+> `dependencies_inherit_configuration` and per-dependency `inherit_configuration` are **mutually exclusive** on the same component. The following manifest is an error:
+>
+> ```toml
+> [component.my-app]
+> source = "app.wasm"
+> dependencies_inherit_configuration = true
+>
+> [component.my-app.dependencies]
+> # ERROR: cannot mix component-level and per-dependency inherit_configuration
+> "aws:client" = { version = "1.0.0", inherit_configuration = false }
+> ```
+>
+> Spin will report:
+>
+> ```text
+> Component `my-app` specifies both `dependencies_inherit_configuration` and per-dependency `inherit_configuration`. These are mutually exclusive; use one or the other.
+> ```
+>
+> Pick one form per component: use `dependencies_inherit_configuration = true` as a shorthand when every dependency should inherit everything, and use per-dependency `inherit_configuration` whenever any dependency needs a different permission set.
 
 ## Next Steps
 
