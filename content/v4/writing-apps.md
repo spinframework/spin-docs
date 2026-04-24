@@ -516,16 +516,42 @@ and Spin will map all of your `security:http` imports to the matching exports fr
 
 By default, dependencies do not have access to Spin resources that require permission to be given in the manifest - network hosts, key-value stores, SQLite databases, variables, etc.
 
-If a component has a dependency which requires resource access, you can grant it by setting the `dependencies_inherit_configuration` flag in the Spin component manifest:
+If a component has a dependency which requires resource access, you can grant it by setting the `inherit_configuration` flag on that dependency in the Spin component manifest, listing the capabilities you want to allow to the dependency:
+
+```toml
+[component.my-app.dependencies]
+"my:dependency" = { version = "1.0.0", inherit_configuration = ["allowed_outbound_hosts", "key_value_stores"] }
+```
+
+The permission names are the same as the corresponding permission names in the manifest:
+
+| Name | Description |
+|------|-------------|
+| `ai_models` | The dependency can use all LLMs listed in the component manifest. The dependency may use the [Serverless AI API](./serverless-ai-api-guide.md). |
+| `allowed_outbound_hosts` | The dependency can make network requests to all hosts listed in the component manifest. The dependency may use the (outbound) sockets, [HTTP](./http-outbound.md), [MQTT](./mqtt-outbound.md), [MySQL](./rdbms-storage.md), [PostgreSQL](./rdbms-storage.md), and [Redis](./redis-outbound.md) APIs. |
+| `environment` | The dependency can read all environment variables listed in the component manifest. |
+| `files` | The dependency can read all files listed in the component manifest. |
+| `key_value_stores` | The dependency can access all key-value stores listed in the component manifest. The dependency may use the [key-value API](./kv-store-api-guide.md). |
+| `sqlite_databases` | The dependency can access all SQLite databases listed in the component manifest. The dependency may use the [SQLite API](./sqlite-api-guide.md). |
+| `variables` | The dependency can read all Spin configuration variables listed in the component manifest. The dependency may use the [variables API](./variables.md). |
+
+The dependency does not receive any permissions other than those you list.
+
+If you want to grant the dependency the same permissions as the main component, set `inherit_configuration` to `true`:
+
+```toml
+[component.my-app.dependencies]
+"highly:trusted/dependency" = { version = "1.0.0", inherit_configuration = true }
+```
+
+If you want to grant _all_ dependencies the same permissions as the parent component, you can set `dependencies_inherit_configuration = true` at the component level:
 
 ```toml
 [component.my-app]
 dependencies_inherit_configuration = true
+[component.my-app.dependencies]
+"my:dependency" = "1.0.0"  # has all capabilities of the main component
 ```
-
-This grants _all_ dependencies access to _all_ resources listed in the Spin component manifest. You should therefore set this only if you trust _all_ dependencies.
-
-> Spin does not currently support inheritance on a dependency-by-dependency or feature-by-feature basis.
 
 ## Next Steps
 
