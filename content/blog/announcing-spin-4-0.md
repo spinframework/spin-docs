@@ -145,6 +145,10 @@ async fn content_length(url: &str) -> anyhow::Result<Option<u64>> {
 
 Both requests are in flight at once, inside a single Wasm instance, scheduled by Spin. That same instance may also be serving other requests concurrently. And because WASIp3 supports streaming response bodies, a handler can start writing its response before it's finished computing the rest, something we'll use in the next section.
 
+### Heads up on global state
+
+> Because a single instance can now serve multiple concurrent requests, instance-scoped "global" state is shared across in-flight requests. This is the same rule you already follow in Axum, Express, or Flask, but it's a genuine shift from "one instance per request" if you've been writing Spin components against WASIp2 semantics. Audit any `static`, module-level, or `OnceCell` state and reach for per-request state or explicit synchronization where needed.
+
 ## Async everywhere: Spin's host interfaces are now async
 
 WASIp3 unlocks async, but the benefit only lands if the *host APIs* your component calls are also async. A lot of Spin 4.0's work happened here: we've asyncified Spin's host interfaces so I/O-heavy handlers actually get concurrency instead of blocking the instance.
@@ -205,8 +209,6 @@ Spin starts streaming the response as soon as `handle` returns, and each row hit
 
 The same pattern is available in Python (via `componentize_py_async_support.spawn`) and Go (via plain `go func() { ... }()` goroutines).
 
-> **Heads up on global state.** Because a single instance can now serve multiple concurrent requests, instance-scoped "global" state is shared across in-flight requests. This is the same rule you already follow in Axum, Express, or Flask, but it's a genuine shift from "one instance per request" if you've been writing Spin components against WASIp2 semantics. Audit any `static`, module-level, or `OnceCell` state and reach for per-request state or explicit synchronization where needed.
-
 ## Build profiles
 
 Development tools often offer ways to build code in different ways for different purposes: for example, debug builds that favor diagnostic value over speed and size, or profiling builds that inject performance instrumentation. Spin 4.0 introduces named **build profiles**, so you can leverage those options in Wasm applications, for example, to define a debug or profile build of your application.
@@ -255,8 +257,6 @@ $ spin up
 $ spin up --profile debug
 ```
 
-The `--profile` flag is recognized by `spin build`, `spin watch`, `spin up`, and `spin registry push`, so profiles carry from local development into your published artifacts.
-
 Learn more in the [Spin docs on build profiles](https://spinframework.dev/v4/build-profiles).
 
 ## Fine-grained capability inheritance for dependencies
@@ -298,7 +298,7 @@ key_value_stores      = ["my-key-value-cache"]
 
 Here `acme:s3-client` can make outbound HTTPS calls to the parent's allowed hosts, enough to reach S3. But every other capability is denied. Specifically, the S3 client *cannot* see `my-key-value-cache`.
 
-For the full list of configuration keys you can inherit and how they map to WIT interfaces, see the [Spin docs on component dependencies](TODO).
+For the full list of configuration keys you can inherit and how they map to WIT interfaces, see the [Spin docs on component dependencies](https://spinframework.dev/v4/writing-apps#using-component-dependencies).
 
 ## Upgrading to Spin 4.0
 
