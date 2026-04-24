@@ -10,27 +10,29 @@ author = "The Spin Project"
 
 ---
 
-The CNCF Spin project just released [Spin v4.0.0](https://github.com/spinframework/spin/releases/tag/v4.0.0), the first major release of Spin in over a year, and the release we've been building toward all through the 3.x series. This release turns WASIp3 from an experimental, opt-in toggle into a first-class, long-term-supported feature; rewrites Spin's host APIs around `async`; adds build profiles; and introduces fine-grained capability inheritance for component dependencies.
+The CNCF Spin project just released [Spin v4.0.0](https://github.com/spinframework/spin/releases/tag/v4.0.0), the first major release of Spin in over a year. This release delivers a production-grade, stable implementation of WASI Preview 3; rewrites Spin's host APIs around `async`; adds build profiles; and introduces fine-grained capability inheritance for component dependencies.
 
 There's a lot in this release, so this post is part release-notes and part tutorial. We'll walk through each headline feature with a working example.
 
-- [WASIp3: stabilized and supported long-term](#wasip3-stabilized-and-supported-long-term)
+- [WASI Preview 3: stabilized and supported long-term](#wasip3-stabilized-and-supported-long-term)
 - [Async everywhere: Spin's host interfaces are now async](#async-everywhere-spins-host-interfaces-are-now-async)
 - [Build profiles](#build-profiles)
 - [Fine-grained capability inheritance for dependencies](#fine-grained-capability-inheritance-for-dependencies)
 - [Upgrading to Spin 4.0](#upgrading-to-spin-40)
 
-## WASIp3: stabilized and supported long-term
+## WASI Preview 3: stabilized and supported long-term
 
-WASIp3 is the next major revision of the WebAssembly System Interface. It brings first-class async, concurrent component exports, and significantly simpler WIT definitions to the component model. If you followed along in [Spin 3.5](https://spinframework.dev/v3/blog/announcing-spin-3-5) and [Spin 3.6](https://spinframework.dev/v3/blog/announcing-spin-3-6), you've seen WASIp3 progress from "experimental, opt-in, might break between releases" to something much closer to production.
+WASI Preview 3 (WASIp3) is the next major revision of the WebAssembly System Interface. It brings first-class async, concurrent component exports, and significantly simpler WIT definitions to the component model. In practice, that means your components can handle multiple in-flight requests on a single instance, fan out concurrent I/O with plain `await`, and talk to host interfaces using idiomatic async code in each language.
 
-**Spin 4.0 ships with the March 2026 release candidate of WASIp3, and we are committing to supporting it long-term.** You no longer have to flip an experimental executor switch, WASIp3 is now the default path for new applications, and `spin-sdk`, the Spin Python SDK, and the Spin Go SDK have all been updated to use it.
+**Spin 4.0 ships with the March 2026 release candidate of WASIp3, and we are committing to supporting it long-term.** WASIp3 is now the default platform for new applications, and the Spin Rust, Python, and Go SDKs have all been updated to use it.
+
+If you followed along in [Spin 3.5](https://spinframework.dev/v3/blog/announcing-spin-3-5) and [Spin 3.6](https://spinframework.dev/v3/blog/announcing-spin-3-6), you've seen WASIp3 progress from "experimental, opt-in, might break between releases" to something ready for production use.
 
 What this means in practice:
 
-- **No more `executor = { type = "wasip3-unstable" }`.** The HTTP trigger speaks WASIp3 natively. WASIp2 components continue to run unchanged.
 - **Concurrent, async component exports.** A single component instance can service multiple in-flight requests concurrently, instead of one instance per request.
-- **One idiomatic story per language.** Rust handlers are `async fn` using `http` / `hyper` types. Python handlers are `async def`. Go handlers use standard `net/http`.
+- **One idiomatic story per language.** Rust handlers are `async fn` using `http` / `hyper` types, and Python handlers are `async def`. Go handlers remain standard `net/http`, but now build with the standard Go toolchain (see below).
+- **WASIp2 components continue to run unchanged.** The HTTP trigger speaks WASIp3 natively, and existing WASIp2 components keep working without changes.
 
 Here's the new minimum-viable Rust HTTP component in 4.0:
 
@@ -51,7 +53,8 @@ A few things to notice:
 
 - The handler is `async fn`. That's not cosmetic, it's a real WASIp3 async export. While this handler is awaiting I/O, Spin can dispatch another request into the same component instance.
 - `Request` and `Response` are re-exports from the ecosystem `http` crate, so this code composes with Axum, Tower, `http-body-util`, and friends with no glue types.
-- There's no `wasip3-unstable` feature flag in `Cargo.toml` anymore.
+
+For a richer illustration of concurrent async exports, see the [gRPC sample](https://github.com/spinframework/spin-rust-sdk/tree/main/examples/grpc) in the Spin repo.
 
 ### Python and Go
 
@@ -75,7 +78,9 @@ Build it with:
 componentize-py -w spin:up/http-trigger@4.0.0 componentize app -o app.wasm
 ```
 
-On the Go side, the 4.0 release lines up with Go SDK `v3`, which drops the TinyGo requirement. Spin Go components now build with the standard Go toolchain (Go 1.25.5+) via `componentize-go`:
+### No more TinyGo
+
+On the Go side, the 4.0 release lines up with Go SDK `v3`, which **drops the TinyGo requirement**. Spin Go components now build with the standard Go toolchain (Go 1.25.5+) via `componentize-go`:
 
 ```go
 package main
@@ -102,7 +107,7 @@ func main() {}
 command = "go tool componentize-go build"
 ```
 
-If you've been writing Spin Go components against `spin-go-sdk/v2` with TinyGo, this is the big one, standard Go, standard `net/http`, and no `tinygo build -target=wasip1 -gc=leaking ...` incantation.
+If you've been writing Spin Go components against `spin-go-sdk/v2` with TinyGo, this is the big one: standard Go, and no `tinygo build -target=wasip1 -gc=leaking ...` incantation.
 
 ### Concurrent outbound HTTP: the canonical demo
 
@@ -138,7 +143,7 @@ async fn content_length(url: &str) -> anyhow::Result<Option<u64>> {
 }
 ```
 
-Both requests are in flight at once, inside a single Wasm instance, scheduled by Spin. That same instance may also be serving other requests concurrently.
+Both requests are in flight at once, inside a single Wasm instance, scheduled by Spin. That same instance may also be serving other requests concurrently. And because WASIp3 supports streaming response bodies, a handler can start writing its response before it's finished computing the rest, something we'll use in the next section.
 
 ## Async everywhere: Spin's host interfaces are now async
 
@@ -148,11 +153,11 @@ In 4.0, the following interfaces are async from the guest's perspective:
 
 - **Key-value**: `Store::open_default().await`, `store.get(key).await`, `store.set(key, value).await`
 - **SQLite**: `Connection::open_default().await`, `connection.execute(...).await`
-- **PostgreSQL**: new async client API
+- **PostgreSQL**: `Connection::open(...).await`, `connection.query(...).await`
 - **Redis (outbound and trigger)**: `Connection::open(...).await`, plus async Redis subscriber handlers
 - **Outbound HTTP**: `spin_sdk::http::send(req).await`
 
-Here's a key-value handler in Rust that both *uses* async host APIs and *produces* a streaming HTTP response via `spin_sdk::wasip3::spawn`:
+Here's a Rust handler that runs a SQLite query and streams each row to the client as it arrives, using `spin_sdk::wasip3::spawn`:
 
 ```rust
 use bytes::Bytes;
@@ -160,33 +165,43 @@ use futures::{SinkExt, StreamExt};
 use http_body_util::StreamBody;
 use spin_sdk::http::{IntoResponse, Request, Response};
 use spin_sdk::http_service;
+use spin_sdk::sqlite::Connection;
 
 #[http_service]
 async fn handle(_req: Request) -> anyhow::Result<impl IntoResponse> {
-    let store = spin_sdk::key_value::Store::open_default().await?;
+    let db = Connection::open_default().await?;
 
     // A channel the spawned task will push body chunks into.
     let (mut tx, rx) = futures::channel::mpsc::channel::<Bytes>(1024);
     let rx = rx.map(|value| anyhow::Ok(http_body::Frame::data(value)));
-    let response = Response::new(StreamBody::new(rx));
+    let response = Response::builder()
+        .header("content-type", "application/x-ndjson")
+        .body(StreamBody::new(rx))?;
 
     // Spawn a background Wasm task. It outlives `handle` returning.
     spin_sdk::wasip3::spawn(async move {
-        if let Ok(Some(greeting)) = store.get("greeting").await {
-            let _ = tx.send(greeting.into()).await;
+        let mut query_result = db
+            .execute("SELECT id, name FROM users ORDER BY id", [])
+            .await?;
+        let id_idx = query_result.columns().iter().position(|c| c == "id").unwrap();
+        let name_idx = query_result.columns().iter().position(|c| c == "name").unwrap();
+
+        while let Some(row) = query_result.next().await {
+            let id: i64 = row.get(id_idx).unwrap();
+            let name: &str = row.get(name_idx).unwrap();
+            let line = format!("{{\"id\":{id},\"name\":\"{name}\"}}\n");
+            let _ = tx.send(line.into()).await;
         }
-        if let Ok(Some(who)) = store.get("greetee").await {
-            let _ = tx.send(" ".into()).await;
-            let _ = tx.send(who.into()).await;
-        }
+        query_result.result().await?;
         // Dropping `tx` closes the body stream.
+        anyhow::Ok(())
     });
 
     Ok(response)
 }
 ```
 
-Spin starts streaming the response as soon as `handle` returns, while the spawned task keeps reading from the key-value store in the background. In the WASIp2 world, each of those KV reads would have blocked the entire component instance. In 4.0, they don't.
+Spin starts streaming the response as soon as `handle` returns, and each row hits the client as soon as SQLite yields it, without buffering the full result set in memory. That's a real win for time-to-first-byte and for large queries: you don't have to wait for every row before the client starts receiving bytes.
 
 The same pattern is available in Python (via `componentize_py_async_support.spawn`) and Go (via plain `go func() { ... }()` goroutines).
 
