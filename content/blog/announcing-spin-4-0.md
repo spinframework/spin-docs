@@ -255,38 +255,35 @@ $ spin up
 $ spin up --profile debug
 ```
 
-The `--profile` flag is recognized by `spin build`, `spin watch`, `spin up`, `spin deploy`, and `spin registry push`, so profiles carry all the way from local dev through deployment.
+The `--profile` flag is recognized by `spin build`, `spin watch`, `spin up`, and `spin registry push`, so profiles carry from local development into your published artifacts.
 
-The fields a profile can override are intentionally scoped to build-time concerns:
-
-- `source`
-- `build.command`
-- `environment`
-- `dependencies`
-
-Profiles are *not* atomic, fields in a profile are individual overrides. If a component doesn't define a requested profile, it falls back to its default configuration rather than erroring. This is exactly what you want for mixed-language apps, where only some components have meaningful debug builds.
+Learn more in the [Spin docs on build profiles](https://spinframework.dev/v4/build-profiles).
 
 ## Fine-grained capability inheritance for dependencies
 
-[SIP-020](https://github.com/spinframework/spin/blob/main/docs/content/sips/020-component-dependencies.md) introduced component dependencies, along with a single component-level boolean: `dependencies_inherit_configuration`. It was all-or-nothing, either every dependency inherited every capability of the parent component, or none did.
+Spin 3 introduced component dependencies, which let you use off-the-shelf Wasm components as libraries without having to write composition scripts or commands. Once you start using component dependencies like that, a natural concern is what capabilities those dependencies have, your application needs to connect to your database, but your regex matcher sure doesn't.
 
-That's a problem in the real world. You might be happy letting an `aws:client/s3` dependency make outbound HTTPS calls to S3, but not letting it read your key-value store or invoke an LLM. [SIP-023](https://github.com/spinframework/spin/blob/main/docs/content/sips/023-fine-grained-capability-inheritance.md) replaces that coarse toggle with a per-dependency `inherit_configuration` field that accepts three forms.
+Spin 3 offered a partial solution where dependencies could be fully isolated, and Spin 4 improves on this by letting you manage dependency capabilities more selectively, on a dependency-by-dependency, capability-by-capability basis. This is the principle of least privilege, expressed in `spin.toml`, and it means you can hand out dependencies from across your organization, or from the registry, and grant them exactly the capabilities they need, and nothing more.
 
-**1. Inherit everything** (equivalent to the old global flag, but scoped to one dep):
+Concretely, Spin 4 replaces the coarse `dependencies_inherit_configuration` toggle with a per-dependency `inherit_configuration` field that accepts three forms.
+
+**1. Inherit everything** — the dependency has access to all the capabilities of the main component:
 
 ```toml
 [component."infra-dashboard".dependencies]
-"aws:client" = { version = "1.0.0", inherit_configuration = true }
+"acme:s3-client" = { version = "1.0.0", inherit_configuration = true }
 ```
+
+This is similar to `dependencies_inherit_configuration = true` in Spin 3, but scoped to just this dependency.
 
 **2. Inherit nothing** (the default):
 
 ```toml
 [component."infra-dashboard".dependencies]
-"aws:client" = { version = "1.0.0", inherit_configuration = false }
+"acme:s3-client" = { version = "1.0.0", inherit_configuration = false }
 ```
 
-The dependency is fully isolated from the parent's configuration. All capability imports are satisfied by deny adapters.
+The dependency is fully isolated from the parent's configuration, any capability import the component calls will return an error. Per-dependency isolation like this is itself new in Spin 4.
 
 **3. Inherit a specific subset.** This is the new power:
 
@@ -294,36 +291,14 @@ The dependency is fully isolated from the parent's configuration. All capability
 [component."infra-dashboard"]
 allowed_outbound_hosts = ["https://s3.us-west-2.amazonaws.com"]
 key_value_stores      = ["my-key-value-cache"]
-ai_models             = ["llama2-chat"]
 
 [component."infra-dashboard".dependencies]
-"aws:client" = { version = "1.0.0", inherit_configuration = ["allowed_outbound_hosts"] }
+"acme:s3-client" = { version = "1.0.0", inherit_configuration = ["allowed_outbound_hosts"] }
 ```
 
-Here `aws:client` can make outbound HTTPS calls to the parent's allowed hosts, enough to reach S3, but it *cannot* see `my-key-value-cache` and *cannot* invoke `llama2-chat`. Every other capability is denied.
+Here `acme:s3-client` can make outbound HTTPS calls to the parent's allowed hosts, enough to reach S3. But every other capability is denied. Specifically, the S3 client *cannot* see `my-key-value-cache`.
 
-The keys you can list are the configuration families Spin already knows about: `ai_models`, `allowed_outbound_hosts`, `environment`, `files`, `key_value_stores`, `sqlite_databases`, and `variables`. Each key maps to a set of WIT interfaces, for example, listing `allowed_outbound_hosts` covers `wasi:http`, `fermyon:spin/mysql`, `fermyon:spin/postgres`, `fermyon:spin/redis`, `wasi:sockets`, and so on. See the [SIP-023 table](https://github.com/spinframework/spin/blob/main/docs/content/sips/023-fine-grained-capability-inheritance.md) for the full mapping.
-
-`inherit_configuration` works uniformly across every dependency source type:
-
-```toml
-[component."my-app".dependencies]
-# Registry dependency
-"aws:client"      = { version = "1.0.0", inherit_configuration = ["allowed_outbound_hosts"] }
-# Local path dependency
-"my:lib/utils"    = { path = "lib/utils.wasm", inherit_configuration = true }
-# HTTP dependency
-"vendor:dep/api"  = { url = "https://example.com/dep.wasm", digest = "sha256:abc123", inherit_configuration = ["variables"] }
-# Reference to another component in this same app
-"infra:dep/svc"   = { component = "svc-component", inherit_configuration = ["key_value_stores", "variables"] }
-```
-
-A couple of rules to be aware of:
-
-- The shorthand form (`"fizz:buzz" = ">=0.1.0"`) doesn't support `inherit_configuration`, use the full table form.
-- `dependencies_inherit_configuration = true` still works as a convenience for "turn it on for every dependency," but **mixing** it with per-dependency `inherit_configuration` is a hard error. Pick one.
-
-Practically, this means you can hand out dependencies to components from across your organization, or from the registry, and grant them exactly the capabilities they need, and nothing more. It's the principle of least privilege, expressed in `spin.toml`.
+For the full list of configuration keys you can inherit and how they map to WIT interfaces, see the [Spin docs on component dependencies](TODO).
 
 ## Upgrading to Spin 4.0
 
