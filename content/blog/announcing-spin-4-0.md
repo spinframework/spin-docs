@@ -26,7 +26,7 @@ WASI Preview 3 (WASIp3) is the next major revision of the WebAssembly System Int
 
 **Spin 4.0 ships with the March 2026 release candidate of WASIp3, and we are committing to supporting it long-term.** WASIp3 is now the default platform for new applications, and the Spin Rust, Python, and Go SDKs have all been updated to use it.
 
-If you followed along in [Spin 3.5](https://spinframework.dev/v3/blog/announcing-spin-3-5) and [Spin 3.6](https://spinframework.dev/v3/blog/announcing-spin-3-6), you've seen WASIp3 progress from "experimental, opt-in, might break between releases" to something ready for production use.
+If you followed along in [Spin 3.5](https://spinframework.dev/blog/announcing-spin-3-5) and [Spin 3.6](https://spinframework.dev/blog/announcing-spin-3-6), you've seen WASIp3 progress from "experimental, opt-in, might break between releases" to something ready for production use.
 
 What this means in practice:
 
@@ -257,7 +257,7 @@ $ spin up
 $ spin up --profile debug
 ```
 
-Learn more in the [Spin docs on build profiles](https://spinframework.dev/v4/build-profiles).
+Learn more in the [Spin docs on build profiles](https://spinframework.dev/v4/build#building-with-profiles).
 
 ## Fine-grained capability inheritance for dependencies
 
