@@ -209,7 +209,7 @@ The same pattern is available in Python (via `componentize_py_async_support.spaw
 
 ## Build profiles
 
-Until now, building a Spin component in debug vs. release mode, or profiling builds, or "use a pre-built version in CI", meant hand-editing `[component.X.build]` tables, usually on a branch you hoped nobody merged. [SIP-022](https://github.com/spinframework/spin/blob/main/docs/content/sips/022-build-profiles.md) fixes this. Spin 4.0 introduces named **build profiles**, inspired by Cargo profiles.
+Development tools often offer ways to build code in different ways for different purposes: for example, debug builds that favor diagnostic value over speed and size, or profiling builds that inject performance instrumentation. Spin 4.0 introduces named **build profiles**, so you can leverage those options in Wasm applications, for example, to define a debug or profile build of your application.
 
 You declare alternate profiles inline under each component, and select one at the command line:
 
