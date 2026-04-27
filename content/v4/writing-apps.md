@@ -258,6 +258,8 @@ HTTP path: /...
 
 All of these templates create a manifest containing a single component, and the source code for a minimal "hello world" component.
 
+> The Rust, Go, and Python templates depend on Spin 4 and its support for WASI Preview 3. As Spin 4 is fairly new, some Spin hosts support only Spin 3.x. If you need to target such a host, look for a `http-<lang>-p2` template and use that instead.
+
 ## Adding a New Component to an Application
 
 To add a new component to an existing application using a template, run the `spin add` command. This works in a very similar way to `spin new`, except that it expects the `spin.toml` file to already exist, and adds the details for the new component to that `spin.toml`.
