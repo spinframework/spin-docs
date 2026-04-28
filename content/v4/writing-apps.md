@@ -560,7 +560,7 @@ To make the isolation explicit (for example, in a manifest where other dependenc
 "untrusted:dependency" = { version = "1.0.0", inherit_configuration = false }
 ```
 
-#### Granting all dependencies the same permissions
+#### Granting all dependencies full permissions
 
 If you want to grant _all_ dependencies of a component the same permissions as the parent component, you can set `dependencies_inherit_configuration = true` at the component level:
 
