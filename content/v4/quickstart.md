@@ -231,7 +231,9 @@ You'll need the TinyGo compiler, as the standard Go compiler does not yet suppor
 {{card_element "template" "Zola SSG Template" "A template for using Zola framework to create a static webpage" "/hub/preview/template_zola_ssg" "rust" true }}
 {{blockEnd}}
 
-Now you are ready to create your first Spin application:
+Now you are ready to create your first Spin application.
+
+> The Rust, Go, and Python templates depend on Spin 4 and its support for WASI Preview 3. As Spin 4 is fairly new, some Spin hosts support only Spin 3.x. If you need to target such a host, look for a `http-<lang>-p2` template and use that instead.
 
 {{ tabs "sdk-type" }}
 
