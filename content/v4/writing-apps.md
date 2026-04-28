@@ -516,13 +516,7 @@ and Spin will map all of your `security:http` imports to the matching exports fr
 
 ### Dependency Permissions
 
-By default, dependencies do not have access to Spin resources that require permission to be given in the manifest - network hosts, key-value stores, SQLite databases, variables, etc. Any capability imports a dependency makes that you have not granted are wired to stub implementations that return errors at runtime, so an over-reaching dependency will fail loudly rather than silently bypass the parent's configuration.
-
-You control this per dependency with the `inherit_configuration` field, which accepts three forms:
-
-- A list of capability names — the dependency is granted only those capabilities.
-- `true` — the dependency inherits every capability configured on the parent component.
-- `false` — the dependency inherits nothing. This is the default when `inherit_configuration` is omitted.
+By default, dependencies do not have access to Spin resources that require permission to be given in the manifest - network hosts, key-value stores, SQLite databases, variables, etc. If a dependency tries to access such a capability, it will fail with an error.
 
 #### Granting specific capabilities
 
@@ -545,16 +539,12 @@ The permission names are the same as the corresponding permission names in the m
 | `sqlite_databases` | The dependency can access all SQLite databases listed in the component manifest. The dependency may use the [SQLite API](./sqlite-api-guide.md). |
 | `variables` | The dependency can read all Spin configuration variables listed in the component manifest. The dependency may use the [variables API](./variables.md). |
 
-The dependency does not receive any permissions other than those you list. Any other capability imports the dependency makes will return errors at runtime.
-
 `inherit_configuration` applies uniformly to every dependency source — registry packages, local paths, HTTP URLs, and in-app component references. For example, the same permission form works for a local dependency:
 
 ```toml
 [component.my-app.dependencies]
 "my:dependency" = { path = "../deps/my-dependency.wasm", inherit_configuration = ["allowed_outbound_hosts"] }
 ```
-
-> The shorthand version-string form (`"my:dependency" = "1.0.0"`) cannot carry `inherit_configuration`. Use the expanded table form whenever you need to grant permissions.
 
 #### Granting all or no capabilities
 
@@ -582,26 +572,6 @@ dependencies_inherit_configuration = true
 [component.my-app.dependencies]
 "my:dependency" = "1.0.0"  # has all capabilities of the main component
 ```
-
-> `dependencies_inherit_configuration` and per-dependency `inherit_configuration` are **mutually exclusive** on the same component. The following manifest is an error:
->
-> ```toml
-> [component.my-app]
-> source = "app.wasm"
-> dependencies_inherit_configuration = true
->
-> [component.my-app.dependencies]
-> # ERROR: cannot mix component-level and per-dependency inherit_configuration
-> "aws:client" = { version = "1.0.0", inherit_configuration = false }
-> ```
->
-> Spin will report:
->
-> ```text
-> Component `my-app` specifies both `dependencies_inherit_configuration` and per-dependency `inherit_configuration`. These are mutually exclusive; use one or the other.
-> ```
->
-> Pick one form per component: use `dependencies_inherit_configuration = true` as a shorthand when every dependency should inherit everything, and use per-dependency `inherit_configuration` whenever any dependency needs a different permission set.
 
 ## Next Steps
 
