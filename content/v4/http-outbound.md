@@ -201,15 +201,15 @@ You can find a complete example for using outbound HTTP in the [Python SDK repos
 
 {{ blockEnd }}
 
-{{ startTab "TinyGo"}}
+{{ startTab "Go"}}
 
-> [**Want to go straight to the reference documentation?**  Find it here.](https://pkg.go.dev/github.com/spinframework/spin-go-sdk/v2@v2.2.1/http)
+> [**Want to go straight to the reference documentation?**  Find it here.](https://pkg.go.dev/github.com/spinframework/spin-go-sdk/v3@v3.0.0/http)
 
-HTTP functions are available in the `github.com/spinframework/spin-go-sdk/v2/http` package. [See Go Packages for reference documentation.](https://pkg.go.dev/github.com/spinframework/spin-go-sdk/v2/http) The general function is named `Send`, but the Go SDK also surfaces individual functions, with request-specific parameters, for the `Get` and `Post` operations. For example:
+HTTP functions are available in the `github.com/spinframework/spin-go-sdk/v3/http` package. [See Go Packages for reference documentation.](https://pkg.go.dev/github.com/spinframework/spin-go-sdk/v3/http) The general function is named `Send`, but the Go SDK also surfaces individual functions, with request-specific parameters, for the `Get` and `Post` operations. For example:
 
 ```go
 import (
-	spinhttp "github.com/spinframework/spin-go-sdk/v2/http"
+	spinhttp "github.com/spinframework/spin-go-sdk/v3/http"
 )
 
 res1, err1 := spinhttp.Get("https://random-data-api.fermyon.app/animals/json")
@@ -218,13 +218,13 @@ res2, err2 := spinhttp.Post("https://example.com/users", "application/json", jso
 request, err := http.NewRequest("PUT", "https://example.com/users/1", bytes.NewBufferString(user1))
 request.Header.Add("content-type", "application/json")
 res3, err3 := spinhttp.Send(req)
-
 ```
 
 **Notes**
 
 * In the `Post` function, the body is an `io.Reader`. The Spin SDK reads this into the underlying Wasm byte array.
 * The `NewRequest` function is part of the standard library. The `Send` method adapts the standard request type to the underlying Wasm interface.
+* The response has a `Body` field of type `io.Reader`.
 * Errors are returned through the usual Go multiple return values mechanism.
 
 You can find a complete example for using outbound HTTP in the [Spin repository on GitHub](https://github.com/spinframework/spin-go-sdk/tree/main/examples/http-outbound).

@@ -216,7 +216,7 @@ test.sh
 - `macOS`
 - `Python`
 - `Rust`
-- `TinyGo`
+- `Go`
 - `TypeScript`
 - `v0.9.0`
 - `v0.10.0`

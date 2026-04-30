@@ -144,7 +144,7 @@ Installing template http-py...
 
 {{ blockEnd }}
 
-{{ startTab "TinyGo" }}
+{{ startTab "Go" }}
 
 <!-- @selectiveCpy -->
 
@@ -157,8 +157,8 @@ Installing template http-go...
 | Name                Description                                        |
 +========================================================================+
 | ... other templates omitted ...                                        |
-| http-go             HTTP request handler using (Tiny)Go                |
-| redis-go            Redis message handler using (Tiny)Go               |
+| http-go             HTTP request handler using Go                      |
+| redis-go            Redis message handler using Go                     |
 | ... other templates omitted ...                                        |
 +------------------------------------------------------------------------+
 ```
@@ -213,9 +213,9 @@ You'll install all the required Python tools as part of building the application
 
 {{ blockEnd }}
 
-{{ startTab "TinyGo" }}
+{{ startTab "Go" }}
 
-You'll need the TinyGo compiler, as the standard Go compiler does not yet support WASI exports.  See the [TinyGo installation guide](https://tinygo.org/getting-started/install/).
+You'll need the Go compiler, version 1.25.5 or above.
 
 [Learn more in the language guide.](go-components)
 
@@ -248,12 +248,12 @@ $ spin new
 Pick a template to start your application with:
   http-c (HTTP request handler using C and the Zig toolchain)
   http-csharp (HTTP request handler using C# (EXPERIMENTAL))
-  http-go (HTTP request handler using (Tiny)Go)
+  http-go (HTTP request handler using Go)
   http-grain (HTTP request handler using Grain)
 > http-rust (HTTP request handler using Rust)
   http-swift (HTTP request handler using SwiftWasm)
   http-zig (HTTP request handler using Zig)
-  redis-go (Redis message handler using (Tiny)Go)
+  redis-go (Redis message handler using Go)
   redis-rust (Redis message handler using Rust)
 
 Enter a name for your new application: hello_rust
@@ -572,7 +572,7 @@ class HttpHandler(Handler):
 
 {{ blockEnd }}
 
-{{ startTab "TinyGo"}}
+{{ startTab "Go"}}
 
 Use the `spin new` command and the `http-go` template to scaffold a new Spin application.
 
@@ -583,7 +583,7 @@ $ spin new
 Pick a template to start your application with:
   http-c (HTTP request handler using C and the Zig toolchain)
   http-empty (HTTP application with no components)
-> http-go (HTTP request handler using (Tiny)Go)
+> http-go (HTTP request handler using Go)
   http-grain (HTTP request handler using Grain)
   http-php (HTTP request handler using PHP)
   http-rust (HTTP request handler using Rust)
@@ -592,7 +592,7 @@ Description: My first Go Spin application
 HTTP path: /...
 ```
 
-This command created a directory with the necessary files needed to build and run a Go Spin application using the TinyGo compiler.  Change to that directory, and look at the files.  It looks very much like a normal Go project:
+This command created a directory with the necessary files needed to build and run a Go Spin application.  Change to that directory, and look at the files.  It looks very much like a normal Go project:
 
 <!-- @selectiveCpy -->
 
@@ -627,7 +627,7 @@ component = "hello-go"
 source = "main.wasm"
 allowed_outbound_hosts = []
 [component.hello-go.build]
-command = "tinygo build -target=wasip1 -gc=leaking -buildmode=c-shared -no-debug -o main.wasm ."
+command = "go tool componentize-go build"
 ```
 
 This represents a simple Spin HTTP application (triggered by an HTTP request).  It has:
@@ -651,7 +651,7 @@ import (
         "fmt"
         "net/http"
 
-        spinhttp "github.com/spinframework/spin-go-sdk/v2/http"
+        spinhttp "github.com/spinframework/spin-go-sdk/v3/http"
 )
 
 func init() {
@@ -807,29 +807,27 @@ You can always run this command manually; `spin build` is a shortcut.
 
 {{ blockEnd }}
 
-{{ startTab "TinyGo"}}
+{{ startTab "Go"}}
 
 <!-- @selectiveCpy -->
 
 ```bash
 $ spin build
-Executing the build command for component hello-go: tinygo build -target=wasip1 -gc=leaking -buildmode=c-shared -no-debug -o main.wasm .
-go: downloading github.com/fermyon/spin/sdk/go v0.10.0
+Executing the build command for component hello-go: go tool componentize-go build
+go: downloading github.com/spinframework/spin-go-sdk/v3 v3.0.0
 Finished building all Spin components
 ```
 
 If the build fails, check:
 
 * Are you in the `hello_go` directory?
-* Did you successfully [install TinyGo](#install-the-tools)?
-* Are your versions of Go and TinyGo up to date? The Spin SDK needs TinyGo 0.35 or above and Go 1.22 or above.
-* Set Environment Variable `CGO_ENABLED=1`. (Since the Go SDK is built using CGO, it requires the CGO_ENABLED=1 environment variable to be set.)
+* Is your version of Go up to date? The Spin SDK needs Go 1.25.5 or above.
 
 If you would like to know what build command Spin runs for a component, you can find it in the manifest, in the `component.(id).build` section:
 
 ```toml
 [component.hello-go.build]
-command = "tinygo build -target=wasip1 -gc=leaking -buildmode=c-shared -no-debug -o main.wasm ."
+command = "go tool componentize-go build"
 ```
 
 You can always run this command manually; `spin build` is a shortcut to save you having to remember it.

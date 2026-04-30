@@ -143,7 +143,7 @@ Other paths within the reserved space currently return 404 Not Found.
 
 ## Authoring HTTP Components
 
-> Spin has two ways of running HTTP components, depending on language support for the evolving WebAssembly component standards.  This section describes the default way, which is currently used by Rust, JavaScript/TypeScript, Python, and TinyGo components.  For other languages, see [HTTP Components with Wagi](#http-with-wagi-webassembly-gateway-interface) below.
+> Spin has two ways of running HTTP components, depending on language support for the evolving WebAssembly component standards.  This section describes the default way, which is currently used by Rust, JavaScript/TypeScript, Python, and Go components.  For other languages, see [HTTP Components with Wagi](#http-with-wagi-webassembly-gateway-interface) below.
 
 By default, Spin runs components using the [WebAssembly component model](https://component-model.bytecodealliance.org/).  In this model, the Wasm module exports a well-known interface that Spin calls to handle the HTTP request.
 
@@ -247,9 +247,9 @@ You can find a complete example for handling a HTTP request in the [Python SDK r
 
 {{ blockEnd }}
 
-{{ startTab "TinyGo"}}
+{{ startTab "Go"}}
 
-> [**Want to go straight to the reference documentation?**  Find it here.](https://pkg.go.dev/github.com/spinframework/spin-go-sdk/v2@v2.2.1/http)
+> [**Want to go straight to the reference documentation?**  Find it here.](https://pkg.go.dev/github.com/spinframework/spin-go-sdk/v3@v3.0.0/http)
 
 In Go, you register the handler as a callback in your program's `init` function.  Set `handler.Exports.Handle` to your handler function.  Your handler takes a `*Request` pointer, and returns a `Result[Response, ErrorCode]` with the response.
 
@@ -260,41 +260,21 @@ import (
     "fmt"
     "net/http"
 
-    handler "github.com/spinframework/spin-go-sdk/v3/exports/wasi_http_service_0_3_0_rc_2026_03_15/export_wasi_http_0_3_0_rc_2026_03_15_handler"
-    _ "github.com/spinframework/spin-go-sdk/v3/exports/wasi_http_service_0_3_0_rc_2026_03_15/wit_exports"
-    . "github.com/spinframework/spin-go-sdk/v3/imports/wasi_http_0_3_0_rc_2026_03_15_types"
-    . "go.bytecodealliance.org/pkg/wit/types")
-
-func Handle(request *Request) Result[*Response, ErrorCode] {
-    tx, rx := MakeStreamU8()
-
-    go func() {
-        defer tx.Drop()
-        tx.WriteAll([]uint8("hello, world!"))
-    }()
-
-    response, send := ResponseNew(
-        FieldsFromList([]Tuple2[string, []uint8]{
-            Tuple2[string, []uint8]{"content-type", []uint8("text/plain")},
-        }).Ok(),
-        Some(rx),
-        trailersFuture(),
-    )
-    send.Drop()
-
-    return Ok[*Response, ErrorCode](response)
-}
-
-func trailersFuture() *FutureReader[Result[Option[*Fields], ErrorCode]] {
-    tx, rx := MakeFutureResultOptionFieldsErrorCode()
-    go tx.Write(Ok[Option[*Fields], ErrorCode](None[*Fields]()))
-    return rx
-}
+    spinhttp "github.com/spinframework/spin-go-sdk/v3/http"
+)
 
 func init() {
-    handler.Exports.Handle = Handle
+	spinhttp.Handle(func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Content-Type", "text/plain")
+		w.Header().Set("foo", "bar")
+
+		fmt.Fprintln(w, "== RESPONSE ==")
+		fmt.Fprintln(w, "Hello spinframework!")
+		fmt.Fprintln(w, "Hello again spinframework!")
+	})
 }
 
+// Formally required but never used
 func main() {}
 ```
 

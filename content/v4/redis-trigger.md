@@ -108,13 +108,13 @@ You can find a complete Python code example using the Redis trigger in the [Spin
 
 {{ blockEnd }}
 
-{{ startTab "TinyGo"}}
+{{ startTab "Go"}}
 
-> [**Want to go straight to the reference documentation?**  Find it here.](https://pkg.go.dev/github.com/spinframework/spin-go-sdk/v2@v2.2.1/redis)
+> [**Want to go straight to the reference documentation?**  Find it here.](https://pkg.go.dev/github.com/spinframework/spin-go-sdk/v3@v3.0.0/redis)
 
 In Go, you register the handler as a callback in your program's `init` function.  Call `redis.Handle` (from the Spin SDK `redis` package), passing your handler as the sole argument.  Your handler takes a single byte slice (`[]byte`) argument, and may return an error or `nil`.
 
-> The do-nothing `main` function is required by TinyGo but is not used; the action happens in the `init` function and handler callback.
+> The do-nothing `main` function is required by Go but is not used; the action happens in the `init` function and handler callback.
 
 This example just logs the payload as a string:
 
@@ -124,7 +124,7 @@ package main
 import (
 	"fmt"
 
-	"github.com/spinframework/spin-go-sdk/v2/redis"
+	"github.com/spinframework/spin-go-sdk/v3/redis"
 )
 
 func init() {
