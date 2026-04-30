@@ -16,13 +16,7 @@ Spin provides an interface for you to persist data in a key value store managed 
 
 ## Using Key Value Store From Applications
 
-The Spin SDK surfaces the Spin key value store interface to your language. The following characteristics are true of keys and values:
-
-* Keys as large as 256 bytes (UTF-8 encoded)
-* Values as large as 1 megabyte
-* Capacity for 1024 key value tuples
-
-The set of operations is common across all SDKs:
+The Spin SDK surfaces the Spin key value store interface to your language. The set of operations is common across all SDKs:
 
 | Operation  | Parameters | Returns | Behavior |
 |------------|------------|---------|----------|
@@ -200,6 +194,12 @@ func example() error {
 {{ blockEnd }}
 
 {{ blockEnd }}
+
+## Key Value Store Limits
+
+The key/value size limits and syntactic requirements of a key value store depends on which [key value store provider](./dynamic-configuration#key-value-store-runtime-configuration) your app uses. The Spin command line currently supports a [default local SQLite provider]((./dynamic-configuration#file-key-value-store-provider)), a Redis KV provider, an Azure Cosmos DB backed provider, and an AWS Dynamo DB provider. See the [key value store runtime configuration](./dynamic-configuration#key-value-store-runtime-configuration) documentation for more information about the limits and requirements of each provider.
+
+When you deploy your application, bear in mind that your deployment platform may have a KV provider with different characteristics from your local one!
 
 ## Custom Key Value Stores
 
