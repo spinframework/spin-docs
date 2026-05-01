@@ -266,6 +266,15 @@ Spin creates the path and file if they don't already exist.
 
 > If, during development, you need to examine keys and values, you can open the file using `sqlite3` or another SQLite tools. However, the file format is subject to change, and you should not rely on it.
 
+#### Limits and Requirements
+
+* Key size: Up to 256 bytes (UTF-8 encoded)
+* Value size: Up to 1 MB
+* Capacity: 1024 key value tuples
+* Reads per second: unlimited
+* Writes per second: unlimited
+* Global replication: none
+
 ### Redis Key Value Store Provider
 
 To use a Redis store as a backend for Spin's key-value store, set the type to `redis` and provide the URL of the Redis host:
@@ -275,6 +284,15 @@ To use a Redis store as a backend for Spin's key-value store, set the type to `r
 type = "redis"
 url = "redis://localhost"
 ```
+
+#### Limits and Requirements
+
+* Key size: Key/value pair size cannot exceed 128 MB
+* Value size: Key/value pair size cannot exceed 128 MB
+* Capacity: Unlimited key-value tuples
+* Reads per second: Determined by Redis server configuration
+* Writes per second: Determined by Redis server configuration
+* Global replication: Depends on Redis deployment (single instance = no; Redis Cluster/Sentinel = yes)
 
 ### Azure CosmosDB Key Value Store Provider
 
@@ -290,6 +308,16 @@ container = "<cosmos-container>"
 ```
 
 > Note: The CosmosDB container must be created with the default partition key, `/id`.
+
+#### Limits and Requirements
+
+* Key size: Up to 255 characters (Cosmos DB document id limit)
+* Value size: Up to ~400 KB per item total (Cosmos DB hard limit; not validated in Spin code)
+* Key syntax: Keys must NOT contain: /, \, ?, # 
+* Capacity: Unlimited 
+* Reads per second: Determined by provisioned RU/s on the Cosmos DB container
+* Writes per second: Determined by provisioned RU/s on the Cosmos DB container
+* Global replication: Yes (Cosmos DB supports multi-region replication)
 
 ### AWS DynamoDB Key Value Store Provider
 
@@ -308,6 +336,15 @@ You may optionally provide `access_key` and `secret_key` credentials; otherwise,
 By default, the DynamoDB backend uses eventually consistent reads. The `consistent_read` option turns on [strongly consistent reads](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.ReadConsistency.html). This ensures reads are up-to-date with writes, at an increased cost. See the [DynamoDB documentation](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.ReadConsistency.html) for more information.
 
 > Note: The DynamoDB table must be created with the partition key `PK`. It must have no sort key (so that the partition key is the primary key).
+
+#### Limits and Requirements
+
+* Key size: Up to 2048 bytes
+* Value size: Up to 400 KB per item
+* Capacity: Unlimited
+* Reads per second: Determined by DynamoDB table capacity mode (provisioned or on-demand)
+* Writes per second: Determined by DynamoDB table capacity mode
+* Global replication: Depends on deployment
 
 ### Multiple and Non-Default Key-Value Stores
 
