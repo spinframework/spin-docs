@@ -78,12 +78,12 @@ It's normally convenient to put the detailed build instructions in `package.json
 ```json
 {
   "scripts": {
-    "build": "npx webpack && mkdirp dist && j2w -i build/bundle.js -o target/spin-http-js.wasm"
+    "build": "node build.mjs && mkdirp dist && j2w -i build/bundle.js -o target/spin-http-js.wasm"
   }
 }
 ```
 
-{{ details "Parts of the build script" "The build script calls out to [`webpack`](https://webpack.js.org/) and `j2w` which is a script provided by the `@fermyon/spin-sdk` package that utilizes [`ComponentizeJS`](https://github.com/bytecodealliance/ComponentizeJS). [`knitwit`](https://github.com/fermyon/knitwit) is a utility that helps combine `wit` worlds "}}
+{{ details "Parts of the build script" "The build script calls out to [`Esbuild`](https://esbuild.github.io/) and `j2w` which is a script provided by the `@spinframework/build-tools` package that utilizes [`ComponentizeJS`](https://github.com/bytecodealliance/ComponentizeJS).
 
 The build command can then call the NPM script:
 

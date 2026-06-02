@@ -140,7 +140,7 @@ async fn handle_api_call_with_token(_req: Request) -> anyhow::Result<impl IntoRe
 
 ```ts
 import { AutoRouter } from 'itty-router';
-import { Variables } from '@fermyon/spin-sdk';
+import * as Variables  from '@spinframework/spin-variables';
 
 let router = AutoRouter();
 

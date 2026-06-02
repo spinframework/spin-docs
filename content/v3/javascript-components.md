@@ -86,9 +86,9 @@ hello-world
 └── webpack.config.js
 ```
 
-The source for the component is present in `src/index.ts`. [Webpack](https://webpack.js.org) is used to bundle the component into a single `.js` file which will then be compiled to a `.wasm` module.
+The source for the component is present in `src/index.ts`. [Esbuild](https://esbuild.github.io/) is used to bundle the component into a single `.js` file which will then be compiled to a `.wasm` module.
 
-{{ details "Going from JavaScript to Wasm" "The JS source is compiled to a `wasm` module using the `j2w` node executable provided by the `@fermyon/spin-sdk` which is a wrapper around `ComponentizeJS` that is used to manage the dependencies."}}
+{{ details "Going from JavaScript to Wasm" "The JS source is compiled to a `wasm` module using the `j2w` node executable provided by the `@spinframework/build-tools` which is a wrapper around `ComponentizeJS` that is used to manage the dependencies."}}
 
 ## Building and Running the Template
 

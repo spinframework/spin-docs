@@ -308,7 +308,7 @@ fn hello_world(_req: Request) -> anyhow::Result<impl IntoResponse> {
 ```typescript
 
 import { AutoRouter } from 'itty-router';
-import { Llm } from '@fermyon/spin-sdk';
+import * as Llm from '@spinframework/spin-llm';
 
 const  model = InferencingModels.Llama2Chat
 
