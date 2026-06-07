@@ -11,6 +11,7 @@ url = "https://github.com/spinframework/spin-docs/blob/main/content/v4/managing-
   - [Installing a Specific Version of a Plugin](#installing-a-specific-version-of-a-plugin)
   - [Installing a Plugin From a URL](#installing-a-plugin-from-a-url)
   - [Installing a Plugin From a File](#installing-a-plugin-from-a-file)
+  - [Installing Plugins for a Specific Deployment Environment](#installing-plugins-for-a-specific-deployment-environment)
 - [Running a Plugin](#running-a-plugin)
 - [Viewing Available Plugins](#viewing-available-plugins)
   - [Viewing Installed Plugins](#viewing-installed-plugins)
@@ -81,6 +82,10 @@ If the plugin you want is in your local file system, you can install it from its
 ```bash
 $ spin plugins install --file ~/dev/spin-befunge-sdk/befunge2wasm.json
 ```
+
+### Installing Plugins for a Specific Deployment Environment
+
+Some Spin platforms provide plugins for platform-related tasks like deployment. If you use such a deployment environment, you can list and install the plugins associated with it by running `spin plugins list -E <environment>` or `spin plugins install -E <environment>`. Your platform documentation will tell you the `environment` name.
 
 ## Running a Plugin
 
