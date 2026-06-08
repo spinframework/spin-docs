@@ -191,9 +191,9 @@ You can find a complete Python code example using SQLite storage in the [Spin Py
 
 {{ blockEnd }}
 
-{{ startTab "TinyGo"}}
+{{ startTab "Go"}}
 
-> [**Want to go straight to the reference documentation?**  Find it here.](https://pkg.go.dev/github.com/spinframework/spin-go-sdk/v2@v2.2.1/sqlite)
+> [**Want to go straight to the reference documentation?**  Find it here.](https://pkg.go.dev/github.com/spinframework/spin-go-sdk/v3/sqlite)
 
 The Go SDK is implemented as a driver for the standard library's [database/sql](https://pkg.go.dev/database/sql) interface.
 
@@ -204,8 +204,8 @@ import (
 	"encoding/json"
 	"net/http"
 
-	spinhttp "github.com/spinframework/spin-go-sdk/v2/http"
-	"github.com/spinframework/spin-go-sdk/v2/sqlite"
+	spinhttp "github.com/spinframework/spin-go-sdk/v3/http"
+	"github.com/spinframework/spin-go-sdk/v3/sqlite"
 )
 
 type Todo struct {
@@ -240,6 +240,13 @@ func init() {
 			}
 			todos = append(todos, &todo)
 		}
+
+		// Check if rows ended normally or due to error
+		if err := rows.Err(); err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
+
 		json.NewEncoder(w).Encode(todos)
 	})
 }

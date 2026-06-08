@@ -188,11 +188,11 @@ You can find a complete Python code example using the LLM module in the [Spin Py
 
 {{ blockEnd }}
 
-{{ startTab "TinyGo"}}
+{{ startTab "Go"}}
 
-> [**Want to go straight to the reference documentation?**  Find it here.](https://pkg.go.dev/github.com/spinframework/spin-go-sdk/v2@v2.2.1/llm)
+> [**Want to go straight to the reference documentation?**  Find it here.](https://pkg.go.dev/github.com/spinframework/spin-go-sdk/v3/llm)
 
-Serverless AI functions are available in the `github.com/spinframework/spin-go-sdk/v2/llm` package. See [Go Packages](https://pkg.go.dev/github.com/spinframework/spin-go-sdk/v2/llm) for reference documentation. For example:
+Serverless AI functions are available in the `github.com/spinframework/spin-go-sdk/v3/llm` package. See [Go Packages](https://pkg.go.dev/github.com/spinframework/spin-go-sdk/v3/llm) for reference documentation. For example:
 
 ```go
 package main
@@ -201,13 +201,13 @@ import (
 	"fmt"
 	"net/http"
 
-	spinhttp "github.com/spinframework/spin-go-sdk/v2/http"
-	"github.com/spinframework/spin-go-sdk/v2/llm"
+	spinhttp "github.com/spinframework/spin-go-sdk/v3/http"
+	"github.com/spinframework/spin-go-sdk/v3/llm"
 )
 
 func init() {
 	spinhttp.Handle(func(w http.ResponseWriter, r *http.Request) {
-		result, err := llm.Infer("llama2-chat", "What is a good prompt?", nil)
+		result, err := llm.Infer("llama2-chat", "Tell me a joke", nil)
 		if err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 			return
@@ -222,7 +222,7 @@ func init() {
 			return
 		}
 		fmt.Printf("Prompt Tokens: %d\n", embeddings.Usage.PromptTokenCount)
-		fmt.Printf("%v\n", embeddings.Embeddings)
+		fmt.Printf("%d\n", embeddings.Embeddings[0])
 	})
 }
 ```

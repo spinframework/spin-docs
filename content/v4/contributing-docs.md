@@ -211,20 +211,21 @@ test.sh
 - `Generic Kubernetes`
 - `GitHub CLI`
 - `GitHub UI`
+- `Go`
 - `K3d`
 - `Linux`
 - `macOS`
 - `Python`
 - `Rust`
-- `TinyGo`
+- `TinyGo` (no longer used in new documentation)
 - `TypeScript`
-- `v0.9.0`
-- `v0.10.0`
-- `v1.0.0`
-- `v1.1.0`
-- `v1.2.0`
-- `v0.1.0`
-- `v0.1.1`
+- `v0.9.0` (no longer used in new documentation)
+- `v0.10.0` (no longer used in new documentation)
+- `v1.0.0` (no longer used in new documentation)
+- `v1.1.0` (no longer used in new documentation)
+- `v1.2.0` (no longer used in new documentation)
+- `v0.1.0` (no longer used in new documentation)
+- `v0.1.1` (no longer used in new documentation)
 - `Windows`
 
 The next section covers the highly recommended use of ToCs.

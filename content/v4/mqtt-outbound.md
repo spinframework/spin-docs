@@ -103,9 +103,30 @@ You can find a complete Python code example for using outbound MQTT from an HTTP
 
 {{ blockEnd }}
 
-{{ startTab "TinyGo"}}
+{{ startTab "Go"}}
 
-MQTT is not available in the current version of the Go SDK.
+> [**Want to go straight to the Spin SDK reference documentation?**  Find it here.](https://pkg.go.dev/github.com/spinframework/spin-go-sdk/v3/mqtt)
+
+To access an MQTT server, use the `mqtt` package. Open a connection using the `OpenConnection` function, then call the `Publish` method:
+
+```go
+import (
+	"github.com/spinframework/spin-go-sdk/v3/mqtt"
+)
+
+func testMqtt(address, user, pw string, keepAlive uint64) error {
+  conn, err := mqtt.OpenConnection(address, user, pw, keepAlive)
+  if err != nil {
+    return err
+  }
+
+  message := []byte("Eureka!")
+
+  if err := conn.Publish("tests", message, mqtt.QosAtMostOnce); err != nil {
+    return err
+  }
+}
+```
 
 {{ blockEnd }}
 

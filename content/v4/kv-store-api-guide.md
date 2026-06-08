@@ -7,6 +7,7 @@ url = "https://github.com/spinframework/spin-docs/blob/main/content/v4/kv-store-
 
 ---
 - [Using Key Value Store From Applications](#using-key-value-store-from-applications)
+- [Key Value Store Limits](#key-value-store-limits)
 - [Custom Key Value Stores](#custom-key-value-stores)
 - [Granting Key Value Store Permissions to Components](#granting-key-value-store-permissions-to-components)
 
@@ -170,21 +171,20 @@ You can find a complete Python code example using the Key Value store in the [Sp
 
 {{ blockEnd }}
 
-{{ startTab "TinyGo"}}
+{{ startTab "Go"}}
 
-> [**Want to go straight to the Spin SDK reference documentation?**  Find it here.](https://pkg.go.dev/github.com/spinframework/spin-go-sdk/v2@v2.2.1/kv)
+> [**Want to go straight to the Spin SDK reference documentation?**  Find it here.](https://pkg.go.dev/github.com/spinframework/spin-go-sdk/v3/kv)
 
-Key value functions are provided by the `github.com/spinframework/spin-go-sdk/v2/kv` module. [See Go Packages for reference documentation.](https://pkg.go.dev/github.com/spinframework/spin-go-sdk/v2/kv) For example:
+Key value functions are provided by the `github.com/spinframework/spin-go-sdk/v3/kv` module. [See Go Packages for reference documentation.](https://pkg.go.dev/github.com/spinframework/spin-go-sdk/v3/kv) For example:
 
 ```go
-import "github.com/spinframework/spin-go-sdk/v2/kv"
+import "github.com/spinframework/spin-go-sdk/v3/kv"
 
 func example() error {
-    store, err := kv.OpenStore("default")
+    store, err := kv.OpenDefault()
     if err != nil {
         return err
     }
-    defer store.Close()
     previous, err := store.Get("mykey")
     return store.Set("mykey", []byte("myvalue"))
 }
