@@ -15,9 +15,13 @@ url = "https://github.com/spinframework/spin-docs/blob/main/content/v4/dynamic-c
     - [Azure Key Vault Application Variable Provider Example](#azure-key-vault-application-variable-provider-example)
 - [Key Value Store Runtime Configuration](#key-value-store-runtime-configuration)
   - [File Key Value Store Provider](#file-key-value-store-provider)
+    - [Limits and Requirements](#limits-and-requirements)
   - [Redis Key Value Store Provider](#redis-key-value-store-provider)
+    - [Limits and Requirements](#limits-and-requirements-1)
   - [Azure CosmosDB Key Value Store Provider](#azure-cosmosdb-key-value-store-provider)
+    - [Limits and Requirements](#limits-and-requirements-2)
   - [AWS DynamoDB Key Value Store Provider](#aws-dynamodb-key-value-store-provider)
+    - [Limits and Requirements](#limits-and-requirements-3)
   - [Multiple and Non-Default Key-Value Stores](#multiple-and-non-default-key-value-stores)
 - [SQLite Storage Runtime Configuration](#sqlite-storage-runtime-configuration)
   - [LibSQL Storage Provider](#libsql-storage-provider)
@@ -391,6 +395,17 @@ path = "/super/secret/monies.db"
 ```
 
 Spin creates any database files that don't exist.  However, it is up to you to delete them when you no longer need them.
+
+By default, filesystem databases may not use the `ATTACH` statement with persistent files. You can enable this using the `allow_attach_file` setting:
+
+```toml
+[sqlite_database.i-haz-the-datas]
+type = "spin"
+path = "snaffles.db"
+allow_attach_file = true
+```
+
+`ATTACH`-ing a memory or tempfile database is always allowed.
 
 ### LibSQL Storage Provider
 
