@@ -14,6 +14,7 @@ keywords = "install"
 - [Installing Templates and Plugins](#installing-templates-and-plugins)
   - [Templates](#templates)
   - [Plugins](#plugins)
+- [Shell Completions](#shell-completions)
 - [Next Steps](#next-steps)
 
 ## Installing Spin
@@ -303,6 +304,24 @@ $ spin plugins install foo --yes
 ```
 
 For more information, please visit the [managing plugins](./managing-plugins) section of the documentation.
+
+## Shell Completions
+
+Spin provides shell command completions for bash and zsh. To set up shell completions, run the following command during shell startup (for example, in your `.bashrc`):
+
+<!-- @selectiveCpy -->
+
+```bash
+$ source <(COMPLETE=bash spin maintenance generate-completions)
+```
+
+(For zsh, change the `COMPLETE` variable to `zsh`.)
+
+Shell completions are a work in progress, and have some known limitations:
+
+* You do not get trigger option completions in `spin up` (unfortunately, this includes a lot of options)
+* You do not get `spin up` option completions on `spin build --up` or `spin watch`
+* You do not get completions for plugin commands
 
 ## Next Steps
 
