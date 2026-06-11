@@ -12,6 +12,7 @@ url = "https://github.com/spinframework/spin-docs/blob/main/content/v4/writing-a
   - [The Component `source`](#the-component-source)
 - [Writing a Component Wasm Module](#writing-a-component-wasm-module)
 - [Creating an Application From a Template](#creating-an-application-from-a-template)
+- [Creating an Application for a Specific Deployment Environment](#creating-an-application-for-a-specific-deployment-environment)
 - [Adding a New Component to an Application](#adding-a-new-component-to-an-application)
 - [Including Files with Components](#including-files-with-components)
 - [Adding Environment Variables to Components](#adding-environment-variables-to-components)
@@ -31,6 +32,9 @@ url = "https://github.com/spinframework/spin-docs/blob/main/content/v4/writing-a
     - [Dependencies from a URL](#dependencies-from-a-url)
   - [Mapping All Imports from a Package](#mapping-all-imports-from-a-package)
   - [Dependency Permissions](#dependency-permissions)
+    - [Granting specific capabilities](#granting-specific-capabilities)
+    - [Granting all or no capabilities](#granting-all-or-no-capabilities)
+    - [Granting all dependencies full permissions](#granting-all-dependencies-full-permissions)
 - [Next Steps](#next-steps)
 
 A Spin application consists of a set of WebAssembly (Wasm) _components_, and a _manifest_ that lists those components with some data about when and how to run them.  This page describes how to write components, manifests, and hence applications.
@@ -178,12 +182,12 @@ $ spin new
 Pick a template to start your application with:
   http-c (HTTP request handler using C and the Zig toolchain)
   http-csharp (HTTP request handler using C# (EXPERIMENTAL))
-  http-go (HTTP request handler using (Tiny)Go)
+  http-go (HTTP request handler using Go)
   http-grain (HTTP request handler using Grain)
 > http-rust (HTTP request handler using Rust)
   http-swift (HTTP request handler using SwiftWasm)
   http-zig (HTTP request handler using Zig)
-  redis-go (Redis message handler using (Tiny)Go)
+  redis-go (Redis message handler using Go)
   redis-rust (Redis message handler using Rust)
 
 Enter a name for your new application: hello_rust
@@ -232,7 +236,7 @@ HTTP path: /...
 
 {{ blockEnd }}
 
-{{ startTab "TinyGo"}}
+{{ startTab "Go"}}
 
 Choose the `http-go` template to create a HTTP application, or `redis-go` to create a Redis application.
 
@@ -243,7 +247,7 @@ $ spin new
 Pick a template to start your application with:
   http-c (HTTP request handler using C and the Zig toolchain)
   http-empty (HTTP application with no components)
-> http-go (HTTP request handler using (Tiny)Go)
+> http-go (HTTP request handler using Go)
   http-grain (HTTP request handler using Grain)
   http-php (HTTP request handler using PHP)
   http-rust (HTTP request handler using Rust)
@@ -259,6 +263,14 @@ HTTP path: /...
 All of these templates create a manifest containing a single component, and the source code for a minimal "hello world" component.
 
 > The Rust, Go, and Python templates depend on Spin 4 and its support for WASI Preview 3. As Spin 4 is fairly new, some Spin hosts support only Spin 3.x. If you need to target such a host, look for a `http-<lang>-p2` template and use that instead.
+
+## Creating an Application for a Specific Deployment Environment
+
+Some Spin platforms provide custom templates that use only the APIs or API versions available in that platform. To run a template provided by a platform, run `spin new -E <environment>`. Your platform documentation will tell you the `environment` name.
+
+In this case, you do not need to pre-install the templates - Spin fetches them on demand based on the environment definition.
+
+Creating an application this way also installs any plugins that you'll need for working with the platform (typically, a deployment plugin).
 
 ## Adding a New Component to an Application
 

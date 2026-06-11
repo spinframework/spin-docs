@@ -9,8 +9,8 @@ keywords = "quickstart"
 ---
 - [Install Spin](#install-spin)
 - [Install the Prerequisites](#install-the-prerequisites)
-  - [Install a Template](#install-a-template)
-  - [Install the Tools](#install-the-tools)
+	- [Install a Template](#install-a-template)
+	- [Install the Tools](#install-the-tools)
 - [Create Your First Application](#create-your-first-application)
 - [Structure of a Python Component](#structure-of-a-python-component)
 - [Build Your Application](#build-your-application)
@@ -144,7 +144,7 @@ Installing template http-py...
 
 {{ blockEnd }}
 
-{{ startTab "TinyGo" }}
+{{ startTab "Go" }}
 
 <!-- @selectiveCpy -->
 
@@ -157,8 +157,8 @@ Installing template http-go...
 | Name                Description                                        |
 +========================================================================+
 | ... other templates omitted ...                                        |
-| http-go             HTTP request handler using (Tiny)Go                |
-| redis-go            Redis message handler using (Tiny)Go               |
+| http-go             HTTP request handler using Go                      |
+| redis-go            Redis message handler using Go                     |
 | ... other templates omitted ...                                        |
 +------------------------------------------------------------------------+
 ```
@@ -213,9 +213,9 @@ You'll install all the required Python tools as part of building the application
 
 {{ blockEnd }}
 
-{{ startTab "TinyGo" }}
+{{ startTab "Go" }}
 
-You'll need the TinyGo compiler, as the standard Go compiler does not yet support WASI exports.  See the [TinyGo installation guide](https://tinygo.org/getting-started/install/).
+You'll need Go version 1.25.5 or above.
 
 [Learn more in the language guide.](go-components)
 
@@ -246,15 +246,15 @@ Use the `spin new` command and the `http-rust` template to scaffold a new Spin a
 ```bash
 $ spin new
 Pick a template to start your application with:
-  http-c (HTTP request handler using C and the Zig toolchain)
-  http-csharp (HTTP request handler using C# (EXPERIMENTAL))
-  http-go (HTTP request handler using (Tiny)Go)
-  http-grain (HTTP request handler using Grain)
+	http-c (HTTP request handler using C and the Zig toolchain)
+	http-csharp (HTTP request handler using C# (EXPERIMENTAL))
+	http-go (HTTP request handler using Go)
+	http-grain (HTTP request handler using Grain)
 > http-rust (HTTP request handler using Rust)
-  http-swift (HTTP request handler using SwiftWasm)
-  http-zig (HTTP request handler using Zig)
-  redis-go (Redis message handler using (Tiny)Go)
-  redis-rust (Redis message handler using Rust)
+	http-swift (HTTP request handler using SwiftWasm)
+	http-zig (HTTP request handler using Zig)
+	redis-go (Redis message handler using Go)
+	redis-rust (Redis message handler using Rust)
 
 Enter a name for your new application: hello_rust
 Project description: My first Rust Spin application
@@ -273,7 +273,7 @@ $ tree
 ├── Cargo.toml
 ├── spin.toml
 └── src
-    └── lib.rs
+		└── lib.rs
 ```
 
 The additional `spin.toml` file is the manifest file, which tells Spin what events should trigger what components.  In this case our trigger is HTTP, for a Web application, and we have only one component, at the route `/...`.  This is a wildcard that matches any route:
@@ -321,11 +321,11 @@ use spin_sdk::http_service;
 /// A simple Spin HTTP component.
 #[http_service]
 async fn handle_hello_rust(req: Request) -> anyhow::Result<impl IntoResponse> {
-    println!("Handling request to {:?}", req.headers().get("spin-full-url"));
-    Ok(Response::builder()
-        .status(200)
-        .header("content-type", "text/plain")
-        .body("Hello World!".to_string())?)
+		println!("Handling request to {:?}", req.headers().get("spin-full-url"));
+		Ok(Response::builder()
+				.status(200)
+				.header("content-type", "text/plain")
+				.body("Hello World!".to_string())?)
 }
 ```
 
@@ -340,7 +340,7 @@ Use the `spin new` command and the `http-ts` template to scaffold a new Spin app
 ```bash
 $ spin new
 Pick a template to start your application with:
-  http-js (HTTP request handler using Javascript)
+	http-js (HTTP request handler using Javascript)
 > http-ts (HTTP request handler using Typescript)
 Enter a name for your new application: hello_typescript
 Project description: My first TypeScript Spin application
@@ -406,12 +406,12 @@ import { AutoRouter } from 'itty-router';
 let router = AutoRouter();
 
 router
-    .get("/", () => new Response("hello universe"))
-    .get('/hello/:name', ({ name }) => `Hello, ${name}!`)
+		.get("/", () => new Response("hello universe"))
+		.get('/hello/:name', ({ name }) => `Hello, ${name}!`)
 
 //@ts-ignore
 addEventListener('fetch', async (event: FetchEvent) => {
-    event.respondWith(router.fetch(event.request));
+		event.respondWith(router.fetch(event.request));
 });
 ```
 
@@ -501,9 +501,9 @@ The `requirements.txt`, by default, contains the references to the `spin-sdk` an
 ```bash
 $ pip3 install -r requirements.txt 
 Collecting spin-sdk==4.0.0 (from -r requirements.txt (line 1))
-  Using cached spin_sdk-4.0.0-py3-none-any.whl.metadata (16 kB)
+	Using cached spin_sdk-4.0.0-py3-none-any.whl.metadata (16 kB)
 Collecting componentize-py==0.22.0 (from -r requirements.txt (line 2))
-  Using cached componentize_py-0.22.0-cp37-abi3-macosx_10_12_x86_64.whl.metadata (3.4 kB)
+	Using cached componentize_py-0.22.0-cp37-abi3-macosx_10_12_x86_64.whl.metadata (3.4 kB)
 Using cached spin_sdk-4.0.0-py3-none-any.whl (94 kB)
 Using cached componentize_py-0.22.0-cp37-abi3-macosx_10_12_x86_64.whl (38.8 MB)
 Installing collected packages: spin-sdk, componentize-py
@@ -562,17 +562,17 @@ takes an HTTP request as a parameter and returns an HTTP response.
 from spin_sdk.http import Handler, Request, Response
 
 class HttpHandler(Handler):
-    async def handle_request(self, request: Request) -> Response:
-        return Response(
-            200,
-            {"content-type": "text/plain"},
-            bytes("Hello from Python!", "utf-8")
-        )
+		async def handle_request(self, request: Request) -> Response:
+				return Response(
+						200,
+						{"content-type": "text/plain"},
+						bytes("Hello from Python!", "utf-8")
+				)
 ```
 
 {{ blockEnd }}
 
-{{ startTab "TinyGo"}}
+{{ startTab "Go"}}
 
 Use the `spin new` command and the `http-go` template to scaffold a new Spin application.
 
@@ -581,18 +581,18 @@ Use the `spin new` command and the `http-go` template to scaffold a new Spin app
 ```bash
 $ spin new
 Pick a template to start your application with:
-  http-c (HTTP request handler using C and the Zig toolchain)
-  http-empty (HTTP application with no components)
-> http-go (HTTP request handler using (Tiny)Go)
-  http-grain (HTTP request handler using Grain)
-  http-php (HTTP request handler using PHP)
-  http-rust (HTTP request handler using Rust)
+	http-c (HTTP request handler using C and the Zig toolchain)
+	http-empty (HTTP application with no components)
+> http-go (HTTP request handler using Go)
+	http-grain (HTTP request handler using Grain)
+	http-php (HTTP request handler using PHP)
+	http-rust (HTTP request handler using Rust)
 Enter a name for your new application: hello_go
 Description: My first Go Spin application
 HTTP path: /...
 ```
 
-This command created a directory with the necessary files needed to build and run a Go Spin application using the TinyGo compiler.  Change to that directory, and look at the files.  It looks very much like a normal Go project:
+This command created a directory with the necessary files needed to build and run a Go Spin application using the Go compiler.  Change to that directory, and look at the files.  It looks very much like a normal Go project:
 
 <!-- @selectiveCpy -->
 
@@ -627,7 +627,7 @@ component = "hello-go"
 source = "main.wasm"
 allowed_outbound_hosts = []
 [component.hello-go.build]
-command = "tinygo build -target=wasip1 -gc=leaking -buildmode=c-shared -no-debug -o main.wasm ."
+command = "go tool componentize-go build"
 ```
 
 This represents a simple Spin HTTP application (triggered by an HTTP request).  It has:
@@ -648,18 +648,21 @@ in the [Go language guide](go-components).
 package main
 
 import (
-        "fmt"
-        "net/http"
+	"fmt"
+	"net/http"
 
-        spinhttp "github.com/spinframework/spin-go-sdk/v2/http"
+	spinhttp "github.com/spinframework/spin-go-sdk/v3/http"
 )
 
 func init() {
-        spinhttp.Handle(func(w http.ResponseWriter, r *http.Request) {
-                w.Header().Set("Content-Type", "text/plain")
-                fmt.Fprintln(w, "Hello Fermyon!")
-        })
+	spinhttp.Handle(func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Content-Type", "text/plain")
+		fmt.Fprintln(w, "Hello World!")
+	})
 }
+
+// main function must be included for the compiler but is not executed.
+func main() {}
 ```
 
 {{ blockEnd }}
@@ -677,15 +680,15 @@ The Spin template creates starter source code.  Now you need to turn that into a
 ```bash
 $ spin build
 Executing the build command for component hello-rust: cargo build --target wasm32-wasip2 --release
-    Updating crates.io index
-    Updating git repository `https://github.com/spinframework/spin`
-    Updating git repository `https://github.com/bytecodealliance/wit-bindgen`
-   Compiling anyhow v1.0.69
-   Compiling version_check v0.9.4
-   # ...
-   Compiling spin-sdk v6.0.0 
-   Compiling hello-rust v0.1.0 (/home/ivan/testing/start/hello_rust)
-    Finished release [optimized] target(s) in 11.94s
+		Updating crates.io index
+		Updating git repository `https://github.com/spinframework/spin`
+		Updating git repository `https://github.com/bytecodealliance/wit-bindgen`
+	 Compiling anyhow v1.0.69
+	 Compiling version_check v0.9.4
+	 # ...
+	 Compiling spin-sdk v6.0.0 
+	 Compiling hello-rust v0.1.0 (/home/ivan/testing/start/hello_rust)
+		Finished release [optimized] target(s) in 11.94s
 Finished building all Spin components
 ```
 
@@ -718,7 +721,7 @@ $ npm install
 added 141 packages, and audited 142 packages in 13s
 
 20 packages are looking for funding
-  run `npm fund` for details
+	run `npm fund` for details
 
 found 0 vulnerabilities
 ```
@@ -807,29 +810,30 @@ You can always run this command manually; `spin build` is a shortcut.
 
 {{ blockEnd }}
 
-{{ startTab "TinyGo"}}
+{{ startTab "Go"}}
 
 <!-- @selectiveCpy -->
 
 ```bash
 $ spin build
-Executing the build command for component hello-go: tinygo build -target=wasip1 -gc=leaking -buildmode=c-shared -no-debug -o main.wasm .
-go: downloading github.com/fermyon/spin/sdk/go v0.10.0
-Finished building all Spin components
+Building component grpc-example with `go tool componentize-go build`
+Note: /home/linuxbrew/.linuxbrew/Cellar/go/1.26.2/libexec/bin/go does not support async operation; will use downloaded version.
+See https://github.com/golang/go/pull/76775 for details.
+Using /home/user/.cache/componentize-go/v2/go-linux-amd64-bootstrap/bin/go.
+Finished building all Spin components```
 ```
 
 If the build fails, check:
 
 * Are you in the `hello_go` directory?
-* Did you successfully [install TinyGo](#install-the-tools)?
-* Are your versions of Go and TinyGo up to date? The Spin SDK needs TinyGo 0.35 or above and Go 1.22 or above.
-* Set Environment Variable `CGO_ENABLED=1`. (Since the Go SDK is built using CGO, it requires the CGO_ENABLED=1 environment variable to be set.)
+* Are you on Go version 1.25.5 or above?
+* Does your `go.mod` have a `tool` entry for `github.com/bytecodealliance/componentize-go`?
 
 If you would like to know what build command Spin runs for a component, you can find it in the manifest, in the `component.(id).build` section:
 
 ```toml
 [component.hello-go.build]
-command = "tinygo build -target=wasip1 -gc=leaking -buildmode=c-shared -no-debug -o main.wasm ."
+command = "go tool componentize-go build"
 ```
 
 You can always run this command manually; `spin build` is a shortcut to save you having to remember it.
@@ -855,7 +859,7 @@ the application (pun intended):
 $ spin up
 Serving http://127.0.0.1:3000
 Available Routes:
-  hello-typescript: http://127.0.0.1:3000 (wildcard)
+	hello-typescript: http://127.0.0.1:3000 (wildcard)
 ```
 
 > If another program is using port 3000, add the `--listen` flag. E.g. `spin up --listen 127.0.0.1:12345`.

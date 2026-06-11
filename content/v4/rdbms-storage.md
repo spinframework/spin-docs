@@ -178,11 +178,11 @@ You can find a complete outbound PostgreSQL example in the [Spin Python SDK repo
 
 {{ blockEnd }}
 
-{{ startTab "TinyGo"}}
+{{ startTab "Go"}}
 
-> [**Want to go straight to the reference documentation?**  Find it here.](https://pkg.go.dev/github.com/spinframework/spin-go-sdk/v2)
+> [**Want to go straight to the reference documentation?**  Find it here.](https://pkg.go.dev/github.com/spinframework/spin-go-sdk/v3)
 
-MySQL functions are available in the `github.com/spinframework/spin-go-sdk/v2/mysql` package, and PostgreSQL in `github.com/spinframework/spin-go-sdk/v2/pg`. [See Go Packages for reference documentation.](https://pkg.go.dev/github.com/spinframework/spin-go-sdk/v2)
+MySQL functions are available in the `github.com/spinframework/spin-go-sdk/v3/mysql` package, and PostgreSQL in `github.com/spinframework/spin-go-sdk/v3/pg`. [See Go Packages for reference documentation.](https://pkg.go.dev/github.com/spinframework/spin-go-sdk/v3)
 
 The package follows the usual Go database API. Use `Open` to return a connection to the database of type `*sql.DB` - see the [Go standard library documentation](https://pkg.go.dev/database/sql#DB) for usage information.  For example:
 
@@ -195,8 +195,8 @@ import (
 	"net/http"
 	"os"
 
-	spinhttp "github.com/spinframework/spin-go-sdk/v2/http"
-	"github.com/spinframework/spin-go-sdk/v2/pg"
+	spinhttp "github.com/spinframework/spin-go-sdk/v3/http"
+	"github.com/spinframework/spin-go-sdk/v3/pg"
 )
 
 type Pet struct {
@@ -218,7 +218,7 @@ func init() {
 		defer db.Close()
 
 		// For MySQL, use `?` placeholder syntax
-		_, err := db.Query("INSERT INTO pets VALUES ($1, 'Maya', $2, $3);", int32(4), "bananas", true)
+		_, err := db.Exec("INSERT INTO pets (id, name, prey, is_finicky, timestamp) VALUES ($1, 'Maya', $2, $3, $4);", int32(4), "bananas", true, time.Now())
 		if err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 			return
@@ -237,6 +237,13 @@ func init() {
 				fmt.Println(err)
 			}
 			pets = append(pets, &pet)
+		}
+
+		// Check if rows ended normally or due to error
+		if err := rows.Err(); err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+
 		}
 		json.NewEncoder(w).Encode(pets)
 	})
