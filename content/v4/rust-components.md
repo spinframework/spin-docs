@@ -301,11 +301,7 @@ proxies or URL shorteners.
 
 ## Routing in a Component
 
-You can route within a Rust HTTP component using your favourite Rust HTTP routing library.
-
-> Earlier versions of the Spin SDK included a their own `Router`, which was able to work with WASI/Spin HTTP types. From Spin SDK 6, the SDK uses the ecosystem-standard `http` types, and so you can ecosystem routers without changes.
-
-This example uses the Axum router in a Spin component:
+Because the SDK uses the ecosystem-standard `http` types, you can route within a Rust HTTP component using your favourite Rust HTTP routing library. This is the recommended approach. For example, here is a small component built on top of [Axum](https://docs.rs/axum):
 
 ```rust
 use axum::{
@@ -341,6 +337,71 @@ mod api {
     }
 }
 ```
+
+### Using the Built-in Router
+
+For developers who prefer the routing style of the pre-v6.0.0 SDK, the Spin SDK also ships a lightweight built-in `Router` for dispatching HTTP requests by method and path. It is gated behind the `router` Cargo feature, which is off by default — opt in from your `Cargo.toml`:
+
+<!-- @nocpy -->
+
+```toml
+[dependencies]
+spin-sdk = { version = "6", features = ["router"] }
+```
+
+The router works directly with the ecosystem-standard `http` types used by `#[http_service]`, so handlers are plain async functions that take a `Request` and a `Params` and return any `IntoResponse`:
+
+```rust
+use bytes::Bytes;
+use spin_sdk::http::{
+    router::{Params, Router},
+    FullBody, IntoResponse, Request, StatusCode,
+};
+use spin_sdk::http_service;
+
+#[http_service]
+async fn handle(req: Request) -> impl IntoResponse {
+    let mut router = Router::new();
+    router.get("/hello/:name", hello);
+    router.get("/multiply/:x/:y", multiply);
+    router.get("/files/*", serve_file);
+    router.post("/echo", echo);
+    router.put("/widgets/:id", update_widget);
+    router.any("/teapot", |_req: Request, _params: Params| async {
+        (StatusCode::IM_A_TEAPOT, FullBody::new(Bytes::from_static(b"short and stout")))
+    });
+    router.handle(req).await
+}
+
+async fn hello(_req: Request, params: Params) -> impl IntoResponse {
+    let name = params.get("name").unwrap_or("world");
+    (StatusCode::OK, FullBody::new(Bytes::from(format!("hello, {name}"))))
+}
+
+async fn multiply(_req: Request, params: Params) -> impl IntoResponse {
+    let x: i64 = params.get("x").unwrap().parse().unwrap();
+    let y: i64 = params.get("y").unwrap().parse().unwrap();
+    (StatusCode::OK, FullBody::new(Bytes::from((x * y).to_string())))
+}
+
+async fn serve_file(_req: Request, params: Params) -> impl IntoResponse {
+    let path = params.wildcard().unwrap_or_default();
+    (StatusCode::OK, FullBody::new(Bytes::from(path.to_owned())))
+}
+
+async fn echo(req: Request, _params: Params) -> impl IntoResponse {
+    use http_body_util::BodyExt;
+    let body = req.into_body().collect().await.map(|b| b.to_bytes()).unwrap_or_default();
+    (StatusCode::OK, FullBody::new(body))
+}
+
+async fn update_widget(_req: Request, params: Params) -> impl IntoResponse {
+    let id = params.get("id").unwrap_or("");
+    (StatusCode::OK, FullBody::new(Bytes::from(format!("updated widget {id}"))))
+}
+```
+
+Routes support named captures (`:name`), trailing wildcards (`*`, accessed via `Params::wildcard`), and `Router::any` to match any method. If a path matches but the method does not, the router responds with `405 Method Not Allowed`; unmatched paths produce `404 Not Found`. `HEAD` requests fall back to the registered `GET` handler when no explicit `HEAD` route is provided.
 
 ## Storing Data in Redis From Rust Components
 
