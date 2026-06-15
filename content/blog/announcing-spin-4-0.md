@@ -1,5 +1,5 @@
 title = "Announcing Spin v4.0"
-date = "2026-04-23T17:00:00Z"
+date = "2026-06-15T17:00:00Z"
 template = "blog_post"
 description = "Announcing Spin v4.0: stabilized WASIp3 support, async host APIs across the board, build profiles, and fine-grained capability inheritance for dependencies."
 tags = []
@@ -18,6 +18,8 @@ There's a lot in this release, so this post is part release-notes and part tutor
 - [Async everywhere: Spin's host interfaces are now async](#async-everywhere-spins-host-interfaces-are-now-async)
 - [Build profiles](#build-profiles)
 - [Fine-grained capability inheritance for dependencies](#fine-grained-capability-inheritance-for-dependencies)
+- [Targeting a deployment environment](#targeting-a-deployment-environment)
+- [Shell completions](#shell-completions)
 - [Upgrading to Spin 4.0](#upgrading-to-spin-40)
 
 ## WASI Preview 3: stabilized and supported long-term
@@ -299,6 +301,43 @@ key_value_stores      = ["my-key-value-cache"]
 Here `acme:s3-client` can make outbound HTTPS calls to the parent's allowed hosts, enough to reach S3. But every other capability is denied. Specifically, the S3 client *cannot* see `my-key-value-cache`.
 
 For the full list of configuration keys you can inherit and how they map to WIT interfaces, see the [Spin docs on component dependencies](https://spinframework.dev/v4/writing-apps#using-component-dependencies).
+
+## Targeting a deployment environment
+
+Some Spin platforms ship custom templates and plugins tailored to that platform, for example, templates that use only the APIs available in the platform, plus the deployment plugin you need to ship to it. Spin 4.0 makes targeting one of these environments a single step with the new `-E` flag:
+
+```bash
+$ spin new -E <environment>
+```
+
+You don't need to pre-install anything: Spin fetches the environment's templates on demand, and installs any plugins the environment requires (typically a deployment plugin) at the same time. Your platform's documentation will tell you the `environment` name to use.
+
+The same `-E` flag works when managing plugins directly, so you can list or install just the plugins associated with an environment:
+
+```bash
+$ spin plugins list -E <environment>
+$ spin plugins install -E <environment>
+```
+
+Learn more in the docs on [creating an application for a specific deployment environment](https://spinframework.dev/v4/writing-apps#creating-an-application-for-a-specific-deployment-environment) and [installing plugins for a specific deployment environment](https://spinframework.dev/v4/managing-plugins#installing-plugins-for-a-specific-deployment-environment).
+
+## Shell completions
+
+Spin 4.0 can now generate shell command completions for bash and zsh. To enable them, run the following during shell startup (for example, in your `.bashrc`):
+
+```bash
+source <(COMPLETE=bash spin maintenance generate-completions)
+```
+
+For zsh, change the `COMPLETE` variable to `zsh`.
+
+Shell completions are a work in progress, and have a few known limitations:
+
+- You do not get trigger option completions in `spin up` (which, unfortunately, includes a lot of options).
+- You do not get `spin up` option completions on `spin build --up` or `spin watch`.
+- You do not get completions for plugin commands.
+
+See the [installation docs](https://spinframework.dev/v4/install#shell-completions) for more detail.
 
 ## Upgrading to Spin 4.0
 
