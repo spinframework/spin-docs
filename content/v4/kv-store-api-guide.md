@@ -197,7 +197,7 @@ func example() error {
 
 ## Key Value Store Limits
 
-The key/value size limits and syntactic requirements of a key value store depends on which [key value store provider](./dynamic-configuration#key-value-store-runtime-configuration) your app uses. The Spin command line currently supports a [default local SQLite provider]((./dynamic-configuration#file-key-value-store-provider)), a Redis KV provider, an Azure Cosmos DB backed provider, and an AWS Dynamo DB provider. See the [key value store runtime configuration](./dynamic-configuration#key-value-store-runtime-configuration) documentation for more information about the limits and requirements of each provider.
+The key/value size limits and syntactic requirements of a key value store depends on which [key value store provider](./dynamic-configuration#key-value-store-runtime-configuration) your app uses. The Spin command line currently supports a [default local SQLite provider](./dynamic-configuration#file-key-value-store-provider), a Redis KV provider, an Azure Cosmos DB backed provider, and an AWS Dynamo DB provider. See the [key value store runtime configuration](./dynamic-configuration#key-value-store-runtime-configuration) documentation for more information about the limits and requirements of each provider.
 
 When you deploy your application, bear in mind that your deployment platform may have a KV provider with different characteristics from your local one!
 
