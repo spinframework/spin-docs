@@ -12,32 +12,32 @@ This document contains the help content for the `spin` command-line program.
 **Command Overview:**
 
 <!-- no toc -->
-* [`spin`↴](#spin)
-* [`spin add`↴](#spin-add)
-* [`spin build`↴](#spin-build)
-* [`spin deploy`↴](#spin-deploy)
-* [`spin doctor`↴](#spin-doctor)
-* [`spin login`↴](#spin-login)
-* [`spin new`↴](#spin-new)
-* [`spin plugins`↴](#spin-plugins)
-* [`spin plugins install`↴](#spin-plugins-install)
-* [`spin plugins list`↴](#spin-plugins-list)
-* [`spin plugins search`↴](#spin-plugins-search)
-* [`spin plugins show`↴](#spin-plugins-show)
-* [`spin plugins uninstall`↴](#spin-plugins-uninstall)
-* [`spin plugins update`↴](#spin-plugins-update)
-* [`spin plugins upgrade`↴](#spin-plugins-upgrade)
-* [`spin registry`↴](#spin-registry)
-* [`spin registry login`↴](#spin-registry-login)
-* [`spin registry pull`↴](#spin-registry-pull)
-* [`spin registry push`↴](#spin-registry-push)
-* [`spin templates`↴](#spin-templates)
-* [`spin templates install`↴](#spin-templates-install)
-* [`spin templates list`↴](#spin-templates-list)
-* [`spin templates uninstall`↴](#spin-templates-uninstall)
-* [`spin templates upgrade`↴](#spin-templates-upgrade)
-* [`spin up`↴](#spin-up)
-* [`spin watch`↴](#spin-watch)
+- [`spin`](#spin)
+- [`spin add`](#spin-add)
+- [`spin build`](#spin-build)
+- [`spin deploy`](#spin-deploy)
+- [`spin doctor`](#spin-doctor)
+- [`spin login`](#spin-login)
+- [`spin new`](#spin-new)
+- [`spin plugins`](#spin-plugins)
+- [`spin plugins install`](#spin-plugins-install)
+- [`spin plugins list`](#spin-plugins-list)
+- [`spin plugins search`](#spin-plugins-search)
+- [`spin plugins show`](#spin-plugins-show)
+- [`spin plugins uninstall`](#spin-plugins-uninstall)
+- [`spin plugins update`](#spin-plugins-update)
+- [`spin plugins upgrade`](#spin-plugins-upgrade)
+- [`spin registry`](#spin-registry)
+- [`spin registry login`](#spin-registry-login)
+- [`spin registry pull`](#spin-registry-pull)
+- [`spin registry push`](#spin-registry-push)
+- [`spin templates`](#spin-templates)
+- [`spin templates install`](#spin-templates-install)
+- [`spin templates list`](#spin-templates-list)
+- [`spin templates uninstall`](#spin-templates-uninstall)
+- [`spin templates upgrade`](#spin-templates-upgrade)
+- [`spin up`](#spin-up)
+- [`spin watch`](#spin-watch)
 
 ## `spin`
 
@@ -157,6 +157,7 @@ Scaffold a new application based on a template
 
 ###### **Options:**
 
+* `-E`, `--target-environment <TARGET_ENVIRONMENT>` — The Spin platform or runtime for which you want to develop the application. If present, Spin will offer only templates tailored for that environment
 * `-a`, `--accept-defaults` — An optional argument that allows to skip prompts for the manifest file by accepting the defaults if available on the template
 * `--allow-overwrite` — If the output directory already contains files, generate the new files into it without confirming, overwriting any existing files with the same names
 * `--init` — Create the new application or component in the current directory
@@ -201,6 +202,9 @@ The binary file and manifest of the plugin is copied to the local Spin plugins d
 
 ###### **Options:**
 
+* `-E`, `--TARGET_ENV <TARGET_ENV>` — The Spin platform or runtime for which you want to install plugins
+
+  Default value: `<< flag not present >>`
 * `--auth-header-value <AUTH_HEADER_VALUE>` — Provide the value for the authorization header to be able to install a plugin from a private repository. (e.g) --auth-header-value "Bearer <token>"
 * `-f`, `--file <LOCAL_PLUGIN_MANIFEST>` — Path to local plugin manifest
 * `--override-compatibility-check` — Overrides a failed compatibility check of the plugin with the current version of Spin
@@ -218,6 +222,9 @@ List available or installed plugins
 
 ###### **Options:**
 
+* `-E`, `--target-environment <TARGET_ENVIRONMENT>` — The Spin platform or runtime for which you want to list plugins
+
+  Default value: `<< flag not present >>`
 * `--all` — List all versions of plugins. This is the default behaviour
 * `--filter <FILTER>` — Filter the list to plugins containing this string
 * `--format <FORMAT>` — The format in which to list the plugins
@@ -509,4 +516,3 @@ Build and run the Spin application, rebuilding and restarting it when files chan
     This document was generated automatically by
     <a href="https://crates.io/crates/clap-markdown"><code>clap-markdown</code></a>.
 </i></small>
-
