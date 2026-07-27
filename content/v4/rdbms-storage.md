@@ -19,7 +19,7 @@ Spin provides two interfaces for relational (SQL) databases:
 
 This page covers the "bring your own database" scenario.  See [SQLite Storage](./sqlite-api-guide) for the built-in service.
 
-{{ details "Why do I need a Spin interface? Why can't I just use my language's database libraries?" "The current version of the WebAssembly System Interface (WASI) doesn't provide a sockets interface, so database libraries that depend on sockets can't be built to Wasm. The Spin interface means Wasm modules can bypass this limitation by asking Spin to make the database connection on their behalf." }}
+{{ details "Why do I need a Spin interface? Why can't I just use my language's database libraries?" "WebAssembly modules can't use the operating system's networking directly, and few database libraries have yet been updated to use the WASI sockets interface instead. The Spin interface means Wasm modules can bypass this limitation by asking Spin to make the database connection on their behalf." }}
 
 ## Using MySQL and PostgreSQL From Applications
 
