@@ -192,7 +192,7 @@ If you run a subset which includes a component that uses [local service chaining
 
 ## The Always Build Option
 
-Some people find it frustrating having to remember to build their applications before running `spin up`. If you want to _always_ build your projects when you run them, set the `SPIN_ALWAYS_BUILD` environment variable in your profile or session. If this is set, `spin up` runs [`spin build`](build) before starting your applications.
+Some people find it frustrating having to remember to build their applications before running `spin up`. If you want to _always_ build your projects when you run them, set the `SPIN_ALWAYS_BUILD` environment variable to `true` in your profile or session. If this is set to `true`, `spin up` and `spin registry push` run [`spin build`](build) first.
 
 ## Next Steps
 

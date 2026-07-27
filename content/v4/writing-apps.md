@@ -410,7 +410,7 @@ files = [ { source = "static/", destination = "/" } ]
 
 This example shows an HTTP component whose Wasm module, instead of using the default Spin HTTP interface, uses the CGI-like WAGI (WebAssembly Gateway Interface) protocol. Spin can't work out the application model from the component, so the manifest needs to tell Spin to use WAGI instead of its default mode. It does this via the `executor` field. This is specific to the HTTP trigger so it goes under `trigger.http`.
 
-In addition, this module does not provide its WAGI functionality via the default `_start` entry point, but via a custom entry point named `serve-wagi`.  The `executor` table needs to tell Spin this via the `entrypoint` field.  Finally, this component needs to run the WAGI entry point with a specific set of command line arguments, which are expressed in the WAGI executor's `argv` field.
+This component also needs to receive a specific set of command line arguments, which are expressed in the WAGI executor's `argv` field.
 
 <!-- @nocpy -->
 
@@ -418,7 +418,7 @@ In addition, this module does not provide its WAGI functionality via the default
 [[trigger.http]]
 route = "/..."
 component = "env"
-executor = { type = "wagi", argv = "test ${SCRIPT_NAME} ${ARGS} done", entrypoint = "serve-wagi" }
+executor = { type = "wagi", argv = "test ${SCRIPT_NAME} ${ARGS} done" }
 
 [component.env]
 source = "modules/env_wagi.wasm"

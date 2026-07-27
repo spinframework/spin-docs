@@ -48,8 +48,7 @@ When an application needs the value of an [application variable](./variables), i
 
 You can also tell Spin to use the [Vault provider](#vault-application-variable-provider) and/or the [Azure Key Vault provider](#azure-key-vault-application-variable-provider), by setting these up in the runtime config file.
 
-You can tell Spin to use multiple application variable providers. Spin prioritises them in the order they appear in the runtime config file, with higher-listed providers
-taking precedence. The environment variable provider always has the highest priority.
+You can tell Spin to use multiple application variable providers. Spin prioritises them in the order they appear in the runtime config file, with higher-listed providers taking precedence. The environment variable provider that Spin adds by default always has the lowest priority, and values passed on the command line via `spin up --variable` always have the highest.
 
 The provider examples below show how to use or configure each 
 provider. For examples on how to access these variables values within your application, see

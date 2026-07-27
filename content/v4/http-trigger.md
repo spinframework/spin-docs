@@ -90,11 +90,9 @@ component = "user-manager"
 
 ### Resolving Overlapping Routes
 
-If multiple triggers could potentially handle the same request based on their
-defined routes, the trigger whose route has the longest matching prefix 
-takes precedence.  This also means that exact matches take precedence over wildcard matches.
+If multiple triggers could potentially handle the same request based on their defined routes, the trigger whose route has the longest matching prefix takes precedence. If two routes have the same matching prefix, a single-segment wildcard (`:name`) takes precedence over a trailing wildcard (`/...`): for example, a request to `/shop/5` matches both `/shop/:id` and `/shop/...`, and is handled by `/shop/:id`.
 
-In the following example, requests starting with the  `/users/` prefix (e.g. `/users/1`)
+In the following example, requests starting with the `/users/` prefix (e.g. `/users/1`)
 will be handled by `user-manager`, even though it is also matched by the `shop` route, because the `/users` prefix is longer than `/`.
 But requests to `/users/admin` will be handled by the `admin` component, not `user-manager`, because that is a more exact match still:
 
@@ -387,7 +385,7 @@ executor = { type = "wagi" }
 
 > If, for whatever reason, you want to highlight that a component uses the default Spin execution model, you can write `executor = { type = "spin" }`.  But this is the default and is rarely written out.
 
-Wagi supports non-default entry points, and allows you to pass an arguments string that a program can receive as if it had been passed on the command line. If you need these you can specify them in the `executor` table. For details, see the [Manifest Reference](manifest-reference#the-componenttrigger-table-for-http-applications).
+Wagi allows you to pass an arguments string that a program can receive as if it had been passed on the command line. If you need this you can specify it in the `executor` table. For details, see the [Manifest Reference](manifest-reference#the-componenttrigger-table-for-http-applications).
 
 ### Request Handling in Wagi
 
@@ -463,7 +461,7 @@ The `spin up` command accepts some HTTP-trigger-specific options:
 
 The `--listen` option sets the local IP and port that `spin up` should listen to for requests. By default, it listens to `localhost:3000`.
 
-The `--tls-cert` and `--tls-key` options provide a way for you to configure a TLS certificate. If they are not set, plaintext HTTP will be used. The `--tls-cert` option specifies the path to the TLS certificate to use for HTTPS. The certificate should be in PEM format. The `--tls-key` option specifies the path to the private key to use for HTTPS. The key should be in PKCS#8 format.
+The `--tls-cert` and `--tls-key` options provide a way for you to configure a TLS certificate. If they are not set, plaintext HTTP will be used. The `--tls-cert` option specifies the path to the TLS certificate (or certificate chain) to use for HTTPS. The certificate should be in PEM format. The `--tls-key` option specifies the path to the private key to use for HTTPS. The key should be in PEM format (PKCS#8, PKCS#1, and SEC1 keys are all accepted).
 
 ### Environment Variables
 
@@ -495,11 +493,11 @@ A WASI P2 HTTP component is _not_ subject to instance reuse. This includes all t
 
 A WASI P3 HTTP component is _always_ subject to instance reuse, unless it calls specific APIs to prevent concurrent use. You can control instance reuse behaviour using the following `spin up` flags:
 
-* `--max-instance-reuse-count` sets the maximum number of times a single instance can be reused
+* `--max-instance-reuse-count` sets the maximum number of requests a single instance can handle before Spin drops it
 * `--max-instance-concurrent-reuse-count` sets the maximum number of requests that can be running in a single instance at the same time
 * `--idle-instance-timeout` controls how long Spin will allow a reusable instance to sit idle before evicting it
 
-All of these flags accept ranges. When you provide a range, Spin assigns each new instance a random value from that range. This is to help you test that your component works correctly both when fresh (e.g. you do not rely on long-running state) and when reused (e.g. you are not unintentionally leaking data from one request to another).
+All of these flags accept ranges, e.g. `1..8`. When you provide a range, Spin assigns each new instance a random value from that range (the upper bound is excluded). This is to help you test that your component works correctly both when fresh (e.g. you do not rely on long-running state) and when reused (e.g. you are not unintentionally leaking data from one request to another).
 
 ### Developer Guidelines for Instance Reuse
 
