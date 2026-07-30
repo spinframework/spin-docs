@@ -24,10 +24,9 @@ The Spin SDK surfaces the Spin key value store interface to your language. The s
 | `open`  | name | store  | Open the store with the specified name. If `name` is the string "default", the default store is opened, provided that the component that was granted access in the component manifest from `spin.toml`. Otherwise, `name` must refer to a store defined and configured in a [runtime configuration file](./dynamic-configuration.md#key-value-store-runtime-configuration) supplied with the application.|
 | `get` | store, key | value | Get the value associated with the specified `key` from the specified `store`. |
 | `set` | store, key, value | - | Set the `value` associated with the specified `key` in the specified `store`, overwriting any existing value. |
-| `delete` | store, key | - | Delete the tuple with the specified `key` from the specified `store`. `error::invalid-store` will be raised if `store` is not a valid handle to an open store.  No error is raised if a tuple did not previously exist for `key`.|
+| `delete` | store, key | - | Delete the tuple with the specified `key` from the specified `store`.  No error is raised if a tuple did not previously exist for `key`.|
 | `exists` | store, key | boolean | Return whether a tuple exists for the specified `key` in the specified `store`.|
 | `get-keys` | store | stream<keys> | Return a stream of all the keys in the specified `store`. NOTE: errors are reported via a future (promise) which resolves once the stream has ended. |
-| `close` | store | - | Close the specified `store`. |
 
 The exact detail of calling these operations from your application depends on your language:
 
@@ -68,9 +67,6 @@ async fn handle_request(_req: Request) -> anyhow::Result<impl IntoResponse> {
 `get_keys` **Operation**
 - This returns a stream containing the keys, and a future containing a `Result`. You _must_ check the future when the stream ends, to determine if the stream ended normally, or was terminated prematurely due to an error.
 
-`open` and `close` **Operations**
-- The close operation is not surfaced; it is called automatically when the store is dropped.
-
 `set_json` and `get_json` **Operation**
 - Rust applications can [store and retrieve serializable Rust types](./rust-components#storing-data-in-the-spin-key-value-store).
 
@@ -100,9 +96,6 @@ addEventListener('fetch', async (event: FetchEvent) => {
     event.respondWith(router.fetch(event.request));
 });
 ```
-
-**General Notes**
-- The SDK doesn't surface the `close` operation. It automatically closes all stores at the end of the request; there's no way to close them early.
 
 [`get` **Operation**](https://spinframework.github.io/spin-js-sdk/interfaces/_spinframework_spin-kv.Store.html#get)
 - The result is of the type `Uint8Array | null`
@@ -141,8 +134,6 @@ class HttpHandler(http.Handler):
 ```
 
 **General Notes**
-- The Python SDK doesn't surface the `close` operation. It automatically closes all stores at the end of the request; there's no way to close them early.
-
 - To open the default key-value store, you can use the [`key_value.open_default`](https://spinframework.github.io/spin-python-sdk/v4/key_value.html#spin_sdk.key_value.open_default) function. You can use [`key_value.open`](https://spinframework.github.io/spin-python-sdk/v4/key_value.html#spin_sdk.key_value.open) to open any store by label.
 
 - Below is a breakdown of the methods surfaced directly from the underlying [spin-key-value-3.0.0 WIT definition](https://spinframework.github.io/spin-python-sdk/v4/wit/imports/spin_key_value_key_value_3_0_0.html):
