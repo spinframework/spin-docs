@@ -503,7 +503,7 @@ with stream, future:
         batch = await stream.read(max_count=100)
         # do something with `batch`
 
-    result = await result.read() # check if the key stream hit an error
+    result = await future.read() # check if the key stream hit an error
     if isinstance(result, Err):
         raise result
     else:
