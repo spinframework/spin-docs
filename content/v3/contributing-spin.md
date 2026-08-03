@@ -5,6 +5,7 @@ date = "2023-11-04T00:00:01Z"
 url = "https://github.com/spinframework/spin-docs/blob/main/content/v3/contributing-spin.md"
 
 ---
+- [Spin Slack Channel](#spin-slack-channel)
 - [Developer Community Calls](#developer-community-calls)
 - [Code of Conduct](#code-of-conduct)
 - [Making Code Contributions to Spin](#making-code-contributions-to-spin)
@@ -19,7 +20,7 @@ typos, adding examples, one-liner code fixes, tests, or complete features.
 
 ## Spin Slack Channel
 
-Join us in the [Spin CNCF Slack Channel](https://cloud-native.slack.com/archives/C089NJ9G1V0)! This is a great place to ask questions, meet people in the community, and share what you are working on. If you're not already signed up for the CNCF Slack, request an invite [here](https://communityinviter.com/apps/cloud-native/cncf).
+Join us in the [Spin CNCF Slack Channel](https://cloud-native.slack.com/archives/C089NJ9G1V0)! This is a great place to ask questions, meet people in the community, and share what you are working on. If you're not already signed up for the CNCF Slack, request an invite [here](https://inviter.co/cncf).
 
 ## Developer Community Calls
 
