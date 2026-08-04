@@ -30,9 +30,9 @@ $ spin doctor
 📟 The Spin Doctor is in.
 🩺 Checking spin.toml...
 
-❗ Diagnosis: Manifest 'spin_manifest_version' must be "1", not "11"
+❗ Diagnosis: Manifest 'spin_manifest_version' must be "1" or 2, not "2"
 🩹 The Spin Doctor can help! Would you like to:
-> Set manifest version to "1"
+> Set manifest version to 2
   Do nothing
   See more details about the recommended changes
 ```

@@ -43,7 +43,7 @@ This page contains information about language support for Spin features:
 |-----|-----|
 | **Triggers** |
 | [HTTP](./javascript-components#http-components) | Supported |
-| Redis | Not Supported |
+| [Redis](./redis-trigger) | Supported |
 | **APIs** |
 | [Outbound HTTP](./javascript-components#sending-outbound-http-requests) | Supported |
 | [Configuration Variables](./dynamic-configuration#custom-config-variables) | Supported |
@@ -101,7 +101,7 @@ This page contains information about language support for Spin features:
 | [PostgreSQL](./rdbms-storage#using-mysql-and-postgresql-from-applications) | Supported |
 | [Outbound Redis](./go-components#storing-data-in-redis-from-go-components) | Supported |
 | [Serverless AI](./serverless-ai-api-guide) | Supported |
-| [MQTT Messaging](./mqtt-outbound) | Not Supported |
+| [MQTT Messaging](./mqtt-outbound) | Supported |
 | **Extensibility** |
 | Authoring Custom Triggers | Not Supported |
 
