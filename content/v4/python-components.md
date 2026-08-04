@@ -496,14 +496,14 @@ When a Spin API returns a potentially large number of values, such as database q
 For example, here's how you might use `Store::get_keys`:
 
 ```python
-stream, future = await store.get_keys()
+stream, future_result = await store.get_keys()
 
-with stream, future:
+with stream, future_result:
     while not stream.writer_dropped: # check if at the end of the stream
         batch = await stream.read(max_count=100)
         # do something with `batch`
 
-    result = await future.read() # check if the key stream hit an error
+    result = await future_result.read() # check if the key stream hit an error
     if isinstance(result, Err):
         raise result
     else:
