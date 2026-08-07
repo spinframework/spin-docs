@@ -27,7 +27,7 @@
     "lunr": "^2.3.9",
     "markdownlint-cli2": "^0.18.1",
     "markdownlint-rule-titlecase": "^0.1.0",
-    "nodemon": "3.1.10",
+    "nodemon": "3.1.14",
     "parcel": "^2.16.4",
     "redom": "4.3.0",
     "remark-parse": "11.0.0",
