@@ -117,11 +117,15 @@ $ spin templates install --git https://github.com/spinframework/spin-js-sdk --up
 Copying remote template source
 Installing template http-js...
 Installing template http-ts...
+Installing template redis-js...
+Installing template redis-ts...
 +------------------------------------------------------------------------+
 | Name                Description                                        |
 +========================================================================+
-| http-js             HTTP request handler using Javascript              |
-| http-ts             HTTP request handler using Typescript              |
+| http-js             HTTP request handler using JavaScript              |
+| http-ts             HTTP request handler using TypeScript              |
+| redis-js            Redis message handler using JavaScript             |
+| redis-ts            Redis message handler using TypeScript             |
 +------------------------------------------------------------------------+
 ```
 
@@ -340,8 +344,10 @@ Use the `spin new` command and the `http-ts` template to scaffold a new Spin app
 ```bash
 $ spin new
 Pick a template to start your application with:
-	http-js (HTTP request handler using Javascript)
-> http-ts (HTTP request handler using Typescript)
+  http-js (HTTP request handler using JavaScript)
+> http-ts (HTTP request handler using TypeScript)
+  redis-js (Redis message handler using JavaScript)
+  redis-ts (Redis message handler using TypeScript)
 Enter a name for your new application: hello_typescript
 Project description: My first TypeScript Spin application
 HTTP path: /...
@@ -696,7 +702,7 @@ If the build fails, check:
 
 * Are you in the `hello_rust` directory?
 * Did you successfully [install the `wasm32-wasip2` target](#install-the-tools)?
-* Is your version of Rust up to date (`cargo --version`)?  The Spin SDK needs Rust 1.91 or above.
+* Is your version of Rust up to date (`cargo --version`)?  The Spin SDK needs Rust 1.93 or above.
 
 If you would like to know what build command Spin runs for a component, you can find it in the manifest, in the `component.(id).build` section:
 

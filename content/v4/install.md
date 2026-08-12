@@ -192,6 +192,7 @@ You can now move the Spin binary to the path knowing that it was indeed built by
 
 ```bash
 $ git clone https://github.com/spinframework/spin
+$ rustup target add wasm32-wasip2
 $ cd spin && make build
 $ ./target/release/spin --help
 ```
@@ -220,12 +221,11 @@ $ cd spin
 $ # Check out the latest tagged release
 $ # git checkout <latest release>
 $ rustup target add wasm32-wasip2
-$ rustup target add wasm32-unknown-unknown
 $ cargo install --locked --path .
 $ spin --help
 ```
 
-> Please note: Installing Spin from source requires Rust 1.79 or newer. You can update Rust using the following command:
+> Please note: Installing Spin from source requires Rust 1.94 or newer. You can update Rust using the following command:
 
 <!-- @selectiveCpy -->
 

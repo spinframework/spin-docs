@@ -43,7 +43,7 @@ The JavaScript/TypeScript templates can be installed from [spin-js-sdk repositor
 $ spin templates install --git https://github.com/spinframework/spin-js-sdk --update
 ```
 
-which will install the `http-js` and `http-ts` templates:
+which will install the `http-js`, `http-ts`, `redis-js` and `redis-ts` templates:
 
 <!-- @nocpy -->
 
@@ -51,14 +51,18 @@ which will install the `http-js` and `http-ts` templates:
 Copying remote template source
 Installing template http-ts...
 Installing template http-js...
-Installed 2 template(s)
+Installing template redis-ts...
+Installing template redis-js...
+Installed 4 template(s)
 
-+-------------------------------------------------+
-| Name      Description                           |
-+=================================================+
-| http-js   HTTP request handler using Javascript |
-| http-ts   HTTP request handler using Typescript |
-+-------------------------------------------------+
++---------------------------------------------------+
+| Name       Description                            |
++===================================================+
+| http-js    HTTP request handler using JavaScript  |
+| http-ts    HTTP request handler using TypeScript  |
+| redis-js   Redis message handler using JavaScript |
+| redis-ts   Redis message handler using TypeScript |
++---------------------------------------------------+
 ```
 
 ## Structure of a JS/TS Component

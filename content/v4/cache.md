@@ -38,7 +38,7 @@ These directories are based on the [XDG specification](https://specifications.fr
 
 Installed plugins are stored in `(DATA_DIR)/spin/plugins`.  A snapshot of the plugins registry is also stored under that directory at `(DATA_DIR)/spin/plugins/.spin-plugins`; this is structured as a Git repository.
 
-> Note: If you [install Spin](./install) using Homebrew, the plugins are stored at `$HOMEBREW_PREFIX/spinframework-spin/plugins` (previously `$HOMEBREW_PREFIX/fermyon-spin/plugins`).
+> Note: If you [install Spin](./install) using Homebrew, the plugins are stored at `$HOMEBREW_PREFIX/etc/spinframework-spin/plugins` (previously `$HOMEBREW_PREFIX/etc/fermyon-spin/plugins`).
 
 If you delete the plugins directory, you will no longer be able to run your plugins (until you reinstall them), but other Spin operations will be unaffected.
 
@@ -46,7 +46,7 @@ If you delete the plugins directory, you will no longer be able to run your plug
 
 Installed templates are stored in `(DATA_DIR)/spin/templates`.
 
-> Note: If you [install Spin](install) using Homebrew, the templates are stored at at `$HOMEBREW_PREFIX/spinframework-spin/templates` (previously `$HOMEBREW_PREFIX/fermyon-spin/templates`).
+> Note: If you [install Spin](install) using Homebrew, the templates are stored at `$HOMEBREW_PREFIX/etc/spinframework-spin/templates` (previously `$HOMEBREW_PREFIX/etc/fermyon-spin/templates`).
 
 If you delete the templates directory, you will lose access to your installed templates (until you reinstall them), but other Spin operations will be unaffected.
 
