@@ -79,6 +79,8 @@ if ! blc -rv                                                                    
     --exclude 'https://openai.com/'                                                                                                                                                          \
     --exclude 'https://platform.openai.com/'                                                                                                                                                          \
     --exclude 'https://www.akamai.com/why-akamai/global-infrastructure'                                                                                                                     \
+    `## returns 403`                                                                                                                                                                        \
+    --exclude 'https://inviter.co/cncf'                                                                                                                                                     \
     `## returns 429`                                                                                                                                                                        \
     --exclude 'developer.hashicorp.com'                                                                                                                                                     \
     --exclude 'https://cursor.com/docs/context/mcp'                                                                                                                                                     \

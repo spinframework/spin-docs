@@ -166,6 +166,8 @@ instance the trigger must connect to:
 
 ```toml
 spin_manifest_version = 2
+
+[application]
 name = "spin-redis"
 version = "0.1.0"
 
