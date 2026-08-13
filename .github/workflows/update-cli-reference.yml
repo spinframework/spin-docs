@@ -11,7 +11,7 @@ jobs:
     name: Create PR with CLI reference bumped
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - name: Download Spin
         uses: fermyon/actions/spin/setup@v1
@@ -34,7 +34,7 @@ jobs:
         run: spin maintenance generate-reference >>./content/v3/cli-reference.md
 
       - name: Import GPG key
-        uses: crazy-max/ghaction-import-gpg@v6
+        uses: crazy-max/ghaction-import-gpg@v7
         with:
           gpg_private_key: ${{ secrets.GPG_PRIVATE_KEY }}
           passphrase: ${{ secrets.PASSPHRASE }}
@@ -42,7 +42,7 @@ jobs:
           git_commit_gpgsign: true
 
       - name: Create pull request
-        uses: peter-evans/create-pull-request@v7
+        uses: peter-evans/create-pull-request@v8
         with:
           commit-message: "Update Spin CLI reference to latest"
           title: "Update Spin CLI reference to latest"
