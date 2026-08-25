@@ -95,7 +95,7 @@ if ! blc -rv                                                                    
     --exclude 'http://localhost:5050/explore'                                                                                                                                               \
     `## Spin 4 bits not yet published`                                                                                                                                                                    \
     --exclude 'https://docs.rs/spin-sdk/latest/spin_sdk'                                                                                                                                               \
-    http://127.0.0.1:3000/v3/javascript-components                                                                                                                                          \
+    http://127.0.0.1:3000/javascript-components                                                                                                                                             \
     | tee "${report}"
 then 
     blc_error=true
