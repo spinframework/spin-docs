@@ -17,6 +17,9 @@ url = "https://github.com/spinframework/spin-docs/blob/main/content/v4/http-trig
   - [Additional Request Information](#additional-request-information)
   - [Inside HTTP Components](#inside-http-components)
 - [Static Responses with the HTTP Trigger](#static-responses-with-the-http-trigger)
+- [HTTP Middleware](#http-middleware)
+  - [Middleware Permissions](#middleware-permissions)
+  - [Authoring HTTP Middleware](#authoring-http-middleware)
 - [HTTP With Wagi (WebAssembly Gateway Interface)](#http-with-wagi-webassembly-gateway-interface)
   - [Wagi Component Requirements](#wagi-component-requirements)
   - [Request Handling in Wagi](#request-handling-in-wagi)
@@ -333,7 +336,7 @@ This is the interface that all HTTP components must implement, and which is used
 
 However, this is not necessarily the interface you, the component author, work with. In many cases, you will use a more idiomatic wrapper provided by the Spin SDK, which implements the "true" interface internally.
 
-But if you wish, and if your language supports it, you can implement the `incoming-handler` interface directly, using tools such as the
+But if you wish, and if your language supports it, you can implement the `handler` interface directly, using tools such as the
 [Bytecode Alliance `wit-bindgen` project](https://github.com/bytecodealliance/wit-bindgen). Spin will happily load and run such a component. This is exactly how Spin SDKs, such as the [Rust](rust-components) SDK, are built; as component authoring tools roll out for Go, JavaScript, Python, and other languages, you'll be able to use those tools to build `wasi-http` handlers and therefore Spin HTTP components.
 
 ## Static Responses with the HTTP Trigger
@@ -353,6 +356,61 @@ static_response = { status_code = 302, headers = { location = "/users/bob" } }
 ```
 
 Static responses may have only text or empty bodies.
+
+## HTTP Middleware
+
+Middleware refers to components that process incoming requests before they reach your application component, and outgoing responses after your application component returns them. For example, authorisation middleware would examine the request's credentials on the way in, and either pass it through or return a "not authorised" response (in this case, there is no response processing).
+
+You can add middleware to an HTTP route by setting it on the trigger:
+
+```toml
+[[trigger.http]]
+route = "/admin/..."
+component = "admin-ops"
+dependencies.middleware = [{ component = "ensure-admin" }]
+```
+
+The `middleware` field is an array. The list acts as a pipeline. That is, each middleware component hands off to the next one, until the final one hands off to the application component. So an incoming request will encounter the middlewares from front to back, while a response will encounter them from back to front. For example, if you have both authentication and authorisation middleware, you would place the authentication middleware first in the list.
+
+You can specify middlewares using the same sources and configuration options as [dependencies](./writing-apps#using-component-dependencies).
+
+### Middleware Permissions
+
+In the current version of Spin, capabilities - such as network permissions or key-value stores - are controlled by application components: dependencies may at best inherit capabilities; they may not have their own independent capabilities. The same rule applies to middleware. This can require caution because middleware is specified on a trigger, rather than on a component. You must ensure that _all_ components associated with middleware triggers have suitable capabilities for the middleware. For example, consider a middleware that authenticates the user using GitHub. This requires network permissions to access the GitHub API. Therefore, every component that has this middleware in a trigger pipeline _must_ be granted network permissions to the GitHub API, so that the middleware can inherit them (via the dependencies-style `inherit_configuration` property):
+
+```toml
+[[trigger.http]]
+route = "/admin/..."
+component = "admin-ops"
+dependencies.middleware = [{ component = "ensure-admin", inherit_configuration = ["allowed_outbound_hosts"] }]
+
+[component.admin-ops]
+allowed_outbound_hosts = ["https://authorisation.example.com"] # required for the ensure-admin middleware to inherit it
+```
+
+See [Dependency Permissions](./writing-apps#dependency-permissions) for more information.
+
+### Authoring HTTP Middleware
+
+A middleware component is a normal Spin HTTP component, with one extra API available to it, to pass the request on to the next middleware in the pipeline (returning the response). For example, in the Rust SDK, this is surfaced as the `spin_sdk::http::next()` function (gated behind the `http-middleware` Cargo feature):
+
+```rust
+#[http_service]
+async fn handle_authn(request: Request) -> anyhow::Result<impl IntoResponse> {
+    if is_authorised(&request).await {
+        // Authn succeeded, pass the request along the pipeline
+        let response = spin_sdk::http::next(request)?;
+        // Authn doesn't modify the response so return it directly
+        Ok(response)
+    } else {
+        // Authn failed, send the interloping rogue on their way
+        let response = make_401_unauthorized();
+        Ok(response)
+    }
+}
+```
+
+> Refer to language SDK documentation for how it expresses the middleware pipeline API.
 
 ## HTTP With Wagi (WebAssembly Gateway Interface)
 
