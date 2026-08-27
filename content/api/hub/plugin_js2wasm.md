@@ -18,7 +18,7 @@ keywords = "plugins, packaging plugins, javascript, typescript"
 
 ---
 
-This is an SDK for building Spin apps using JavaScript (and TypeScript). It installs by default with the [Spin install script](../../spin/install#installing-spin).
+This was part of an SDK for building Spin apps using JavaScript. It is no longer used by the Spin JavaScript SDK, and is kept here only for users on old versions of Spin.
 
 ## Installation
 
@@ -26,4 +26,4 @@ This is an SDK for building Spin apps using JavaScript (and TypeScript). It inst
 spin plugins install js2wasm
 ```
 
-This guide walks you through how to use it: [HTTP Components](../../spin/javascript-components)
+This guide walks you through how to use it: [HTTP Components](/javascript-components)
