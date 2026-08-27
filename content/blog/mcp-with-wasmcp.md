@@ -238,7 +238,7 @@ spin up --from server.wasm
 
 Just like _that_, we have a functional MCP server over the Streamable HTTP transport.
 
-We can provide more detailed runtime configuration with a [spin.toml](https://spinframework.dev/v3/writing-apps) file.
+We can provide more detailed runtime configuration with a [spin.toml](https://spinframework.dev/writing-apps) file.
 
 ```toml
 # rust-tools/spin.toml
