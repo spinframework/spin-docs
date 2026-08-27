@@ -22,4 +22,4 @@ keywords = "web app, redis"
 
 This is the default Redis pub-sub trigger template for Rust. It installs by default with the [Spin install script](/install#installing-spin).
 
-These guides walks you through how to use it: [Redis Subscriber Components](/rust-components#redis-subscriber-components) and [Storing Data in Redis From Rust Components](/rust-components#storing-data-in-redis-from-rust-components)
+These guides walk you through how to use it: [Redis Subscriber Components](/rust-components#redis-subscriber-components) and [Storing Data in Redis From Rust Components](/rust-components#storing-data-in-redis-from-rust-components)
