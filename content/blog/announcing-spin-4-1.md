@@ -26,10 +26,9 @@ improvements for folks running Spin in production.
 - [HTTP middleware](#http-middleware)
 - [Async MySQL, with streaming rows](#async-mysql-with-streaming-rows)
 - [Service chaining across WASIp2 and WASIp3](#service-chaining-across-wasip2-and-wasip3)
-- [Connection limits and backpressure](#connection-limits-and-backpressure)
-- [Sharper telemetry](#sharper-telemetry)
 - [Target environments](#target-environments)
 - [A heads-up on WAGI](#a-heads-up-on-wagi)
+- [Running Spin in production](#running-spin-in-production)
 - [Upgrading to Spin 4.1](#upgrading-to-spin-41)
 
 ## WASI Preview 3 is final
@@ -104,16 +103,14 @@ exports the same interface** your application component exports:
 
 ```
 interface handler {
-  use types.{request, response, error-code};
-
   handle: async func(request: request) -> result<response, error-code>;
 }
 ```
 
-Spin wires the chain together automatically because every link speaks the same interface. 
-A middleware is just a handler that happens to call the next one, which means middleware 
-and application components are the same kind of thing. Publish one to a registry and anyone 
-can drop it into their chain.
+Spin wires the chain together automatically because every link speaks the same interface.
+A middleware is just a handler that happens to call the next one, which means middleware
+and application components are the same kind of thing: an ordinary component you can
+publish to a registry and drop into anyone's chain.
 
 ### Writing one: touching the request
 
@@ -201,14 +198,14 @@ stream.
 
 ### Middleware doesn't get a free pass on capabilities
 
-Look again at that manifest snippet, and at the application component:
+Suppose the `api-server` component is allowed to call your token endpoint:
 
 ```toml
 [component.api-server]
 allowed_outbound_hosts = ["https://tokens.example.com"]
 ```
 
-The `auth` middleware can reach the token endpoint only because the component it fronts
+The `auth` middleware in front of it can reach that endpoint only because `api-server`
 grants it that capability, and only because the trigger says
 `inherit_configuration = ["allowed_outbound_hosts"]`. Middleware gets no ambient authority.
 
@@ -250,11 +247,48 @@ the same streaming story PostgreSQL got in 4.0.
 
 Local service chaining, where one component calls another over
 `http://other-component.spin.internal` without ever leaving the host, now works for WASIp3
-components, and it works **across the P3/P2 boundary**. A WASIp3 component can chain to a
+components, and it works across the P3/P2 boundary. A WASIp3 component can chain to a
 WASIp2 component and vice versa, so you can migrate a multi-component application one piece
 at a time instead of all at once.
 
-## Connection limits and backpressure
+## Target environments
+
+Spin 4.0 introduced `spin new -E <environment>` for targeting a specific deployment platform.
+Spin 4.1 builds on that.
+
+There's a new command for seeing and refreshing what's available:
+
+```console
+$ spin targets list      # list known target environments
+$ spin targets update    # refresh the list from the master catalogue
+```
+
+You can set a default so you don't have to type `-E` forever:
+
+```console
+$ export SPIN_NEW_DEFAULT_ENVIRONMENT=<environment>
+```
+
+Environments can also constrain more than WIT worlds. An environment can declare which
+key-value stores, SQLite databases, or AI models it actually provides, and `spin build` will
+tell you before you deploy:
+
+> Component `api-server` can't run in environment `spin-up` because it requires the
+> `my-database` key-value store which the environment does not support
+
+## A heads-up on WAGI
+
+Spin 4.1 begins printing a deprecation warning for WAGI components, and the WAGI examples
+have been removed from the repository. Your WAGI components will keep running: this is the
+start of a gradual, managed deprecation, not a break. WAGI is a pre-component-model
+compatibility shim and we'd like to retire it, so if you're still running WAGI components,
+now's a good time to plan a move to a proper Wasm component.
+
+## Running Spin in production
+
+The rest of this post is for the folks running Spin rather than writing for it.
+
+### Connection limits and backpressure
 
 Spin has always been careful about *what* an application is allowed to talk to. It's been
 less opinionated about *how much*. A single app could exhaust a host's resources through
@@ -282,58 +316,16 @@ If you're using `[outbound_http] max_concurrent_requests`, it still works but is
 **deprecated** in favor of `max_connections`. See the upgrade notes below for one subtlety
 to watch for when you migrate.
 
-## Sharper telemetry
+### Sharper telemetry
 
 Spin's metrics now go straight to the OpenTelemetry SDK instead of being routed through
-`tracing` events, which makes them cheaper to emit and easier to reason about. Elsewhere in
-observability, Spin has switched to `opentelemetry-semantic-conventions` for attribute names
-instead of hand-rolled strings, and the OTLP HTTP exporter now uses `rustls`, thanks to
-[@TheRayquaza](https://github.com/TheRayquaza) for that one, their first contribution to
-Spin.
+`tracing` events, so they're cheaper to emit and behave the way your OTel tooling expects.
+Spin has also switched to `opentelemetry-semantic-conventions` for attribute names instead
+of hand-rolled strings, so Spin's telemetry now lines up with the rest of your observability
+stack out of the box.
 
 If you've built dashboards or alerts against Spin's OpenTelemetry attribute names, see the
 upgrade notes below.
-
-## Target environments
-
-Spin 4.0 introduced `spin new -E <environment>` for targeting a specific deployment platform.
-Spin 4.1 builds on that.
-
-There's a new command for seeing and refreshing what's available:
-
-```console
-$ spin targets list      # list known target environments
-$ spin targets update    # refresh the list from the master catalogue
-```
-
-Environment definitions live in Git, in the
-[`spinframework/spin-environments`](https://github.com/spinframework/spin-environments)
-repository. Spin keeps a local cache that refreshes on demand, so platform authors can publish
-updates directly to that repo and you'll pick them up automatically.
-
-You can set a default so you don't have to type `-E` forever:
-
-```console
-$ export SPIN_NEW_DEFAULT_ENVIRONMENT=<environment>
-```
-
-Environments can also constrain more than WIT worlds. An environment can declare which
-key-value stores, SQLite databases, or AI models it actually provides, and `spin build` will
-tell you before you deploy:
-
-> Component `api-server` can't run in environment `spin-up` because it requires the
-> `my-database` key-value store which the environment does not support
-
-That's a meaningful shift. Target environments started life answering "does your component's
-WIT world fit?" and are moving toward "will this application actually work over there?"
-
-## A heads-up on WAGI
-
-Spin 4.1 begins printing a deprecation warning for WAGI components, and the WAGI examples
-have been removed from the repository. Your WAGI components will keep running: this is the
-start of a gradual, managed deprecation, not a break. WAGI is a pre-component-model
-compatibility shim and we'd like to retire it, so if you're still running WAGI components,
-now's a good time to plan a move to a proper Wasm component.
 
 ## Upgrading to Spin 4.1
 
@@ -344,15 +336,8 @@ now's a good time to plan a move to a proper Wasm component.
    ```console
    spin templates install --git https://github.com/spinframework/spin --update
    ```
-3. That's mostly it. Applications built for Spin 4.0, including WASIp3 components built
-   against the March release candidate, run on 4.1 unchanged.
-
-If you're operating Spin, two things are worth a look:
-
-- Replace `[outbound_http] max_concurrent_requests` with `max_connections`, remembering that
-  `0` now means *no connections* rather than *one*.
-- Re-check any dashboards or alerts built on Spin's OpenTelemetry attribute names, which now
-  follow the OTel semantic conventions.
+3. That's it for app developers. Applications built for Spin 4.0, including WASIp3 components
+   built against the March release candidate, run on 4.1 unchanged.
 
 And if you want to try middleware, the fastest path is the example in the repo:
 
@@ -361,6 +346,13 @@ $ git clone https://github.com/spinframework/spin
 $ cd spin/examples/http-middleware
 $ spin build --up
 ```
+
+If you're operating Spin, two things are worth a look:
+
+- In your runtime config file, replace `[outbound_http] max_concurrent_requests` with
+  `max_connections`, remembering that `0` now means *no connections* rather than *one*.
+- Re-check any dashboards or alerts built on Spin's OpenTelemetry attribute names, which now
+  follow the OTel semantic conventions.
 
 ## Thank you
 
