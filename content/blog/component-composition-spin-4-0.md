@@ -11,7 +11,7 @@ canonical_url = "https://www.thorsten-hans.com/component-composition-with-spin-4
 
 ---
 
-Thanks to the WebAssembly Component Model we can stitch together multiple WebAssembly Components. Reusing Wasm Components boost developer velocity dramatically while language barriers vanish. In this hands-on article, I'll explain how you can compose Wasm Components using Spin 4.0.
+Thanks to the WebAssembly Component Model we can stitch together multiple WebAssembly Components. Reusing Wasm Components boosts developer velocity dramatically while language barriers vanish. In this hands-on article, I'll explain how you can compose Wasm Components using Spin 4.0.
 
 ## What You Need To Follow Along
 
