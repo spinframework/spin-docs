@@ -280,7 +280,7 @@ In the final implementation, we've added:
 Finally, we can test our Spin application by running it on our local machine with `spin up`:
 
 ```bash
-spin up
+spin up --build
 ```
 
 Here a bunch of `curl` requests for testing purposes, along with their responses:
