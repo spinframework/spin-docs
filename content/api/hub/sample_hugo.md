@@ -7,7 +7,7 @@ tags = ["hugo", "fileserver", "ssg",]
 [extra]
 author = "ThorstenHans"
 type = "hub_document"
-category = "Examples"
+category = "Sample"
 language = "Rust"
 created_at = "2023-08-31T10:52:54Z"
 last_updated = "2023-08-31T00:52:54Z"
