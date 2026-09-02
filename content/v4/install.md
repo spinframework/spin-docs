@@ -29,7 +29,7 @@ Spin runs on Linux (amd64 and arm64), macOS (Intel and Apple Silicon), and Windo
 
 You can manage your Spin installation via [Homebrew](https://brew.sh/). Homebrew automatically installs Spin templates and Spin plugins, and on uninstall, will prompt you to delete the directory where the templates and plugins were downloaded:
 
-Install the Fermyon tap, which Homebrew tracks, updates, and installs Spin from:
+Install the `spinframework` tap, which Homebrew tracks, updates, and installs Spin from:
 
 <!-- @selectiveCpy -->
 
@@ -47,9 +47,42 @@ $ brew install spinframework/tap/spin
 
 > Note: `brew install spin` will **not** install Spin framework. Spin is accessed from the `spinframework` tap, as shown above.
 
+**mise-en-place**
+
+Alternatively, you can manage your Spin installation via [mise-en-place](https://mise.jdx.dev/). With mise-en-place (`mise`) you can use  different versions of Spin on your system. Besides a global installation, you can always pin certain folders to a particular Spin version:
+
+To install the latest stable version of Spin globally, use:
+
+<!-- @selectiveCpy -->
+
+```bash
+$ mise use -g spin-framework
+```
+
+To install a particular version of Spin in a specific folder use:
+
+<!-- @selectiveCpy -->
+
+```bash
+$ mkdir foo && cd foo
+$ mise use spin-framework@4.1.0
+```
+
+This will create a local `mise.toml` file, allowing other developers who clone your code to install the desired version of Spin using `mise install`:
+
+<!-- @selectiveCpy -->
+
+```bash
+$ git clone git@github.com:some-user/foo.git
+$ cd foo
+$ mise install
+```
+
+> Note: `mise use spin` will **not** install Spin framework. Spin is provide through the `spin-framework` tool, as shown above.
+
 **Installer script**
 
-Another option (other than brew) is to use our installer script. The installer script installs Spin along with a starter set of language templates and plugins:
+Another option (other than `brew` and `mise`) is to use our installer script. The installer script installs Spin along with a starter set of language templates and plugins:
 
 <!-- @selectiveCpy -->
 
@@ -91,7 +124,7 @@ $ curl -fsSL https://spinframework.dev/downloads/install.sh | bash -s -- -v cana
 
 You can manage your Spin installation via [Homebrew](https://brew.sh/). Homebrew automatically installs Spin templates and Spin plugins, and on uninstall, will prompt you to delete the directory where the templates and plugins were downloaded:
 
-Install the Fermyon tap, which Homebrew tracks, updates, and installs Spin from:
+Install the `spinframework` tap, which Homebrew tracks, updates, and installs Spin from:
 
 <!-- @selectiveCpy -->
 
@@ -108,6 +141,39 @@ $ brew install spinframework/tap/spin
 ```
 
 > Note: `brew install spin` will **not** install Spin framework. Spin is accessed from the `spinframework` tap, as shown above.
+
+**mise-en-place**
+
+Alternatively, you can manage your Spin installation via [mise-en-place](https://mise.jdx.dev/). With mise-en-place (`mise`) you can use  different versions of Spin on your system. Besides a global installation, you can always pin certain folders to a particular Spin version:
+
+To install the latest stable version of Spin globally, use:
+
+<!-- @selectiveCpy -->
+
+```bash
+$ mise use -g spin-framework
+```
+
+To install a particular version of Spin in a specific folder use:
+
+<!-- @selectiveCpy -->
+
+```bash
+$ mkdir foo && cd foo
+$ mise use spin-framework@4.1.0
+```
+
+This will create a local `mise.toml` file, allowing other developers who clone your code to install the desired version of Spin using `mise install`:
+
+<!-- @selectiveCpy -->
+
+```bash
+$ git clone git@github.com:some-user/foo.git
+$ cd foo
+$ mise install
+```
+
+> Note: `mise use spin` will **not** install Spin framework. Spin is provide through the `spin-framework` tool, as shown above.
 
 **Installer script**
 
