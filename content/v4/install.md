@@ -64,27 +64,18 @@ To install a particular version of Spin in a specific folder use:
 <!-- @selectiveCpy -->
 
 ```bash
-mkdir foo
-cd foo
-
+$ mkdir foo && cd foo
 $ mise use spin-framework@4.1.0
 ```
 
-This will create a local `mise.toml` file, allowing your peers to install the desired version of Spin using `mise install` and check using `mise ls`:
+This will create a local `mise.toml` file, allowing other developers who clone your code to install the desired version of Spin using `mise install`:
 
 <!-- @selectiveCpy -->
 
 ```bash
-cd foo
-mise install
-mise ls -l
-```
-
-<!-- @noCpy -->
-
-```bash
-Tool            Version  Source               Requested
-spin-framework  4.1.0    ~/dev/foo/mise.toml  4.1.0
+$ git clone git@github.com:some-user/foo.git
+$ cd foo
+$ mise install
 ```
 
 > Note: `mise use spin` will **not** install Spin framework. Spin is provide through the `spin-framework` tool, as shown above.
@@ -151,7 +142,6 @@ $ brew install spinframework/tap/spin
 
 > Note: `brew install spin` will **not** install Spin framework. Spin is accessed from the `spinframework` tap, as shown above.
 
-
 **mise-en-place**
 
 Alternatively, you can manage your Spin installation via [mise-en-place](https://mise.jdx.dev/). With mise-en-place (`mise`) you can use  different versions of Spin on your system. Besides a global installation, you can always pin certain folders to a particular Spin version:
@@ -169,27 +159,18 @@ To install a particular version of Spin in a specific folder use:
 <!-- @selectiveCpy -->
 
 ```bash
-mkdir foo
-cd foo
-
+$ mkdir foo && cd foo
 $ mise use spin-framework@4.1.0
 ```
 
-This will create a local `mise.toml` file, allowing your peers to install the desired version of Spin using `mise install` and check using `mise ls`:
+This will create a local `mise.toml` file, allowing other developers who clone your code to install the desired version of Spin using `mise install`:
 
 <!-- @selectiveCpy -->
 
 ```bash
-cd foo
-mise install
-mise ls -l
-```
-
-<!-- @noCpy -->
-
-```bash
-Tool            Version  Source               Requested
-spin-framework  4.1.0    ~/dev/foo/mise.toml  4.1.0
+$ git clone git@github.com:some-user/foo.git
+$ cd foo
+$ mise install
 ```
 
 > Note: `mise use spin` will **not** install Spin framework. Spin is provide through the `spin-framework` tool, as shown above.
