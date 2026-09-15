@@ -310,10 +310,9 @@ To make an HTTP request to another route with your application, you can pass jus
 > 
 In this way of doing self-requests, the request undergoes normal HTTP processing once Spin has prepended the host. For example, in a cloud deployment, the request passes through the network, and potentially back in through a load balancer or other gateway. The benefit of this is that it allows load to be distributed across the environment, but it may count against your use of bandwidth.
 
-You must still grant permission by including `self` or `self.alt` in `allowed_outbound_hosts`:
+You must still grant permission by including `self.alt` in `allowed_outbound_hosts`:
 
 ```toml
-allowed_outbound_hosts = ["http://self", "https://self.alt"]
+allowed_outbound_hosts = ["http://self.alt", "https://self.alt"]
 ```
 
-> It doesn't matter which you use - either 'allow' form enables both relative and `self.alt` URLs.
