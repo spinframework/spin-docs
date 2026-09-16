@@ -16,7 +16,7 @@ url = "https://github.com/spinframework/spin-docs/blob/main/content/v4/variables
 
 Spin supports dynamic application variables. Instead of being static, their values can be updated without modifying the application, creating a simpler experience for rotating secrets, updating API endpoints, and more. 
 
-These variables are defined in a Spin application manifest (in the `[variables]` section), and their values can be set or overridden at runtime by an [application variables provider](./dynamic-configuration.md#application-variables-runtime-configuration), or the `--variable` flag to `spin up`. When running Spin locally, the variables provider can be [Hashicorp Vault](./dynamic-configuration.md#vault-application-variable-provider) for secrets, [Azure Key Vault](https://azure.microsoft.com/en-us/products/key-vault), or host environment variables. [See below](#setting-variable-values) for more information.
+These variables are defined in a Spin application manifest (in the `[variables]` section), and their values can be set or overridden at runtime by an [application variables provider](./dynamic-configuration.md#application-variables-runtime-configuration), or the `--variable` flag to `spin up`. When running Spin locally, the variables provider can be [Hashicorp Vault](./dynamic-configuration.md#vault-application-variable-provider) or [OpenBao](./dynamic-configuration.md#openbao-application-variable-provider) for secrets, [Azure Key Vault](https://azure.microsoft.com/en-us/products/key-vault), or host environment variables. [See below](#setting-variable-values) for more information.
 
 ## Adding Variables to Your Applications
 
@@ -47,7 +47,7 @@ api_uri = "\{{ api_uri }}"
 api_version = "v1"
 ```
 
-When a component variable references an application variable, its value will dynamically update as the application variable changes. For example, if the `api_token` variable is provided using the [Spin Vault provider](./dynamic-configuration.md#vault-application-variable-provider), it can be updated by changing the value in HashiCorp Vault. The next time the component gets the value of `token`, the latest value of `api_token` will be returned by the provider. See the [next section](#using-variables-from-applications) to learn how to use Spin's configuration SDKs to get configuration variables within applications.
+When a component variable references an application variable, its value will dynamically update as the application variable changes. For example, if the `api_token` variable is provided using the [Spin Vault provider](./dynamic-configuration.md#vault-application-variable-provider) or [Spin OpenBao provider](./dynamic-configuration.md#openbao-application-variable-provider), it can be updated by changing the value either in HashiCorp Vault or OpenBao. The next time the component gets the value of `token`, the latest value of `api_token` will be returned by the provider. See the [next section](#using-variables-from-applications) to learn how to use Spin's configuration SDKs to get configuration variables within applications.
 
 Variables can also be used in other sections of the application manifest that benefit from runtime configuration. In these cases, the variables are substituted at application load time rather than dynamically updated while the application is running. For example, the `allowed_outbound_hosts` can be dynamically configured using variables as follows:
 
@@ -57,7 +57,6 @@ Variables can also be used in other sections of the application manifest that be
 [component.(name)]
 allowed_outbound_hosts = [ "\{{ api_uri }}" ]
 ```
-
 
 All in all, an application manifest with `api_token` and `api_uri` variables and a component that uses them would look similar to the following:
 
@@ -285,7 +284,7 @@ When you run an application, you must provide values for all required variables,
 
 ### Providing Variable Values from a Secrets Store
 
-You can provide variable values from a secrets store. The Spin CLI supports [Hashicorp Vault](./dynamic-configuration.md#vault-application-variable-provider) and [Azure Key Vault](https://azure.microsoft.com/en-us/products/key-vault). If you want to do this, you must set up the store in the runtime configuration file, and reference that file using `--runtime-config-file` on the command line.
+You can provide variable values from a secrets store. The Spin CLI supports [Hashicorp Vault](./dynamic-configuration.md#vault-application-variable-provider), [OpenBao](./dynamic-configuration.md#openbao-application-variable-provider) and [Azure Key Vault](https://azure.microsoft.com/en-us/products/key-vault). If you want to do this, you must set up the store in the runtime configuration file, and reference that file using `--runtime-config-file` on the command line.
 
 For information about configuring application variables providers, refer to the [runtime configuration documentation](./dynamic-configuration.md#application-variables-runtime-configuration).
 

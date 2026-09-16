@@ -11,6 +11,8 @@ url = "https://github.com/spinframework/spin-docs/blob/main/content/v4/dynamic-c
   - [Environment Variable Provider](#environment-variable-provider)
   - [Vault Application Variable Provider](#vault-application-variable-provider)
     - [Vault Application Variable Provider Example](#vault-application-variable-provider-example)
+  - [OpenBao Application Variable Provider](#openbao-application-variable-provider)
+    - [OpenBao Application Variable Provider Example](#openbao-application-variable-provider-example)
   - [Azure Key Vault Application Variable Provider](#azure-key-vault-application-variable-provider)
     - [Azure Key Vault Application Variable Provider Example](#azure-key-vault-application-variable-provider-example)
 - [Key Value Store Runtime Configuration](#key-value-store-runtime-configuration)
@@ -46,7 +48,7 @@ Let's look at each configuration category in-depth below.
 
 When an application needs the value of an [application variable](./variables), it obtains it from a provider. By default, the only provider Spin considers is the [environment variables provider](#environment-variable-provider). That is, application variables are derived from the environment variables of the Spin process.
 
-You can also tell Spin to use the [Vault provider](#vault-application-variable-provider) and/or the [Azure Key Vault provider](#azure-key-vault-application-variable-provider), by setting these up in the runtime config file.
+You can also tell Spin to use the [Vault provider](#vault-application-variable-provider), [OpenBao provider](#openbao-application-variable-provider) and/or the [Azure Key Vault provider](#azure-key-vault-application-variable-provider), by setting these up in the runtime config file.
 
 You can tell Spin to use multiple application variable providers. Spin prioritises them in the order they appear in the runtime config file, with higher-listed providers taking precedence. The environment variable provider that Spin adds by default always has the lowest priority, and values passed on the command line via `spin up --variable` always have the highest.
 
@@ -133,6 +135,75 @@ $ spin up --runtime-config-file runtime-config.toml
 
 ```bash
 $ curl localhost:3000 --data "test_password"
+{"authentication": "accepted"}
+```
+<!-- @selectiveCpy -->
+
+```bash
+$ curl localhost:3000 --data "wrong_password"
+{"authentication": "denied"}
+```
+
+### OpenBao Application Variable Provider
+
+The OpenBao application variable provider gets secret values from [OpenBao](https://openbao.org/).
+Currently, only the [KV Secrets Engine - Version 2](https://openbao.org/docs/secrets/kv/kv-v2/) is supported.
+You can set up the v2 kv secret engine at any mount point and provide Vault information in
+the [runtime configuration](#runtime-configuration) file:
+
+<!-- @nocpy -->
+
+```toml
+[[config_provider]]
+type = "open_bao"
+url = "http://127.0.0.1:8200"
+token = "root"
+mount = "secrets"
+```
+
+#### OpenBao Application Variable Provider Example
+
+1. [Install OpenBao](https://openbao.org/docs/install/).
+2. Start OpenBao:
+
+<!-- @selectiveCpy -->
+
+```bash
+$ bao server -dev -dev-root-token-id="dev-only-token"
+```
+
+3. Set a password in kv:
+
+<!-- @selectiveCpy -->
+
+```bash
+$ export VAULT_TOKEN="dev-only-token"
+$ export VAULT_ADDR=http://127.0.0.1:8200
+
+# Create a "demo-secrets" mount
+$ bao secrets enable -path=secrets kv-v2
+$ bao kv put secrets/sample_secret value="secret_sauce"
+
+# Retrieve the "sample_secret" again
+$ bao kv get secrets/sample_secret
+```
+
+4. Go to the [OpenBao variable provider example](https://github.com/fermyon/enterprise-architectures-and-patterns/tree/main/application-variable-providers/openbao-provider) application.
+5. Build and run the `openbao-provider` app:
+
+<!-- @selectiveCpy -->
+
+```bash
+$ spin build
+$ spin up --runtime-config-file runtime-config.toml
+```
+
+6. Test the app:
+
+<!-- @selectiveCpy -->
+
+```bash
+$ curl localhost:3000 --data "secret_sauce"
 {"authentication": "accepted"}
 ```
 <!-- @selectiveCpy -->
