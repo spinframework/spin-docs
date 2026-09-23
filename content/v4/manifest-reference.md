@@ -139,7 +139,8 @@ Each array entry contains a mix of common fields and trigger-specific fields.
 |-------------------------|------------|-----------------|----------|-----------|
 | `component`             | Required   | String or table | The component to run when a trigger event matching the trigger setting occurs (for example, when Spin receives an HTTP request matching the trigger's `route`). It can be in one of the following formats: |  |
 |                         |            | String          | * A key in the `component` table | `"user-manager"` |
-|                         |            | Table           | * Specifies an unnamed component to be associated with the trigger setting. This allows simple components to be written inline instead of needing a separate section. Such a table follows [the `component` table](#the-component-table) format. | { source = "reports.wasm" }` |
+|                         |            | Table           | * Specifies an unnamed component to be associated with the trigger setting. This allows simple components to be written inline instead of needing a separate section. Such a table follows [the `component` table](#the-component-table) format. | `{ source = "reports.wasm" }` |
+| `dependencies`          | Optional   | Table           | Additional Wasm components to be composed with the main `component` in a trigger-specific way. Currently used only for [HTTP middleware](./http-trigger#http-middleware). | `dependencies.middleware = [{ component = "authn"}, { component = "authz" }]` |
 
 ### Additional Fields for `trigger.http` Tables
 
