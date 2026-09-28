@@ -113,11 +113,11 @@ a.card {
     height: 12rem;
     overflow-y: hidden;
     flex-direction: column;
-    background: darken($docsbg1, 2.5%);
+    background: color.adjust($docsbg1, $lightness: -2.5%, $space: hsl);
     padding: 0.3rem;
     border-radius: 1.333rem;
     overflow: hidden;
-    border: 1px solid darken($lavendermid, 5%);
+    border: 1px solid color.adjust($lavendermid, $lightness: -5%, $space: hsl);
     transition: background 0.5s ease-in-out 0;
     transition: border-color 0.3s ease-in-out 0;
     z-index: 800;
@@ -231,7 +231,7 @@ a.card {
 
     &:hover {
         border-color: $lavenderfloral;
-        background: darken($docsbg1, 1%);
+        background: color.adjust($docsbg1, $lightness: -1%, $space: hsl);
 
         header {
             opacity: 0;
@@ -261,7 +261,7 @@ a.card {
 .dark-theme {
     .card {
         background: #202644 !important;
-        border-color: darken($lavenderdark, 7.5%);
+        border-color: color.adjust($lavenderdark, $lightness: -7.5%, $space: hsl);
         color: white;
 
         &:hover {
@@ -272,7 +272,7 @@ a.card {
 
         .category {
             color: $thistle;
-            background-color: darken($lavenderdark, 33.33%);
+            background-color: color.adjust($lavenderdark, $lightness: -33.33%, $space: hsl);
 
             svg {
                 fill: $lavenderlight;
@@ -282,7 +282,7 @@ a.card {
 
         .tags {
             span {
-                color: lighten($lavenderfloral, 7.5%);
+                color: color.adjust($lavenderfloral, $lightness: 7.5%, $space: hsl);
             }
         }
 

@@ -1,3 +1,5 @@
+@use "sass:color";
+
 .documentation {
     .feedback-wrapper {
         width: 15vw;
@@ -35,7 +37,7 @@
             top: 80vh;
             min-height: 50px;
             width: 15vw;
-            background-color: lighten($thistle, 5%);
+            background-color: color.adjust($thistle, $lightness: 5%, $space: hsl);
             ;
             z-index: 0;
             opacity: 0;
@@ -112,12 +114,12 @@
 
                     svg {
                         path {
-                            fill: lighten($lavenderfloral, 5%);
+                            fill: color.adjust($lavenderfloral, $lightness: 5%, $space: hsl);
                         }
 
                         &:hover {
                             path {
-                                fill: darken($lavenderfloral, 2.5%);
+                                fill: color.adjust($lavenderfloral, $lightness: -2.5%, $space: hsl);
                             }
                         }
                     }
@@ -139,10 +141,10 @@ html.dark-theme {
             .feedback-wrapper {
 
                 .feedback-modal {
-                    background-color: lighten($oxforddark, 7.5%) !important;
+                    background-color: color.adjust($oxforddark, $lightness: 7.5%, $space: hsl) !important;
 
                     textarea {
-                        background-color: lighten($oxforddark, 15%) !important;
+                        background-color: color.adjust($oxforddark, $lightness: 15%, $space: hsl) !important;
                     }
 
                     a {

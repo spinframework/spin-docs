@@ -1,3 +1,5 @@
+@use "sass:color";
+
 // colors etc
 @import "../../node_modules/@fermyon/styleguide/scss/fermyon";
 // theme layers
@@ -114,7 +116,7 @@ $bluecallout: #282F55;
 						padding: 0.25rem 0 0.25rem 0.5rem;
 						line-height: 1.5;
 						display: inline-block;
-						color: darken($bluedark, 7.5%);
+						color: color.adjust($bluedark, $lightness: -7.5%, $space: hsl);
 						font-weight: 400;
 						@include transition;
 
@@ -139,8 +141,8 @@ $bluecallout: #282F55;
 				font-size: 1rem !important;
 				margin: 1.67rem auto 2.67rem !important;
 				border-radius: 0.5rem;
-				background-color: lighten($thistle, 5%);
-				color: darken($bluedark, 7.5%);
+				background-color: color.adjust($thistle, $lightness: 5%, $space: hsl);
+				color: color.adjust($bluedark, $lightness: -7.5%, $space: hsl);
 				line-height: 1.725;
 			}
 
@@ -170,7 +172,7 @@ $bluecallout: #282F55;
 					top: 86px;
 					right: 90px;
 					width: 15vw;
-					background-color: lighten($thistle, 5%);
+					background-color: color.adjust($thistle, $lightness: 5%, $space: hsl);
 					padding: 0.825rem 1rem;
 					border-radius: 0.333rem;
 					z-index: 999;
@@ -296,7 +298,7 @@ $bluecallout: #282F55;
 		}
 
 		.note {
-			background: lighten($lavender, 12.5%);
+			background: color.adjust($lavender, $lightness: 12.5%, $space: hsl);
 			color: $oxfordblue;
 			border-radius: 0.333rem;
 			margin: 5rem 0 3rem;
@@ -333,7 +335,7 @@ $bluecallout: #282F55;
 		border-radius: 0.7rem;
 		padding: 0.2rem 0.35rem;
 		cursor: pointer;
-		background: darken($darkspace, 5%);
+		background: color.adjust($darkspace, $lightness: -5%, $space: hsl);
 		border: none;
 		@include transition;
 
@@ -464,7 +466,7 @@ $bluecallout: #282F55;
 			a {
 				border: none;
 				padding: .5em 1.2em 18px;
-				color: lighten($darkplum, 12.5%);
+				color: color.adjust($darkplum, $lightness: 12.5%, $space: hsl);
 				border-radius: 0.25rem 0.25rem 0 0;
 				transition: color ease-in-out 0.3s;
 
@@ -492,7 +494,7 @@ $bluecallout: #282F55;
 				margin: 1.5rem 0 0.25rem;
 				padding: 0 0.6rem;
 				font-size: 11px;
-				color: darken($vistablue, 15%);
+				color: color.adjust($vistablue, $lightness: -15%, $space: hsl);
 			}
 		}
 
@@ -835,7 +837,7 @@ screen and (max-width:736px) and (orientation:landscape) {
 
 			h3 {
 				a {
-					color: darken($oxfordblue, 10%);
+					color: color.adjust($oxfordblue, $lightness: -10%, $space: hsl);
 
 					&:hover {
 						&:after {
@@ -917,7 +919,7 @@ html.dark-theme {
 			}
 
 			&-date {
-				color: lighten($midblue, 22.5%);
+				color: color.adjust($midblue, $lightness: 22.5%, $space: hsl);
 			}
 
 			&-tags {
@@ -1073,7 +1075,7 @@ html.dark-theme {
 			text-decoration: none;
 
 			&:hover {
-				color: darken($lavenderfloral, 10%);
+				color: color.adjust($lavenderfloral, $lightness: -10%, $space: hsl);
 			}
 		}
 	}

@@ -81,14 +81,14 @@ export default {
     justify-content: center;
     padding: .5rem 2rem 2.5rem;
     border-radius: 1.5rem;
-    border: 1px solid darken($lavendermid, 3.5%);
-    background: linear-gradient(180deg, darken($docsbg1, 2%) 0%, darken($docsbg1, 1%) 100%);
+    border: 1px solid color.adjust($lavendermid, $lightness: -3.5%, $space: hsl);
+    background: linear-gradient(180deg, color.adjust($docsbg1, $lightness: -2%, $space: hsl) 0%, color.adjust($docsbg1, $lightness: -1%, $space: hsl) 100%);
     box-shadow: 0px 4px 3px 0px rgba(0, 0, 0, 0.02);
     z-index: 600;
 
     h1.description {
       font-family: $spaceGro;
-      color: lighten($bluedark, 5%);
+      color: color.adjust($bluedark, $lightness: 5%, $space: hsl);
       @include upperCase;
       margin: 1.33rem 0 1rem;
       font-weight: 400 !important;
@@ -132,7 +132,7 @@ export default {
         width: 100%;
         border-radius: 3.75rem;
         border: 1px solid rgba(137, 103, 194, 0.5);
-        color: darken($lavenderdark, 12.5%);
+        color: color.adjust($lavenderdark, $lightness: -12.5%, $space: hsl);
         font-size: 1rem;
         font-family: $spaceGro;
         background: linear-gradient(180deg, #F6F4FE 0%, #FBFBFC 100%);
@@ -142,7 +142,7 @@ export default {
         text-overflow: ellipsis;
 
         &::placeholder {
-          color: darken($lavenderdark, 12.5%);
+          color: color.adjust($lavenderdark, $lightness: -12.5%, $space: hsl);
         }
       }
 

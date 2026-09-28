@@ -96,7 +96,7 @@ body.hub {
 }
 
 html.dark-theme body.hub {
-  background: darken($oxforddark, 2.5%) !important;
+  background: color.adjust($oxforddark, $lightness: -2.5%, $space: hsl) !important;
 
   &:after {
     opacity: 0.2;
@@ -155,7 +155,7 @@ html.dark-theme body.hub {
             margin-top: 1rem;
           }
           .tags span {
-            color: darken($lavenderdark, 33%);
+            color: color.adjust($lavenderdark, $lightness: -33%, $space: hsl);
           }
         }
       }
@@ -197,7 +197,7 @@ html.dark-theme body.hub {
               color: $oxforddark;
             }
             .tags span {
-              color: lighten($lavenderfloral, 7.5%);
+              color: color.adjust($lavenderfloral, $lightness: 7.5%, $space: hsl);
             }
           }
         }
@@ -251,7 +251,7 @@ html.dark-theme {
                 color: white;
               }
               .tags span {
-                color: lighten($lavenderfloral, 7.5%);
+                color: color.adjust($lavenderfloral, $lightness: 7.5%, $space: hsl);
               }
             }
           }
