@@ -39,7 +39,7 @@ spin templates install --update --git https://github.com/ogghead/spin-trigger-ki
 Once the template is installed, you can create a new application using:
 
 ```sh
-spin new -t kinesis-rust hello_kinesis --accept-defaults
+spin new -t kinesis-rust hello-kinesis --accept-defaults
 ```
 
 Note that you will need to provide a valid ARN (Amazon Resource Name) for your stream.
@@ -47,7 +47,7 @@ Note that you will need to provide a valid ARN (Amazon Resource Name) for your s
 To run the newly created app:
 
 ```bash
-cd hello_kinesis
+cd hello-kinesis
 spin build --up
 ```
 

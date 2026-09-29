@@ -39,13 +39,13 @@ spin templates install --git https://github.com/spinframework/spin-trigger-cron
 Once the template is installed, you can create a new application using:
 
 ```bash
-spin new -t cron-rust hello_cron --accept-defaults
+spin new -t cron-rust hello-cron --accept-defaults
 ```
 
 To run the newly created app:
 
 ```bash
-cd hello_cron
+cd hello-cron
 spin build --up
 ```
 

@@ -260,7 +260,7 @@ Pick a template to start your application with:
 	redis-go (Redis message handler using Go)
 	redis-rust (Redis message handler using Rust)
 
-Enter a name for your new application: hello_rust
+Enter a name for your new application: hello-rust
 Project description: My first Rust Spin application
 HTTP path: /...
 ```
@@ -270,7 +270,7 @@ This command created a directory with the necessary files needed to build and ru
 <!-- @selectiveCpy -->
 
 ```bash
-$ cd hello_rust
+$ cd hello-rust
 $ tree
 .
 ├── .gitignore
@@ -288,7 +288,7 @@ The additional `spin.toml` file is the manifest file, which tells Spin what even
 spin_manifest_version = 2
 
 [application]
-name = "hello_rust"
+name = "hello-rust"
 version = "0.1.0"
 authors = ["Your Name <your-name@example.com>"]
 description = "My first Rust Spin application"
@@ -348,7 +348,7 @@ Pick a template to start your application with:
 > http-ts (HTTP request handler using TypeScript)
   redis-js (Redis message handler using JavaScript)
   redis-ts (Redis message handler using TypeScript)
-Enter a name for your new application: hello_typescript
+Enter a name for your new application: hello-typescript
 Project description: My first TypeScript Spin application
 HTTP path: /...
 ```
@@ -358,7 +358,7 @@ This command created a directory with the necessary files needed to build and ru
 <!-- @selectiveCpy -->
 
 ```bash
-$ cd hello_typescript
+$ cd hello-typescript
 $ tree
 .
 ├── config
@@ -379,7 +379,7 @@ The additional `spin.toml` file is the manifest file, which tells Spin what even
 spin_manifest_version = 2
 
 [application]
-name = "hello_typescript"
+name = "hello-typescript"
 version = "0.1.0"
 authors = ["Your Name <your-name@example.com>"]
 description = "My first TypeScript Spin application"
@@ -593,7 +593,7 @@ Pick a template to start your application with:
 	http-grain (HTTP request handler using Grain)
 	http-php (HTTP request handler using PHP)
 	http-rust (HTTP request handler using Rust)
-Enter a name for your new application: hello_go
+Enter a name for your new application: hello-go
 Description: My first Go Spin application
 HTTP path: /...
 ```
@@ -603,7 +603,7 @@ This command created a directory with the necessary files needed to build and ru
 <!-- @selectiveCpy -->
 
 ```bash
-$ cd hello_go
+$ cd hello-go
 $ tree
 .
 ├── go.mod
@@ -620,7 +620,7 @@ The additional `spin.toml` file is the manifest file, which tells Spin what even
 spin_manifest_version = 2
 
 [application]
-name = "hello_go"
+name = "hello-go"
 version = "0.1.0"
 authors = ["Your Name <your-name@example.com>"]
 description = "My first Go Spin application"
@@ -693,16 +693,16 @@ Executing the build command for component hello-rust: cargo build --target wasm3
 	 Compiling version_check v0.9.4
 	 # ...
 	 Compiling spin-sdk v6.0.0 
-	 Compiling hello-rust v0.1.0 (/home/ivan/testing/start/hello_rust)
+	 Compiling hello-rust v0.1.0 (/home/ivan/testing/start/hello-rust)
 		Finished release [optimized] target(s) in 11.94s
 Finished building all Spin components
 ```
 
 If the build fails, check:
 
-* Are you in the `hello_rust` directory?
+* Are you in the `hello-rust` directory?
 * Did you successfully [install the `wasm32-wasip2` target](#install-the-tools)?
-* Is your version of Rust up to date (`cargo --version`)?  The Spin SDK needs Rust 1.93 or above.
+* Is your version of Rust up to date (`cargo --version`)?  The Spin SDK needs Rust 1.94 or above.
 
 If you would like to know what build command Spin runs for a component, you can find it in the manifest, in the `component.(id).build` section:
 
@@ -831,7 +831,7 @@ Finished building all Spin components```
 
 If the build fails, check:
 
-* Are you in the `hello_go` directory?
+* Are you in the `hello-go` directory?
 * Are you on Go version 1.25.5 or above?
 * Does your `go.mod` have a `tool` entry for `github.com/bytecodealliance/componentize-go`?
 
