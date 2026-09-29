@@ -212,7 +212,7 @@ spin templates install --git https://github.com/spinframework/spin-trigger-cron
 With the plugin and template installed, we create a new application:
 
 ```bash
-spin new -t cron-rust hello_cron --accept-defaults
+spin new -t cron-rust hello-cron --accept-defaults
 ```
 
 ### Inspecting the Source Code
@@ -239,7 +239,7 @@ async fn handle_cron_event(metadata: Metadata) -> Result<(), Error> {
 We can immediately run this pre-written (template) application and observe the time-driven execution:
 
 ```bash
-cd hello_cron
+cd hello-cron
 spin build --up
 
 Building component hello-cron with `cargo build --target wasm32-wasip2 --release`

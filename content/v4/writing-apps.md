@@ -190,7 +190,7 @@ Pick a template to start your application with:
   redis-go (Redis message handler using Go)
   redis-rust (Redis message handler using Rust)
 
-Enter a name for your new application: hello_rust
+Enter a name for your new application: hello-rust
 Project description: My first Rust Spin application
 HTTP path: /...
 ```
@@ -210,7 +210,7 @@ $ spin new
 Pick a template to start your application with:
   http-js (HTTP request handler using Javascript)
 > http-ts (HTTP request handler using Typescript)
-Enter a name for your new application: hello_typescript
+Enter a name for your new application: hello-typescript
 Project description: My first TypeScript Spin application
 HTTP path: /...
 ```
@@ -229,7 +229,7 @@ Choose the `http-py` template to create a new HTTP application.
 $ spin new
 Pick a template to start your application with:
 > http-py (HTTP request handler using Python)
-Enter a name for your new application: hello_python
+Enter a name for your new application: hello-python
 Description: My first Python Spin application
 HTTP path: /...
 ```
@@ -251,7 +251,7 @@ Pick a template to start your application with:
   http-grain (HTTP request handler using Grain)
   http-php (HTTP request handler using PHP)
   http-rust (HTTP request handler using Rust)
-Enter a name for your new application: hello_go
+Enter a name for your new application: hello-go
 Description: My first Go Spin application
 HTTP path: /...
 ```

@@ -291,7 +291,7 @@ $ cargo install --locked --path .
 $ spin --help
 ```
 
-> Please note: Installing Spin from source requires Rust 1.94 or newer. You can update Rust using the following command:
+> Please note: Installing Spin from source requires Rust 1.95 or newer. You can update Rust using the following command:
 
 <!-- @selectiveCpy -->
 
