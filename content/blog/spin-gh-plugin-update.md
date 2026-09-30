@@ -144,6 +144,10 @@ In contrast to most other flags, `--push-oci-artifacts` can't figure out everyth
 - **Tags** - Which tag(s) should be published on every run? You can pick from `latest`, the commit SHA (one immutable tag per commit), both, or provide your own custom tag(s). If you go for custom tags, the plugin asks for a comma-separated list next (for example `v1.0.0, staging`).
 - **Authentication** - Does the target registry require authentication? If you say yes, the plugin asks for the **login server** and the **username** to use. It won't ask for the corresponding password or token, instead it will inject a GitHub repository secret.
 
+<figure class="image">
+  <img src="/static/image/blog/spin-gh-demo.gif" alt="spin gh create-action - Interactive TUI">
+</figure>
+
 There's one convenient shortcut baked in: whenever your artifact name points at **GitHub Container Registry** (prefixed with `ghcr.io`), the plugin detects it automatically and authenticates using the built-in `GITHUB_TOKEN`. No extra questions, no extra secrets. That's exactly the path I picked for both demo apps.
 
 With those answers in place, the plugin adds a `packages: write` permission and appends the publish steps for both apps:
