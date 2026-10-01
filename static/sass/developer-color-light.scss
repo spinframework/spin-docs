@@ -1,3 +1,5 @@
+@use "sass:color";
+
 // light mode is the default state of page
 // whereas dark mode adds a class html.dark-theme
 
@@ -6,7 +8,7 @@ body {
 
     #topbar.navbar{
         background: $docsbg1;
-        border-bottom: 1px solid lighten($lavenderfloral, 20%);
+        border-bottom: 1px solid color.adjust($lavenderfloral, $lightness: 20%, $space: hsl);
 
         .logo-wrap {    
             .logo-developer {

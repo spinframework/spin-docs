@@ -22,7 +22,7 @@ export default {
     display: flex;
     flex-grow: 1;
     border-top: 1px solid rgba($thistle, 1);
-    background: linear-gradient(180deg, darken($docsbg1, 1.5%) 0%, rgba($docsbg1, 0.1) 100%);
+    background: linear-gradient(180deg, color.adjust($docsbg1, $lightness: -1.5%, $space: hsl) 0%, rgba($docsbg1, 0.1) 100%);
     padding-top: 1.825rem;
     padding-bottom: 3rem;
     z-index: 500;
@@ -31,7 +31,7 @@ export default {
 
 .dark-theme {
     .content-wrapper {
-        border-color: darken($bluedark, 10%);
+        border-color: color.adjust($bluedark, $lightness: -10%, $space: hsl);
         background: linear-gradient(180deg, rgba(230, 210, 241, 0.05) 0%, rgba(230, 210, 241, 0.00) 100%);
     }
 }

@@ -20,6 +20,11 @@ component = "fileserver-static"
 route = "/static/..."
 
 [[trigger.http]]
+id = "trigger-fileserver-assets"
+component = "fileserver-assets"
+route = "/static/build/..."
+
+[[trigger.http]]
 id = "trigger-fileserver-downloads"
 component = "fileserver-downloads"
 route = "/downloads/..."
@@ -76,7 +81,17 @@ watch = ["content/**/*", "templates/*"]
 [component.fileserver-static]
 source = "modules/spin_static_fs.wasm"
 files = [{ source = "static/", destination = "/" }]
-[component.fileserver-static.build]
+# Non-hashed assets (images, fonts, search index): cache a day. Same-name
+# updates take up to a day to propagate.
+environment = { CACHE_CONTROL = "public, max-age=86400" }
+
+# Content-hashed JS/CSS produced by `npm run bundle-scripts-ci`. Because the
+# filename changes whenever the content does, these can be cached forever.
+[component.fileserver-assets]
+source = "modules/spin_static_fs.wasm"
+files = [{ source = "static/build/", destination = "/" }]
+environment = { CACHE_CONTROL = "public, max-age=31536000, immutable" }
+[component.fileserver-assets.build]
 command = ["npm run bundle-scripts-ci"]
 
 [component.fileserver-downloads]

@@ -32,6 +32,10 @@ jobs:
           npm ci
           npm ci --prefix ./spin-up-hub
 
+      - name: Type-check scripts
+        run: |
+          npm run typecheck
+
       - name: Build app
         run: |
           spin build
