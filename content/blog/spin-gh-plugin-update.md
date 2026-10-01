@@ -15,7 +15,7 @@ The `gh` plugin for Spin CLI is around for quite some time now and I hope it ser
 
 ## Installing The Latest Version of the `gh` Plugin
 
-Obviously, you must have the Spin CLI and the latest version of the `gh` plugin installed on your system. Although, it not being a strict requirement, I highly encourage you to install the latest stable release of Spin (`4.1.0` at the time of writing this post).
+Obviously, you must have the Spin CLI and the latest version of the `gh` plugin installed on your system. Although, it not being a strict requirement, I highly encourage you to install the latest stable release of Spin (`4.2.1` at the time of writing this post).
 
 To upgrade (or install) the latest version of the `gh` plugin for Spin, you can use the following commands:
 
