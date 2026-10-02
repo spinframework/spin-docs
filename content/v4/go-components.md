@@ -121,28 +121,39 @@ inserts a custom header into the response before returning:
 package main
 
 import (
- "fmt"
- "net/http"
- "os"
+	"fmt"
+	"io"
+	"net/http"
+	"os"
+	"strings"
 
- spinhttp "github.com/spinframework/spin-go-sdk/v3/http"
+	spinhttp "github.com/spinframework/spin-go-sdk/v3/http"
 )
 
 func init() {
-    spinhttp.Handle(func(w http.ResponseWriter, r *http.Request) {
-        resp, _ := spinhttp.Get("https://random-data-api.fermyon.app/animals/json")
+	spinhttp.Handle(func(w http.ResponseWriter, r *http.Request) {
+		resp, err := spinhttp.Get("https://random-data-api.fermyon.app/animals/json")
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
+		defer resp.Body.Close()
 
-        // resp.Body is an io.Reader - read it!
-        body := readToString(resp.Body)
-        fmt.Fprintln(w, resp.Body)
-        fmt.Fprintln(w, resp.Header.Get("content-type"))
+		// resp.Body is an io.Reader - read it!
+		body, err := readToString(resp.Body)
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
+		fmt.Fprintln(w, body)
+		fmt.Fprintln(w, resp.Header.Get("content-type"))
 
-        // `spin.toml` is not configured to allow outbound HTTP requests to this host,
-        // so this request will fail.
-        if _, err := spinhttp.Get("https://fermyon.com"); err != nil {
-            fmt.Fprintf(os.Stderr, "Cannot send HTTP request: %v", err)
-        }
-    })
+		// `spin.toml` is not configured to allow outbound HTTP requests to this host,
+		// so this request will fail.
+		if _, err := spinhttp.Get("https://fermyon.com"); err != nil {
+			fmt.Fprintf(os.Stderr, "Cannot send HTTP request: %v", err)
+		}
+	})
 }
 
 func readToString(input io.Reader) (string, error) {
@@ -152,6 +163,8 @@ func readToString(input io.Reader) (string, error) {
 	}
 	return buf.String(), nil
 }
+
+func main() {}
 ```
 
 The Outbound HTTP Request example above can be built using `componentize-go`:
