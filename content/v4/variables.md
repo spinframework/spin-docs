@@ -240,6 +240,11 @@ func init() {
 		request, err := http.NewRequest("GET", versionedApiUri, bytes.NewBuffer([]byte("")))
 		request.Header.Add("Authorization", "Bearer "+token)
 		response, err := spinhttp.Send(request)
+		if err != nil {
+			http.Error(w, "request to the API failed", http.StatusInternalServerError)
+			return
+		}
+		defer response.Body.Close()
 		// Do something with the response ...
 		w.Header().Set("Content-Type", "text/plain")
 		fmt.Fprintln(w, "Used an API")
