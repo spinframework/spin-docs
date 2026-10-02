@@ -44,7 +44,7 @@ The following points will help guide your contribution from a resource-type pers
 
 ### 1. Tutorials
 
-Tutorials are oriented toward learning. Tutorials are designed to get a user started on something new (that they have not tried before). You can think of a tutorial as a lesson i.e. teaching a Spin user [how to use the Key Value store to persist data](/key-value-store-tutorial.md). The tutorial may contain many logically ordered steps i.e. installing Spin, using Spin templates, configuring a Spin application and so forth. The desired outcome for a tutorial is for the user to have a working deployment or application. Think of it as a lesson in how to bake a cake.
+Tutorials are oriented toward learning. Tutorials are designed to get a user started on something new (that they have not tried before). You can think of a tutorial as a lesson i.e. teaching a Spin user [how to use the Key Value store to persist data](/v3/key-value-store-tutorial.md). The tutorial may contain many logically ordered steps i.e. installing Spin, using Spin templates, configuring a Spin application and so forth. The desired outcome for a tutorial is for the user to have a working deployment or application. Think of it as a lesson in how to bake a cake.
 
 ### 2. How-To Guides
 
