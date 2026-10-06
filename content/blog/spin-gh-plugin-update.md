@@ -1,5 +1,5 @@
 title = "Even Better GitHub Actions For Your Spin Apps"
-date = "2026-09-30T13:00:00Z"
+date = "2026-10-06T13:00:00Z"
 template = "blog_post"
 description = "The gh plugin for Spin CLI just got a lot better. Publish your Spin apps as OCI artifacts, sign them with cosign, generate and scan SBOMs - all from a single command."
 tags = ["GitHub Actions", "DevEx"]
