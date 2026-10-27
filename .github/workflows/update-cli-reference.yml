@@ -2,9 +2,14 @@ name: Update CLI reference
 
 on:
   workflow_dispatch:
-  # repository_dispatch:
-  #   types:
-  #     - spin-release
+    inputs:
+      version:
+        description: "Spin version to generate the reference for (e.g. v4.1.0)"
+        required: false
+        default: latest
+  repository_dispatch:
+    types:
+      - spin-release
 
 jobs:
   create-pr:
@@ -16,22 +21,26 @@ jobs:
       - name: Download Spin
         uses: fermyon/actions/spin/setup@v1
         with:
-          version: canary # for testing
-
-      - name: Create CLI reference front matter
-        run: |
-          cat >./content/v3/cli-reference.md << EOF
-          title = "Command Line Reference"
-          template = "main"
-          date = "2025-01-01T00:00:01Z"
-          [extra]
-          url = "https://github.com/spinframework/spin-docs/blob/main/content/v3/cli-reference.md"
-
-          ---
-          EOF
+          version: ${{ github.event.client_payload.version || inputs.version || 'latest' }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Generate reference doc
-        run: spin maintenance generate-reference >>./content/v3/cli-reference.md
+        id: generate
+        run: |
+          SPIN_VERSION=$(spin --version | awk '{print $2}')
+          MAJOR=${SPIN_VERSION%%.*}
+          DOC="content/v${MAJOR}/cli-reference.md"
+          if [ ! -f "$DOC" ]; then
+            echo "::error::$DOC does not exist - fork the docs for Spin v${MAJOR} before regenerating the CLI reference"
+            exit 1
+          fi
+
+          # Truncate the doc at the '---'
+          sed -i '/^---$/q' "$DOC"
+
+          spin maintenance generate-reference >> "$DOC"
+          echo "spin-version=$SPIN_VERSION" >> "$GITHUB_OUTPUT"
+          echo "major=$MAJOR" >> "$GITHUB_OUTPUT"
 
       - name: Import GPG key
         uses: crazy-max/ghaction-import-gpg@v7
@@ -44,10 +53,10 @@ jobs:
       - name: Create pull request
         uses: peter-evans/create-pull-request@v8
         with:
-          commit-message: "Update Spin CLI reference to latest"
-          title: "Update Spin CLI reference to latest"
-          body: "Update Spin CLI reference to latest"
-          branch: bump-spin-cli-reference
+          commit-message: "Update CLI reference for Spin ${{ steps.generate.outputs.spin-version }}"
+          title: "Update CLI reference for Spin ${{ steps.generate.outputs.spin-version }}"
+          body: "Update the Spin CLI reference to match Spin ${{ steps.generate.outputs.spin-version }}."
+          branch: bump-spin-cli-reference-v${{ steps.generate.outputs.major }}
           base: main
           delete-branch: true
           committer: spinframeworkbot <202838904+spinframeworkbot@users.noreply.github.com>
