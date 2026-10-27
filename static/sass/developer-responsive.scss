@@ -397,11 +397,6 @@
 @media screen and (min-width: 1660px) {
 
     #topbar.navbar {
-        a.navbar-link.dark-mode {
-            right: 27.75vw !important;
-            position: absolute !important;
-            margin-right: auto !important;
-        }
         .search-button {
             &:after {
                 right: 31.25vw;

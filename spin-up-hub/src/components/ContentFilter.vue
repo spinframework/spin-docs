@@ -70,7 +70,7 @@ export default {
     margin-top: 2.333rem;
     padding: 0.5rem 5% 0.5rem 0;
     font-size: 0.75rem;
-    color: darken($lavendermid, 20%);
+    color: color.adjust($lavendermid, $lightness: -20%, $space: hsl);
     width: 100%;
     text-align: center;
     display: flex;
@@ -103,7 +103,7 @@ export default {
       }
     }
     &.active a {
-      background-color: darken($docsbg1, 5%);
+      background-color: color.adjust($docsbg1, $lightness: -5%, $space: hsl);
       padding-right: 2rem;
       position: relative;
 
