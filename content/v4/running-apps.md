@@ -33,6 +33,8 @@ If your manifest is named something different, or isn't in your current director
 
 > If Spin misunderstands a registry reference as a file name, or vice versa, you can use `--from-file` or `--from-registry` instead of `-f` to disambiguate.
 
+> To run an application that `spin registry pull --prepare` wrote to a directory, use `--from-prepared` instead of `-f`. See [Running Applications Without Registry Access](./distributing-apps#running-applications-without-registry-access).
+
 > If you see the error `failed to resolve content at "example.wasm"` (where `example.wasm` is the module file of a component), check that the application has been built.
 
 > If your application doesn't run, you can [run `spin doctor`](./troubleshooting-application-dev.md) to check for problems with your Spin configuration and tools.
