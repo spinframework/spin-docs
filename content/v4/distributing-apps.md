@@ -133,15 +133,15 @@ When you run an application from a registry, Spin checks the registry for update
 
 To prepare an application, pass `--prepare` and a directory to `spin registry pull`:
 
-<!-- @selectiveCpy -->
+<!-- @nocpy -->
 
 ```bash
-$ spin registry pull --prepare ./hello-world ghcr.io/alyssa-p-hacker/hello-world:v1
+$ spin registry pull --prepare ./hello-world ghcr.io/alyssa-p-hacker/hello-world@sha256:06b19
 Successfully pulled the app from the registry
 Prepared the app in "./hello-world"
 ```
 
-The directory must not exist, or must be an empty directory, and it must not be a symbolic link. Spin writes the application to a temporary directory in the same parent directory, and renames it into place when it is complete, so the parent directory must be writable, and the prepared directory is never left half-written. If the directory exists, Spin replaces it rather than writing into it, so it cannot be a mount point. To update a prepared application, prepare it again in a new directory.
+The directory must not exist, or must be empty, and must not be a symbolic link. Spin replaces the directory rather than writing into it, so its parent directory must be writable and the directory cannot be a mount point. To update a prepared application, prepare it again into a new directory.
 
 The prepared directory holds everything the application needs:
 
@@ -154,43 +154,37 @@ hello-world/
   assets/<component id>/  the files of each component, as the component sees them
 ```
 
-A component without files has no `assets/<component id>` directory. The lock file records the SHA-256 digest of every Wasm file and component file in the directory, and the registry reference the application was pulled from, pinned to its digest. The directory contains no symbolic links.
+A component without files has no `assets/<component id>` directory. The lock file records the SHA-256 digest of every Wasm file and component file in the directory, and the registry reference the application was pulled from, pinned to its digest. The directory contains no symbolic links. Spin ignores other files in the directory, such as a README, as long as they are outside the components' `assets/<component id>` directories.
 
 Only Spin applications can be prepared, not registry artifacts that hold a single Wasm component.
 
-> The lock file also records the version of the directory layout. A Spin release reads only the layout versions it knows, so if the layout changes between releases, a directory prepared by one release may not run on another. Prepare the application with the same Spin release that runs it.
+> A prepared directory is not guaranteed to run on a different Spin release from the one that prepared it. Prepare the application with the same Spin release that runs it.
 
 ### Running a Prepared Application
 
 To run a prepared application, pass its directory to `spin up --from-prepared`:
 
-<!-- @selectiveCpy -->
+<!-- @nocpy -->
 
 ```bash
 $ spin up --from-prepared ./hello-world
 ```
 
-Before it runs the application, Spin checks the directory against its lock file:
+Before it runs the application, Spin checks the directory against its lock file. It refuses to run the application if a file is missing or changed, if a component's `assets/<component id>` directory holds a file the lock does not list, or if the directory contains a symbolic link or anything else that is not a regular file or directory. Spin then runs the application in place, without contacting a registry or copying its files. If the default temporary directory is not writable, choose another with `--temp`. Options such as `--component-id` and `--env` work as they do for registry applications. `--build` and `--profile` are ignored, and `--from-prepared` cannot be combined with `--direct-mounts`.
 
-- Every file the lock lists is present, at the path the layout gives it, and matches its digest.
-- Each component's `assets/<component id>` directory holds exactly the files the lock lists for it, and nothing else.
-- The directory contains only regular files and directories: no symbolic links.
-
-Spin then runs the application in place: it does not contact a registry or copy the application's files. It writes only a lock file of its own, to a temporary working directory. If the default temporary directory is not writable, choose another with `--temp`. Options such as `--component-id` and `--env` work as they do for registry applications. `--build` and `--profile` are ignored, as for registry applications, and `--from-prepared` cannot be combined with `--direct-mounts`.
-
-The directory must not change while the application runs, because Spin reads its files again after the checks. Make the directory read-only, for example with a read-only mount. Spin does not enforce this. If you run the application with the trigger's `--allow-transient-write` option, the application writes to its files in the prepared directory itself, and the directory then no longer matches its lock file.
+Mount or mark the directory read-only. Spin reads the application's files again after its checks, so the directory must not change while the application runs. Spin does not enforce this. If you run the application with the trigger's `--allow-transient-write` option, the application writes to its files in the prepared directory itself, and the directory then no longer matches its lock file.
 
 > If you pass a prepared directory to `spin up -f`, Spin reports that it is a prepared application and asks you to use `--from-prepared`.
 
 ### Trusting a Prepared Application
 
-When it prepares an application, Spin checks the files it writes against the digests recorded in the registry artifact. When it runs one, the digests it checks come from the lock file in the same directory. Those checks detect a corrupted or partly changed directory, but not a directory that was replaced by a different application with its own lock file. Spin does not detect hard links either, so a file that is also linked from outside the directory can be changed through that other link, even after the checks.
+When it prepares an application, Spin checks the files it writes against the digests recorded in the registry artifact. When it runs one, it checks the files against the lock file in the same directory. These checks catch a corrupted or partly changed directory. They do not catch a directory replaced by a different application with its own lock file, or a file that is hard-linked from outside the directory, and so can still change after the checks.
 
 Trust a prepared directory as you would the code in it. Verify the application before you prepare it, for example by [checking its signature](#signing-spin-applications-and-verifying-signatures) and pulling it by digest, and protect the directory afterwards.
 
 If the platform already ensures the integrity of the directory, for example because it is a verified read-only image, you can skip the digest checks with `--skip-digest-check`. Spin still checks that the directory matches its lock file in every other way.
 
-<!-- @selectiveCpy -->
+<!-- @nocpy -->
 
 ```bash
 $ spin up --from-prepared ./hello-world --skip-digest-check
