@@ -14,6 +14,10 @@ url = "https://github.com/spinframework/spin-docs/blob/main/content/v4/distribut
 - [Running Published Applications](#running-published-applications)
   - [Running Published Applications by Digest](#running-published-applications-by-digest)
   - [Pulling a Published Application](#pulling-a-published-application)
+- [Running Applications Without Registry Access](#running-applications-without-registry-access)
+  - [Preparing an Application](#preparing-an-application)
+  - [Running a Prepared Application](#running-a-prepared-application)
+  - [Trusting a Prepared Application](#trusting-a-prepared-application)
 - [Signing Spin Applications and Verifying Signatures](#signing-spin-applications-and-verifying-signatures)
 
 If you would like to publish a Spin application, so that other users can run it, you can do so using a _container registry_.
@@ -118,6 +122,75 @@ $ spin registry pull ghcr.io/alyssa-p-hacker/hello-world@sha256:06b19
 ```
 
 > Downloaded applications are cached. When run, or pulled again, Spin checks to see if they have changed from the cached copy, and downloads only the changes if any.
+
+## Running Applications Without Registry Access
+
+When you run an application from a registry, Spin checks the registry for updates each time, and copies the application's files to a temporary directory. If an application must run without registry access, for example on an air-gapped host or from a read-only image built in advance, you can _prepare_ it instead. `spin registry pull --prepare` writes the application to a directory, on a host that can reach the registry. You can then copy that directory, archive it, or build it into an image, and `spin up --from-prepared` runs the application from it.
+
+> Prepared applications require Spin 4.3 or later.
+
+### Preparing an Application
+
+To prepare an application, pass `--prepare` and a directory to `spin registry pull`:
+
+<!-- @nocpy -->
+
+```bash
+$ spin registry pull --prepare ./hello-world ghcr.io/alyssa-p-hacker/hello-world@sha256:06b19
+Successfully pulled the app from the registry
+Prepared the app in "./hello-world"
+```
+
+The directory must not exist, or must be empty, and must not be a symbolic link. Spin replaces the directory rather than writing into it, so its parent directory must be writable and the directory cannot be a mount point. To update a prepared application, prepare it again into a new directory.
+
+The prepared directory holds everything the application needs:
+
+<!-- @nocpy -->
+
+```text
+hello-world/
+  spin.prepared.lock      the application's lock file
+  wasm/<sha256 hex>.wasm  the Wasm of the components and their dependencies, one file per digest
+  assets/<component id>/  the files of each component, as the component sees them
+```
+
+A component without files has no `assets/<component id>` directory. The lock file records the SHA-256 digest of every Wasm file and component file in the directory, and the registry reference the application was pulled from, pinned to its digest. The directory contains no symbolic links. Spin ignores other files in the directory, such as a README, as long as they are outside the components' `assets/<component id>` directories.
+
+Only Spin applications can be prepared, not registry artifacts that hold a single Wasm component.
+
+> A prepared directory is not guaranteed to run on a different Spin release from the one that prepared it. Prepare the application with the same Spin release that runs it.
+
+### Running a Prepared Application
+
+To run a prepared application, pass its directory to `spin up --from-prepared`:
+
+<!-- @nocpy -->
+
+```bash
+$ spin up --from-prepared ./hello-world
+```
+
+Before it runs the application, Spin checks the directory against its lock file. It refuses to run the application if a file is missing or changed, if a component's `assets/<component id>` directory holds a file the lock does not list, or if the directory contains a symbolic link or anything else that is not a regular file or directory. Spin then runs the application in place, without contacting a registry or copying its files. If the default temporary directory is not writable, choose another with `--temp`. Options such as `--component-id` and `--env` work as they do for registry applications. `--build` and `--profile` are ignored, and `--from-prepared` cannot be combined with `--direct-mounts`.
+
+Mount or mark the directory read-only. Spin reads the application's files again after its checks, so the directory must not change while the application runs. Spin does not enforce this. If you run the application with the trigger's `--allow-transient-write` option, the application writes to its files in the prepared directory itself, and the directory then no longer matches its lock file.
+
+> If you pass a prepared directory to `spin up -f`, Spin reports that it is a prepared application and asks you to use `--from-prepared`.
+
+### Trusting a Prepared Application
+
+When it prepares an application, Spin checks the files it writes against the digests recorded in the registry artifact. When it runs one, it checks the files against the lock file in the same directory. These checks catch a corrupted or partly changed directory. They do not catch a directory replaced by a different application with its own lock file, or a file that is hard-linked from outside the directory, and so can still change after the checks.
+
+Trust a prepared directory as you would the code in it. Verify the application before you prepare it, for example by [checking its signature](#signing-spin-applications-and-verifying-signatures) and pulling it by digest, and protect the directory afterwards.
+
+If the platform already ensures the integrity of the directory, for example because it is a verified read-only image, you can skip the digest checks with `--skip-digest-check`. Spin still checks that the directory matches its lock file in every other way.
+
+<!-- @nocpy -->
+
+```bash
+$ spin up --from-prepared ./hello-world --skip-digest-check
+```
+
+`--skip-digest-check` can only be used with `--from-prepared`.
 
 ## Signing Spin Applications and Verifying Signatures
 
