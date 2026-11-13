@@ -1,3 +1,5 @@
+@use "sass:color";
+
 .documentation>.developer-home-wrap {
 	padding-bottom: 5rem;
 
@@ -47,7 +49,7 @@
 		}
 
 		p.lead {
-			color: lighten($darkblue, 2.5%);
+			color: color.adjust($darkblue, $lightness: 2.5%, $space: hsl);
 			max-width: 80%;
 			padding-right: 10%;
 			font-size: 1.67rem;
@@ -82,7 +84,7 @@
 		border-radius: 0.67rem;
 		margin-bottom: 3.333rem;
 		border: 1px solid $lavenderfloral;
-		background: darken($docsbg1, 1.5%);
+		background: color.adjust($docsbg1, $lightness: -1.5%, $space: hsl);
 		box-shadow: rgba(0, 0, 0, 0.04) 1px 3px 5px;
 		overflow: hidden;
 		border-radius: 1rem;
@@ -102,7 +104,7 @@
 			top: 1rem;
 			right: 1rem;
 			background-color: rgba($docsbg1, 0.5);
-			color: darken($vistablue, 5%);
+			color: color.adjust($vistablue, $lightness: -5%, $space: hsl);
 			border-radius: 1rem;
 			font-weight: 400;
 			z-index: 750;
@@ -127,7 +129,7 @@
 		}
 
 		p {
-			color: darken($darkblue, 10%) !important;
+			color: color.adjust($darkblue, $lightness: -10%, $space: hsl) !important;
 			line-height: 1.5;
 			font-size: 0.875rem;
 			font-weight: normal;
@@ -173,7 +175,7 @@
 
 			&:hover {
 				background-color: $seagreen !important;
-				border-color: lighten($seagreen, 1%);
+				border-color: color.adjust($seagreen, $lightness: 1%, $space: hsl);
 				box-shadow: 0 0.2rem 0.5rem 0 rgba(0, 0, 0, 0.187);
 			}
 		}
@@ -187,7 +189,7 @@
 		min-height: 140px;
 		margin-bottom: 6.25em;
 		border: 1px solid $lavenderfloral;
-		background: darken($docsbg1, 1.5%) url(/static/image/arrow-right.png) no-repeat 95% center;
+		background: color.adjust($docsbg1, $lightness: -1.5%, $space: hsl) url(/static/image/arrow-right.png) no-repeat 95% center;
 		border-radius: 1rem;
 		@include transition;
 
@@ -218,7 +220,7 @@
 			}
 	
 			p {
-				color: darken($darkblue, 10%) !important;
+				color: color.adjust($darkblue, $lightness: -10%, $space: hsl) !important;
 				line-height: 1.5;
 				font-size: 0.875rem;
 				font-weight: normal;
@@ -228,7 +230,7 @@
 	}
 
 	.community-highlight {
-		background-color: saturate($darkplum, 12.5%);
+		background-color: color.adjust($darkplum, $saturation: 12.5%, $space: hsl);
 		border-radius: 0.5rem;
 		margin: 0 5vw 0 0;
 		padding: 0;
@@ -289,7 +291,7 @@
 			min-height: auto;
 			margin-top: -1rem;
 			margin-bottom: 0;
-			background-color: lighten(saturate($darkplum, 12.5%), 7.5%);
+			background-color: color.adjust(color.adjust($darkplum, $saturation: 12.5%, $space: hsl), $lightness: 7.5%, $space: hsl);
 			padding-right: 0;
 
 			.event {
@@ -318,7 +320,7 @@
 			margin: 0;
 
 			a {
-				color: darken($lavender, 25%);
+				color: color.adjust($lavender, $lightness: -25%, $space: hsl);
 			}
 		}
 	}

@@ -1,5 +1,4 @@
 node_modules/
-.parcel-cache/
 .vscode
 .DS_Store
 *.css.map
@@ -9,5 +8,11 @@ final_broken
 # The search index is generated at time of deploy
 static/data.json
 static/hub-index-data.json
+static/search/
+# The JS/CSS bundle and its generated template partials are built at deploy time
+static/build/
+templates/asset_scripts.hbs
+templates/asset_styles.hbs
+templates/asset_theme.hbs
 # The build version of spin up hub
 spin-up-hub/dist/

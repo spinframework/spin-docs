@@ -1,3 +1,5 @@
+@use "sass:color";
+
 // light search
 .search-modal-container {
 	box-sizing: border-box;
@@ -15,6 +17,7 @@
 	display: flex;
 	flex: 1;
 	justify-content: flex-end;
+
 	width: 100%;
 	top: 0;
 	left: 2px;
@@ -75,15 +78,11 @@
 		right: 31.35rem;
 	}
 
-	
-
 	&:hover {
 		background: rgb(255, 255, 255);
 		background: linear-gradient(0deg, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0) 100%);
-
-		
+        cursor: pointer;
 	}
-
 }
 
 .modal-wrapper {
@@ -127,12 +126,12 @@
 	border: 0px;
 	margin-bottom: 0.67rem;
 	border: 1px solid $lavender;
-	color: darken($lavender, 25%);
+	color: color.adjust($lavender, $lightness: -25%, $space: hsl);
 	font-family: $mono;
 
 	&:focus {
 		outline: none;
-		color: darken($lavender, 33%);
+		color: color.adjust($lavender, $lightness: -33%, $space: hsl);
 	}
 }
 
@@ -143,7 +142,7 @@
 	overflow-y: auto;
 	flex-direction: column;
 	font-size: 0.825rem;
-	color: darken($lightplum, 17.5%);
+	color: color.adjust($lightplum, $lightness: -17.5%, $space: hsl);
 	line-height: 2;
 
 	.suggested-project {
@@ -165,7 +164,7 @@
 			font-size: 1.25rem;
 			font-weight: bold;
 			font-weight: 600;
-			color: darken($lavender, 25%);
+			color: color.adjust($lavender, $lightness: -25%, $space: hsl);
 		}
 
 		.recommended-navs {
@@ -201,13 +200,13 @@
 				align-items: left;
 				overflow-y: auto;
 				border-radius: 0.25rem;
-				color: darken($lavender, 17.5%);
+				color: color.adjust($lavender, $lightness: -17.5%, $space: hsl);
 				margin: 0.1rem 0 !important;
 				@include transition;
 				font-weight: normal !important;
 
 				&:hover {
-					color: lighten($oxfordblue, 7.5%);
+					color: color.adjust($oxfordblue, $lightness: 7.5%, $space: hsl);
 				}
 			}
 		}
@@ -249,7 +248,7 @@
 				display: inline-block;
 				content: "Filters\:";
 				font-size: 0.825rem;
-				color: darken($lightplum, 17.5%);
+				color: color.adjust($lightplum, $lightness: -17.5%, $space: hsl);
 				padding-right: 0.5rem;
 				float: left;
 			}
@@ -257,7 +256,7 @@
 
 		.reset-filter {
 			font-size: 0.8rem;
-			color: darken($lightplum, 17.5%);
+			color: color.adjust($lightplum, $lightness: -17.5%, $space: hsl);
 
 			@media (max-width: 1025px) {
 				transform: translateY(-1rem);
@@ -272,7 +271,7 @@
 			margin-left: .5rem;
 			padding: 0.275rem .67em;
 			color: $darkplum;
-			background-color: darken($lightlavender, 2.5%);
+			background-color: color.adjust($lightlavender, $lightness: -2.5%, $space: hsl);
 			@include transition;
 			opacity: 0.5;
 			padding-right: 1.5rem;
@@ -297,13 +296,13 @@
 			}
 
 			&.active {
-				background-color: darken($lightplum, 3.333%) !important;
-				color: darken($lavender, 15%) !important;
+				background-color: color.adjust($lightplum, $lightness: -3.333%, $space: hsl) !important;
+				color: color.adjust($lavender, $lightness: -15%, $space: hsl) !important;
 				opacity: 1;
 			}
 
 			&:hover {
-				background-color: darken($lightplum, 3.3%) !important;
+				background-color: color.adjust($lightplum, $lightness: -3.3%, $space: hsl) !important;
 			}
 		}
 	}
@@ -319,7 +318,7 @@
 	background-color: white;
 
 	a {
-		color: darken($lavender, 25%);
+		color: color.adjust($lavender, $lightness: -25%, $space: hsl);
 		margin-bottom: 0.67rem;
 		@include transition;
 		font-weight: bold;
@@ -334,7 +333,7 @@
 		}
 
 		&:hover {
-			color: lighten($oxfordblue, 7.5%);
+			color: color.adjust($oxfordblue, $lightness: 7.5%, $space: hsl);
 		}
 
 		@media (max-width: 1025px) {
@@ -353,8 +352,8 @@
 		padding: 0.25rem .67em;
 		right: 0;
 		top: 0.125rem;
-		color: darken($lavender, 15%);
-		background-color: lighten($lightplum, 15%);
+		color: color.adjust($lavender, $lightness: -15%, $space: hsl);
+		background-color: color.adjust($lightplum, $lightness: 15%, $space: hsl);
 
 		@media (max-width: 1025px) {
 			position: relative;
@@ -371,13 +370,13 @@
 		align-items: center;
 		overflow-y: auto;
 		border-radius: 0.25rem;
-		color: darken($lavender, 17.5%);
+		color: color.adjust($lavender, $lightness: -17.5%, $space: hsl);
 		margin: 0.2rem 0 !important;
 		@include transition;
 		font-weight: normal !important;
 
 		&:hover {
-			color: lighten($oxfordblue, 7.5%);
+			color: color.adjust($oxfordblue, $lightness: 7.5%, $space: hsl);
 		}
 	}
 }
@@ -417,18 +416,18 @@ html.dark-theme {
 		}
 
 		.modal-box {
-			background: lighten($darkspace, 12.5%);
+			background: color.adjust($darkspace, $lightness: 12.5%, $space: hsl);
 			background: linear-gradient(45deg, rgba(33, 55, 98, 1) 0%, rgba(82, 92, 118, 1) 100%);
 		}
 
 		input[type="text"].modal-search-bar {
-			background-color: darken($darkspace, 7.5%);
+			background-color: color.adjust($darkspace, $lightness: -7.5%, $space: hsl);
 			color: white;
-			border: 1px solid darken($lavender, 10%);
+			border: 1px solid color.adjust($lavender, $lightness: -10%, $space: hsl);
 			outline: none;
 
 			&::placeholder {
-				color: lighten($lavender, 10%);
+				color: color.adjust($lavender, $lightness: 10%, $space: hsl);
 			}
 		}
 
@@ -447,7 +446,7 @@ html.dark-theme {
 				background-color: transparent;
 
 				&:hover {
-					color: lighten($midblue, 12.5%);
+					color: color.adjust($midblue, $lightness: 12.5%, $space: hsl);
 				}
 			}
 
@@ -482,11 +481,11 @@ html.dark-theme {
 				}
 
 				code.active {
-					background-color: darken($lavender, 10%) !important;
+					background-color: color.adjust($lavender, $lightness: -10%, $space: hsl) !important;
 
 					&:before,
 					&:after {
-						background-color: darken($darkplum, 5%);
+						background-color: color.adjust($darkplum, $lightness: -5%, $space: hsl);
 					}
 				}
 			}

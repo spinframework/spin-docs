@@ -1,9 +1,15 @@
 import { glob } from 'glob'
 import fs from 'fs'
+import path from 'path'
 import fm from 'front-matter'
 import { unified } from 'unified'
 import remarkParse from 'remark-parse'
 import args from 'args-parser'
+import lunr from 'lunr'
+
+// Versions for which a standalone search index is produced. Pages outside of
+// these (blog, landing pages, ...) fall back to the default version at runtime.
+const VERSIONS = ['v1', 'v2', 'v3', 'v4']
 
 // Elements that have child elements
 const blockElements = ["paragraph", "blockquote", "list", "listItem", "link"]
@@ -86,10 +92,39 @@ function parseMdFile(file, filepath) {
     return searchIndex
 }
 
+// Build a serialized lunr index plus a slim metadata map for a single version.
+// The index consumes the (large) `content` field; the metadata map holds only
+// what the client needs to render a result, keeping the shipped payload small.
+function buildVersion(docs, version, outdir) {
+    const versionDocs = docs.filter(doc => doc.url && doc.url.split("/")[1] === version)
+
+    const idx = lunr(function () {
+        this.field("title")
+        this.field("subheading")
+        this.field("content")
+        this.field("keywords", { boost: 100 })
+        this.field("subsectionKeywords", { boost: 100 })
+        this.ref("url")
+
+        versionDocs.forEach(function (doc) {
+            this.add(doc)
+        }, this)
+    })
+
+    const meta = {}
+    versionDocs.forEach(doc => {
+        meta[doc.url] = { title: doc.title, subheading: doc.subheading, project: doc.project }
+    })
+
+    fs.writeFileSync(path.join(outdir, `index-${version}.json`), JSON.stringify(idx))
+    fs.writeFileSync(path.join(outdir, `meta-${version}.json`), JSON.stringify(meta))
+    console.log(`search index ${version}: ${versionDocs.length} documents`)
+}
+
 async function main() {
     const argparse = args(process.argv)
-    if (!argparse.dir || !argparse.out) {
-        console.error("--dir and --out must be specified")
+    if (!argparse.dir || !argparse.outdir) {
+        console.error("--dir and --outdir must be specified")
         return
     }
 
@@ -99,7 +134,9 @@ async function main() {
     files.forEach(file => {
         consolidatedSearchIndex = consolidatedSearchIndex.concat(parseMdFile(file, argparse.dir))
     })
-    fs.writeFileSync(argparse.out, JSON.stringify(consolidatedSearchIndex));
+
+    fs.mkdirSync(argparse.outdir, { recursive: true })
+    VERSIONS.forEach(version => buildVersion(consolidatedSearchIndex, version, argparse.outdir))
 }
 
 main()

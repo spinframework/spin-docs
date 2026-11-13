@@ -163,7 +163,7 @@ export default {
         height: 100%;
         width: 100%;
         backdrop-filter: blur(6px) brightness(25%);
-        background: rgba(darken($docsbg1, 3%), 0.70);
+        background: rgba(color.adjust($docsbg1, $lightness: -3%, $space: hsl), 0.70);
     }
 
     $modalMax: 1144px;
@@ -220,7 +220,7 @@ export default {
             height: 100%;
 
             .main-content {
-                border-right: 1px solid lighten($lavenderfloral, 15%);
+                border-right: 1px solid color.adjust($lavenderfloral, $lightness: 15%, $space: hsl);
                 flex: 1; 
                 display: flex;
                 flex-direction: column; 
@@ -288,7 +288,7 @@ export default {
                         font-size: 1.125rem;
                         border-radius: 1rem !important;
                         padding: 0.15rem 1rem;
-                        background-color: darken($docsbg1, 5%);
+                        background-color: color.adjust($docsbg1, $lightness: -5%, $space: hsl);
                         margin: 0 0.5rem 0.5rem 0;
                         color: $bluecallout;
                         height: auto;
@@ -321,7 +321,7 @@ export default {
                     .meta-info {
                         box-sizing: border-box;
                         flex-grow: 1;
-                        border-bottom: 1px solid lighten($lavenderfloral, 15%);
+                        border-bottom: 1px solid color.adjust($lavenderfloral, $lightness: 15%, $space: hsl);
                         width: 100%;
                         height: 80%;
                         max-height: 80%;
@@ -404,7 +404,7 @@ export default {
 
                     .name {
                         font-size: 1rem;
-                        color: darken($lavendermid, 25%);
+                        color: color.adjust($lavendermid, $lightness: -25%, $space: hsl);
                     }
 
                     .value {
@@ -648,10 +648,10 @@ html.dark-theme {
 
                 .preview-modal.content {
                     background: #202644 !important;
-                    border-color: darken($lavenderdark, 7.5%);
+                    border-color: color.adjust($lavenderdark, $lightness: -7.5%, $space: hsl);
 
                     header {
-                        background: lighten(#202644, 5%) !important;
+                        background: color.adjust(#202644, $lightness: 5%, $space: hsl) !important;
                         border-color: #202644 !important;
                     }
 
@@ -664,7 +664,7 @@ html.dark-theme {
 
                         .tags {
                             span {
-                                background: darken($bluedark, 5%);
+                                background: color.adjust($bluedark, $lightness: -5%, $space: hsl);
                                 color: $thistle;
                             }
                         }

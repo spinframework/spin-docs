@@ -1,3 +1,5 @@
+@use "sass:color";
+
 #topbar.navbar {
     display: flex;
     align-items: center;
@@ -127,7 +129,7 @@
                     opacity: 0.925;
 
                     &:hover {
-                        fill: darken($lavender, 20%);
+                        fill: color.adjust($lavender, $lightness: -20%, $space: hsl);
                         background: transparent !important;
                     }
                 }
@@ -336,7 +338,7 @@
                                 margin: 0 1rem 0.75rem 0.25rem;
     
                                 .is-blue {
-                                    color: darken($vistablue, 15%);
+                                    color: color.adjust($vistablue, $lightness: -15%, $space: hsl);
                                 }
         
                                 .tag {
@@ -426,7 +428,7 @@
 				line-height: 1.5;
 
 				&:hover {
-					background-color: lighten($lightplum, 7.5%);
+					background-color: color.adjust($lightplum, $lightness: 7.5%, $space: hsl);
 				}
 			}
 

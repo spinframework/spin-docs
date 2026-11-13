@@ -412,7 +412,7 @@ html.dark-theme {
     .main {
       .modal {
         .box {
-          background-color: lighten(#202644, 5%);
+          background-color: color.adjust(#202644, $lightness: 5%, $space: hsl);
           border-color: #202644 !important;
         }
         .title {
@@ -423,10 +423,10 @@ html.dark-theme {
           border-color: #202644 !important;
         }
         .additional-content {
-          background-color: lighten(#202644, 5%);
+          background-color: color.adjust(#202644, $lightness: 5%, $space: hsl);
         }
         .container-information {
-          background-color: lighten(#202644, 5%);
+          background-color: color.adjust(#202644, $lightness: 5%, $space: hsl);
 
           .container-title {
             color: white;
@@ -441,10 +441,10 @@ html.dark-theme {
             color: white;
           }
           .code-block {
-            background-color: lighten(#19143e, 10%);
+            background-color: color.adjust(#19143e, $lightness: 10%, $space: hsl);
           }
           .resource-card {
-            background-color: lighten(#0e092d, 5%);
+            background-color: color.adjust(#0e092d, $lightness: 5%, $space: hsl);
             border-color: #202644 !important;
             color: white;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
