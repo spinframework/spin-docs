@@ -22,6 +22,7 @@ url = "https://github.com/spinframework/spin-docs/blob/main/content/v4/rust-comp
 - [Storing Data in Relational Databases](#storing-data-in-relational-databases)
 - [Using External Crates in Rust Components](#using-external-crates-in-rust-components)
 - [AI Inferencing From Rust Components](#ai-inferencing-from-rust-components)
+- [Debugging Rust Components in VS Code](#debugging-rust-components-in-vs-code)
 - [Troubleshooting](#troubleshooting)
 - [Manually Creating New Projects With Cargo](#manually-creating-new-projects-with-cargo)
 - [Read the Rust Spin SDK Documentation](#read-the-rust-spin-sdk-documentation)
@@ -598,6 +599,76 @@ be used when implementing the component.
 ## AI Inferencing From Rust Components
 
 For more information about using Serverless AI from Rust, see the [Serverless AI](serverless-ai-api-guide) API guide.
+
+## Debugging Rust Components in VS Code
+
+You can debug a Rust HTTP component locally using VS Code and CodeLLDB. The [Spin Rust debugging example](https://github.com/radu-matei/spin-rust-debug) provides a reusable configuration for setting breakpoints, stepping through code, and inspecting variables.
+
+### Prerequisites
+
+Install Spin, Rust, VS Code, and the CodeLLDB extension. Install the WebAssembly target:
+
+<!-- @selectiveCpy -->
+
+```bash
+$ rustup target add wasm32-wasip2
+```
+
+Open your project in VS Code from a shell where `spin` and `cargo` are available on `PATH`. The example uses Rust 1.94 or newer.
+
+### Configure a Debug Build
+
+Add a debug profile to your component in `spin.toml`. Replace `my-api` with your component ID and `my_api` with the name of its compiled Rust library:
+
+```toml
+[component.my-api.profile.debug]
+source = "target/wasm32-wasip2/debug/my_api.wasm"
+build.command = "cargo build --target wasm32-wasip2"
+```
+
+Adjust the source path and build command if your project uses a different Cargo workspace or build directory. This profile leaves your normal release configuration unchanged. For more information, see [Building With Profiles](./build#building-with-profiles).
+
+Ensure your Cargo development profile retains debug information. Add or update these settings in your workspace's `Cargo.toml`:
+
+```toml
+[profile.dev]
+debug = 2
+opt-level = 0
+strip = "none"
+```
+
+### Configure VS Code
+
+Copy the [example's VS Code configuration](https://github.com/radu-matei/spin-rust-debug/tree/2de8892f03a666c0ed7393b6042fad949bc54d88/.vscode) into your project's `.vscode` directory:
+
+- `launch.json`
+- `tasks.json`
+- `spin_debug.py`
+
+If your project already has launch or task configurations, merge the example's entries rather than replacing your existing files. The helper starts Spin with the debug profile and attaches CodeLLDB to its HTTP worker.
+
+### Start Debugging
+
+1. Set a breakpoint in your HTTP handler.
+2. Select **Debug Rust component in Spin** in VS Code and press **F5**.
+3. Send a request to your component's route. For a route at `/`, run:
+
+   <!-- @selectiveCpy -->
+
+   ```bash
+   $ curl -i http://127.0.0.1:3107/
+   ```
+
+4. When execution stops at the breakpoint, use the debugger controls to step through the code and inspect variables. Stop the debug session when you're finished.
+
+Spin output is available in `.spin/debug.log`. The example listens on port `3107`; to change it, update the port in `spin_debug.py` and use the same port when sending requests.
+
+### Debugging Troubleshooting
+
+- If the build fails, check that the WebAssembly target is installed and that the profile's artifact path matches your project.
+- If the debugger cannot start Spin, check that `spin` is on the path visible to VS Code and inspect `.spin/debug.log`.
+- If Spin cannot listen, check whether another process is using port `3107`.
+- The example is intended for HTTP components and uses POSIX process facilities; Windows support has not been established.
 
 ## Troubleshooting
 
